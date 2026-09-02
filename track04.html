@@ -1,0 +1,377 @@
+<!DOCTYPE html>
+<html lang="zh-HK" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Track 04: 中國航天發展演講比賽 | HKATA 航天築夢大賽</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800;900&family=Orbitron:wght@600;800;900&display=swap" rel="stylesheet">
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        tech: ['Orbitron', 'sans-serif'],
+                    },
+                    colors: {
+                        space: {
+                            950: '#030712',
+                            900: '#060913',
+                            800: '#0B1120',
+                            700: '#111827',
+                        },
+                        amberNeon: '#FFD700',
+                        redNeon: '#FF416C',
+                        cyanNeon: '#00F2FE',
+                    },
+                    boxShadow: {
+                        'glow-amber': '0 0 25px rgba(255, 215, 0, 0.4)',
+                        'glow-red': '0 0 25px rgba(255, 65, 108, 0.3)',
+                        'glow-cyan': '0 0 20px rgba(0, 242, 254, 0.4)',
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        body {
+            background-color: #060913;
+            color: #F3F4F6;
+            overflow-x: hidden;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        .glass-panel {
+            background: rgba(17, 24, 39, 0.65);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .gradient-text-amber {
+            background: linear-gradient(135deg, #FFD700 0%, #FF416C 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        #starfieldCanvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 0;
+            background: radial-gradient(circle at center, #0B1120 0%, #030712 100%);
+        }
+
+        .hover-lift {
+            transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275), box-shadow 0.4s ease, border-color 0.4s ease;
+        }
+
+        .hover-lift:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 15px 35px rgba(255, 215, 0, 0.15);
+            border-color: rgba(255, 215, 0, 0.4);
+        }
+        
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar { width: 6px; }
+        ::-webkit-scrollbar-track { background: #060913; }
+        ::-webkit-scrollbar-thumb { background: #1F2937; border-radius: 10px; }
+        ::-webkit-scrollbar-thumb:hover { background: #FFD700; }
+    </style>
+</head>
+<body class="relative font-sans antialiased">
+
+    <!-- Interactive Starfield -->
+    <canvas id="starfieldCanvas"></canvas>
+
+    <div class="relative z-10">
+
+        <!-- HEADER -->
+        <header class="sticky top-0 z-50 glass-panel border-b border-gray-800/80 bg-space-900/90">
+            <div class="max-w-[1200px] mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
+                <a href="index.html" class="flex items-center gap-3 group">
+                    <div class="w-12 h-12 rounded-full bg-gradient-to-tr from-amber-400 to-red-600 p-0.5 shadow-glow-amber">
+                        <div class="w-full h-full bg-space-900 rounded-full flex items-center justify-center">
+                            <i class="fa-solid fa-bullhorn text-amberNeon text-xl group-hover:scale-110 transition-transform duration-300"></i>
+                        </div>
+                    </div>
+                    <div>
+                        <span class="font-tech text-lg font-extrabold tracking-wider text-white block leading-none">HKATA</span>
+                        <span class="text-[10px] text-amberNeon tracking-widest uppercase font-semibold">Hong Kong Aerospace Tech Academy</span>
+                    </div>
+                </a>
+
+                <div class="flex items-center gap-4">
+                    <a href="index.html" class="text-sm font-medium text-gray-300 hover:text-amberNeon transition-colors hidden sm:block">返回主頁</a>
+                    <a href="vote.html" class="hidden sm:inline-flex items-center gap-2 px-4 py-2.5 rounded-full glass-panel border border-cyan-500/40 text-cyanNeon text-xs font-semibold hover:border-cyan-400 transition-colors shadow-glow-cyan">
+                        <i class="fa-solid fa-check-to-slot"></i>
+                        <span>公眾投票區</span>
+                    </a>
+                    <a href="apply.html" class="px-5 py-2.5 rounded-full bg-gradient-to-r from-amber-400 to-red-500 text-white font-bold text-xs tracking-wider uppercase shadow-glow-amber hover:scale-105 transition-transform flex items-center gap-2">
+                        <i class="fa-solid fa-file-pen"></i> <span>學校報名</span>
+                    </a>
+                </div>
+            </div>
+        </header>
+
+        <!-- HERO SECTION -->
+        <section class="relative pt-24 pb-20 px-4 overflow-hidden border-b border-gray-800/80">
+            <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-amber-500/10 rounded-full blur-[150px] pointer-events-none"></div>
+            
+            <div class="max-w-[1000px] mx-auto text-center relative z-10">
+                <div class="inline-flex items-center gap-2 px-4 py-2 rounded-full glass-panel border border-amber-500/40 text-amberNeon text-sm font-tech font-bold uppercase tracking-widest mb-6 shadow-glow-amber">
+                    <i class="fa-solid fa-microphone-lines"></i> Track 04
+                </div>
+
+                <h1 class="text-4xl sm:text-6xl md:text-7xl font-extrabold tracking-tight text-white mb-6 leading-[1.15]">
+                    中國航天發展演講比賽 <br>
+                    <span class="gradient-text-amber">講述星辰大海的輝煌歷程</span>
+                </h1>
+
+                <p class="text-gray-300 text-lg sm:text-xl leading-relaxed max-w-3xl mx-auto mb-8">
+                    全港首屆「航天築夢」航天AI創新大賽專設初小組別。透過官方發放的航天模型，以童真視角演說中國航天的輝煌歷程與英雄故事，從小培育國民素養與航天夢想！
+                </p>
+
+                <div class="flex flex-wrap justify-center gap-4 text-sm">
+                    <span class="px-4 py-2 rounded-xl bg-space-800 border border-gray-700 text-gray-300"><i class="fa-solid fa-child-reaching text-amberNeon mr-2"></i> 對象：全港初小學生 (小一至小三)</span>
+                    <span class="px-4 py-2 rounded-xl bg-space-800 border border-gray-700 text-gray-300"><i class="fa-solid fa-user text-redNeon mr-2"></i> 賽制：個人演說 (可配以實物模型)</span>
+                </div>
+
+                <!-- Dual CTAs -->
+                <div class="mt-12 flex flex-col sm:flex-row items-center justify-center gap-4 sm:gap-6">
+                    <a href="apply.html" class="w-full sm:w-auto px-8 py-4 rounded-full bg-gradient-to-r from-amber-400 to-red-500 text-white font-extrabold text-sm tracking-wider uppercase shadow-glow-amber hover:scale-105 transition-all flex items-center justify-center gap-3 group">
+                        <i class="fa-solid fa-rocket text-lg group-hover:-translate-y-1 group-hover:translate-x-1 transition-transform"></i>
+                        <span>提名學生代表參賽 — 立即報名</span>
+                    </a>
+                    <a href="vote.html" class="w-full sm:w-auto px-8 py-4 rounded-full glass-panel border border-cyan-500/40 text-cyanNeon font-bold text-sm tracking-wider uppercase shadow-glow-cyan hover:bg-cyan-900/30 transition-all flex items-center justify-center gap-3 group">
+                        <i class="fa-solid fa-fire text-lg group-hover:scale-110 transition-transform"></i>
+                        <span>探索入圍演說及參與投票</span>
+                    </a>
+                </div>
+            </div>
+        </section>
+
+        <!-- CORE ELEMENTS -->
+        <section class="py-24 px-4 max-w-7xl mx-auto">
+            <div class="text-center mb-16">
+                <span class="text-xs font-tech font-bold uppercase tracking-widest text-amberNeon mb-3 block">Core Elements</span>
+                <h2 class="text-3xl sm:text-5xl font-extrabold text-white mb-6">大賽主題與呈現方式</h2>
+                <p class="text-gray-400 max-w-2xl mx-auto text-sm sm:text-base leading-relaxed">毋須深厚的科學知識，重點在於學生如何自信地表達對國家航天科技的熱情，以及舞台上的感染力。</p>
+            </div>
+
+            <div class="grid md:grid-cols-3 gap-8">
+                <!-- Element 1: Models -->
+                <div class="glass-panel p-8 sm:p-10 rounded-3xl border border-amber-500/20 hover-lift relative overflow-hidden group shadow-lg">
+                    <div class="absolute -top-10 -right-10 w-40 h-40 bg-amber-500/10 blur-3xl rounded-full group-hover:bg-amber-500/20 transition-colors"></div>
+                    <div class="w-16 h-16 rounded-2xl bg-amber-950 border border-amber-500/40 flex items-center justify-center text-amberNeon text-3xl mb-8 relative z-10 shadow-glow-amber">
+                        <i class="fa-solid fa-space-awesome"></i>
+                    </div>
+                    <h3 class="text-2xl font-bold text-white mb-4 relative z-10">官方航天模型輔助</h3>
+                    <p class="text-gray-400 text-sm leading-relaxed mb-4 relative z-10">
+                        大會將向參賽學校分配不同的「航天模型套裝」（如長征系列火箭、天宮空間站模型等）。學生可手持或配合模型進行演講，增強視覺效果與互動性。
+                    </p>
+                </div>
+
+                <!-- Element 2: History & Heroes -->
+                <div class="glass-panel p-8 sm:p-10 rounded-3xl border border-red-500/20 hover-lift relative overflow-hidden group shadow-lg">
+                    <div class="absolute -top-10 -right-10 w-40 h-40 bg-red-500/10 blur-3xl rounded-full group-hover:bg-red-500/20 transition-colors"></div>
+                    <div class="w-16 h-16 rounded-2xl bg-red-950 border border-red-500/40 flex items-center justify-center text-redNeon text-3xl mb-8 relative z-10 shadow-glow-red">
+                        <i class="fa-solid fa-star"></i>
+                    </div>
+                    <h3 class="text-2xl font-bold text-white mb-4 relative z-10">講述航天英雄故事</h3>
+                    <p class="text-gray-400 text-sm leading-relaxed mb-4 relative z-10">
+                        演講內容可涵蓋中國航天的重要里程碑，例如「東方紅一號」的升空、神舟載人飛船的發展、以及航天員（如楊利偉、劉洋）的奮鬥精神。
+                    </p>
+                </div>
+
+                <!-- Element 3: Patriotism -->
+                <div class="glass-panel p-8 sm:p-10 rounded-3xl border border-orange-500/20 hover-lift relative overflow-hidden group shadow-lg">
+                    <div class="absolute -top-10 -right-10 w-40 h-40 bg-orange-500/10 blur-3xl rounded-full group-hover:bg-orange-500/20 transition-colors"></div>
+                    <div class="w-16 h-16 rounded-2xl bg-orange-950 border border-orange-500/40 flex items-center justify-center text-orange-400 text-3xl mb-8 relative z-10 shadow-[0_0_25px_rgba(249,115,22,0.3)]">
+                        <i class="fa-solid fa-flag"></i>
+                    </div>
+                    <h3 class="text-2xl font-bold text-white mb-4 relative z-10">培育國民素養</h3>
+                    <p class="text-gray-400 text-sm leading-relaxed mb-4 relative z-10">
+                        透過認識國家在太空探索上的偉大成就，激發初小學生的民族自豪感與愛國情懷，並啟發他們對科學探索的長遠興趣。
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <!-- JUDGING CRITERIA -->
+        <section class="py-24 px-4 bg-space-950 border-y border-gray-800 relative overflow-hidden">
+            <div class="absolute top-0 left-0 w-[600px] h-[600px] bg-amber-900/10 rounded-full blur-[120px] pointer-events-none"></div>
+            
+            <div class="max-w-5xl mx-auto relative z-10">
+                <div class="text-center mb-16">
+                    <h2 class="text-3xl sm:text-4xl font-extrabold text-white mb-6">100% 評審準則拆解</h2>
+                    <p class="text-gray-400 max-w-2xl mx-auto">大賽語言不限（粵語、普通話或英語均可），大會評審重點在於學生表達的感染力與內容的適切性。</p>
+                </div>
+
+                <div class="glass-panel p-8 sm:p-12 rounded-3xl border border-amber-500/20 shadow-2xl">
+                    <div class="space-y-8">
+                        <!-- Criteria 1 -->
+                        <div class="flex flex-col sm:flex-row items-start sm:items-center gap-6 pb-8 border-b border-gray-800 group">
+                            <div class="w-24 shrink-0 text-center">
+                                <span class="text-4xl font-tech font-extrabold text-amber-400 group-hover:text-amberNeon transition-colors drop-shadow-md">40%</span>
+                            </div>
+                            <div class="flex-1">
+                                <h4 class="text-xl font-bold text-white mb-2">表達技巧與感染力</h4>
+                                <p class="text-sm text-gray-400 leading-relaxed">學生的語氣、語調、肢體語言是否自然自信？演說過程是否生動有趣、能吸引聽眾目光並帶動氣氛？</p>
+                            </div>
+                        </div>
+
+                        <!-- Criteria 2 -->
+                        <div class="flex flex-col sm:flex-row items-start sm:items-center gap-6 pb-8 border-b border-gray-800 group">
+                            <div class="w-24 shrink-0 text-center">
+                                <span class="text-4xl font-tech font-extrabold text-redNeon group-hover:text-red-400 transition-colors drop-shadow-md">35%</span>
+                            </div>
+                            <div class="flex-1">
+                                <h4 class="text-xl font-bold text-white mb-2">內容與主題契合度</h4>
+                                <p class="text-sm text-gray-400 leading-relaxed">演講內容是否準確反映中國航天的發展歷程或英雄事蹟？能否帶出積極正面的愛國與科學探索精神？</p>
+                            </div>
+                        </div>
+
+                        <!-- Criteria 3 -->
+                        <div class="flex flex-col sm:flex-row items-start sm:items-center gap-6 group">
+                            <div class="w-24 shrink-0 text-center">
+                                <span class="text-4xl font-tech font-extrabold text-orange-400 group-hover:text-orange-300 transition-colors drop-shadow-md">25%</span>
+                            </div>
+                            <div class="flex-1">
+                                <h4 class="text-xl font-bold text-white mb-2">模型運用與創意</h4>
+                                <p class="text-sm text-gray-400 leading-relaxed">是否能靈活且具創意地運用大會提供的航天模型輔助演說？展示方式是否切合演講內容並加強說服力？</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- GRAND STAGE -->
+        <section class="py-24 px-4 max-w-7xl mx-auto border-b border-gray-800/50">
+            <div class="glass-panel p-8 sm:p-12 rounded-3xl border border-red-500/20 relative overflow-hidden flex flex-col lg:flex-row items-center gap-12 shadow-[0_0_40px_rgba(255,65,108,0.1)]">
+                <div class="absolute -top-20 -left-20 w-64 h-64 bg-red-500/10 rounded-full blur-3xl"></div>
+                
+                <div class="lg:w-1/2 relative z-10 w-full">
+                    <!-- Image Mockup for Stage -->
+                    <div class="relative rounded-2xl overflow-hidden border border-gray-700 shadow-2xl group">
+                        <div class="absolute inset-0 bg-gradient-to-t from-space-950 via-transparent to-transparent opacity-80 z-10"></div>
+                        <img src="https://placehold.co/800x600/0f172a/FFD700?text=Grand+Finale+Stage+2027" alt="Stage Presentation Concept" class="w-full object-cover transform group-hover:scale-105 transition-transform duration-700">
+                        <div class="absolute bottom-4 left-4 z-20">
+                            <span class="px-3 py-1 bg-amber-500/90 text-space-950 text-xs font-bold rounded shadow-lg">AEROSPACE FAIR 2027</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="lg:w-1/2 relative z-10 space-y-6">
+                    <span class="text-xs font-tech font-bold uppercase tracking-widest text-amberNeon block">The Grand Stage</span>
+                    <h2 class="text-3xl sm:text-5xl font-extrabold text-white leading-tight">
+                        站上頂尖舞台：<br>決賽現場公開演說
+                    </h2>
+                    <p class="text-gray-300 text-base leading-relaxed">
+                        比賽設有一等獎、二等獎、三等獎及優異獎。脫穎而出的初小學生，將獲得畢生難忘的機會！
+                    </p>
+                    <p class="text-gray-300 text-base leading-relaxed">
+                        得獎者將獲邀出席 2027 年 5 月舉行的 <strong class="text-white border-b border-amber-500/50 pb-0.5">總決賽暨創新作品展 (Final Aerospace Fair)</strong>，在政府官員、國家級航天專家及全港傳媒面前，親自上台領獎並再次進行精彩的公開演說。
+                    </p>
+                    
+                    <ul class="space-y-4 text-sm text-gray-400 pt-6 border-t border-gray-800">
+                        <li class="flex items-center gap-4 bg-space-900/50 p-3 rounded-xl border border-gray-800">
+                            <i class="fa-solid fa-medal text-amber-400 text-xl"></i> 
+                            <span class="font-medium text-gray-200">獲頒發官方嘉許獎盃與全港大賽證書</span>
+                        </li>
+                        <li class="flex items-center gap-4 bg-space-900/50 p-3 rounded-xl border border-gray-800">
+                            <i class="fa-solid fa-user-astronaut text-redNeon text-xl"></i> 
+                            <span class="font-medium text-gray-200">有機會與重量級國家航天專家近距離交流合影</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="mt-20 text-center">
+                <a href="apply.html" class="inline-flex px-8 sm:px-10 py-4 sm:py-5 rounded-full bg-gradient-to-r from-amber-400 to-red-500 text-white font-extrabold text-sm sm:text-base tracking-wider uppercase shadow-glow-amber hover:scale-105 transition-transform items-center gap-3">
+                    <i class="fa-solid fa-file-pen text-xl"></i>
+                    <span>學校代表：進入報名系統 (Track 04)</span>
+                </a>
+            </div>
+        </section>
+
+        <!-- FOOTER -->
+        <footer class="bg-space-950 py-10 text-center text-xs text-gray-500 border-t border-white/5">
+            <div class="max-w-[1200px] mx-auto px-6 flex flex-col md:flex-row items-center justify-between gap-6 text-center md:text-left">
+                <div>
+                    <div class="font-tech text-lg font-bold tracking-wider text-white mb-1">HKATA</div>
+                    <div class="text-[10px] text-gray-500 tracking-widest uppercase">Hong Kong Aerospace Technology Academy</div>
+                </div>
+                <div class="flex flex-wrap justify-center gap-6 text-xs text-gray-400 font-medium">
+                    <a href="apply.html" class="hover:text-amberNeon transition-colors">學校報名 Portal</a>
+                    <a href="vote.html" class="hover:text-amberNeon transition-colors">公眾投票大賞</a>
+                    <a href="#" class="hover:text-white transition-colors">聯絡秘書處</a>
+                </div>
+                <div class="text-xs text-gray-600">
+                    &copy; 2026 HKATA. All rights reserved.
+                </div>
+            </div>
+        </footer>
+
+    </div>
+
+    <!-- Background Animation Script -->
+    <script>
+        const canvas = document.getElementById('starfieldCanvas');
+        const ctx = canvas.getContext('2d');
+        let width = canvas.width = window.innerWidth;
+        let height = canvas.height = window.innerHeight;
+
+        window.addEventListener('resize', () => {
+            width = canvas.width = window.innerWidth;
+            height = canvas.height = window.innerHeight;
+            initStars();
+        });
+
+        let stars = [];
+        function initStars() {
+            stars = [];
+            const starCount = Math.floor((width * height) / 3500); // Slightly denser for this page
+            for (let i = 0; i < starCount; i++) {
+                stars.push({
+                    x: Math.random() * width,
+                    y: Math.random() * height,
+                    size: Math.random() * 1.5,
+                    alpha: Math.random(),
+                    speed: Math.random() * 0.005 + 0.002
+                });
+            }
+        }
+
+        function animateStars() {
+            ctx.clearRect(0, 0, width, height);
+            stars.forEach(star => {
+                star.alpha += star.speed;
+                if (star.alpha > 1 || star.alpha < 0) star.speed = -star.speed;
+                // Add a very subtle warm tint to the stars for this page
+                ctx.fillStyle = `rgba(255, 250, 240, ${Math.abs(star.alpha)})`;
+                ctx.beginPath();
+                ctx.arc(star.x, star.y, star.size, 0, Math.PI * 2);
+                ctx.fill();
+            });
+            requestAnimationFrame(animateStars);
+        }
+
+        initStars();
+        animateStars();
+    </script>
+</body>
+</html>

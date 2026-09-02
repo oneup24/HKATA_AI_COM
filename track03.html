@@ -1,0 +1,371 @@
+<!DOCTYPE html>
+<html lang="zh-HK" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Track 03: 太空任務標誌設計大賽 | HKATA</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800;900&family=Orbitron:wght@600;800;900&display=swap" rel="stylesheet">
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        tech: ['Orbitron', 'sans-serif'],
+                    },
+                    colors: {
+                        space: {
+                            900: '#060913',
+                            800: '#0B1120',
+                            700: '#111827',
+                        },
+                        cyanNeon: '#00F2FE',
+                        blueNeon: '#4FACFE',
+                        purpleNeon: '#7F00FF',
+                        pinkNeon: '#EC4899',
+                    },
+                    boxShadow: {
+                        'glow-purple': '0 0 25px rgba(127, 0, 255, 0.4)',
+                        'glow-pink': '0 0 25px rgba(236, 72, 153, 0.3)',
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        body {
+            background-color: #060913;
+            color: #F3F4F6;
+            overflow-x: hidden;
+        }
+
+        .glass-panel {
+            background: rgba(17, 24, 39, 0.65);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .gradient-text-purple {
+            background: linear-gradient(135deg, #A855F7 0%, #EC4899 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        /* Starfield Background Canvas */
+        #starfieldCanvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .hover-lift {
+            transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+        }
+
+        .hover-lift:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 15px 30px rgba(127, 0, 255, 0.2);
+            border-color: rgba(236, 72, 153, 0.5);
+        }
+
+        /* Metallic Badge Preview Simulation */
+        .metallic-plate {
+            background: linear-gradient(135deg, #1e293b 0%, #0f172a 50%, #334155 100%);
+            border: 2px solid #94a3b8;
+            box-shadow: inset 0 0 15px rgba(255,255,255,0.1), 0 10px 25px rgba(0,0,0,0.5);
+            position: relative;
+        }
+
+        .metallic-plate::before {
+            content: '';
+            position: absolute;
+            inset: 4px;
+            border: 1px dashed rgba(255,255,255,0.2);
+            pointer-events: none;
+        }
+        
+        .design-grid {
+            background-image: radial-gradient(rgba(168, 85, 247, 0.1) 2px, transparent 2px);
+            background-size: 30px 30px;
+        }
+    </style>
+</head>
+<body class="relative font-sans antialiased">
+
+    <canvas id="starfieldCanvas"></canvas>
+
+    <div class="relative z-10">
+
+        <header class="sticky top-0 z-50 glass-panel border-b border-gray-800/80">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
+                <a href="index.html" class="flex items-center gap-3 group">
+                    <div class="w-12 h-12 rounded-full bg-gradient-to-tr from-purple-500 to-pink-600 p-0.5 shadow-glow-purple">
+                        <div class="w-full h-full bg-space-900 rounded-full flex items-center justify-center">
+                            <i class="fa-solid fa-rocket text-pinkNeon text-xl group-hover:rotate-45 transition-transform duration-300"></i>
+                        </div>
+                    </div>
+                    <span class="font-tech text-lg font-extrabold tracking-wider text-white block">HKATA</span>
+                </a>
+
+                <div class="flex items-center gap-4">
+                    <a href="index.html" class="text-sm font-medium text-gray-300 hover:text-purpleNeon transition-colors hidden sm:block">返回主頁</a>
+                    <a href="vote.html" class="hidden sm:inline-flex items-center gap-2 px-4 py-2.5 rounded-full glass-panel border border-pink-500/40 text-pinkNeon text-xs font-semibold hover:border-pink-400 transition-colors shadow-glow-pink">
+                        <i class="fa-solid fa-check-to-slot"></i>
+                        <span>公眾投票區</span>
+                    </a>
+                    <a href="apply.html" class="px-5 py-2.5 rounded-full bg-gradient-to-r from-purple-600 to-pink-600 text-white font-bold text-xs tracking-wider uppercase shadow-glow-purple hover:scale-105 transition-transform flex items-center gap-2">
+                        <i class="fa-solid fa-file-pen"></i> <span>學校報名</span>
+                    </a>
+                </div>
+            </div>
+        </header>
+
+        <section class="relative pt-20 pb-16 px-4 overflow-hidden border-b border-gray-800/80 design-grid">
+            <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-purple-600/10 rounded-full blur-[150px] pointer-events-none"></div>
+            
+            <div class="max-w-4xl mx-auto text-center relative z-10">
+                <div class="inline-flex items-center gap-2 px-4 py-2 rounded-full glass-panel border border-purple-500/40 text-purpleNeon text-sm font-tech font-bold uppercase tracking-widest mb-6 shadow-glow-purple">
+                    <i class="fa-solid fa-palette text-pinkNeon"></i> Track 03
+                </div>
+
+                <h1 class="text-4xl sm:text-6xl font-extrabold tracking-tight text-white mb-6 leading-tight">
+                    太空任務標誌設計大賽 <br>
+                    <span class="gradient-text-purple">將學校徽章送上星空</span>
+                </h1>
+
+                <!-- Updated tagline to align with new branding -->
+                <p class="text-gray-300 text-lg sm:text-xl leading-relaxed max-w-3xl mx-auto mb-8">
+                    毋須任何編程或工程知識，完全聚焦於藝術美感與航天意義。以創意畫筆，結合學校精神與宇宙探索願景，參與全港首屆「航天築夢」航天AI創新大賽，設計獨一無二的專屬 Space Logo！
+                </p>
+
+                <div class="flex flex-wrap justify-center gap-4 text-sm">
+                    <span class="px-4 py-2 rounded-xl bg-space-800 border border-gray-700 text-gray-300"><i class="fa-solid fa-school text-pinkNeon mr-2"></i> 對象：全港所有幼稚園、小學及中學</span>
+                    <span class="px-4 py-2 rounded-xl bg-space-800 border border-gray-700 text-gray-300"><i class="fa-solid fa-child-reaching text-purpleNeon mr-2"></i> 全校學生皆可免費參與徵集</span>
+                </div>
+
+                <div class="mt-10 flex flex-col sm:flex-row items-center justify-center gap-4 sm:gap-6">
+                    <a href="apply.html" class="w-full sm:w-auto px-8 py-4 rounded-full bg-gradient-to-r from-purple-600 to-pink-600 text-white font-extrabold text-sm tracking-wider uppercase shadow-glow-purple hover:scale-105 transition-all flex items-center justify-center gap-3 group">
+                        <i class="fa-solid fa-rocket text-lg group-hover:-translate-y-1 group-hover:translate-x-1 transition-transform"></i>
+                        <span>帶領學校邁向星空 — 立即報名</span>
+                    </a>
+                    <a href="vote.html" class="w-full sm:w-auto px-8 py-4 rounded-full glass-panel border border-pink-500/40 text-pinkNeon font-bold text-sm tracking-wider uppercase shadow-glow-pink hover:bg-pink-900/30 transition-all flex items-center justify-center gap-3 group">
+                        <i class="fa-solid fa-fire text-lg group-hover:scale-110 transition-transform"></i>
+                        <span>探索熱門作品及參與投票</span>
+                    </a>
+                </div>
+            </div>
+        </section>
+
+        <section class="py-20 px-4 max-w-7xl mx-auto">
+            <div class="glass-panel p-8 sm:p-12 rounded-3xl border border-pink-500/30 relative overflow-hidden flex flex-col lg:flex-row items-center gap-12">
+                <div class="absolute -top-20 -right-20 w-64 h-64 bg-pink-500/10 rounded-full blur-3xl"></div>
+                
+                <div class="lg:w-1/2 relative z-10 space-y-6">
+                    <span class="text-xs font-tech font-bold uppercase tracking-widest text-pinkNeon block">The Ultimate Prize</span>
+                    <h2 class="text-3xl sm:text-4xl font-extrabold text-white leading-tight">
+                        真正邁向宇宙的殊榮：<br>實體金屬標誌牌升空
+                    </h2>
+                    <p class="text-gray-300 text-sm leading-relaxed">
+                        這不是一場只留在紙上的設計比賽。每間參賽學校將從校內徵集作品中，選出 <strong class="text-pinkNeon">1 個優勝作品</strong> 代表學校。
+                    </p>
+                    <p class="text-gray-300 text-sm leading-relaxed">
+                        大會 HKATA 將會把這枚勝出標誌，以精密工藝製成 <strong class="text-white">立體金屬銘牌 (Satellite Plaque)</strong>。在 2027 年 6 月，這些銘牌將隨真實的商業衛星發射任務，正式升空進入地球軌道！
+                    </p>
+                    
+                    <ul class="space-y-3 text-sm text-gray-400 pt-4 border-t border-gray-800">
+                        <li class="flex items-center gap-3">
+                            <i class="fa-solid fa-satellite text-purpleNeon"></i> 100% 真實太空發射任務載荷
+                        </li>
+                        <li class="flex items-center gap-3">
+                            <i class="fa-solid fa-medal text-pinkNeon"></i> 讓全校師生的名字與精神遨遊天際
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="lg:w-1/2 w-full flex justify-center relative z-10">
+                    <!-- Metallic Plaque CSS Art -->
+                    <div class="metallic-plate w-72 sm:w-80 h-96 rounded-3xl p-6 flex flex-col items-center justify-between text-center transform rotate-3 hover:rotate-0 transition-transform duration-500 shadow-2xl">
+                        <!-- Corner Screws -->
+                        <div class="absolute top-3 left-3 w-2.5 h-2.5 rounded-full bg-gray-400 border border-gray-600 shadow-inner"></div>
+                        <div class="absolute top-3 right-3 w-2.5 h-2.5 rounded-full bg-gray-400 border border-gray-600 shadow-inner"></div>
+                        <div class="absolute bottom-3 left-3 w-2.5 h-2.5 rounded-full bg-gray-400 border border-gray-600 shadow-inner"></div>
+                        <div class="absolute bottom-3 right-3 w-2.5 h-2.5 rounded-full bg-gray-400 border border-gray-600 shadow-inner"></div>
+
+                        <!-- Plaque Header -->
+                        <div class="mt-2">
+                            <div class="font-tech text-xs text-purple-300 tracking-widest uppercase font-bold">HKATA SATELLITE MISSION</div>
+                            <div class="text-[10px] text-gray-300 font-mono mt-1">ORBITAL PAYLOAD 2027</div>
+                        </div>
+
+                        <!-- Plaque Graphic Simulation -->
+                        <div class="w-32 h-32 rounded-2xl border-2 border-gray-500 flex items-center justify-center p-3 bg-space-950/80 my-4 shadow-inner relative">
+                            <i class="fa-solid fa-rocket text-5xl text-gray-300 drop-shadow-md relative z-10"></i>
+                            <i class="fa-solid fa-star text-xl text-gray-400 absolute top-4 right-4"></i>
+                            <i class="fa-solid fa-earth-asia text-2xl text-gray-500 absolute bottom-4 left-4"></i>
+                        </div>
+
+                        <!-- Plaque Footer -->
+                        <div class="mb-2 w-full px-4">
+                            <div class="font-bold text-sm text-white tracking-widest border-b border-gray-600 pb-2 mb-2">香港第一學校</div>
+                            <div class="text-[9px] text-pink-300 font-mono tracking-widest">SPACE LOGO PLATE #2027-HK</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="py-20 px-4 bg-space-800/40 border-y border-gray-800">
+            <div class="max-w-7xl mx-auto">
+                <div class="text-center mb-16">
+                    <h2 class="text-3xl font-extrabold text-white mb-4">大賽機制與評審準則</h2>
+                    <p class="text-gray-400 max-w-2xl mx-auto">結合校內選拔與全港公眾參與，讓每一位學生的創意都能被看見。</p>
+                </div>
+
+                <div class="grid md:grid-cols-3 gap-8">
+                    <!-- Step 1 -->
+                    <div class="glass-panel p-8 rounded-3xl border border-gray-700 hover-lift relative overflow-hidden">
+                        <div class="text-5xl font-tech font-extrabold text-gray-800 absolute -top-2 -right-2 opacity-50 pointer-events-none">01</div>
+                        <div class="w-14 h-14 rounded-2xl bg-space-900 border border-gray-600 flex items-center justify-center text-gray-300 text-2xl mb-6 relative z-10">
+                            <i class="fa-solid fa-paintbrush"></i>
+                        </div>
+                        <h3 class="text-lg font-bold text-white mb-3 relative z-10">校內創意徵集</h3>
+                        <p class="text-gray-400 text-sm leading-relaxed mb-4 relative z-10">
+                            所有幼稚園至中學生均可參與。學生可使用水彩、木色筆等傳統手繪，或使用平板電腦進行數碼繪圖。
+                        </p>
+                        <div class="bg-space-900 p-3 rounded-lg border border-gray-800 text-xs text-gray-300">
+                            <strong>設計要求：</strong> 需清晰表達「學校精神」與「探索宇宙」的結合。
+                        </div>
+                    </div>
+
+                    <!-- Step 2 -->
+                    <div class="glass-panel p-8 rounded-3xl border border-purple-500/30 hover-lift relative overflow-hidden">
+                        <div class="text-5xl font-tech font-extrabold text-purple-900/30 absolute -top-2 -right-2 pointer-events-none">02</div>
+                        <div class="w-14 h-14 rounded-2xl bg-purple-950 border border-purple-500/40 flex items-center justify-center text-purpleNeon text-2xl mb-6 relative z-10">
+                            <i class="fa-solid fa-check-to-slot"></i>
+                        </div>
+                        <h3 class="text-lg font-bold text-white mb-3 relative z-10">全港公眾投票大賞</h3>
+                        <p class="text-gray-400 text-sm leading-relaxed mb-4 relative z-10">
+                            學校提交代表作後，將自動進入 <a href="vote.html" class="text-pinkNeon hover:underline font-semibold">HKATA 公眾投票 Portal</a>。全港市民、家長及校友皆可每日登入為心儀學校投票。
+                        </p>
+                        <div class="bg-purple-950/40 p-3 rounded-lg border border-purple-500/30 text-xs text-purple-200">
+                            <strong>N.O.R.A. Kids 加成：</strong> 透過大會 App 完成航天學習任務，可獲額外票數！
+                        </div>
+                    </div>
+
+                    <!-- Step 3 -->
+                    <div class="glass-panel p-8 rounded-3xl border border-pink-500/30 hover-lift relative overflow-hidden">
+                        <div class="text-5xl font-tech font-extrabold text-pink-900/30 absolute -top-2 -right-2 pointer-events-none">03</div>
+                        <div class="w-14 h-14 rounded-2xl bg-pink-950 border border-pink-500/40 flex items-center justify-center text-pinkNeon text-2xl mb-6 relative z-10">
+                            <i class="fa-solid fa-trophy"></i>
+                        </div>
+                        <h3 class="text-lg font-bold text-white mb-3 relative z-10">專家評審與決賽展覽</h3>
+                        <p class="text-gray-400 text-sm leading-relaxed mb-4 relative z-10">
+                            除公眾投票外，由航天專家與藝術設計大師組成的評審團將進行專業評分。
+                        </p>
+                        <div class="bg-pink-950/40 p-3 rounded-lg border border-pink-500/30 text-xs text-pink-200">
+                            <strong>總決賽展覽：</strong> 得獎作品將於 2027 年 5 月的 Aerospace Fair 實體公開展出。
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="py-20 px-4 max-w-5xl mx-auto">
+            <div class="text-center mb-12">
+                <h2 class="text-3xl font-extrabold text-white mb-4">適合所有年齡層的太空啟蒙</h2>
+            </div>
+
+            <div class="space-y-6">
+                <!-- Kindergarten -->
+                <div class="glass-panel p-6 rounded-2xl border border-gray-700 flex flex-col sm:flex-row items-center gap-6">
+                    <div class="w-20 h-20 shrink-0 rounded-full bg-orange-950 border border-orange-500/40 flex items-center justify-center text-orange-400 text-3xl">
+                        <i class="fa-solid fa-baby"></i>
+                    </div>
+                    <div class="flex-1 text-center sm:text-left">
+                        <h4 class="text-xl font-bold text-white mb-2">幼稚園組：太空基地填色及繪畫</h4>
+                        <p class="text-sm text-gray-400">大會將提供具啟發性的太空線稿，讓幼兒運用色彩發揮對外太空的無限想像，啟迪早期科學與藝術潛能。</p>
+                    </div>
+                </div>
+
+                <!-- Primary & Secondary -->
+                <div class="glass-panel p-6 rounded-2xl border border-gray-700 flex flex-col sm:flex-row items-center gap-6">
+                    <div class="w-20 h-20 shrink-0 rounded-full bg-cyan-950 border border-cyan-500/40 flex items-center justify-center text-cyanNeon text-3xl">
+                        <i class="fa-solid fa-user-graduate"></i>
+                    </div>
+                    <div class="flex-1 text-center sm:text-left">
+                        <h4 class="text-xl font-bold text-white mb-2">中小學組：全原創航天標誌設計</h4>
+                        <p class="text-sm text-gray-400">鼓勵學生自訂主題，結合母校獨特歷史與精神，設計具備幾何美感、適合鑄造成金屬浮雕的立體感 Space Logo。</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="mt-16 text-center">
+                <a href="apply.html" class="inline-flex px-8 py-4 rounded-full bg-gradient-to-r from-purple-600 to-pink-600 text-white font-extrabold text-sm tracking-wider uppercase shadow-glow-purple hover:scale-105 transition-transform items-center gap-3">
+                    <i class="fa-solid fa-file-pen text-lg"></i>
+                    <span>學校代表：立即進入報名系統</span>
+                </a>
+            </div>
+        </section>
+
+        <footer class="border-t border-gray-800/80 bg-space-950 py-8 text-center text-xs text-gray-500">
+            <p>&copy; 2026 Hong Kong Aerospace Technology Academy Limited (HKATA). All rights reserved.</p>
+        </footer>
+
+    </div>
+
+    <script>
+        const canvas = document.getElementById('starfieldCanvas');
+        const ctx = canvas.getContext('2d');
+        let width = canvas.width = window.innerWidth;
+        let height = canvas.height = window.innerHeight;
+
+        window.addEventListener('resize', () => {
+            width = canvas.width = window.innerWidth;
+            height = canvas.height = window.innerHeight;
+            initStars();
+        });
+
+        let stars = [];
+        function initStars() {
+            stars = [];
+            const starCount = Math.floor((width * height) / 4000);
+            for (let i = 0; i < starCount; i++) {
+                stars.push({
+                    x: Math.random() * width,
+                    y: Math.random() * height,
+                    size: Math.random() * 1.5,
+                    alpha: Math.random(),
+                    speed: Math.random() * 0.005 + 0.002
+                });
+            }
+        }
+
+        function animateStars() {
+            ctx.clearRect(0, 0, width, height);
+            stars.forEach(star => {
+                star.alpha += star.speed;
+                if (star.alpha > 1 || star.alpha < 0) star.speed = -star.speed;
+                ctx.fillStyle = `rgba(255, 255, 255, ${Math.abs(star.alpha)})`;
+                ctx.beginPath();
+                ctx.arc(star.x, star.y, star.size, 0, Math.PI * 2);
+                ctx.fill();
+            });
+            requestAnimationFrame(animateStars);
+        }
+
+        initStars();
+        animateStars();
+    </script>
+</body>
+</html>

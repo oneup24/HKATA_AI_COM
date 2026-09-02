@@ -1,0 +1,405 @@
+<!DOCTYPE html>
+<html lang="zh-HK" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Track 02: 未來基地概念藍圖大賽 | HKATA</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800;900&family=Orbitron:wght@600;800;900&display=swap" rel="stylesheet">
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        tech: ['Orbitron', 'sans-serif'],
+                    },
+                    colors: {
+                        space: {
+                            900: '#060913',
+                            800: '#0B1120',
+                            700: '#111827',
+                        },
+                        cyanNeon: '#00F2FE',
+                        blueNeon: '#4FACFE',
+                        amberNeon: '#FFD700',
+                    },
+                    boxShadow: {
+                        'glow-blue': '0 0 25px rgba(79, 172, 254, 0.4)',
+                        'glow-amber': '0 0 25px rgba(255, 215, 0, 0.3)',
+                        'glow-cyan': '0 0 25px rgba(0, 242, 254, 0.4)',
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        body {
+            background-color: #060913;
+            color: #F3F4F6;
+            overflow-x: hidden;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        .glass-panel {
+            background: rgba(17, 24, 39, 0.65);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .gradient-text-blue {
+            background: linear-gradient(135deg, #4FACFE 0%, #00F2FE 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        /* Starfield Background Canvas */
+        #starfieldCanvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .hover-lift {
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .hover-lift:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 15px 30px rgba(79, 172, 254, 0.15);
+        }
+        
+        /* Blueprint Grid Effect */
+        .blueprint-grid {
+            background-image: 
+                linear-gradient(rgba(79, 172, 254, 0.1) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(79, 172, 254, 0.1) 1px, transparent 1px);
+            background-size: 30px 30px;
+            background-position: center center;
+        }
+    </style>
+</head>
+<body class="relative font-sans antialiased">
+
+    <canvas id="starfieldCanvas"></canvas>
+
+    <div class="relative z-10">
+
+        <!-- HEADER -->
+        <header class="sticky top-0 z-50 glass-panel border-b border-gray-800/80 bg-space-900/90">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
+                <a href="index.html" class="flex items-center gap-3 group">
+                    <div class="w-12 h-12 rounded-full bg-gradient-to-tr from-cyan-500 to-blue-600 p-0.5 shadow-glow-blue">
+                        <div class="w-full h-full bg-space-900 rounded-full flex items-center justify-center">
+                            <i class="fa-solid fa-rocket text-blueNeon text-xl group-hover:rotate-45 transition-transform duration-300"></i>
+                        </div>
+                    </div>
+                    <div>
+                        <span class="font-tech text-lg font-extrabold tracking-wider text-white block leading-none">HKATA</span>
+                        <span class="text-[10px] text-blueNeon tracking-widest uppercase font-semibold">Hong Kong Aerospace Tech Academy</span>
+                    </div>
+                </a>
+
+                <div class="flex items-center gap-4">
+                    <a href="index.html" class="text-sm font-medium text-gray-300 hover:text-blueNeon transition-colors hidden sm:block">返回主頁</a>
+                    <a href="vote.html" class="hidden sm:inline-flex items-center gap-2 px-4 py-2.5 rounded-full glass-panel border border-cyan-500/40 text-cyanNeon text-xs font-semibold hover:border-cyan-400 transition-colors shadow-glow-cyan">
+                        <i class="fa-solid fa-check-to-slot"></i>
+                        <span>公眾投票區</span>
+                    </a>
+                    <a href="apply.html" class="px-5 py-2.5 rounded-full bg-gradient-to-r from-amber-400 to-red-500 text-white font-bold text-xs tracking-wider uppercase shadow-glow-amber hover:scale-105 transition-transform flex items-center gap-2">
+                        <i class="fa-solid fa-file-pen"></i> <span>學校報名</span>
+                    </a>
+                </div>
+            </div>
+        </header>
+
+        <!-- HERO SECTION -->
+        <section class="relative pt-20 pb-16 px-4 overflow-hidden border-b border-gray-800/80 blueprint-grid">
+            <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-blue-500/10 rounded-full blur-[150px] pointer-events-none"></div>
+            
+            <div class="max-w-4xl mx-auto text-center relative z-10">
+                <div class="inline-flex items-center gap-2 px-4 py-2 rounded-full glass-panel border border-blue-500/40 text-blueNeon text-sm font-tech font-bold uppercase tracking-widest mb-6 shadow-glow-blue">
+                    <i class="fa-solid fa-compass-drafting"></i> Track 02
+                </div>
+
+                <h1 class="text-4xl sm:text-6xl md:text-7xl font-extrabold tracking-tight text-white mb-6 leading-[1.15]">
+                    未來基地概念藍圖大賽 <br>
+                    <span class="gradient-text-blue">構想下世代星際家園</span>
+                </h1>
+
+                <p class="text-gray-300 text-lg sm:text-xl leading-relaxed max-w-4xl mx-auto mb-8">
+                    毋須深厚的編程底子或硬體製作經驗，發揮無限想像力！運用視覺設計與演說技巧，為「全港首屆航天築夢大賽」提出以 AI 解決太空生存痛點的創新藍圖。
+                </p>
+
+                <div class="flex flex-wrap justify-center gap-4 text-sm">
+                    <span class="px-4 py-2 rounded-xl bg-space-800 border border-gray-700 text-gray-300"><i class="fa-solid fa-users text-blueNeon mr-2"></i> 對象：全港中小學生 (每校最多 2 隊)</span>
+                    <span class="px-4 py-2 rounded-xl bg-space-800 border border-gray-700 text-gray-300"><i class="fa-solid fa-pen-ruler text-amber-400 mr-2"></i> 支援手繪 / 電繪 / 3D 視覺設計</span>
+                </div>
+
+                <!-- Dual CTAs for Hero Section -->
+                <div class="mt-10 flex flex-col sm:flex-row items-center justify-center gap-4 sm:gap-6">
+                    <a href="apply.html" class="w-full sm:w-auto px-8 py-4 rounded-full bg-gradient-to-r from-blue-500 to-indigo-600 text-white font-extrabold text-sm tracking-wider uppercase shadow-glow-blue hover:scale-105 transition-all flex items-center justify-center gap-3 group">
+                        <i class="fa-solid fa-rocket text-lg group-hover:-translate-y-1 group-hover:translate-x-1 transition-transform"></i>
+                        <span>組建未來設計團隊 — 立即報名</span>
+                    </a>
+                    <a href="vote.html" class="w-full sm:w-auto px-8 py-4 rounded-full glass-panel border border-cyan-500/40 text-cyanNeon font-bold text-sm tracking-wider uppercase shadow-glow-cyan hover:bg-cyan-900/30 transition-all flex items-center justify-center gap-3 group">
+                        <i class="fa-solid fa-fire text-lg group-hover:scale-110 transition-transform"></i>
+                        <span>探索入圍藍圖及參與投票</span>
+                    </a>
+                </div>
+            </div>
+        </section>
+
+        <!-- MISSION THEMES -->
+        <section class="py-20 px-4 max-w-7xl mx-auto">
+            <div class="text-center mb-12">
+                <span class="text-cyanNeon text-xs font-tech font-bold uppercase tracking-widest mb-4 block">Challenge Themes</span>
+                <h2 class="text-3xl font-extrabold text-white mb-4">大賽主題任務</h2>
+                <p class="text-gray-400">根據學生年級劃分，針對不同星體的嚴苛環境設計基地佈局。</p>
+            </div>
+
+            <div class="grid md:grid-cols-2 gap-8">
+                <!-- Lunar Base (Primary) -->
+                <div class="glass-panel p-8 rounded-3xl border border-gray-700 relative overflow-hidden hover:border-gray-500 transition-colors shadow-lg">
+                    <div class="absolute top-0 right-0 w-32 h-32 bg-gray-500/10 blur-3xl rounded-full"></div>
+                    <div class="flex items-center gap-4 mb-6 relative z-10">
+                        <div class="w-16 h-16 rounded-2xl bg-gray-900 flex items-center justify-center text-3xl text-gray-300 border border-gray-600">
+                            <i class="fa-solid fa-moon"></i>
+                        </div>
+                        <div>
+                            <span class="text-xs font-tech text-gray-400 uppercase tracking-widest font-bold">小學組 (Primary)</span>
+                            <h3 class="text-2xl font-bold text-white mt-1">未來月球基地創意設計</h3>
+                        </div>
+                    </div>
+                    <p class="text-gray-300 text-sm leading-relaxed relative z-10 mb-4">
+                        針對月球的低重力、真空環境與極端溫差，設計具備生活區、科研區及資源回收系統的基地佈局。需考慮防輻射與微隕石撞擊的防護機制。
+                    </p>
+                    <div class="bg-space-900/80 p-4 rounded-xl border border-gray-800 relative z-10 text-xs text-gray-400">
+                        <strong class="text-white block mb-1">設計亮點提示：</strong>
+                        思考如何利用月球兩極的隕石坑地形，或如何透過 AI 調節室內溫室的生長環境。
+                    </div>
+                </div>
+
+                <!-- Mars Base (Secondary) -->
+                <div class="glass-panel p-8 rounded-3xl border border-amber-500/30 relative overflow-hidden hover:border-amber-500/60 transition-colors shadow-lg hover:shadow-[0_0_30px_rgba(245,158,11,0.15)]">
+                    <div class="absolute top-0 right-0 w-32 h-32 bg-amber-500/10 blur-3xl rounded-full"></div>
+                    <div class="flex items-center gap-4 mb-6 relative z-10">
+                        <div class="w-16 h-16 rounded-2xl bg-amber-950 flex items-center justify-center text-3xl text-amber-500 border border-amber-500/40">
+                            <i class="fa-solid fa-mars"></i>
+                        </div>
+                        <div>
+                            <span class="text-xs font-tech text-amber-500 uppercase tracking-widest font-bold">中學組 (Secondary)</span>
+                            <h3 class="text-2xl font-bold text-white mt-1">未來火星基地整體佈局</h3>
+                        </div>
+                    </div>
+                    <p class="text-gray-300 text-sm leading-relaxed relative z-10 mb-4">
+                        火星距離遙遠，需高度依賴自給自足。設計需涵蓋氧氣製造 (ISRU)、農業溫室、能源陣列及自動化探測網絡。重點展示 AI 如何協助管理這些複雜系統。
+                    </p>
+                    <div class="bg-space-900/80 p-4 rounded-xl border border-amber-900/30 relative z-10 text-xs text-amber-200/70">
+                        <strong class="text-amber-400 block mb-1">設計亮點提示：</strong>
+                        針對長達數月的沙塵暴，設計全自動的太陽能板清潔機制或核能備用方案。
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SUBMISSION REQUIREMENTS -->
+        <section class="py-24 px-4 bg-space-950 border-y border-gray-800 relative overflow-hidden">
+            <!-- Subtle Glows -->
+            <div class="absolute top-0 left-0 w-[600px] h-[600px] bg-blue-900/10 rounded-full blur-[120px] pointer-events-none"></div>
+
+            <div class="max-w-7xl mx-auto relative z-10">
+                <div class="text-center mb-16">
+                    <span class="text-cyanNeon text-xs font-tech font-bold uppercase tracking-widest mb-4 block">Submission Requirements</span>
+                    <h2 class="text-3xl sm:text-5xl font-extrabold text-white mb-6">雙軌提交要求</h2>
+                    <p class="text-gray-400 max-w-2xl mx-auto text-sm sm:text-base leading-relaxed">
+                        本組別無需製作實體硬體模型，團隊須將全副心力專注於<strong class="text-blueNeon">概念的視覺化呈現</strong>與<strong class="text-purpleNeon">清晰的口頭商業提案 (Pitch)</strong>。
+                    </p>
+                </div>
+
+                <div class="grid md:grid-cols-2 gap-10 max-w-5xl mx-auto">
+                    <!-- Requirement 1: Blueprint -->
+                    <div class="glass-panel p-8 sm:p-10 rounded-3xl border border-blue-500/20 hover-lift shadow-lg">
+                        <div class="w-16 h-16 rounded-2xl bg-blue-900/50 flex items-center justify-center text-blueNeon text-3xl mb-8 border border-blue-500/40 shadow-glow-blue">
+                            <i class="fa-solid fa-map-location-dot"></i>
+                        </div>
+                        <h3 class="text-2xl font-bold text-white mb-4">項目一：概念藍圖 (Concept Blueprint)</h3>
+                        <p class="text-gray-300 text-sm leading-relaxed mb-6">
+                            展示基地整體佈局的高畫質設計圖（1 至 3 張）。我們不限任何創作媒介，歡迎發揮所長：
+                        </p>
+                        <ul class="space-y-3 text-sm text-gray-400 mb-8">
+                            <li class="flex items-start gap-3">
+                                <i class="fa-solid fa-pen-nib text-blueNeon mt-1"></i>
+                                <span><strong>傳統手繪：</strong> 高水準的建築素描、水彩或麥克筆概念圖。</span>
+                            </li>
+                            <li class="flex items-start gap-3">
+                                <i class="fa-solid fa-desktop text-blueNeon mt-1"></i>
+                                <span><strong>平面電繪：</strong> Illustrator, Photoshop 或 Procreate 設計的俯視圖。</span>
+                            </li>
+                            <li class="flex items-start gap-3">
+                                <i class="fa-solid fa-cube text-blueNeon mt-1"></i>
+                                <span><strong>3D 空間建模：</strong> Blender, SketchUp, 甚至是 Minecraft 搭建出的沉浸式空間。</span>
+                            </li>
+                        </ul>
+                        <div class="bg-space-900 p-5 rounded-xl border border-blue-900/50 text-xs text-gray-300">
+                            <strong class="text-blueNeon font-bold text-sm block mb-2"><i class="fa-solid fa-triangle-exclamation"></i> 必備評分元素：</strong>
+                            圖中必須清晰標示各區域（生活、科研、能源等）的機能，並至少展示一項**由 AI 協助解決的太空痛點**。
+                        </div>
+                    </div>
+
+                    <!-- Requirement 2: Pitch Video -->
+                    <div class="glass-panel p-8 sm:p-10 rounded-3xl border border-purple-500/20 hover-lift shadow-lg">
+                        <div class="w-16 h-16 rounded-2xl bg-purple-900/50 flex items-center justify-center text-purpleNeon text-3xl mb-8 border border-purple-500/40 shadow-glow-purple">
+                            <i class="fa-solid fa-video"></i>
+                        </div>
+                        <h3 class="text-2xl font-bold text-white mb-4">項目二：電梯簡報短片 (Elevator Pitch)</h3>
+                        <p class="text-gray-300 text-sm leading-relaxed mb-6">
+                            錄製一段<strong class="text-white border-b border-purpleNeon">不超過 2 分鐘</strong>的簡報影片，向專業評審團生動推銷你們的基地設計方案。
+                        </p>
+                        <ul class="space-y-3 text-sm text-gray-400 mb-8">
+                            <li class="flex items-start gap-3">
+                                <i class="fa-solid fa-user-tie text-purpleNeon mt-1"></i>
+                                <span><strong>團隊出鏡：</strong> 參賽學生需親自出鏡講解，展現自信與熱情。</span>
+                            </li>
+                            <li class="flex items-start gap-3">
+                                <i class="fa-solid fa-photo-film text-purpleNeon mt-1"></i>
+                                <span><strong>視覺輔助：</strong> 可配合藍圖、簡報 (PPT) 或自製的實物道具輔助說明。</span>
+                            </li>
+                            <li class="flex items-start gap-3">
+                                <i class="fa-solid fa-language text-purpleNeon mt-1"></i>
+                                <span><strong>語言不限：</strong> 粵語、英語或普通話均可，重點在於感染力。</span>
+                            </li>
+                        </ul>
+                        <div class="bg-space-900 p-5 rounded-xl border border-purple-900/50 text-xs text-gray-300">
+                            <strong class="text-purpleNeon font-bold text-sm block mb-2"><i class="fa-solid fa-bullhorn"></i> 演說核心重點：</strong>
+                            清晰表達你們如何發現太空生活問題，為何選擇這個 AI 解決方案，以及這個設計藍圖的長遠價值。
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- JUDGING CRITERIA -->
+        <section class="py-20 px-4 max-w-5xl mx-auto border-t border-gray-800">
+            <div class="text-center mb-12">
+                <i class="fa-solid fa-scale-balanced text-4xl text-cyanNeon mb-6 drop-shadow-lg"></i>
+                <h2 class="text-3xl font-extrabold text-white mb-4">100% 評審準則拆解</h2>
+                <p class="text-gray-400">大賽著重學生的創新思維、解難邏輯與最終提案的感染力。</p>
+            </div>
+
+            <div class="glass-panel p-8 sm:p-12 rounded-3xl border border-cyan-500/20 shadow-[0_0_40px_rgba(0,242,254,0.05)]">
+                <div class="space-y-8">
+                    
+                    <!-- Criteria 1 & 2 -->
+                    <div class="grid sm:grid-cols-2 gap-8 pb-8 border-b border-gray-800">
+                        <div class="flex items-start gap-4">
+                            <div class="text-4xl font-tech font-extrabold text-cyanNeon mt-1">30%</div>
+                            <div>
+                                <h4 class="text-lg font-bold text-white mb-2">創新與未來視野</h4>
+                                <p class="text-sm text-gray-400 leading-relaxed">設計概念是否具有顛覆性的獨創性？對未來太空生活的想像是否豐富且符合基礎科學邏輯？</p>
+                            </div>
+                        </div>
+                        <div class="flex items-start gap-4">
+                            <div class="text-4xl font-tech font-extrabold text-blueNeon mt-1">30%</div>
+                            <div>
+                                <h4 class="text-lg font-bold text-white mb-2">問題定義與解難能力</h4>
+                                <p class="text-sm text-gray-400 leading-relaxed">能否準確指出月球/火星環境的具體挑戰（如：宇宙射線）？提出的解決方案是否能有效應對這些痛點？</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Criteria 3, 4, 5 -->
+                    <div class="grid sm:grid-cols-3 gap-6">
+                        <div class="bg-space-950 p-5 rounded-2xl border border-gray-800 hover:border-purple-500 transition-colors">
+                            <div class="text-2xl font-tech font-bold text-purple-400 mb-2">20%</div>
+                            <h4 class="text-sm font-bold text-white mb-2">AI 應用概念</h4>
+                            <p class="text-xs text-gray-400">藍圖中是否合理且有意義地融入了人工智能技術？</p>
+                        </div>
+                        <div class="bg-space-950 p-5 rounded-2xl border border-gray-800 hover:border-amber-400 transition-colors">
+                            <div class="text-2xl font-tech font-bold text-amber-400 mb-2">15%</div>
+                            <h4 class="text-sm font-bold text-white mb-2">視覺設計與可行性</h4>
+                            <p class="text-xs text-gray-400">視覺設計是否清晰、美觀，且整體佈局具備基本功能邏輯？</p>
+                        </div>
+                        <div class="bg-space-950 p-5 rounded-2xl border border-gray-800 hover:border-emerald-400 transition-colors">
+                            <div class="text-2xl font-tech font-bold text-emerald-400 mb-2">5%</div>
+                            <h4 class="text-sm font-bold text-white mb-2">短片提案與演繹</h4>
+                            <p class="text-xs text-gray-400">2 分鐘的 Elevator Pitch 是否具說服力、生動且具備團隊默契？</p>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+            <div class="mt-16 text-center">
+                <a href="apply.html" class="inline-flex px-8 py-4 rounded-full bg-gradient-to-r from-blue-500 to-indigo-600 text-white font-extrabold text-sm tracking-wider uppercase shadow-glow-blue hover:scale-105 transition-transform items-center gap-3">
+                    <i class="fa-solid fa-file-pen text-lg"></i>
+                    <span>學校代表：進入報名系統 (Track 02)</span>
+                </a>
+            </div>
+        </section>
+
+        <!-- FOOTER -->
+        <footer class="border-t border-gray-800/80 bg-space-950 py-8 text-center text-xs text-gray-500">
+            <p>&copy; 2026 Hong Kong Aerospace Technology Academy Limited (HKATA). All rights reserved.</p>
+        </footer>
+
+    </div>
+
+    <script>
+        const canvas = document.getElementById('starfieldCanvas');
+        const ctx = canvas.getContext('2d');
+        let width = canvas.width = window.innerWidth;
+        let height = canvas.height = window.innerHeight;
+
+        window.addEventListener('resize', () => {
+            width = canvas.width = window.innerWidth;
+            height = canvas.height = window.innerHeight;
+            initStars();
+        });
+
+        let stars = [];
+        function initStars() {
+            stars = [];
+            const starCount = Math.floor((width * height) / 4000);
+            for (let i = 0; i < starCount; i++) {
+                stars.push({
+                    x: Math.random() * width,
+                    y: Math.random() * height,
+                    size: Math.random() * 1.5,
+                    alpha: Math.random(),
+                    speed: Math.random() * 0.005 + 0.002
+                });
+            }
+        }
+
+        function animateStars() {
+            ctx.clearRect(0, 0, width, height);
+            stars.forEach(star => {
+                star.alpha += star.speed;
+                if (star.alpha > 1 || star.alpha < 0) star.speed = -star.speed;
+                ctx.fillStyle = `rgba(255, 255, 255, ${Math.abs(star.alpha)})`;
+                ctx.beginPath();
+                ctx.arc(star.x, star.y, star.size, 0, Math.PI * 2);
+                ctx.fill();
+            });
+            requestAnimationFrame(animateStars);
+        }
+
+        initStars();
+        animateStars();
+    </script>
+</body>
+</html>
