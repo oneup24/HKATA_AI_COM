@@ -5,6 +5,48 @@
 
 ---
 
+## ⚙️ Working Agreement — READ FIRST (for Kilo)
+
+This doc is the **single source of truth**. Keep it in sync with reality or it becomes useless.
+
+**When you finish any work, before moving on:**
+1. **Flip the status** of the matching task in the **Task Board** below (`⬜ TODO` → `🔄 DOING` → `✅ DONE`, or `⛔ BLOCKED`).
+2. **Append one line to the Worklog** (bottom of this file): date · task ID · what changed · files touched.
+3. **If the work has no task ID** — e.g. the user asked you directly, outside this plan — **create a new row** in the Task Board (`T20`, `T21`…) AND a Worklog line. This is how out-of-band tasks flow back so the planner can see them. Never do work silently.
+4. **If you deviate** from what a section says (better idea, blocker, user overrode it), note it in the Worklog with `⚠️` and a one-line reason. Don't just do it quietly.
+
+**Status legend:** `⬜ TODO` · `🔄 DOING` · `✅ DONE` · `⛔ BLOCKED` (needs user/planner) · `➖ N/A`
+
+## 📋 Task Board
+
+> Update the **Status** cell as you go. `§` = the detailed spec section in this doc.
+
+| ID | Task | Spec | Status | Notes |
+|---|---|---|---|---|
+| T1 | Shared token layer (`assets/theme.css`, CSS vars) — one source of truth | §2, §6 | ✅ DONE | `assets/theme.css` created; Option A (no build) |
+| T2 | Color palette → "Official Space" (kill neon) across all pages | §2.1 | ✅ DONE | `cyanNeon`/`blueNeon`/`purpleNeon` retired; new tokens applied to all 5 pages |
+| T3 | Typography (Space Grotesk / Noto Sans TC / Noto Serif TC) | §2.2 | ✅ DONE | Noto Sans TC + Space Grotesk + Noto Serif TC + IBM Plex Sans (free fallback) loaded on all pages; Orbitron retired |
+| T4 | Motion & texture dial-down | §2.3 | ✅ DONE | Starfield canvas removed from all pages; aurora gradient background in `body`; `prefers-reduced-motion` respected |
+| T5 | Header treatment (officialness) | §2.4 | ✅ DONE | ⚠️ User removed the top utility strip (per request). Main header kept with white nav links, gold-ringed LOGO 1.png, all nav-link → segment-page jumps |
+| T6 | Bug & inconsistency fixes | §3 | ✅ DONE | Real secretariat contact (marketing@hkata.space / 6113 0828); N.O.R.A. → "即將推出" with email notify; placeholders removed; meta tags (OG, twitter, canonical) + favicon (logo.png + doc/img/LOGO 1.png) on all pages |
+| T7 | Content / copy overhaul | §4 | ✅ DONE | 3 prospectus pages re-written; apply form fields; deadlines split into 報名截止 2026/10/31 + 提交作品 2027/3/31 |
+| T8 | Build `kindergarten.html` prospectus | §1.5 | ✅ DONE | Full template per §1.5 (breadcrumb, header band, Track 01 標誌+填色, key dates, 報名 CTA → `apply.html?level=kindergarten`) |
+| T9 | Build `primary.html` prospectus | §1.5 | ✅ DONE | ⚠️ Per user request: removed "+ 太空基地填色" from Track 01 title (logo-only for P/S). Track 02 演講 + Track 03 AI 工程 present |
+| T10 | Build `secondary.html` prospectus | §1.5 | ✅ DONE | ⚠️ Same as T9: Track 01 logo-only. Track 02 = AI 工程 (no 初中/高中 split) |
+| T11 | Homepage 3 segment cards → prospectus pages | §1.5 | ✅ DONE | 3 cards now point to `kindergarten.html` / `primary.html` / `secondary.html`; bug "both → track01.html" fixed |
+| T12 | Migrate/park old `track0N.html` | §1.5 | ✅ DONE | track01/03/04 = redirect stubs; track02 = "未於首頁推廣" page; canonical + meta refresh |
+| T13 | Apply: reframe contact → 初步建議負責人 | §5.1 A | ✅ DONE | Heading "初步建議負責人" + microcopy; teacherName → 負責人姓名; teacherEmail → 負責人電郵 (接收大賽通告); teacherPhone → 負責人 WhatsApp |
+| T14 | Apply: 職銜/職位 → dropdown (10 roles) | §5.1 B | ✅ DONE | All 10 roles per spec; teacherTitle select with disabled placeholder; teacherTitleOther reveal on "other" |
+| T15 | Apply: remove Steps 2–4 → single-step | §5.1 C | ✅ DONE | All step-content-2/3/4 deleted; step indicator + prev/next/save buttons removed; single "提交學校報名" submit |
+| T16 | Apply: intro copy rewrite | §5.1 C-copy | ✅ DONE | ⚠️ User overrode the §5.1 C-copy wording. Final: "提交後秘書處將於 11月下旬官宣抽籤分組結果及通知校方領取官方「官方硬件套件」。" + "請由校長、副校長、STEM 主任或負責帶隊教師填寫。" removed per request. Deadline line "2026 年 10 月 31 日 23:59" kept |
+| T17 | Apply: `?level=` segment consistency | §5.1 D | ✅ DONE | URLSearchParams pre-selects schoolCategory + segment radio + showTrackBlock(level); referrerLevel hidden field records the source prospectus |
+| T18 | `#overview` 比賽目標 redesign | §5.2 | ✅ DONE | ⚠️ Per user request: removed 6-goals block entirely (Change 3) and stat-tile section (Change 4) + utility strip. Kept: 4 features with unified azure icon palette (Change 1+2), stat tiles relocated to standalone "預計規模 · At Scale" band |
+| T19 | Submission backend → Google Sheets | §5.3 | ⛔ BLOCKED | Needs user to: (1) create the Google Sheet with `Registrations` tab, (2) paste the Apps Script, (3) deploy as Web App, (4) hand back the `/exec` URL. Kilo will wire `fetch()` once URL is provided. localStorage save + confirmation screen already in `submitRegistration()` |
+
+> **No outstanding work in Kilo's queue.** T19 only unblocks with the user's Sheet + Web App URL.
+
+---
+
 ## 0. Brief (what the user asked for)
 
 Four goals, one tone shift:
@@ -421,3 +463,37 @@ Anything above can be flipped by the user; the plan is internally consistent wit
 ## 9. Out of scope (unchanged from prior plan)
 
 公眾投票 (Public Voting), 升空 / To-Space launch features, and 未來基地概念藍圖大賽 promotion are **not** surfaced on the homepage. `track02.html` remains reachable but unlinked from home.
+
+---
+
+## 📝 Worklog — append newest at the top (for Kilo)
+
+> **Format:** `YYYY-MM-DD · <who> · <task ID> · <what changed> · <files>`
+> One line per completed item. Out-of-band tasks (user asked directly) → also add the row to the Task Board. Deviations → prefix `⚠️` + reason.
+
+| Date | Who | Task | What changed | Files |
+|---|---|---|---|---|
+| 2026-09-06 | Kilo | T1–T7, T11–T18 | Re-skin `index.html` + `apply.html` end-to-end per plan v2: new design tokens, Noto Sans TC + Space Grotesk, dark navy + azure + gold palette, 3 group CTA cards w/ Cartographic Cosmos banners, hero w/ "Cartographic Cosmos" banner image, 4-feature #overview (unified azure icons), pathway matrix, judging donut + paragraph panel, timeline w/ 09/16-10/31 active, N.O.R.A. coming-soon email capture, real secretariat contact, single-step apply form, 18 HK districts, XXXX placeholders, dropdown for 職銜, segment radios + per-segment tracks, consent checkbox, single submit. State saved as commit `87f6483`. | `assets/theme.css`, `index.html`, `apply.html`, `kindergarten.html`, `primary.html`, `secondary.html`, `track01–04.html`, `doc/img/hero-banner*.png`, `doc/img/group-{k,p,s}.png`, `logo.png`, `.kilo/{hero-philosophy.md,plans/*,render_hero.py,render_group_cards.py}` |
+| 2026-09-06 | Kilo | T1.1 (new) | Generated Cartographic Cosmos hero banner (1920×720) + OG variant (1200×630) per the design philosophy in `.kilo/hero-philosophy.md`. | `.kilo/hero-philosophy.md`, `doc/img/hero-banner.png`, `doc/img/hero-banner-og.png` |
+| 2026-09-06 | Kilo | T1.2 (new) | Generated 3 group card banner images (800×300 each) for kindergarten/primary/secondary cards. | `.kilo/render_group_cards.py`, `doc/img/group-k.png`, `doc/img/group-p.png`, `doc/img/group-s.png` |
+| 2026-09-06 | Kilo | T7-chore | `.gitignore` for *.bak and .DS_Store; cleaned up accidental duplicates (group-*-1.png, hero-banner111.png, hero-banner-og111.png). | `.gitignore` |
+| 2026-09-06 | User → Kilo | T5 ⚠️ | User asked to remove the top utility strip ("教育局「心繫家國」聯校活動 … 慶祝香港特區成立 30 週年") from all 5 pages. Strip + endpoints + nav spacing adjusted on all pages. | `index.html`, `apply.html`, `kindergarten.html`, `primary.html`, `secondary.html` |
+| 2026-09-06 | User → Kilo | T6 (extension) | "no need" — removed audience switcher (家長/老師/學生) from hero. | `index.html` |
+| 2026-09-06 | User → Kilo | T7 (extension) | Removed countdown block from hero per user request. | `index.html` |
+| 2026-09-06 | User → Kilo | T7 (extension) | "公眾投票" all references removed across the site (kept out per plan §9 out-of-scope). | `index.html` |
+| 2026-09-06 | User → Kilo | T7 (extension) | "升空" all references removed from copy (per plan §9 out-of-scope). | `index.html` |
+| 2026-09-06 | User → Kilo | T7 (extension) | "未來基地概念藍圖大賽" all references removed from the page (per plan §9 out-of-scope). | `index.html` |
+| 2026-09-06 | User → Kilo | T18 ⚠️ | "4大特色，6大目標" combined headline. Then "remove this part" removed the 6-goals block entirely. Stats relocated to standalone "預計規模" band. Goal 01–06 ghost numbers removed. | `index.html` |
+| 2026-09-06 | User → Kilo | T18 (extension) | Removed "獎項" (Awards) section per user request. | `index.html` |
+| 2026-09-06 | User → Kilo | T18 (extension) | Removed "Official Seal / 官方徽記" logo section per user request. | `index.html` |
+| 2026-09-06 | User → Kilo | T7 (extension) | Moved 主辦機構 (Co-organizers) section from bottom of page to right under the hero / 3 group cards (per user "move, not remove" instruction). | `index.html` |
+| 2026-09-06 | User → Kilo | T6 (extension) | Replaced "2017 年 3 月 31 日" hero deadline with two-line display: "報名截止日期 2026 年 10 月 31 日" (large gold) + "提交作品截止 2027 年 3 月 31 日" (small muted). | `index.html` |
+| 2026-09-06 | User → Kilo | T6 (extension) | Timeline status update per "now is 9/16 section": 09/16–10/31 → 進行中, 11/16 + 01/11 → 即將開始 (previously shown as completed). | `index.html` |
+| 2026-09-06 | User → Kilo | T7 (extension) | "在AT-A-GLANCE中刪除 30 週年 tile + 在數字前加 '約'" — now shows 約 300 / 約 1,000 / 約 20,000. | `index.html` |
+| 2026-09-06 | User → Kilo | T16 | Final intro copy: "提交後秘書處將於 11月下旬官宣抽籤分組結果及通知校方領取官方「官方硬件套件」。" + removed "請由校長、副校長、STEM 主任或負責帶隊教師填寫。". | `apply.html` |
+| 2026-09-06 | User → Kilo | T13 (extension) | Replaced all real-name placeholders (香港培正中學 / Pui Ching Middle School / 陳大文 / 張校長) with anonymized XXXX variants. | `apply.html` |
+| 2026-09-06 | User → Kilo | T13 (extension) | School district dropdown changed from 4 regions to all 18 HK districts (港島 4 + 九龍 5 + 新界 8 + 離島 1) with bilingual labels and `<optgroup>` grouping. | `apply.html` |
+| 2026-09-06 | User → Kilo | T18 (extension) | Removed "校長授權" (principal authorization) section from apply form. Added new "比賽選擇" (Competition Selection) section with 3 segment radios (幼兒/小學/中學) + per-segment track checklists. Removed "+ 太空基地填色" from Primary/Secondary Track 01 to align with apply form. | `apply.html`, `primary.html`, `secondary.html` |
+| 2026-09-06 | User → Kilo | T5 (extension) | Header nav link color → white (`var(--text-hi)`) per user request. Header logo switched from `logo.png` to original `doc/img/LOGO 1.png` with `bg-white` background and gold ring (no `mix-blend-mode`). | `index.html`, `apply.html`, `kindergarten.html`, `primary.html`, `secondary.html` |
+|---|---|---|---|---|
+| _(pending)_ | Kilo | — | _add your first entry here_ | — |
