@@ -42,8 +42,14 @@ This doc is the **single source of truth**. Keep it in sync with reality or it b
 | T17 | Apply: `?level=` segment consistency | §5.1 D | ✅ DONE | URLSearchParams pre-selects schoolCategory + segment radio + showTrackBlock(level); referrerLevel hidden field records the source prospectus |
 | T18 | `#overview` 比賽目標 redesign | §5.2 | ✅ DONE | ⚠️ Per user request: removed 6-goals block entirely (Change 3) and stat-tile section (Change 4) + utility strip. Kept: 4 features with unified azure icon palette (Change 1+2), stat tiles relocated to standalone "預計規模 · At Scale" band |
 | T19 | Submission backend → Google Sheets | §5.3 | ⛔ BLOCKED | Needs user to: (1) create the Google Sheet with `Registrations` tab, (2) paste the Apps Script, (3) deploy as Web App, (4) hand back the `/exec` URL. Kilo will wire `fetch()` once URL is provided. localStorage save + confirmation screen already in `submitRegistration()` |
+| T20 | Hero banner on all 3 prospectus pages | §5.4 Enh. 1 | ✅ DONE | kindergarten + primary + secondary all rebuilt with `pt-40 pb-16 bg-[var(--surface-800)]`, breadcrumb, mission tagline (太空想像/未來月球/火星移民), descriptor line, 2 CTAs, dual aurora gradient |
+| T21 | Hardware kit showcase block (primary + secondary) | §5.4 Enh. 2 | ✅ DONE | primary: 3 kits (CubeSat/E28/太空種植); secondary: 4 kits (CubeSat/Rover/3D火箭/智能機械手); aspect-video placeholders with `<!-- REPLACE: [kit].jpg -->` markers |
+| T22 | Track order resequence on primary.html (AI工程 before 演講) | §5.4 Enh. 3 | ✅ DONE | New order: TRACK 01 標誌 → TRACK 02 AI工程 → TRACK 03 演講; alternating section-y / surface-alt preserved |
+| T23 | In-page anchor nav (primary + secondary) | §5.4 Enh. 4 | ✅ DONE | sticky `top-20 z-30` nav with `本頁內容` + anchor pills; primary: logo/ai/speech/key-dates; secondary: logo/ai/key-dates. Matched id attributes added to each track section. |
+| T24 | "一校多賽道" callout (primary + secondary) | §5.4 Enh. 5 | ✅ DONE | `card p-5 sm:p-6 border-l-4 border-[var(--primary-500)]` info callout with fa-circle-info icon + 2 lines of copy. Inserted between hero and first track. |
+| T25 | Hardware lottery flow steps (primary + secondary) | §5.4 Enh. 6 | ✅ DONE | 4-step grid (報名 → 核實 → 抽籤 → 領取) below the hardware showcase, primary-300 numbers, 2-col mobile / 4-col desktop. |
 
-> **No outstanding work in Kilo's queue.** T19 only unblocks with the user's Sheet + Web App URL.
+> **No outstanding work in Kilo's queue.** T19 only unblocks with the user's Sheet + Web App URL. T20–T25 (prospectus structural enhancements) queued next.
 
 ---
 
@@ -408,6 +414,155 @@ fetch('YOUR_WEB_APP_EXEC_URL', {
 
 ---
 
+## 5.4 Prospectus page structural enhancements — all 3 pages (user request, 2026-09-06)
+
+> **For Kilo:** apply to `kindergarten.html`, `primary.html`, `secondary.html`. The current pages have the right token/class usage — just extend the structure per the spec below. Keep the Working Agreement: flip the task board + append Worklog when done.
+
+---
+
+### Enhancement 1 — Hero banner (replaces bare header band)
+
+**Goal:** each prospectus page opens with a full visual impact that matches the level's identity — not just a chip + H1.
+
+**Structure (replace the current `<section class="section-y">` header band with this):**
+
+```
+[HERO SECTION — full-bleed, surface-800, min-height 56vh, flex column center]
+  Breadcrumb (top-left, above the content)
+  ──────────
+  eyebrow chip  e.g. "KINDERGARTEN · 幼兒組"
+  H1 (font-serif, large)  "幼兒比賽章程"
+  Mission tagline (body-lg, italic)
+    • kindergarten: "太空想像，從藝術起步"
+    • primary:      "未來月球基地築夢計劃"
+    • secondary:    "火星移民工程挑戰"
+  Descriptor line (body, text-mute)  — eligible grades + track count
+    e.g. "全港幼稚園 K1–K3 · 1 條賽道 · 毋須編程"
+    e.g. "全港小學 P1–P6 · 3 條賽道"
+    e.g. "全港中學 S1–S6 · 2 條賽道 · 含 7 款官方硬件套件"
+  ──────────
+  Two CTA buttons (row): "下載章程 PDF"（btn-ghost） · "立即報名"（btn-gold）
+  ──────────
+  [optional background] subtle radial gradient or star-dot texture — use the existing CSS aurora pattern or a low-opacity background image if available; DO NOT add a new JS particle system
+```
+
+**Token guidance:** `bg-[var(--surface-800)]`, apply `pt-40` (for fixed header) + `pb-16`. Text on hero: `--text-hi` for H1/tagline, `--text-body` for descriptor. Chip uses existing `chip chip-k / chip-p / chip-s` classes.
+
+---
+
+### Enhancement 2 — Hardware kit showcase block
+
+**Goal:** teachers need to see *what hardware their students will work with* before registering. Blank image placeholder is fine now; real photos drop in later.
+
+**Applies to:** `primary.html` (Track 03 AI工程) · `secondary.html` (Track 02 AI工程). `kindergarten.html` has no hardware — skip.
+
+**Placement:** insert this block **immediately after the Track mission 簡介 card**, before the AI核心要求 / 提交作品 grid.
+
+**Structure:**
+
+```
+[HARDWARE SHOWCASE — surface-alt band within the track section]
+  Eyebrow: "官方硬件套件 Official Hardware Kits"
+  Sub-copy: "每校於完成報名後，由大賽秘書處抽籤分配一款硬件套件。"
+
+  Card grid (2 cols on mobile → 3 or 4 cols on desktop):
+    Each card:
+      [image box 16:9, bg-surface-700, rounded-xl]  ← blank placeholder; add `<!-- REPLACE: actual photo -->` comment
+      Kit badge / chip (chip-s)  e.g. "CubeSat 微型衛星"
+      1-sentence description (body-sm / caption)
+      Grade eligibility tag (caption, text-mute)
+```
+
+**Kit data — use these exactly, one card per kit:**
+
+| Kit name | Description (1 sentence) | Grade |
+|---|---|---|
+| 3U CubeSat 微型衛星 | 可升空的真實規格微型衛星，搭載感測器模組，任務：軌道資料採集與地面站通訊。 | 高小 P4–P6 · 初中 S1–S3 |
+| E28 太空 AI 機械人 | 具視覺感知與自主移動能力的地面機器人，任務：月球基地自動巡邏與異常偵測。 | 高小 P4–P6 |
+| 太空種植方艙 | 模擬太空密閉環境的智能種植箱，任務：以 AI 監控植物生長及環境調節。 | 高小 P4–P6 |
+| 探測車 Rover | 六輪全地形遙控探測車，搭載攝像與感測器，任務：火星地形勘探與自動避障。 | 初中 S1–S3 · 高中 S4–S6 |
+| 3D 打印火箭工程 | 以 3D 打印設計並測試火箭模型，任務：結構優化與推進力工程分析。 | 初中 S1–S3 |
+| 智能機械手 | 六軸精密機械臂，搭載夾爪與感測器，任務：火星樣本採集與精準操控 AI。 | 高中 S4–S6 |
+
+**Image placeholders:** use `<div class="aspect-video bg-[var(--surface-700)] rounded-xl flex items-center justify-center"><span class="caption text-[var(--text-mute)]">硬件圖片即將更新</span></div>`. Each card gets a `<!-- REPLACE: [kit-name].jpg -->` HTML comment so photos can be dropped in later.
+
+---
+
+### Enhancement 3 — Track order resequence (primary.html only)
+
+**Current order:** Track 01 標誌設計 → Track 02 演講 → Track 03 AI工程
+**New order:** Track 01 標誌設計 → Track 02 AI工程（升） → Track 03 演講（降）
+
+**Rationale:** AI Engineering is the flagship competition; 演講 is narrower (P1–P3 only). Reordering signals priority to teachers scanning the page.
+
+**Kilo action:** in `primary.html`, swap the section blocks — `<!-- TRACK 02: 中國航天演講 -->` and `<!-- TRACK 03: AI 工程 -->` — so AI工程 comes first. Update the section background alternation (`section-y` / `section-y surface-alt`) so they still alternate correctly. No content changes needed, just reorder.
+
+**secondary.html:** only 2 tracks (標誌 + AI工程), order is already correct — no change needed.
+
+---
+
+### Enhancement 4 — In-page anchor nav (primary + secondary only)
+
+**Goal:** a teacher on `primary.html` can jump straight to Track 03 AI工程 without scrolling past Track 01.
+
+**Placement:** between the hero section and the first track section.
+
+**Structure:**
+```
+[ANCHOR NAV — sticky or static, surface-900/70 backdrop, border-b border-soft]
+  label: "本頁內容"  (caption, text-mute)
+  |  anchor link to each track section on this page  |  anchor to 重要日子  |
+  e.g. primary:    #track-logo · #track-ai · #track-speech · #key-dates
+  e.g. secondary:  #track-logo · #track-ai · #key-dates
+```
+
+Add matching `id` attributes to each track `<section>`: `id="track-logo"`, `id="track-ai"`, `id="track-speech"`, `id="key-dates"`.
+
+**kindergarten.html:** only 1 track — skip anchor nav; not needed.
+
+---
+
+### Enhancement 5 — "一校可同時報讀多條賽道" callout
+
+**Placement:** inside the hero section, below the CTA buttons. Or as a small banner directly after the hero.
+
+**Content:**
+```
+[info callout — card or inline strip, --primary-300 left border]
+  icon: fa-circle-info
+  "💡 一校可同時報讀多條賽道，各賽道分開評審。"
+  "例如：小學可同時參加「標誌設計」及「AI 工程挑戰」，毋須重複報名。"
+```
+
+Apply to `primary.html` and `secondary.html`. For `kindergarten.html`, there is only 1 track — omit.
+
+---
+
+### Enhancement 6 — Hardware lottery flow (primary + secondary AI engineering track only)
+
+**Goal:** kill the "怎樣拿到硬件？" phone call. A simple 4-step visual under the hardware kit showcase.
+
+**Structure (4 step pills in a row, or 2×2 on mobile):**
+```
+Step 1: 完成學校報名  →  Step 2: 秘書處核實 (11月)  →  Step 3: 抽籤分配套件  →  Step 4: 領取套件 (2027年1月)
+```
+Use the existing numbered-step pattern from the plan or simple flex pills with `--primary-300` numbers.
+
+---
+
+### Task Board rows to add (Kilo — add these to the board above)
+
+| ID | Task | Spec | Status |
+|---|---|---|---|
+| T20 | Hero banner on all 3 prospectus pages | §5.4 Enh. 1 | ⬜ TODO |
+| T21 | Hardware kit showcase block (primary + secondary) | §5.4 Enh. 2 | ⬜ TODO |
+| T22 | Track order resequence on primary.html (AI工程 before 演講) | §5.4 Enh. 3 | ⬜ TODO |
+| T23 | In-page anchor nav (primary + secondary) | §5.4 Enh. 4 | ⬜ TODO |
+| T24 | "一校多賽道" callout (primary + secondary) | §5.4 Enh. 5 | ⬜ TODO |
+| T25 | Hardware lottery flow steps (primary + secondary) | §5.4 Enh. 6 | ⬜ TODO |
+
+---
+
 ## 6. Implementation approach (recommendation for Kilo Code)
 
 **Single source of truth for tokens.** Two viable mechanisms — pick one and apply to all 6 pages:
@@ -500,5 +655,11 @@ Anything above can be flipped by the user; the plan is internally consistent wit
 | 2026-09-06 | User → Kilo | T5 (extension) | "also add 幼兒組，小學組，中學組 in the nav. bar" — Added 3 segment links (幼兒/小學/中學, color-coded by group) to the desktop + mobile nav of all 5 pages, separated from the 4 page anchors by a 1px hairline divider. Replaces the previous "首頁/幼兒章程/..." cross-page nav. | `index.html`, `apply.html`, `kindergarten.html`, `primary.html`, `secondary.html` |
 | 2026-09-06 | User → Kilo | T5 (extension) | "remove this part of evey page" — the `<div class="util-strip">` ("教育局「心繫家國」聯校活動 · 慶祝香港回歸30周年") was still present in the 3 prospectus pages after the earlier removal. Stripped from `kindergarten.html` / `primary.html` / `secondary.html`; headers were already at `top-0` so no offset adjustment needed. | `kindergarten.html`, `primary.html`, `secondary.html` |
 | 2026-09-06 | User → Kilo | T11 (UX) — **R1 + R2 of UX plan** | (R1) 3 group CTA cards pulled INTO the hero section, right after the deadline line, on a `bg-[var(--surface-900)]` background so the card panel visually separates from the rest of the page. (R2) Hero `pb-8 lg:pb-10` → `pb-2 lg:pb-3`. Eliminates the hero→#overview dead zone, makes the primary CTA visible within 1 viewport scroll on desktop. | `index.html` |
+| 2026-09-06 | User → Kilo | **T20** (Prospectus hero banner) | All 3 prospectus pages rebuilt with the new `pt-40 pb-16 bg-[var(--surface-800)]` hero — breadcrumb, mission tagline (太空想像，從藝術起步 / 未來月球基地築夢計劃 / 火星移民工程挑戰), descriptor line, 2 CTAs, dual aurora gradient. | `kindergarten.html`, `primary.html`, `secondary.html` |
+| 2026-09-06 | User → Kilo | **T22** (Track order resequence) | primary.html: TRACK 02 AI工程 + TRACK 03 演講 swapped so flagship AI engineering appears before narrower 演講 (P1–P3 only). section-y / surface-alt alternation preserved. secondary.html unchanged (only 2 tracks, order already correct). | `primary.html` |
+| 2026-09-06 | User → Kilo | **T23** (In-page anchor nav) | Sticky `top-20 z-30` anchor nav under the hero on primary + secondary. primary: logo/ai/speech/key-dates. secondary: logo/ai/key-dates. Matched `id` attributes added to each track section + KEY DATES. | `primary.html`, `secondary.html` |
+| 2026-09-06 | User → Kilo | **T24** (一校多賽道 callout) | Info callout `card p-5 sm:p-6 border-l-4 border-[var(--primary-500)]` with fa-circle-info + 2-line copy ("一校可同時報讀多條賽道..." + "例如..."). Inserted between hero and first track on primary + secondary. kindergarten.html skipped (single track). | `primary.html`, `secondary.html` |
+| 2026-09-06 | User → Kilo | **T21** (Hardware kit showcase) | surface-alt card on primary + secondary with eyebrow + sub-copy + 3- or 4-col grid of kit cards. Each card: aspect-video placeholder (`<!-- REPLACE: [kit].jpg -->` comment marker), chip + 1-sentence description + grade tag. primary: 3 kits (CubeSat/E28/太空種植). secondary: 4 kits (CubeSat/Rover/3D火箭/智能機械手). Inserted in the AI工程 section after the mission 簡介 card. | `primary.html`, `secondary.html` |
+| 2026-09-06 | User → Kilo | **T25** (Hardware lottery flow) | 4-step grid (1 完成報名 → 2 核實 11月 → 3 抽籤 → 4 領取 2027年1月) inside the hardware showcase card on primary + secondary, below the kit grid. primary-300 step numbers, 2-col mobile / 4-col desktop. | `primary.html`, `secondary.html` |
 |---|---|---|---|---|
 | _(pending)_ | Kilo | — | _add your first entry here_ | — |

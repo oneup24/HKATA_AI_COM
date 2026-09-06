@@ -79,19 +79,27 @@
             </ol>
         </nav>
 
-        <section class="section-y">
-            <div class="container-x">
-                <div class="grid lg:grid-cols-12 gap-10 items-end">
-                    <div class="lg:col-span-8">
-                        <span class="chip chip-p mb-4">PRIMARY · 小學組</span>
-                        <h1 class="font-serif text-4xl sm:text-5xl font-black text-[var(--text-hi)] leading-tight mb-4">
-                            小學比賽章程
-                        </h1>
-                        <p class="body-lg max-w-2xl">
-                            對象：<strong class="text-[var(--text-hi)]">全港小學 P1–P6</strong> · 包含三條賽道：標誌設計 (全級)、中國航天演講 (初小 P1–P3)、航天 AI 工程 (高小 P4–P6)。
-                        </p>
-                    </div>
-                    <div class="lg:col-span-4 flex flex-wrap gap-3 justify-start lg:justify-end">
+        <!-- HERO BANNER (T20) -->
+        <section class="relative pt-40 pb-16 bg-[var(--surface-800)] overflow-hidden">
+            <div class="absolute inset-0 opacity-30" style="background: radial-gradient(ellipse at top right, rgba(46,111,224,0.18), transparent 60%), radial-gradient(ellipse at bottom left, rgba(59,123,209,0.12), transparent 60%);"></div>
+            <div class="container-x relative z-10">
+                <nav class="text-xs caption mb-6" aria-label="breadcrumb">
+                    <a href="index.html" class="hover:text-[var(--text-hi)]">首頁</a>
+                    <span class="mx-1.5 text-[var(--text-mute)]">›</span>
+                    <span>小學比賽章程</span>
+                </nav>
+                <div class="max-w-4xl">
+                    <span class="chip chip-p mb-5">PRIMARY · 小學組</span>
+                    <h1 class="font-serif text-4xl sm:text-5xl lg:text-[56px] font-black text-[var(--text-hi)] leading-[1.1] tracking-tight mb-4">
+                        小學比賽章程
+                    </h1>
+                    <p class="font-serif italic text-xl sm:text-2xl text-[var(--primary-300)] mb-4">
+                        未來月球基地築夢計劃。
+                    </p>
+                    <p class="body text-[var(--text-mute)] max-w-2xl mb-8">
+                        全港小學 P1–P6 · 3 條賽道：標誌設計（全級）、中國航天演講（初小 P1–P3）、航天 AI 工程挑戰（高小 P4–P6）。
+                    </p>
+                    <div class="flex flex-wrap gap-3">
                         <a href="#" id="dlPdf" class="btn btn-ghost"><i class="fa-solid fa-file-arrow-down"></i> 下載章程 PDF</a>
                         <a href="apply.html?level=primary" class="btn btn-gold"><i class="fa-solid fa-file-pen"></i> 立即報名</a>
                     </div>
@@ -99,9 +107,36 @@
             </div>
         </section>
 
+        <!-- T23: IN-PAGE ANCHOR NAV -->
+        <nav class="sticky top-20 z-30 bg-[var(--surface-900)]/90 backdrop-blur border-b border-[var(--border-soft)]" aria-label="頁內導航">
+            <div class="container-x">
+                <div class="flex items-center gap-2 sm:gap-4 py-3 overflow-x-auto">
+                    <span class="eyebrow shrink-0">本頁內容</span>
+                    <span class="text-[var(--text-mute)]">·</span>
+                    <a href="#track-logo"   class="nav-link text-xs whitespace-nowrap">TRACK 01 標誌</a>
+                    <a href="#track-ai"     class="nav-link text-xs whitespace-nowrap">TRACK 02 AI 工程</a>
+                    <a href="#track-speech" class="nav-link text-xs whitespace-nowrap">TRACK 03 演講</a>
+                    <a href="#key-dates"    class="nav-link text-xs whitespace-nowrap">重要日子</a>
+                </div>
+            </div>
+        </nav>
+
+        <!-- T24: 一校可同時報讀多條賽道 CALLOUT -->
+        <section class="py-8">
+            <div class="container-x">
+                <div class="card p-5 sm:p-6 border-l-4 border-[var(--primary-500)] flex items-start gap-4">
+                    <i class="fa-solid fa-circle-info text-[var(--primary-300)] text-xl mt-1 shrink-0"></i>
+                    <div>
+                        <p class="text-[var(--text-hi)] font-semibold mb-1">💡 一校可同時報讀多條賽道，各賽道分開評審。</p>
+                        <p class="caption">例如：小學可同時參加「標誌設計」及「AI 工程挑戰」，毋須重複報名。</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
         <!-- SHARED BLOCK: 標誌設計 (all levels) -->
         <!-- SHARED BLOCK: logo-track — keep in sync across kindergarten/primary/secondary -->
-        <section class="section-y surface-alt">
+        <section id="track-logo" class="section-y surface-alt">
             <div class="container-x">
                 <div class="flex items-center justify-between mb-6 flex-wrap gap-3">
                     <h2 class="h2 flex items-center gap-3"><span class="chip">TRACK 01</span> 太空任務標誌設計</h2>
@@ -136,48 +171,11 @@
             </div>
         </section>
 
-        <!-- TRACK 02: 中國航天演講 (初小 P1–P3) -->
-        <section class="section-y">
+        <!-- TRACK 02: AI 工程 (高小 P4–P6) — T22: resequenced above 演講 (was TRACK 03) -->
+        <section id="track-ai" class="section-y">
             <div class="container-x">
                 <div class="flex items-center justify-between mb-6 flex-wrap gap-3">
-                    <h2 class="h2 flex items-center gap-3"><span class="chip chip-p">TRACK 02</span> 中國航天發展演講比賽</h2>
-                    <span class="chip">初小 P1–P3</span>
-                </div>
-                <div class="grid lg:grid-cols-2 gap-8">
-                    <div class="card card-p p-8">
-                        <h3 class="h3 mb-3">任務簡介</h3>
-                        <p class="body mb-4">配合大會提供的官方航天模型 (例如火箭、衛星、月球探測器等)，學生就該模型對應的中國航天主題進行 <strong class="text-[var(--text-hi)]">不超過 3 分鐘</strong> 的演說，深化對中國航天科技歷史與發展的認識。</p>
-                        <p class="body">毋須編程或工程知識，著重 <strong class="text-[var(--text-hi)]">國民教育與口語表達</strong>。</p>
-                    </div>
-                    <div class="card p-8">
-                        <h3 class="h3 mb-3">對象年級與提交作品</h3>
-                        <ul class="space-y-3 body">
-                            <li class="flex gap-3"><i class="fa-solid fa-circle-check text-[var(--primary-300)] mt-1.5"></i><span><strong class="text-[var(--text-hi)]">對象：</strong>小一至小三學生。</span></li>
-                            <li class="flex gap-3"><i class="fa-solid fa-circle-check text-[var(--primary-300)] mt-1.5"></i><span><strong class="text-[var(--text-hi)]">賽制：</strong>校內選拔 → 全港初賽 → 總決賽上台演說。</span></li>
-                            <li class="flex gap-3"><i class="fa-solid fa-circle-check text-[var(--primary-300)] mt-1.5"></i><span><strong class="text-[var(--text-hi)]">演說時間：</strong>不超過 3 分鐘。</span></li>
-                            <li class="flex gap-3"><i class="fa-solid fa-circle-check text-[var(--primary-300)] mt-1.5"></i><span><strong class="text-[var(--text-hi)]">提交作品：</strong>演說影片或現場演說。</span></li>
-                            <li class="flex gap-3"><i class="fa-solid fa-circle-check text-[var(--primary-300)] mt-1.5"></i><span><strong class="text-[var(--text-hi)]">截止日期：</strong>2027 年 3 月 31 日</span></li>
-                        </ul>
-                    </div>
-                </div>
-                <div class="card p-8 mt-6">
-                    <h3 class="h3 mb-3">評審重點</h3>
-                    <div class="grid sm:grid-cols-4 gap-4">
-                        <div><div class="font-display text-2xl text-[var(--primary-300)] font-bold">40%</div><p class="caption">內容準確</p></div>
-                        <div><div class="font-display text-2xl text-[var(--primary-300)] font-bold">25%</div><p class="caption">表達清晰</p></div>
-                        <div><div class="font-display text-2xl text-[var(--primary-300)] font-bold">20%</div><p class="caption">台風表現</p></div>
-                        <div><div class="font-display text-2xl text-[var(--primary-300)] font-bold">15%</div><p class="caption">時間掌握</p></div>
-                    </div>
-                    <p class="caption mt-4">設一等獎、二等獎、三等獎及優異獎。得獎者將於科研展覽 (Final Aerospace Fair) 中上台領獎及再次演說。</p>
-                </div>
-            </div>
-        </section>
-
-        <!-- TRACK 03: AI 工程 (高小 P4–P6) -->
-        <section class="section-y surface-alt">
-            <div class="container-x">
-                <div class="flex items-center justify-between mb-6 flex-wrap gap-3">
-                    <h2 class="h2 flex items-center gap-3"><span class="chip chip-s">TRACK 03</span> 航天 AI 創新大賽 · 未來月球基地</h2>
+                    <h2 class="h2 flex items-center gap-3"><span class="chip chip-s">TRACK 02</span> 航天 AI 創新大賽 · 未來月球基地</h2>
                     <span class="chip">高小 P4–P6</span>
                 </div>
 
@@ -190,6 +188,56 @@
                         <li class="chip chip-s">E28 太空 AI 機械人</li>
                         <li class="chip chip-s">太空種植方艙</li>
                     </ul>
+                </div>
+
+                <!-- T21: HARDWARE KIT SHOWCASE (高小 P4–P6 — filtered subset) -->
+                <div class="surface-alt card p-6 sm:p-8 mb-6">
+                    <div class="flex items-center justify-between mb-5 flex-wrap gap-3">
+                        <div>
+                            <div class="eyebrow mb-2">官方硬件套件 · Official Hardware Kits</div>
+                            <p class="caption">每校於完成報名後，由大賽秘書處抽籤分配一款硬件套件。</p>
+                        </div>
+                    </div>
+                    <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
+                        <article class="card p-4">
+                            <div class="aspect-video bg-[var(--surface-700)] rounded-xl flex items-center justify-center mb-3">
+                                <span class="caption text-[var(--text-mute)]">硬件圖片即將更新</span>
+                            </div>
+                            <span class="chip chip-s mb-2">3U CubeSat 微型衛星</span>
+                            <!-- REPLACE: cubesat.jpg -->
+                            <p class="body-sm text-[var(--text-body)]">可升空的真實規格微型衛星，搭載感測器模組。</p>
+                            <p class="caption mt-2 text-[var(--text-mute)]">高小 P4–P6 · 初中 S1–S3</p>
+                        </article>
+                        <article class="card p-4">
+                            <div class="aspect-video bg-[var(--surface-700)] rounded-xl flex items-center justify-center mb-3">
+                                <span class="caption text-[var(--text-mute)]">硬件圖片即將更新</span>
+                            </div>
+                            <span class="chip chip-s mb-2">E28 太空 AI 機械人</span>
+                            <!-- REPLACE: e28.jpg -->
+                            <p class="body-sm text-[var(--text-body)]">具視覺感知與自主移動能力的地面機器人。</p>
+                            <p class="caption mt-2 text-[var(--text-mute)]">高小 P4–P6</p>
+                        </article>
+                        <article class="card p-4">
+                            <div class="aspect-video bg-[var(--surface-700)] rounded-xl flex items-center justify-center mb-3">
+                                <span class="caption text-[var(--text-mute)]">硬件圖片即將更新</span>
+                            </div>
+                            <span class="chip chip-s mb-2">太空種植方艙</span>
+                            <!-- REPLACE: greenhouse.jpg -->
+                            <p class="body-sm text-[var(--text-body)]">模擬太空密閉環境的智能種植箱。</p>
+                            <p class="caption mt-2 text-[var(--text-mute)]">高小 P4–P6</p>
+                        </article>
+                    </div>
+
+                    <!-- T25: HARDWARE LOTTERY FLOW -->
+                    <div class="mt-8 pt-6 border-t border-[var(--border-soft)]">
+                        <div class="eyebrow mb-4">抽籤流程 · Hardware Lottery Flow</div>
+                        <div class="grid grid-cols-2 lg:grid-cols-4 gap-3">
+                            <div class="card p-4 text-center"><div class="font-display text-2xl text-[var(--primary-300)] font-bold mb-1">1</div><p class="caption">完成學校報名</p></div>
+                            <div class="card p-4 text-center"><div class="font-display text-2xl text-[var(--primary-300)] font-bold mb-1">2</div><p class="caption">秘書處核實 (11月)</p></div>
+                            <div class="card p-4 text-center"><div class="font-display text-2xl text-[var(--primary-300)] font-bold mb-1">3</div><p class="caption">抽籤分配套件</p></div>
+                            <div class="card p-4 text-center"><div class="font-display text-2xl text-[var(--primary-300)] font-bold mb-1">4</div><p class="caption">領取套件 (2027年1月)</p></div>
+                        </div>
+                    </div>
                 </div>
 
                 <div class="grid lg:grid-cols-2 gap-8">
@@ -228,8 +276,45 @@
             </div>
         </section>
 
+        <!-- TRACK 03: 中國航天演講 (初小 P1–P3) — T22: resequenced below AI 工程 (was TRACK 02) -->
+        <section id="track-speech" class="section-y surface-alt">
+            <div class="container-x">
+                <div class="flex items-center justify-between mb-6 flex-wrap gap-3">
+                    <h2 class="h2 flex items-center gap-3"><span class="chip chip-p">TRACK 03</span> 中國航天發展演講比賽</h2>
+                    <span class="chip">初小 P1–P3</span>
+                </div>
+                <div class="grid lg:grid-cols-2 gap-8">
+                    <div class="card card-p p-8">
+                        <h3 class="h3 mb-3">任務簡介</h3>
+                        <p class="body mb-4">配合大會提供的官方航天模型 (例如火箭、衛星、月球探測器等)，學生就該模型對應的中國航天主題進行 <strong class="text-[var(--text-hi)]">不超過 3 分鐘</strong> 的演說，深化對中國航天科技歷史與發展的認識。</p>
+                        <p class="body">毋須編程或工程知識，著重 <strong class="text-[var(--text-hi)]">國民教育與口語表達</strong>。</p>
+                    </div>
+                    <div class="card p-8">
+                        <h3 class="h3 mb-3">對象年級與提交作品</h3>
+                        <ul class="space-y-3 body">
+                            <li class="flex gap-3"><i class="fa-solid fa-circle-check text-[var(--primary-300)] mt-1.5"></i><span><strong class="text-[var(--text-hi)]">對象：</strong>小一至小三學生。</span></li>
+                            <li class="flex gap-3"><i class="fa-solid fa-circle-check text-[var(--primary-300)] mt-1.5"></i><span><strong class="text-[var(--text-hi)]">賽制：</strong>校內選拔 → 全港初賽 → 總決賽上台演說。</span></li>
+                            <li class="flex gap-3"><i class="fa-solid fa-circle-check text-[var(--primary-300)] mt-1.5"></i><span><strong class="text-[var(--text-hi)]">演說時間：</strong>不超過 3 分鐘。</span></li>
+                            <li class="flex gap-3"><i class="fa-solid fa-circle-check text-[var(--primary-300)] mt-1.5"></i><span><strong class="text-[var(--text-hi)]">提交作品：</strong>演說影片或現場演說。</span></li>
+                            <li class="flex gap-3"><i class="fa-solid fa-circle-check text-[var(--primary-300)] mt-1.5"></i><span><strong class="text-[var(--text-hi)]">截止日期：</strong>2027 年 3 月 31 日</span></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="card p-8 mt-6">
+                    <h3 class="h3 mb-3">評審重點</h3>
+                    <div class="grid sm:grid-cols-4 gap-4">
+                        <div><div class="font-display text-2xl text-[var(--primary-300)] font-bold">40%</div><p class="caption">內容準確</p></div>
+                        <div><div class="font-display text-2xl text-[var(--primary-300)] font-bold">25%</div><p class="caption">表達清晰</p></div>
+                        <div><div class="font-display text-2xl text-[var(--primary-300)] font-bold">20%</div><p class="caption">台風表現</p></div>
+                        <div><div class="font-display text-2xl text-[var(--primary-300)] font-bold">15%</div><p class="caption">時間掌握</p></div>
+                    </div>
+                    <p class="caption mt-4">設一等獎、二等獎、三等獎及優異獎。得獎者將於科研展覽 (Final Aerospace Fair) 中上台領獎及再次演說。</p>
+                </div>
+            </div>
+        </section>
+
         <!-- KEY DATES -->
-        <section class="section-y">
+        <section id="key-dates" class="section-y">
             <div class="container-x">
                 <div class="text-center mb-8">
                     <div class="eyebrow mb-3">Key Dates</div>
