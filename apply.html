@@ -432,6 +432,14 @@
             // Save to localStorage
             try { localStorage.setItem('hkata_registration', JSON.stringify(formData)); } catch (e) {}
 
+            // T30: Fire-and-forget POST to the Google Sheets registration endpoint (no UI block if unreachable)
+            fetch('https://script.google.com/macros/s/AKfycbzSd8vLIXt4uvRHF14pr610G4ZAa49iitFBiLvs34wE7SKqrHh7riKkYeTmKnRyMh8z/exec', {
+                method: 'POST',
+                mode: 'no-cors',
+                headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+                body: JSON.stringify(formData)
+            }).catch(err => console.warn('[HKATA] Sheet sync failed; submission saved to localStorage only:', err));
+
             // Show success
             const t = document.getElementById('toast');
             t.textContent = '已提交 · 申請編號 ' + formData.appId + ' · 秘書處將於 3 個工作天內核實';

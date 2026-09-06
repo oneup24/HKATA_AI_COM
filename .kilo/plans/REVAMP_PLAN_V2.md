@@ -83,16 +83,19 @@ This doc is the **single source of truth**. Keep it in sync with reality or it b
 | T16 | Apply: intro copy rewrite | §5.1 C-copy | ✅ DONE | ⚠️ User overrode the §5.1 C-copy wording. Final: "提交後秘書處將於 11月下旬官宣抽籤分組結果及通知校方領取官方「官方硬件套件」。" + "請由校長、副校長、STEM 主任或負責帶隊教師填寫。" removed per request. Deadline line "2026 年 10 月 31 日 23:59" kept |
 | T17 | Apply: `?level=` segment consistency | §5.1 D | ✅ DONE | URLSearchParams pre-selects schoolCategory + segment radio + showTrackBlock(level); referrerLevel hidden field records the source prospectus |
 | T18 | `#overview` 比賽目標 redesign | §5.2 | ✅ DONE | ⚠️ Per user request: removed 6-goals block entirely (Change 3) and stat-tile section (Change 4) + utility strip. Kept: 4 features with unified azure icon palette (Change 1+2), stat tiles relocated to standalone "預計規模 · At Scale" band |
-| T19 | Submission backend → Google Sheets | §5.3 | ⛔ BLOCKED | Needs user to: (1) create the Google Sheet with `Registrations` tab, (2) paste the Apps Script, (3) deploy as Web App, (4) hand back the `/exec` URL. Kilo will wire `fetch()` once URL is provided. localStorage save + confirmation screen already in `submitRegistration()` |
+| T19 | Submission backend → Google Sheets | §5.3 | ➖ MOVED → V3 T30 | Originally ⛔ BLOCKED on V2. **Carried into `REVAMP_PLAN_V3.md` as T30** for active work. All spec detail (§5.3) is preserved verbatim there — see V3 § `📥 Added 2026-09-06 — T19 → T30 (Submission backend carry-in)`. |
 | T20 | Hero banner on all 3 prospectus pages | §5.4 Enh. 1 | ✅ DONE | kindergarten + primary + secondary all rebuilt with `pt-40 pb-16 bg-[var(--surface-800)]`, breadcrumb, mission tagline (太空想像/未來月球/火星移民), descriptor line, 2 CTAs, dual aurora gradient |
 | T21 | Hardware kit showcase block (primary + secondary) | §5.4 Enh. 2 | ✅ DONE | primary: 3 kits (CubeSat/E28/太空種植); secondary: 4 kits (CubeSat/Rover/3D火箭/智能機械手); aspect-video placeholders with `<!-- REPLACE: [kit].jpg -->` markers |
 | T22 | Track order resequence on primary.html (AI工程 before 演講) | §5.4 Enh. 3 | ✅ DONE | New order: TRACK 01 標誌 → TRACK 02 AI工程 → TRACK 03 演講; alternating section-y / surface-alt preserved |
 | T23 | In-page anchor nav (primary + secondary) | §5.4 Enh. 4 | ✅ DONE | sticky `top-20 z-30` nav with `本頁內容` + anchor pills; primary: logo/ai/speech/key-dates; secondary: logo/ai/key-dates. Matched id attributes added to each track section. |
-| T24 | "一校多賽道" callout (primary + secondary) | §5.4 Enh. 5 | ✅ DONE | `card p-5 sm:p-6 border-l-4 border-[var(--primary-500)]` info callout with fa-circle-info icon + 2 lines of copy. Inserted between hero and first track. |
+| T24 | "一校多賽道" callout (primary + secondary) | §5.4 Enh. 5 | ✅→➖ REVERTED | Originally added per Enh. 5 spec. **Reverted by user request (same session)** — callout `<section>` removed from `primary.html` and `secondary.html`. T29 rows up the revert. |
 | T25 | Hardware lottery flow steps (primary + secondary) | §5.4 Enh. 6 | ✅ DONE | 4-step grid (報名 → 核實 → 抽籤 → 領取) below the hardware showcase, primary-300 numbers, 2-col mobile / 4-col desktop. |
 | T26 | Fix double top-padding gap on all 3 prospectus pages | §5.4 Enh. 1 bug | ✅ DONE | Breadcrumb `<nav>` moved INSIDE the hero `<section>` as the first child (was previously outside with its own `pt-40`). The breadcrumb's own `pt-40` removed; the hero's `pt-24` is now the sole top padding clearing the fixed header. The 256px stacked-padding gap (40+24) is gone. Also dropped the `container-x` from the breadcrumb since it's now nested inside the hero's own `container-x`. |
+| T27 | Fix excess top padding gap above hero banner on `index.html` | T27 | ✅ DONE | Hero section `pt-44 lg:pt-52` (176/208px) → `pt-20 lg:pt-20` (80/80px). `pt-20` = exactly the `h-20` fixed header height → banner sits flush below nav, no blank gap. |
+| T28 | Fix broken `#tracks` nav anchor on `index.html` ("組別賽道" link) | T28 | ✅ DONE | The two nav links `<a href="#tracks">組別賽道</a>` pointed at an anchor that didn't exist on the page. Added `id="tracks"` to the existing `<h2>三大賽事組別</h2>` (index.html:170) so the same-page jump now resolves to that heading. |
+| T29 | Revert T24 — remove "一校可同時報讀多條賽道" callout from primary + secondary | T29 | ✅ DONE | ⚠️ User request (out-of-band): the info callout added in T24 is no longer wanted. Deleted the entire `<section class="py-8">` block (card + fa-circle-info + 2-line copy) from `primary.html` and `secondary.html`. T24 row flipped to ➖ REVERTED. |
 
-> **No outstanding work in Kilo's queue.** T19 only unblocks with the user's Sheet + Web App URL. T20–T25 done, T26 (bug fix) also done.
+> **V2 is now frozen (historical record).** T19 → moved into V3 as T30 (see `.kilo/plans/REVAMP_PLAN_V3.md`). T20–T23, T25–T28 done. T24 REVERTED (per user). T29 logged the revert. All future work belongs on V3.
 
 ---
 
@@ -709,7 +712,9 @@ Anything above can be flipped by the user; the plan is internally consistent wit
 | 2026-09-06 | User → Kilo | **T21** (Hardware kit showcase) | surface-alt card on primary + secondary with eyebrow + sub-copy + 3- or 4-col grid of kit cards. Each card: aspect-video placeholder (`<!-- REPLACE: [kit].jpg -->` comment marker), chip + 1-sentence description + grade tag. primary: 3 kits (CubeSat/E28/太空種植). secondary: 4 kits (CubeSat/Rover/3D火箭/智能機械手). Inserted in the AI工程 section after the mission 簡介 card. | `primary.html`, `secondary.html` |
 | 2026-09-06 | User → Kilo | **T25** (Hardware lottery flow) | 4-step grid (1 完成報名 → 2 核實 11月 → 3 抽籤 → 4 領取 2027年1月) inside the hardware showcase card on primary + secondary, below the kit grid. primary-300 step numbers, 2-col mobile / 4-col desktop. | `primary.html`, `secondary.html` |
 |---|---|---|---|---|
-| _(pending)_ | Kilo | — | _add your first entry here_ | — |
+| 2026-09-06 | Kilo | **T27** | Homepage hero top padding `pt-44 lg:pt-52` (176/208px) → `pt-20 lg:pt-20` (80/80px). `pt-20` = exactly the `h-20` fixed header height — banner sits flush below nav with no blank gap. | `index.html` |
+| 2026-09-06 | Kilo | **T28** | "組別賽道" nav link was a dead same-page anchor (`#tracks` resolved to nothing). Added `id="tracks"` to the existing `<h2>三大賽事組別</h2>` so both desktop and mobile nav links now jump to that heading. No content change. | `index.html` |
+| 2026-09-06 | Kilo | **T29** ⚠️ | User-requested revert of T24: removed the "一校多賽道" callout (`<section class="py-8">` with the info card + fa-circle-info + 2-line copy) from `primary.html` and `secondary.html`. T24 row flipped to ➖ REVERTED. | `primary.html`, `secondary.html` |
 
 ---
 
@@ -727,3 +732,25 @@ Anything above can be flipped by the user; the plan is internally consistent wit
 3. **The hero `<section>` keeps `pt-40`** (or equivalent) — it is now the sole element responsible for clearing the fixed header.
 
 Result: breadcrumb appears flush at the top of the hero band, no gap.
+
+---
+
+## 📥 Added 2026-09-06 — Bug fix: gap above hero banner on homepage (T27)
+
+**Task Board row to add:**
+| T27 | Fix excess top padding gap above hero banner on `index.html` | T27 | ✅ DONE | Hero `pt-44 lg:pt-52` → `pt-20 lg:pt-20` (80/80px = fixed-header height). |
+
+**Root cause:** `index.html` line 143 — hero section has `pt-44 lg:pt-52` (176px / 208px). The fixed header is only `h-20` (80px). Excess padding = ~100px blank gap visible above the banner.
+
+**Fix (`index.html` only):**
+
+On `<section id="hero" ...>`, change:
+```
+pt-44 pb-2 lg:pt-52 lg:pb-3
+```
+to:
+```
+pt-20 pb-2 lg:pt-20 lg:pb-3
+```
+
+`pt-20` = 80px, exactly the height of the fixed header — banner sits flush below the nav bar with no gap.
