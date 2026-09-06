@@ -9,13 +9,55 @@
 
 This doc is the **single source of truth**. Keep it in sync with reality or it becomes useless.
 
-**When you finish any work, before moving on:**
-1. **Flip the status** of the matching task in the **Task Board** below (`⬜ TODO` → `🔄 DOING` → `✅ DONE`, or `⛔ BLOCKED`).
-2. **Append one line to the Worklog** (bottom of this file): date · task ID · what changed · files touched.
-3. **If the work has no task ID** — e.g. the user asked you directly, outside this plan — **create a new row** in the Task Board (`T20`, `T21`…) AND a Worklog line. This is how out-of-band tasks flow back so the planner can see them. Never do work silently.
-4. **If you deviate** from what a section says (better idea, blocker, user overrode it), note it in the Worklog with `⚠️` and a one-line reason. Don't just do it quietly.
-
 **Status legend:** `⬜ TODO` · `🔄 DOING` · `✅ DONE` · `⛔ BLOCKED` (needs user/planner) · `➖ N/A`
+
+---
+
+### 🟦 Every session — do this first
+
+1. Read this plan top to bottom before touching any file.
+2. Check the Task Board for `⬜ TODO` and `🔄 DOING` rows. Resume any `🔄 DOING` first, then work top-to-bottom by ID.
+3. **Scroll to the bottom of this document** — the planner appends new task specs there with a `## 📥 Added YYYY-MM-DD` timestamp header. New instructions always appear at the bottom, not in the middle of the doc.
+
+---
+
+### ▶️ Before starting each task
+
+1. Mark it `🔄 DOING` in the Task Board — before any file edit.
+2. Read the spec section (the `§` column) in full.
+3. Read the current state of the file you are about to edit. Never overwrite without reading first.
+4. **One task at a time.** Complete and log it before starting the next. No silent batching.
+
+---
+
+### ✅ After finishing each task
+
+1. Flip status to `✅ DONE` in the Task Board.
+2. Append one Worklog line (bottom of file): `date · task ID · what changed · files touched`.
+3. If you deviated from spec — note it with `⚠️` + one-line reason in both the Notes column and the Worklog.
+
+---
+
+### ⛔ If blocked
+
+1. Mark the task `⛔ BLOCKED` immediately.
+2. Write the specific blocker in the Notes column (what is missing, who needs to act).
+3. Tell the user. Do not skip to another task or invent a workaround silently.
+
+---
+
+### 📥 Out-of-band work (user asked directly, no task ID)
+
+1. Create a new Task Board row (next available ID).
+2. Do the work.
+3. Append a Worklog line. **Never do work silently.**
+
+---
+
+### 🚧 Scope boundary
+
+- Only edit files mentioned in the current task's spec. No "while I'm here" edits to other files.
+- Do not add features beyond the spec. If you think something extra would be good, log it as a suggestion in Notes — do not implement unasked.
 
 ## 📋 Task Board
 
@@ -654,6 +696,8 @@ Anything above can be flipped by the user; the plan is internally consistent wit
 | 2026-09-06 | User → Kilo | T11 (extension) | "move the part up to above, after the hero section" — 三大賽事組別 3 group CTA cards physically relocated from after the 02 OVERVIEW to right after the HERO. New homepage order: Hero → 3 group cards → Co-organizers → 預計規模 → 02 OVERVIEW → 04 PATHWAY → 05 JUDGING → 06 TIMELINE → 07 N.O.R.A. (section comments left in original order for diff hygiene). | `index.html` |
 | 2026-09-06 | User → Kilo | T5 (extension) | "also add 幼兒組，小學組，中學組 in the nav. bar" — Added 3 segment links (幼兒/小學/中學, color-coded by group) to the desktop + mobile nav of all 5 pages, separated from the 4 page anchors by a 1px hairline divider. Replaces the previous "首頁/幼兒章程/..." cross-page nav. | `index.html`, `apply.html`, `kindergarten.html`, `primary.html`, `secondary.html` |
 | 2026-09-06 | User → Kilo | T5 (extension) | "remove this part of evey page" — the `<div class="util-strip">` ("教育局「心繫家國」聯校活動 · 慶祝香港回歸30周年") was still present in the 3 prospectus pages after the earlier removal. Stripped from `kindergarten.html` / `primary.html` / `secondary.html`; headers were already at `top-0` so no offset adjustment needed. | `kindergarten.html`, `primary.html`, `secondary.html` |
+| 2026-09-06 | User → Kilo | **T20 (banner image)** | Generated 3 level-specific Cartographic Cosmos hero banners (1920×540 each) — kindergarten (teal aurora + "太空想像"), primary (azure + "未來月球基地"), secondary (indigo + "火星移民工程挑戰"). Each banner has eyebrow chip + H1 + italic mission tagline + descriptor + orbits + gold horizon + HKATA registry stamp. | `.kilo/render_prospectus_banners.py`, `doc/img/prospectus-banner-{kindergarten,primary,secondary}.png` |
+| 2026-09-06 | User → Kilo | **T20 (banner integration)** | Replaced the 540px empty hero in all 3 prospectus pages with the new banner image. Now: breadcrumb → full-width banner image → 2 CTAs centered. pt-40 → pt-24 (no more empty space — banner fills the hero). | `kindergarten.html`, `primary.html`, `secondary.html` |
 | 2026-09-06 | User → Kilo | T11 (UX) — **R1 + R2 of UX plan** | (R1) 3 group CTA cards pulled INTO the hero section, right after the deadline line, on a `bg-[var(--surface-900)]` background so the card panel visually separates from the rest of the page. (R2) Hero `pb-8 lg:pb-10` → `pb-2 lg:pb-3`. Eliminates the hero→#overview dead zone, makes the primary CTA visible within 1 viewport scroll on desktop. | `index.html` |
 | 2026-09-06 | User → Kilo | **T20** (Prospectus hero banner) | All 3 prospectus pages rebuilt with the new `pt-40 pb-16 bg-[var(--surface-800)]` hero — breadcrumb, mission tagline (太空想像，從藝術起步 / 未來月球基地築夢計劃 / 火星移民工程挑戰), descriptor line, 2 CTAs, dual aurora gradient. | `kindergarten.html`, `primary.html`, `secondary.html` |
 | 2026-09-06 | User → Kilo | **T22** (Track order resequence) | primary.html: TRACK 02 AI工程 + TRACK 03 演講 swapped so flagship AI engineering appears before narrower 演講 (P1–P3 only). section-y / surface-alt alternation preserved. secondary.html unchanged (only 2 tracks, order already correct). | `primary.html` |
