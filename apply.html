@@ -358,6 +358,18 @@
 
     <div id="toast" class="toast" role="status" aria-live="polite"></div>
 
+    <!-- T32: Success modal — centered, replaces the bottom toast for the submission confirmation UX -->
+    <div id="successModal" class="modal-backdrop" role="dialog" aria-modal="true" aria-labelledby="successModalTitle" hidden>
+        <div class="modal" role="document">
+            <div class="modal-icon" aria-hidden="true"><i class="fa-solid fa-check"></i></div>
+            <h3 id="successModalTitle">感謝您的報名！</h3>
+            <p class="modal-body">秘書處已收到貴校之報名。請記下您的申請編號：</p>
+            <div class="modal-appid" id="successAppId">HKATA-—</div>
+            <p class="modal-sub">秘書處將於 <span class="accent">11月下旬</span> 官宣抽籤分組結果，並通知校方領取官方「硬件套件」。</p>
+            <button type="button" class="btn btn-gold px-8" id="successModalClose">關閉</button>
+        </div>
+    </div>
+
     <script>
         // Pre-select from ?level= + initial track block
         (function() {
@@ -440,11 +452,24 @@
                 body: JSON.stringify(formData)
             }).catch(err => console.warn('[HKATA] Sheet sync failed; submission saved to localStorage only:', err));
 
-            // Show success
-            const t = document.getElementById('toast');
-            t.textContent = '已提交 · 申請編號 ' + formData.appId + ' · 秘書處將於 3 個工作天內核實';
-            t.classList.add('show');
-            setTimeout(() => t.classList.remove('show'), 4000);
+            // T32: Show success modal (centered) instead of the bottom toast
+            const m = document.getElementById('successModal');
+            document.getElementById('successAppId').textContent = formData.appId;
+            m.hidden = false;
+            void m.offsetWidth; // force reflow so the transition runs
+            m.classList.add('show');
+            const onEsc = (e) => { if (e.key === 'Escape') closeModal(); };
+            const closeModal = () => {
+                m.classList.remove('show');
+                setTimeout(() => { m.hidden = true; }, 220);
+                document.getElementById('successModalClose').removeEventListener('click', closeModal);
+                m.removeEventListener('click', backdropClose);
+                document.removeEventListener('keydown', onEsc);
+            };
+            const backdropClose = (e) => { if (e.target === m) closeModal(); };
+            document.getElementById('successModalClose').addEventListener('click', closeModal);
+            m.addEventListener('click', backdropClose);
+            document.addEventListener('keydown', onEsc);
         });
     </script>
 </body>

@@ -248,6 +248,66 @@ body {
 }
 .toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
 
+/* T32: SUCCESS MODAL — centered acknowledgement replacing the bottom toast for the submission-confirmation UX */
+.modal-backdrop {
+  position: fixed; inset: 0; z-index: 90;
+  background: rgba(5, 10, 22, 0.72);
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+  display: flex; align-items: center; justify-content: center;
+  padding: 1rem;
+  opacity: 0; pointer-events: none;
+  transition: opacity 200ms ease;
+}
+.modal-backdrop.show { opacity: 1; pointer-events: auto; }
+.modal {
+  background: var(--surface-700);
+  border: 1px solid var(--border);
+  border-radius: 1rem;
+  padding: 2rem 1.75rem 1.75rem;
+  width: min(440px, calc(100vw - 2rem));
+  box-shadow: var(--elev-2);
+  text-align: center;
+  transform: translateY(0.75rem) scale(0.98);
+  opacity: 0;
+  transition: transform 220ms ease, opacity 220ms ease;
+}
+.modal-backdrop.show .modal { transform: translateY(0) scale(1); opacity: 1; }
+.modal-icon {
+  width: 56px; height: 56px; border-radius: 999px;
+  display: inline-flex; align-items: center; justify-content: center;
+  background: rgba(46, 111, 224, 0.10);
+  border: 2px solid var(--primary-500);
+  color: var(--primary-300);
+  font-size: 1.5rem;
+  margin-bottom: 1rem;
+}
+.modal h3 {
+  font-family: var(--font-display);
+  font-size: 1.4rem;
+  margin: 0 0 0.5rem;
+  color: var(--text-hi);
+  letter-spacing: -0.01em;
+}
+.modal-appid {
+  display: inline-block;
+  font-family: var(--font-display);
+  background: rgba(199, 162, 76, 0.10);
+  border: 1px solid var(--gold-500);
+  color: var(--gold-300);
+  padding: 0.4rem 0.85rem;
+  border-radius: 0.5rem;
+  font-size: 0.95rem;
+  letter-spacing: 0.04em;
+  margin: 0.25rem 0 0.75rem;
+}
+.modal-body { font-size: 0.92rem; color: var(--text-body); line-height: 1.55; margin: 0 0 0.5rem; }
+.modal-sub  { font-size: 0.78rem; color: var(--text-mute); margin: 0 0 1.25rem; line-height: 1.55; }
+.modal-sub .accent { color: var(--gold-300); }
+@media (prefers-reduced-motion: reduce) {
+  .modal-backdrop, .modal { transition: none; }
+}
+
 /* NAV */
 .nav-link {
   position: relative;
