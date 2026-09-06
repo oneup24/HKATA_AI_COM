@@ -370,6 +370,20 @@
         </div>
     </div>
 
+    <!-- T33: Duplicate-warning modal — soft block when the entered 學校英文全稱 already exists in the Sheet -->
+    <div id="duplicateModal" class="modal-backdrop" role="dialog" aria-modal="true" aria-labelledby="duplicateModalTitle" hidden>
+        <div class="modal" role="document">
+            <div class="modal-icon modal-icon-warn" aria-hidden="true"><i class="fa-solid fa-circle-exclamation"></i></div>
+            <h3 id="duplicateModalTitle">此學校已登記</h3>
+            <p class="modal-body">秘書處記錄顯示，<strong id="duplicateName" class="text-[var(--text-hi)]">—</strong> 已經有報名紀錄。</p>
+            <p class="modal-sub">如需更改資料或查詢，請電郵秘書處 <a href="mailto:marketing@hkata.space" class="link">marketing@hkata.space</a>。</p>
+            <div class="modal-actions">
+                <button type="button" class="btn btn-ghost" id="duplicateModalCancel">取消</button>
+                <button type="button" class="btn btn-primary" id="duplicateModalProceed">仍然提交</button>
+            </div>
+        </div>
+    </div>
+
     <script>
         // Pre-select from ?level= + initial track block
         (function() {
@@ -441,9 +455,19 @@
                 referrerLevel: document.getElementById('referrerLevel').value
             };
 
-            // Save to localStorage
-            try { localStorage.setItem('hkata_registration', JSON.stringify(formData)); } catch (e) {}
+            // T33: Pre-submit duplicate check (school English name, lowercase + trim)
+            const known = window.__hkataKnownNames;
+            if (known && known.size > 0 && known.has(normName(formData.schoolNameEn))) {
+                showDuplicateModal(formData.schoolNameEn, () => performSubmit(formData));
+                return;
+            }
+            // Continue with the actual submit (localStorage + POST + success modal)
+            performSubmit(formData);
+        });
 
+        // T33 + T30: actual submit — localStorage save + fire-and-forget POST + success modal
+        function performSubmit(formData) {
+            try { localStorage.setItem('hkata_registration', JSON.stringify(formData)); } catch (e) {}
             // T30: Fire-and-forget POST to the Google Sheets registration endpoint (no UI block if unreachable)
             fetch('https://script.google.com/macros/s/AKfycbyTnzh9gajIswj88U97dpx0f-qNs5RV2WHcwcOGbEh9kv2Rbop3Xi7zqK9BM2S6rCGM/exec', {
                 method: 'POST',
@@ -451,26 +475,84 @@
                 headers: { 'Content-Type': 'text/plain;charset=utf-8' },
                 body: JSON.stringify(formData)
             }).catch(err => console.warn('[HKATA] Sheet sync failed; submission saved to localStorage only:', err));
+            showSuccessModal(formData.appId);
+        }
 
-            // T32: Show success modal (centered) instead of the bottom toast
+        // T32: success modal — centered, dismiss via 關閉 button / backdrop click / Esc
+        function showSuccessModal(appId) {
             const m = document.getElementById('successModal');
-            document.getElementById('successAppId').textContent = formData.appId;
+            document.getElementById('successAppId').textContent = appId;
             m.hidden = false;
             void m.offsetWidth; // force reflow so the transition runs
             m.classList.add('show');
-            const onEsc = (e) => { if (e.key === 'Escape') closeModal(); };
-            const closeModal = () => {
+            const close = () => {
                 m.classList.remove('show');
                 setTimeout(() => { m.hidden = true; }, 220);
-                document.getElementById('successModalClose').removeEventListener('click', closeModal);
-                m.removeEventListener('click', backdropClose);
-                document.removeEventListener('keydown', onEsc);
+                document.getElementById('successModalClose').removeEventListener('click', close);
+                m.removeEventListener('click', backdrop);
+                document.removeEventListener('keydown', esc);
             };
-            const backdropClose = (e) => { if (e.target === m) closeModal(); };
-            document.getElementById('successModalClose').addEventListener('click', closeModal);
-            m.addEventListener('click', backdropClose);
-            document.addEventListener('keydown', onEsc);
-        });
+            const backdrop = (e) => { if (e.target === m) close(); };
+            const esc = (e) => { if (e.key === 'Escape') close(); };
+            document.getElementById('successModalClose').addEventListener('click', close);
+            m.addEventListener('click', backdrop);
+            document.addEventListener('keydown', esc);
+        }
+
+        // T33: duplicate modal — soft block. 取消 = focus schoolNameEn; 仍然提交 = onProceed callback
+        function showDuplicateModal(name, onProceed) {
+            const m = document.getElementById('duplicateModal');
+            document.getElementById('duplicateName').textContent = name;
+            m.hidden = false;
+            void m.offsetWidth;
+            m.classList.add('show');
+            const close = () => {
+                m.classList.remove('show');
+                setTimeout(() => { m.hidden = true; }, 220);
+                document.getElementById('duplicateModalCancel').removeEventListener('click', cancel);
+                document.getElementById('duplicateModalProceed').removeEventListener('click', proceed);
+                m.removeEventListener('click', backdrop);
+                document.removeEventListener('keydown', esc);
+            };
+            const cancel = () => {
+                close();
+                const el = document.getElementById('schoolNameEn');
+                if (el) { el.focus(); if (el.select) el.select(); }
+            };
+            const proceed = () => { close(); if (onProceed) onProceed(); };
+            const backdrop = (e) => { if (e.target === m) cancel(); };
+            const esc = (e) => { if (e.key === 'Escape') cancel(); };
+            document.getElementById('duplicateModalCancel').addEventListener('click', cancel);
+            document.getElementById('duplicateModalProceed').addEventListener('click', proceed);
+            m.addEventListener('click', backdrop);
+            document.addEventListener('keydown', esc);
+        }
+
+        // T33: normalize school name for duplicate comparison (lowercase + trim)
+        function normName(s) { return (s || '').toString().trim().toLowerCase(); }
+
+        // T33: pre-load the list of already-registered school English names on page load; cache in sessionStorage
+        (async function loadKnownNames() {
+            const url = 'https://script.google.com/macros/s/AKfycbyTnzh9gajIswj88U97dpx0f-qNs5RV2WHcwcOGbEh9kv2Rbop3Xi7zqK9BM2S6rCGM/exec';
+            let known = [];
+            try {
+                const resp = await fetch(url, { method: 'GET' });
+                if (resp.ok) {
+                    const data = await resp.json();
+                    known = (data && data.names) || [];
+                    try { sessionStorage.setItem('hkata_known_names', JSON.stringify(known)); } catch (e) {}
+                }
+            } catch (e) {
+                console.warn('[HKATA] Could not load known names; server-side guard is the last line of defense.');
+            }
+            if (!known.length) {
+                try {
+                    const cached = sessionStorage.getItem('hkata_known_names');
+                    if (cached) known = JSON.parse(cached);
+                } catch (e) {}
+            }
+            window.__hkataKnownNames = new Set(known);
+        })();
     </script>
 </body>
 </html>

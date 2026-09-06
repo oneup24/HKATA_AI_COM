@@ -72,6 +72,7 @@ This doc is the **single source of truth** for V3 work. Keep it in sync with rea
 | T30 | Wire `apply.html` submission to Google Sheets (Apps Script Web App) | V3 §1 | ✅ DONE | User pasted `/exec` URL 2026-09-06. Inserted fire-and-forget `fetch()` (5 lines) into `submitRegistration()` between the `localStorage` save and the confirmation toast — `mode: 'no-cors'`, `Content-Type: text/plain;charset=utf-8`, body = `JSON.stringify(formData)`, `.catch()` logs a console warning if the Sheet endpoint is unreachable so the localStorage save + on-screen confirmation still proceed. Consent gate at `#consent` (line 402) verified intact. No UI/UX change; no `apply.html` field changes. End-to-end behavior now: every submission → 1 new row in `Registrations` + 1 enriched email to `marketing@hkata.space` + on-screen confirmation + localStorage backup (still works even if Sheet endpoint is down). |
 | T31 | Swap `/exec` URL — bound-script unblocks the lookup | V3 §1 | ✅ DONE | ⚠️ User hit `Document … is missing (perhaps it was deleted, or you don't have read access?)` because the original deployment was a **standalone** Apps Script project (`openById()` of an external Sheet fails in that mode). User recreated the script via **Extensions → Apps Script from inside the Sheet** (now container-bound), switched line 5 from `SpreadsheetApp.openById(...)` to `SpreadsheetApp.getActiveSpreadsheet().getSheetByName('Registrations')` (eliminates the whole class of "doc not found" errors), redeployed as a new web app, and pasted the new `/exec` URL. Kilo swapped the URL constant in `apply.html:436`. No other code changed. |
 | T32 | Replace bottom toast with a centered success modal on submit | T32 | ✅ DONE | User: "the pop-up to show the 申請編號 now is a very small down at bottom, no good. please a proper pop up a square in the center, something like thank you for apply the competition, here is your 申請編號 and show the next Nov will have result etc." Added a centered modal in `apply.html` (next to the existing `#toast`) + `.modal-backdrop` / `.modal` styles in `assets/theme.css`. Modal shows: ✓ icon + **感謝您的報名！** + appId (gold pill) + **請記下您的申請編號** + "秘書處將於 11月下旬 官宣抽籤分組結果，並通知校方領取官方「硬件套件」" + 關閉 button. Backdrop click + Esc + close button all dismiss. `#consent` toast preserved for the consent-gate error (transient). Token discipline: reuses `--surface-700` / `--gold-500` / `--primary-500` / `--elev-2` / `.btn-gold`; `prefers-reduced-motion` respected. |
+| T33 | De-duplicate registration by **學校英文全稱** before submit | V3 § `📥 Added 2026-09-06 — T33` | ✅ DONE | User confirmed defaults: **A soft-block, B one-key (English only), C no appId surfaced**. Implemented: (1) `apply.html` pre-loads the existing-name list on page load via `fetch(EXEC_URL, {method:'GET'})` → caches in `sessionStorage` → builds `window.__hkataKnownNames` Set. (2) Pre-submit check compares `normName(formData.schoolNameEn)` against the Set; if match → `#duplicateModal` with 取消 / 仍然提交 buttons. (3) Extracted `performSubmit(formData)` so the 仍然提交 callback can re-fire the actual submit cleanly. (4) Added `#duplicateModal` markup + `.modal-icon-warn` + `.modal-actions` styles. (5) Apps Script update (user to paste + redeploy): added `doGet()` returning `{count, names}` of normalized English names; added server-side duplicate guard in `doPost()` returning `{ok:false, reason:'duplicate'}` — defense in depth so a bypassed client check still can't dirty the Sheet. |
 
 > **V3 is fully closed** as of 2026-09-06 — **T30 + T31 verified end-to-end** by user (live form submit → row in `Registrations` + enriched email to `marketing@hkata.space`). No outstanding work in Kilo's queue. Future work will appear as new rows starting at **T32**, with specs appended in the `📥 Added YYYY-MM-DD` section below.
 >
@@ -171,8 +172,10 @@ This doc is the **single source of truth** for V3 work. Keep it in sync with rea
 | 2026-09-06 | User → Kilo | **T30** (spec correction) ⚠️ | User asked me to re-verify the spec against the live `apply.html` form before they built the Sheet. Found a drift between V2 §5.3 and the current form: (a) `principalName` / `principalEmail` fields **dropped** from the form (V2 T18 ext — 校長授權 section removed), (b) `teacherTitleOther` / `tracks` / `referrerLevel` fields **added** since §5.3 was written. Updated V3 §1 in place: header row is now 15 cols (A–O), Apps Script rewrites the `appendRow()` positions + enriches the notification email with 學段/賽道/負責人/電郵/電話/來源頁. Design notes (comma-separated 賽道, separate 職銜(其他), 來源頁 attribution) recorded. T30 Notes column updated with the correction pointer. No client-side change to `apply.html` required — the `fetch()` body is whatever `formData` is already built. | `.kilo/plans/REVAMP_PLAN_V3.md` |
 | 2026-09-06 | User → Kilo | **T30** (deploy) | User finished Steps 1-7 of the Sheet setup (15-col header + corrected Apps Script deployed + Sheet sharing locked down). User pasted the `/exec` URL. Kilo inserted fire-and-forget `fetch()` (~5 lines) into `apply.html`'s `submitRegistration()` between the `localStorage` save and the confirmation toast, with `.catch()` fallback so the localStorage save + on-screen confirmation still proceed even if the Sheet endpoint is unreachable. `#consent` gate verified intact (no UX regression). T30 flipped ⛔ BLOCKED → ✅ DONE. | `apply.html`, `.kilo/plans/REVAMP_PLAN_V3.md` |
 | 2026-09-06 | User → Kilo | **T31** ⚠️ (URL swap after deploy fix) | First test submission failed — Apps Script Executions log showed `Document … is missing (perhaps it was deleted, or you don't have read access?)`. Root cause: original standalone Apps Script project couldn't access the Sheet via `openById()`. User recreated the script via Extensions → Apps Script from inside the Sheet (now container-bound), swapped line 5 to `SpreadsheetApp.getActiveSpreadsheet().getSheetByName('Registrations')`, redeployed, and pasted the new `/exec` URL. Kilo swapped the URL in `apply.html:436`. No code logic changed; only the endpoint URL. T31 row added to Task Board. | `apply.html`, `.kilo/plans/REVAMP_PLAN_V3.md` |
-| 2026-09-06 | User → Kilo | **T30 / T31 — closure** ✅ | User confirmed end-to-end success: form submit → new row in `Registrations` + enriched notification email to `marketing@hkata.space`. T30 (wiring) + T31 (URL swap after standalone-vs-bound fixup) both functionally verified. V3 queue is empty; next task ID will be T32. Closure notes added to the Task Board closing line. | (no file changes — plan update only) |
+| 2026-09-06 | User → Kilo | **T30 / T31 — closure** ✅ | User confirmed end-to-end success: form submit → new row in `Registries` + enriched notification email to `marketing@hkata.space`. T30 (wiring) + T31 (URL swap after standalone-vs-bound fixup) both functionally verified. V3 queue is empty; next task ID will be T32. Closure notes added to the Task Board closing line. | (no file changes — plan update only) |
 | 2026-09-06 | User → Kilo | **T32** (success modal) | User: bottom toast for submission confirmation was too small / too transient and didn't surface the appId prominently. Replaced with a centered modal: ✓ icon, **感謝您的報名！**, appId displayed in a gold pill, "秘書處將於 11月下旬 官宣抽籤分組結果，並通知校方領取官方「硬件套件」。", gold 關閉 button. Backdrop click + Esc + close button all dismiss. Existing `#consent` toast preserved for the consent-gate error so transient messages don't need a full modal. Tokens reused (`--surface-700`, `--gold-500`, `--primary-500`, `--elev-2`, `.btn-gold`); `prefers-reduced-motion` respected. | `apply.html`, `assets/theme.css`, `.kilo/plans/REVAMP_PLAN_V3.md` |
+| 2026-09-06 | User → Kilo | **T33** (planning) | User requested a pre-submit duplicate check using "學校英文全稱" as the dedupe key. Asked Kilo to plan before implementing. Spec drafted in `📥 Added 2026-09-06 — T33` block (server `doGet()` exposes English-name list; client pre-loads + caches in `sessionStorage`; soft-block modal on match; server-side `doPost()` duplicate guard as defense-in-depth). **Implementation paused** for user confirmation on 3 design choices (soft vs hard block; single vs two-key dedupe; surface existing appId or not). No code change yet. | `.kilo/plans/REVAMP_PLAN_V3.md` |
+| 2026-09-06 | User → Kilo | **T33** (implement) | User accepted defaults (soft / one-key / no appId surfaced). Implemented: `apply.html` adds `loadKnownNames()` IIFE → `window.__hkataKnownNames` Set (cached in `sessionStorage`); pre-submit check via `normName()`; new `#duplicateModal` with 取消 / 仍然提交 buttons; refactored submit handler to extract `performSubmit(formData)` so the 仍然提交 callback cleanly re-fires the actual submit; added `.modal-icon-warn` + `.modal-actions` styles. Apps Script update handed to user to paste + redeploy (adds `doGet()` + server-side duplicate guard in `doPost()`). | `apply.html`, `assets/theme.css`, `.kilo/plans/REVAMP_PLAN_V3.md` |
 
 ---
 
@@ -318,6 +321,85 @@ End-to-end live test passed: form submit → new row in `Registrations` + enrich
 > 2. **Root cause / rationale.**
 > 3. **Fix / spec** — file list, exact changes, expected behavior.
 > 4. **Result** — what "done" looks like.
+
+---
+
+## 📥 Added 2026-09-06 — T33 (Duplicate-check via 學校英文全稱)
+
+> **Status: planning — awaiting user confirmation on 3 design choices below.** User's request: "i want to add a check before submit the application, please see it work, plan before implement. i think the most easy to de-duplicate is via 學校英文全稱."
+
+### Root cause / rationale
+Today every successful submission appends a row to `Registrations`. Nothing prevents the same school from being registered twice (same teacher filling the form on different days, or two teachers from the same school submitting independently). For a school-level competition, one row per school is the right invariant — duplicates distort 抽籤 / kit lottery / certificate delivery.
+
+**Dedupe key: 學校英文全稱** (column D in the Sheet).
+- Stable across format variants (less ambiguous than Chinese names which can use Traditional/Simplified/校/學校 variants).
+- Lowercase + trim normalization catches accidental capitalization differences.
+- Already validated to be non-empty in the form.
+
+### Fix / spec
+
+**Architecture — server-side check + client-side warning, defense-in-depth.**
+
+1. **Apps Script — add `doGet(e)`** alongside the existing `doPost(e)`. Reads `Registrations!D2:D`, lowercases + trims each, returns:
+   ```json
+   { "count": 42, "names": ["st. paul's college", "hong kong baptist university", "..."] }
+   ```
+   Privacy: returns **only normalized names**, no appIds, no other PII. Apps Script Web App with `Access: Anyone` natively supports CORS on `doGet` so the client can read the JSON directly.
+
+2. **Apps Script — `doPost(e)` duplicate guard.** Before `appendRow()`, scan column D for the same normalized value. If found, return `ContentService.createTextOutput(JSON.stringify({ok:false, reason:'duplicate'}))` with HTTP 409. New registration rejected server-side as last line of defense.
+
+3. **`apply.html` — pre-load + cache on page load.**
+   ```javascript
+   const resp = await fetch('YOUR_EXEC_URL', { method: 'GET' });
+   const { names } = await resp.json();
+   const knownNames = new Set(names);
+   sessionStorage.setItem('hkata_known_names', JSON.stringify([...knownNames]));
+   ```
+   - Use `sessionStorage` (per-tab) — refresh within same tab = no re-fetch.
+   - If `doGet` fails: silently skip the client check, rely on server-side.
+
+4. **`apply.html` — pre-submit check.**
+   ```javascript
+   const norm = (s) => (s || '').trim().toLowerCase();
+   if (knownNames.has(norm(formData.schoolNameEn))) {
+     showDuplicateModal(formData.schoolNameEn);  // soft-block
+     return;
+   }
+   // else: continue with the POST as today
+   ```
+
+5. **`apply.html` — duplicate modal.**
+   - Reuse `.modal-backdrop` / `.modal` tokens.
+   - Content: ⚠ icon, **「此學校已登記」**, echoes the entered name, sub-line "如需更改資料或查詢，請電郵秘書處 marketing@hkata.space", **取消** (ghost) + **仍然提交** (primary) buttons.
+   - **取消** → close modal, focus `#schoolNameEn`, no POST.
+   - **仍然提交** → close modal, continue POST + success modal.
+
+6. **Server-side guard visible client-side.** If user manages to bypass the client check (e.g. devtools) and `doPost` returns `{ok:false, reason:'duplicate'}` — the existing `mode:'no-cors'` makes the response opaque so we can't read it. Mitigation: trust that the server *appended nothing* (true), and show the success modal as today. The hidden dup just won't exist in the Sheet. (If `mode:'cors'` becomes viable later, we can wire a proper "已拒絕" message.)
+
+### Open design choices — awaiting user confirmation
+
+| # | Choice | Default (recommended) | Alternative |
+|---|---|---|---|
+| **A** | **Soft vs hard block on duplicate** | **Soft** — show modal with Cancel + 仍然提交. Lets a teacher correct a typo and re-submit without secretariat intervention. | Hard — only Cancel + a `mailto:marketing@hkata.space` link. Stricter but worse UX when the dupe is a genuine re-attempt (e.g. teacher changed schools, wants to update the responsible person). |
+| **B** | **One-key (English only) vs two-key (English + Chinese)** | **One-key (English only)** — simpler, lower false-positive risk, matches user's exact request. | Two-key — also dedupes on 學校中文全稱, catches the rare case where two schools happen to share an English name. Adds complexity and Chinese-name normalization rules. |
+| **C** | **Surface existing appId in the duplicate modal** | **No** — privacy-by-default, no info-leak about prior submissions. Teacher can email secretariat for their appId (footer has `marketing@hkata.space`). | Yes — show existing appId as a pill in the modal so the teacher can immediately know their prior reference. Convenient but surfaces another school's appId to anyone using the form on that browser. |
+
+### Result — what "done" looks like
+
+1. Refresh `apply.html`: page calls `doGet`, stores known-name Set in `sessionStorage`. No visible UI difference.
+2. Submit a school that's already in the Sheet → duplicate modal appears with the entered name + Cancel + 仍然提交.
+3. Click **取消** → modal closes, focus returns to 學校英文全稱 field, no POST, no row in Sheet.
+4. Click **仍然提交** → modal closes, POST fires, success modal appears. (Server-side guard is also in place — but with soft-block, this path is intentional.)
+5. Submit a new school (case-insensitive trim match against the cached list) → no duplicate modal, success modal as today.
+6. Direct `curl` to `/exec` POSTing a duplicate name → server returns `{ok:false, reason:'duplicate'}`, NO row appended.
+7. DevTools → block the `doGet` URL → first load, client check is silent-skip; submission still goes through; server-side guard rejects if it's actually a duplicate.
+8. V3 housekeeping: T33 → ✅ DONE + 2 worklog entries (planning + implementation).
+
+### Files touched at implementation time
+
+- `Code.gs` (the Apps Script project the user owns) — add `doGet()` + add duplicate guard to `doPost()` → redeploy as new version
+- `apply.html` — fetch on load + cache + pre-submit check + duplicate modal markup + handler
+- `assets/theme.css` — only if a new icon/color variant is needed (likely reused `.btn-ghost` + `.btn-primary`, no new CSS)
 
 ---
 
