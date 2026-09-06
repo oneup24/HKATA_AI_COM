@@ -79,6 +79,9 @@ This doc is the **single source of truth** for V3 work. Keep it in sync with rea
 | T37 | Swap logo image → `doc/img/LOGO 2.png` (the new brand mark) | T37 | ✅ DONE | User: "please replace the LOGO 1.png with LOGO 2.png". `doc/img/LOGO 1.png` (header logo on `index.html` + `apply.html`) was byte-identical to root `logo.png` (header logo on `kindergarten.html` / `primary.html` / `secondary.html`) — same MD5 — so the new logo had to land in both locations for consistency. Copied `doc/img/LOGO 2.png` → `doc/img/LOGO 1.png` AND `logo.png` (overwrote); removed the now-redundant `doc/img/LOGO 2.png`. No HTML changes (the `<img src>` paths stayed the same; both file paths now point at the new logo content). MD5 confirms both files now match. |
 | T38 | Wire 7 hardware kit images into primary + secondary prospectus | T38 | ✅ DONE | User uploaded 7 images to `doc/img/hardware/` (initial pass had `arm.png` 1200×1600 portrait and `rocket.jpg` 468×625 portrait — `object-fit: cover` cropped them to 16:9). Replaced all 7 `<div class="aspect-video ...">` placeholders + `<!-- REPLACE: ... -->` comments in `primary.html` (3 kits) + `secondary.html` (4 kits) with `<img>` tags: `aspect-video w-full object-cover rounded-xl mb-3 loading="lazy" decoding="async"`. CubeSat grade text corrected (primary: `高小 P4–P6` only; secondary: `初中 S1–S3` only). **Re-uploaded 2026-09-06 17:05** — all 7 files now proper 1200×675 16:9 PNG; `rocket` renamed from `.jpg` to `.png` so `secondary.html` rocket `src` updated to `rocket.png`. |
 | T39 | Reorder track sections on primary.html + secondary.html so 太空任務標誌設計 (TRACK 01) appears AFTER the 航天 AI 創新大賽 (TRACK 02 AI 工程) section | T39 | ✅ DONE | User picked **variant A** (reorder blocks only, keep TRACK labels as-is — minimal change, accept the 02→01→03 chip ordering). On both `primary.html` and `secondary.html`: TRACK 02 (航天 AI 創新大賽 AI 工程) section moved BEFORE TRACK 01 (太空任務標誌設計). HTML comments + section `id`s preserved so the anchor nav (`#track-logo`, `#track-ai`) still jumps correctly. Alternating section backgrounds preserved (both sections use `section-y` / `surface-alt` matching the prior pattern). Chip text + IDs untouched (variant A). |
+| T40 | Add comprehensive 「比賽章程」 section to `primary.html` (7 chapters: 背景 · 對象 · 項目 · 評審 · 日程 · 獎項 · 支援) | T40 | ✅ DONE → 🔄 REWORK → ↩ REWORKED BY T41 | User accepted the structure but **wanted a UI redesign + move to before TRACK 02**. T41 (next row) supersedes this; status flips to **↩ REWORKED** so the original is not double-counted. |
+| T41 | Rework T40: move 章程 above TRACK 02 + redesign chapter UI (variant A: document-style) | T41 | ↩ REWORKED BY T42 | Superseded — see T42 (which dissolves the 章程 wrapper entirely and integrates chapters 一 / 二 / 四 / 五 / 六 / 七 as individual top-level sections in the page flow). |
+| T42 | Restructure primary.html into linear 10-section flow (drop 章程 wrapper + KEY DATES) | T42 | 🔄 DOING | User: "after hero banner, 1. 報名截至日期 (like homepage), 2. 活動背景與宗旨, 3. 參賽對象, 4. 航天 AI 創新大賽, 5. 中國航天發展演講比賽, 6. 太空任務標誌設計, 7. 評審準則與展示形式, 8. 比賽日程, 9. 獎項及獎勵, 10. 學習支援平台. Remove 重要日子". New linear flow: hero → anchor-nav → 報名截止日期 banner → 一、活動背景 → 二、對象 → TRACK 02 AI → TRACK 03 演講 → TRACK 01 標誌 → 四、評審 → 五、比賽日程 → 六、獎項 → 七、學習支援平台 → BIG APPLY CTA. Top anchor nav extended with chapter anchors; chapter III (4 sub-track cards) dropped (replaced by the actual track sections); KEY DATES removed (replaced by the more detailed 五、 timeline). TRACK 01's `surface-alt` bg flipped to base to maintain alternation. |
 
 > **V3 is fully closed** as of 2026-09-06 — **T30 + T31 verified end-to-end** by user (live form submit → row in `Registrations` + enriched email to `marketing@hkata.space`). No outstanding work in Kilo's queue. Future work will appear as new rows starting at **T32**, with specs appended in the `📥 Added YYYY-MM-DD` section below.
 >
@@ -192,6 +195,10 @@ This doc is the **single source of truth** for V3 work. Keep it in sync with rea
 | 2026-09-06 | User → Kilo | **T38** (reupload fix) | User re-uploaded all 7 hardware images — now proper 1200×675 16:9 PNG. Two portrait images (`arm.png`, `rocket.jpg`) re-supplied at the right aspect ratio. `rocket` renamed from `.jpg` to `.png` → updated `secondary.html` rocket `src` to `rocket.png`. `arm.png` and `cubesat-secondary.png` re-supplied (sizes changed). All other src references unchanged. | `secondary.html`, `.kilo/plans/REVAMP_PLAN_V3.md` |
 | 2026-09-06 | User → Kilo | **T39** (planning) | User asked to move the 太空任務標誌設計 (TRACK 01) section to appear AFTER the 航天 AI 創新大賽 (TRACK 02 AI 工程) section on primary.html + secondary.html. Request is structurally ambiguous (block reorder vs. full renumber), so 3 variants drafted in `📥 Added 2026-09-06 — T39` block. Awaiting user pick. | `.kilo/plans/REVAMP_PLAN_V3.md` |
 | 2026-09-06 | User → Kilo | **T39** (implement) | User picked variant A (reorder blocks only, keep TRACK labels as-is — minimal change). On both `primary.html` and `secondary.html`: moved TRACK 02 (航天 AI 創新大賽 AI 工程) `<section>` block to come BEFORE the TRACK 01 (太空任務標誌設計) `<section>` block. Section `id`s + HTML comments preserved so the in-page anchor nav still works. No chip text changes (variant A contract). Alternating backgrounds preserved. | `primary.html`, `secondary.html`, `.kilo/plans/REVAMP_PLAN_V3.md` |
+| 2026-09-06 | User → Kilo | **T40** (planning) | User asked for a full 比賽章程 section on primary.html using their official 7-chapter content (活動背景、參賽對象、賽事項目、評審準則、比賽日程、獎項獎勵、N.O.R.A. 學習支援). Spec drafted in `📥 Added 2026-09-06 — T40` block: single new section between `#key-dates` and the BIG APPLY CTA, with sticky in-section sub-nav (一–七) + 7 card-styled chapters. **3 open design choices** awaiting user confirmation: A) sub-nav sticky vs inline, B) §三 sub-track layout (2-col vs 4-col), C) §五 schedule timeline (vertical vs horizontal). | `.kilo/plans/REVAMP_PLAN_V3.md` |
+| 2026-09-06 | User → Kilo | **T40** (implement) | User picked variant A (sticky sub-nav). Implemented: new `<section id="charter">` between `#key-dates` and BIG APPLY CTA with sticky sub-nav (`top-20 z-20`) listing 7 chapter anchors; 7 chapters rendered with user's exact text — 一 background / 二 participants / 三 4 sub-tracks in 2-col chip-coded grid / 四 judging with 2-col criteria cards / 五 7-stage vertical timeline with gold milestones / 六 awards 2-col grid / 七 N.O.R.A. Kids APP with 「即將推出」 honesty note. Top anchor nav extended with 「比賽章程」 link. No CSS changes — pure markup. | `primary.html`, `.kilo/plans/REVAMP_PLAN_V3.md` |
+| 2026-09-06 | User → Kilo | **T41** (planning) | User reviewed T40 and asked for two changes: (1) move the 章程 section to **before** TRACK 02 (AI 工程) instead of after KEY DATES, so 章程 becomes the first content section after the hero/anchor-nav; (2) redesign the chapter UI — current cards feel heavy / under-designed. 3 redesign variants drafted in `📥 Added 2026-09-06 — T41` block; awaiting user pick. | `.kilo/plans/REVAMP_PLAN_V3.md` |
+| 2026-09-06 | User → Kilo | **T41** (implement) | User picked variant A (document-style flowing chapters). Removed old T40 card-style 章程 block from after KEY DATES; inserted redesigned variant-A block before TRACK 02. New chapter markup: outer `<article>` has no `.card` wrapper, uses `py-12 border-t border-[var(--border-soft)] first:border-t-0`; inner is a 2-col grid `[120px gold-numeral | chapter title + content]`; the gold Roman numeral uses `text-7xl md:text-8xl font-display font-bold text-[var(--gold-500)] leading-[0.85]`. Sub-track (§三) / judging criteria (§四) / awards (§六) / APP (§七) cards kept inside the chapter wrappers. Timeline (§五) unchanged. All chapter content (user's exact text) preserved. | `primary.html`, `.kilo/plans/REVAMP_PLAN_V3.md` |
 
 ---
 
@@ -489,6 +496,245 @@ Cons: **doesn't match user's request** — they explicitly said to move 太空�
 2. Hard-refresh `secondary.html` → AI 工程 (航天 AI 創新大賽) first, 太空任務標誌設計 second.
 3. Anchor nav still works (IDs unchanged in variant A/B; chips/text change in variant B).
 4. Alternating section backgrounds (`section-y` / `surface-alt`) preserved — may need to flip which sections get which background so the alternation still works after reorder.
+
+---
+
+## 📥 Added 2026-09-06 — T40 (Add 「比賽章程」 section to primary.html — 7 chapters)
+
+> **Status: planning — awaiting user confirmation on 3 design choices below.** User's request: paste a 7-chapter 章程 block into the primary prospectus page. Spec: new single `<section id="charter">` between the existing `#key-dates` section and the BIG APPLY CTA.
+
+### Root cause / rationale
+
+Today the primary prospectus page (`primary.html`) covers the 3 tracks + key dates + apply CTA, but the **official 7-chapter 章程** (background, eligibility, events, judging, schedule, awards, learning support) only lives in the V2 plan as raw text — never on the live site. Teachers who want the full rule book currently have to ask the secretariat. The user is providing the canonical 7-chapter copy and asking for it added as a self-contained, well-structured section so the page works as a complete prospectus (everything a teacher needs in one place).
+
+### Scope
+
+**One file:** `primary.html` only. Secondary / kindergarten get their own targeted prospectus content later (not in this task). All 7 chapters render from the user's exact text — no paraphrase, no addition.
+
+### Fix / spec — proposed layout
+
+```
+[TOP ANCHOR NAV  ← add one new link]
+  本頁內容   TRACK 02 AI 工程   TRACK 01 標誌   TRACK 03 演講   重要日子   比賽章程   ← (new)
+
+[NEW <section id="charter" class="section-y">]
+
+  ┌──────────────────────────────────────────────────────────┐
+  │  eyebrow: "Competition Rules · 比賽章程"                 │
+  │  h2: 七個章節 · 完整賽事資訊                              │
+  │  sub-line: 七個章節涵蓋活動背景、參賽對象、賽事項目、      │
+  │            評審準則、比賽日程、獎項獎勵、學習支援平台      │
+  └──────────────────────────────────────────────────────────┘
+
+  [STICKY SUB-NAV — design choice A]   ← only inside this section
+    一、背景 · 二、對象 · 三、項目 · 四、評審 · 五、日程 ·
+    六、獎項 · 七、支援
+
+  ╔══════════════════════════════════════════════════════╗
+  ║  CHAPTER 1 — 一、活動背景與宗旨                     (id=ch-1)
+  ║  • 活動背景 paragraph                                ║
+  ║  • 活動願景 paragraph                                ║
+  ║  • 核心宗旨 paragraph                                ║
+  ╚══════════════════════════════════════════════════════╝
+  ╔══════════════════════════════════════════════════════╗
+  ║  CHAPTER 2 — 二、參賽對象                            (id=ch-2)
+  ║  • 全港小學學生 (highlight)                          ║
+  ║  • 初小 / 高小 分流說明                              ║
+  ╚══════════════════════════════════════════════════════╝
+  ╔══════════════════════════════════════════════════════╗
+  ║  CHAPTER 3 — 三、賽事項目及主題                      (id=ch-3)
+  ║  4 sub-track cards (grid — design choice B):         ║
+  ║   ┌────────────┐ ┌────────────┐ ┌────────────┐ ┌────┐ ║
+  ║   │全校 標誌+  │ │ 初小 演講  │ │ 高小 AI    │ │跨級│ ║
+  ║   │填色       │ │            │ │            │ │藍圖│ ║
+  ║   │chip:全校參與│ │ chip:初小  │ │ chip:高小  │ │    │ ║
+  ║   └────────────┘ └────────────┘ └────────────┘ └────┘ ║
+  ╚══════════════════════════════════════════════════════╝
+  ╔══════════════════════════════════════════════════════╗
+  ║  CHAPTER 4 — 四、評審準則與展示形式                   (id=ch-4)
+  ║  Two columns (2 cards):                              ║
+  ║   ┌─────────────────┐ ┌─────────────────┐             ║
+  ║   │ 航天 AI 創新大賽  │ │ 未來基地概念藍圖 │             ║
+  ║   │ 30% 創新, 20% AI │ │ 30% 創意視野     │             ║
+  ║   │ 15% 問題定義 ... │ │ 30% 解難 ...     │             ║
+  ║   └─────────────────┘ └─────────────────┘             ║
+  ╚══════════════════════════════════════════════════════╝
+  ╔══════════════════════════════════════════════════════╗
+  ║  CHAPTER 5 — 五、比賽日程                              (id=ch-5)
+  ║  Vertical timeline (design choice C) — 7 stages:     ║
+  ║   ●─── 2026/09–10  招募 (30px dot)                    ║
+  ║   ●─── 2027/01/11  啟動禮                              ║
+  ║   ●─── 2027/01–03  創新研發                            ║
+  ║   ●─── 2027/03/31  作品提交 ← dot is gold (milestone) ║
+  ║   ●─── 2027/04/30  半決賽                              ║
+  ║   ●─── 2027/05 中    總決賽 (gold milestone)           ║
+  ║   ●─── 2027/06      衛星發射 (gold milestone)          ║
+  ╚══════════════════════════════════════════════════════╝
+  ╔══════════════════════════════════════════════════════╗
+  ║  CHAPTER 6 — 六、獎項及獎勵                            (id=ch-6)
+  ║  2-card grid (left card = prize levels, right card =   ║
+  ║  School Space Logo Plate + 冠軍作品升空):              ║
+  ║   ┌─────────────┐ ┌─────────────────┐                 ║
+  ║   │ 一/二/三/   │ │ School Space    │                 ║
+  ║   │ 優異/創意  │ │ Logo Plate (全) │                 ║
+  ║   │ + 公眾投票 │ │ 冠軍作品升空     │                 ║
+  ║   └─────────────┘ └─────────────────┘                 ║
+  ╚══════════════════════════════════════════════════════╝
+  ╔══════════════════════════════════════════════════════╗
+  ║  CHAPTER 7 — 七、學習支援平台                          (id=ch-7)
+  ║  N.O.R.A. Kids — 星際 AI 學院 APP                     ║
+  ║  Reference V3 T18 plan note: app is **即將推出**,      ║
+  ║  not yet live — keep copy honest, no fake App Store   ║
+  ║  button. Use the existing index.html "即將推出"         ║
+  ║  email-notify pattern as visual cue.                   ║
+  ╚══════════════════════════════════════════════════════╝
+```
+
+### Token discipline (reuse existing classes)
+
+- `.section-y` for vertical padding
+- `.surface-alt` for alternating bg between chapter cards (1, 3, 5, 7 vs 2, 4, 6)
+- `.card` for chapter containers
+- `.chip` / `.chip-k` / `.chip-p` for sub-track category badges
+- `.eyebrow` / `.h2` / `.h3` / `.body` / `.caption` for typography
+- Existing `.btn-ghost` for the top-nav "比賽章程" link
+- For the vertical timeline: reuse the `.timeline` pattern from `index.html` (`#schedule`)
+
+### Open design choices — awaiting user confirmation
+
+| # | Choice | Default (recommended) | Alternative |
+|---|---|---|---|
+| **A** | **Sticky sub-nav inside 章程 section** | **Yes** — pins below the page header while reading the section, lifts after exiting | No — inline at top of section (scrolls away, user loses context) |
+| **B** | **§三 (4 sub-tracks) grid** | **2-col on desktop** (matches prospectus design language, room for paragraph copy under each card) | 4-col on desktop (matches the homepage 3 group cards but each sub-track has more copy — cards get cramped) |
+| **C** | **§五 schedule visualization** | **Vertical timeline** with dots + connecting line (reuses the index.html `#schedule` pattern; milestones in `--gold-300`) | Horizontal 7-step pill row (matches the existing hardware lottery flow but 7 steps is too many for one row on mobile) |
+
+### Files touched at implementation time
+
+- `primary.html` — add 1 link to top anchor nav + new `<section id="charter">` with sub-nav + 7 chapters (~200 lines of markup). No JS change needed (existing anchor scroll works).
+- `assets/theme.css` — only IF a new class is needed (e.g. a chapter-card spacing rule). Likely reuses `.card` directly. Conditional.
+- `.kilo/plans/REVAMP_PLAN_V3.md` — T40 → ✅ DONE + worklog entry.
+
+### Result — what "done" looks like
+
+1. `primary.html` top nav has 6 links now: 本頁內容 · TRACK 02 AI · TRACK 01 標誌 · TRACK 03 演講 · 重要日子 · **比賽章程** (new).
+2. Clicking 比賽章程 jumps to `#charter` section, the sub-nav appears.
+3. While scrolling the 章程 section, the sub-nav sticks (variant A) so 一–七 are always one click away.
+4. 7 chapters render with the user's exact text, each with Roman-numeral heading.
+5. §三 shows 4 sub-track cards in a 2-col grid (variant B), each with chip badge (全校參與 / 初小 / 高小 / 跨小學級別) + paragraph.
+6. §四 shows two judging-criteria cards side-by-side.
+7. §五 shows a 7-stage vertical timeline with milestone dates highlighted in gold.
+8. §六 shows a 2-card layout (prize levels + Logo Plate / 升空).
+9. §七 references N.O.R.A. Kids with a "即將推出" note matching the index.html honesty rule (no fake store buttons).
+10. The hard-refresh renders correctly; section background alternates between `surface-alt` and base; chip colors match the existing `--group-k` / `--group-p` / `--group-s` for the segments.
+
+---
+
+## 📥 Added 2026-09-06 — T41 (Rework T40: move 章程 above TRACK 02 + redesign chapter UI)
+
+> **Status: planning — awaiting user pick on the redesign variant.** User reviewed the T40 render and asked for: (1) move the 章程 section from "after KEY DATES" to **"before TRACK 02 AI 工程"** so the chapter overview reads first; (2) **redesign the chapter UI** — current card-per-chapter approach feels heavy.
+
+### Two changes
+
+#### Change 1 — Placement (clear, no design choice)
+
+**Current order** in `primary.html`:
+```
+hero → anchor-nav → TRACK 02 AI → TRACK 01 標誌 → TRACK 03 演講 → KEY DATES → 章程 → BIG APPLY CTA
+```
+
+**New order** (user request):
+```
+hero → anchor-nav → 章程 → TRACK 02 AI → TRACK 01 標誌 → TRACK 03 演講 → KEY DATES → BIG APPLY CTA
+```
+
+Mechanics: cut the existing `<section id="charter">` block + paste it just before `<section id="track-ai">` (TRACK 02). Top anchor-nav link stays. KEY DATES section stays in its position.
+
+#### Change 2 — UI redesign (open — pick a variant)
+
+The T40 design used `.card` per chapter, which felt heavy. Below are 3 redesign options for the 7 chapters (— same content, new look):
+
+### Variant A ★ recommended — 「Document-style flowing chapter blocks」
+
+Each chapter rendered as a flow block (no `.card` wrapper), separated by thin top borders (`border-t border-[var(--border-soft)]`). Each chapter has:
+
+```
+┌─────────────────────────────────────────────────────────┐
+│   ┌────────┐                                             │
+│   │  一、   │   活動背景與宗旨                  ← chapter h2  │
+│   │  80px  │   ─────────────────────                      │
+│   │ big nu │   活動背景                              ← label  │
+│   │  metric │   本賽事為香港回歸 30 周年…                │
+│   │  (gold) │                                            │
+│   └────────┘   活動願景                              ← label  │
+│               打造香港首屈一指…                       │
+│                                                         │
+│               核心宗旨                              ← label  │
+│               透過真實任務導向…                       │
+└─────────────────────────────────────────────────────────┘
+```
+
+- Left-side big Roman numeral as a decorative **giant character** (`text-7xl font-display text-[var(--gold-500)]`) — visual anchor for each chapter
+- 3-column flex on desktop: `[big numeral | chapter title + meta | content]` or stacked on mobile
+- No card wrapper → looks like a printed PDF
+- Section dividers between chapters (not background alternation)
+- Sub-track cards (§三) keep the 2-col grid (those work fine as cards)
+- Judging criteria cards (§四) keep 2-col cards
+- Timeline (§五) stays
+- Awards grid (§六) keeps 2-col cards
+- APP card (§七) stays
+
+**Pros:** official-document feel; lighter visual weight; Roman numerals as decoration reinforce the "official rules" tone.
+**Cons:** less modular — harder to add/remove a chapter later.
+
+### Variant B — Compact card-grid preserved (lighten only)
+
+Keep the card-per-chapter structure from T40, but:
+- Reduce padding from `p-6 sm:p-8` → `p-5 sm:p-6`
+- Tighter gap between cards (`space-y-4` instead of `mb-6` on each)
+- Move sub-labels (活動背景/願景/宗旨) into the same paragraph with a `<strong>` instead of a separate caption line
+- Reduce the Roman numeral size from `text-2xl` → `text-lg` so it doesn't dominate
+
+**Pros:** minimal change, preserves modularity.
+**Cons:** doesn't really "redesign" — just tightens.
+
+### Variant C — 2-col TOC sidebar
+
+Convert the sticky horizontal sub-nav into a sticky **vertical sidebar** on desktop:
+
+```
+┌─────────────────────────────────────────────────────────┐
+│  ┌──────────────────┬───────────────────────────────┐  │
+│  │ 章程導航 (sticky) │ 一、活動背景與宗旨          │  │
+│  │ 一、背景 ●       │ ─────────────────────       │  │
+│  │ 二、對象         │ 活動背景                      │  │
+│  │ 三、項目         │ 本賽事為香港回歸 30 周年…    │  │
+│  │ 四、評審         │                                │  │
+│  │ 五、日程         │ 活動願景                      │  │
+│  │ 六、獎項         │ 打造香港首屈一指…            │  │
+│  │ 七、支援         │                                │  │
+│  └──────────────────┴───────────────────────────────┘  │
+└─────────────────────────────────────────────────────────┘
+```
+
+- Left sidebar: 200px wide, sticky, vertical list with active state highlighting as user scrolls
+- Right main column: chapter content
+- On mobile: sidebar collapses into a horizontal sticky scroll-list (like current design)
+
+**Pros:** classic long-doc layout, professional look, clear hierarchy.
+**Cons:** requires a 2-col grid layout + new sidebar styling (small CSS addition); less compact on tablet widths.
+
+### Files touched at implementation time
+
+- `primary.html` — cut + paste the `<section id="charter">` block (mechanical move); redesign markup changes per chosen variant.
+- `assets/theme.css` — only if variant C chosen (sidebar styles). A and B are pure HTML.
+- `.kilo/plans/REVAMP_PLAN_V3.md` — T41 ✅ DONE + worklog entry.
+
+### Result — what "done" looks like
+
+1. Hard-refresh `primary.html` → the page now reads: hero → anchor-nav → **章程 (7 chapters, new design)** → TRACK 02 AI → TRACK 01 標誌 → TRACK 03 演講 → KEY DATES → BIG APPLY CTA.
+2. The 7 chapters render with the new design (per chosen variant).
+3. Top anchor nav still has 6 links including 「比賽章程」.
+4. Sticky sub-nav still works (if A/B/C all keep it; only C relocates it to a vertical sidebar).
 
 ---
 
