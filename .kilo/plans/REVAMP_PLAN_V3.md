@@ -77,6 +77,8 @@ This doc is the **single source of truth** for V3 work. Keep it in sync with rea
 | T35 | Fix: server-side dedupe guard blocks user-approved overrides | T35 | ✅ DONE | **Bug:** teacher clicks 仍然提交 → POST fires → server-side T33 guard returns `{ok:false,reason:'duplicate'}` → `mode:'no-cors'` makes response opaque → client ignores rejection → success modal shows → **no row appended**. **Fix:** added `forceSubmit: false` to default `formData`; in the duplicate modal's 仍然提交 callback, set `formData.forceSubmit = true` before calling `performSubmit(formData)`. Server-side `doPost()` guard condition updated to `if (existing && existing === submittedName && !d.forceSubmit)` → reject; if `forceSubmit === true`, allow the row to be appended. Email subject gains `[重複]` marker + body adds `(注意：此為重複提交...)` so secretariat can audit overrides in their inbox. Sheet rows themselves are unchanged. Apps Script update handed to user to paste + redeploy as new version. |
 | T36 | Rebrand org name → **HONG KONG AEROSPACE TALENT DEVELOPMENT FOUNDATION** / 香港航天人材發展慈善基金會 | T36 | ✅ DONE | User asked for org name text update across the site. Replaced `HONG KONG AEROSPACE TECHNOLOGY ACADEMY` → `HONG KONG AEROSPACE TALENT DEVELOPMENT FOUNDATION` and `香港航天科技教育學院` → `香港航天人材發展慈善基金會` in the header logo block + footer block on all 5 main pages (`index.html`, `apply.html`, `kindergarten.html`, `primary.html`, `secondary.html`). Also updated the 4 parked `track0N.html` redirect-stub footers (copyright line + "Limited" suffix dropped — entity is now a Foundation not a Limited company). Short abbreviation `HKATA` kept everywhere (works as initialism for the new name too). **Logo image `doc/img/LOGO 1.png` is unchanged** — text update only; if user wants the logo image redrawn with the new name, that's a separate out-of-band task (image asset). |
 | T37 | Swap logo image → `doc/img/LOGO 2.png` (the new brand mark) | T37 | ✅ DONE | User: "please replace the LOGO 1.png with LOGO 2.png". `doc/img/LOGO 1.png` (header logo on `index.html` + `apply.html`) was byte-identical to root `logo.png` (header logo on `kindergarten.html` / `primary.html` / `secondary.html`) — same MD5 — so the new logo had to land in both locations for consistency. Copied `doc/img/LOGO 2.png` → `doc/img/LOGO 1.png` AND `logo.png` (overwrote); removed the now-redundant `doc/img/LOGO 2.png`. No HTML changes (the `<img src>` paths stayed the same; both file paths now point at the new logo content). MD5 confirms both files now match. |
+| T38 | Wire 7 hardware kit images into primary + secondary prospectus | T38 | ✅ DONE | User uploaded 7 images to `doc/img/hardware/` (initial pass had `arm.png` 1200×1600 portrait and `rocket.jpg` 468×625 portrait — `object-fit: cover` cropped them to 16:9). Replaced all 7 `<div class="aspect-video ...">` placeholders + `<!-- REPLACE: ... -->` comments in `primary.html` (3 kits) + `secondary.html` (4 kits) with `<img>` tags: `aspect-video w-full object-cover rounded-xl mb-3 loading="lazy" decoding="async"`. CubeSat grade text corrected (primary: `高小 P4–P6` only; secondary: `初中 S1–S3` only). **Re-uploaded 2026-09-06 17:05** — all 7 files now proper 1200×675 16:9 PNG; `rocket` renamed from `.jpg` to `.png` so `secondary.html` rocket `src` updated to `rocket.png`. |
+| T39 | Reorder track sections on primary.html + secondary.html so 太空任務標誌設計 (TRACK 01) appears AFTER the 航天 AI 創新大賽 (TRACK 02 AI 工程) section | T39 | ✅ DONE | User picked **variant A** (reorder blocks only, keep TRACK labels as-is — minimal change, accept the 02→01→03 chip ordering). On both `primary.html` and `secondary.html`: TRACK 02 (航天 AI 創新大賽 AI 工程) section moved BEFORE TRACK 01 (太空任務標誌設計). HTML comments + section `id`s preserved so the anchor nav (`#track-logo`, `#track-ai`) still jumps correctly. Alternating section backgrounds preserved (both sections use `section-y` / `surface-alt` matching the prior pattern). Chip text + IDs untouched (variant A). |
 
 > **V3 is fully closed** as of 2026-09-06 — **T30 + T31 verified end-to-end** by user (live form submit → row in `Registrations` + enriched email to `marketing@hkata.space`). No outstanding work in Kilo's queue. Future work will appear as new rows starting at **T32**, with specs appended in the `📥 Added YYYY-MM-DD` section below.
 >
@@ -186,6 +188,10 @@ This doc is the **single source of truth** for V3 work. Keep it in sync with rea
 | 2026-09-06 | User → Kilo | **T35** (implement) | Added `forceSubmit: false` to default `formData` in `apply.html`; in the duplicate modal's 仍然提交 callback, set `formData.forceSubmit = true` before calling `performSubmit(formData)`. Apps Script update handed to user to paste + redeploy: guard condition `if (existing && existing === submittedName && !d.forceSubmit)` → reject; email subject gets `[重複]` prefix + body appends `(注意：此為重複提交 — 用戶已於表單確認覆核)` when force-submitted. | `apply.html`, `.kilo/plans/REVAMP_PLAN_V3.md` |
 | 2026-09-06 | User → Kilo | **T36** (rebrand) | User asked for org name text update across the site. Replaced `HONG KONG AEROSPACE TECHNOLOGY ACADEMY` → `HONG KONG AEROSPACE TALENT DEVELOPMENT FOUNDATION` and `香港航天科技教育學院` → `香港航天人材發展慈善基金會` in header + footer on all 5 main pages + 4 parked `track0N.html` redirect stubs. Dropped the `Limited` suffix on `track0N.html` copyright lines (entity is now a Foundation). Short `HKATA` abbreviation kept. Logo image `doc/img/LOGO 1.png` is **unchanged** — text-only rebrand. | `index.html`, `apply.html`, `kindergarten.html`, `primary.html`, `secondary.html`, `track01.html`, `track02.html`, `track03.html`, `track04.html`, `.kilo/plans/REVAMP_PLAN_V3.md` |
 | 2026-09-06 | User → Kilo | **T37** (logo swap) | User: "please replace the LOGO 1.png with LOGO 2.png". `doc/img/LOGO 1.png` (header on index/apply) was byte-identical to root `logo.png` (header on kindergarten/primary/secondary). Copied `doc/img/LOGO 2.png` → `doc/img/LOGO 1.png` AND `logo.png` so the new brand mark shows on all 5 pages. Removed the now-redundant `doc/img/LOGO 2.png`. No HTML changes (the `<img src>` paths stayed the same). | `doc/img/LOGO 1.png`, `logo.png`, `.kilo/plans/REVAMP_PLAN_V3.md` |
+| 2026-09-06 | User → Kilo | **T38** (hardware images) | User uploaded 7 hardware kit images to `doc/img/hardware/`. Replaced 7 `<div class="aspect-video">` placeholders + `<!-- REPLACE: -->` comments in `primary.html` (3 kits) + `secondary.html` (4 kits) with `<img>` tags using `aspect-video w-full object-cover` so portrait images (arm 1200×1600, rocket 468×625) crop cleanly. CubeSat grade text split correctly (primary: 高小 P4–P6 only; secondary: 初中 S1–S3 only — was previously the combined range). | `primary.html`, `secondary.html`, `.kilo/plans/REVAMP_PLAN_V3.md` |
+| 2026-09-06 | User → Kilo | **T38** (reupload fix) | User re-uploaded all 7 hardware images — now proper 1200×675 16:9 PNG. Two portrait images (`arm.png`, `rocket.jpg`) re-supplied at the right aspect ratio. `rocket` renamed from `.jpg` to `.png` → updated `secondary.html` rocket `src` to `rocket.png`. `arm.png` and `cubesat-secondary.png` re-supplied (sizes changed). All other src references unchanged. | `secondary.html`, `.kilo/plans/REVAMP_PLAN_V3.md` |
+| 2026-09-06 | User → Kilo | **T39** (planning) | User asked to move the 太空任務標誌設計 (TRACK 01) section to appear AFTER the 航天 AI 創新大賽 (TRACK 02 AI 工程) section on primary.html + secondary.html. Request is structurally ambiguous (block reorder vs. full renumber), so 3 variants drafted in `📥 Added 2026-09-06 — T39` block. Awaiting user pick. | `.kilo/plans/REVAMP_PLAN_V3.md` |
+| 2026-09-06 | User → Kilo | **T39** (implement) | User picked variant A (reorder blocks only, keep TRACK labels as-is — minimal change). On both `primary.html` and `secondary.html`: moved TRACK 02 (航天 AI 創新大賽 AI 工程) `<section>` block to come BEFORE the TRACK 01 (太空任務標誌設計) `<section>` block. Section `id`s + HTML comments preserved so the in-page anchor nav still works. No chip text changes (variant A contract). Alternating backgrounds preserved. | `primary.html`, `secondary.html`, `.kilo/plans/REVAMP_PLAN_V3.md` |
 
 ---
 
@@ -416,6 +422,73 @@ Pass a `forceSubmit` flag in the request body. Server-side guard only rejects wh
 5. `marketing@hkata.space` inbox: an override submission's email subject is `**[重複] 新學校報名：[name]**`; body ends with `（注意：此為重複提交 — 用戶已於表單確認覆核）`. Easy to filter.
 6. Direct `curl` POST to `/exec` with `{schoolNameEn: 'X', ...}` (no `forceSubmit`) → server returns `{ok:false, reason:'duplicate'}` → no row. Defense-in-depth preserved for bypasses.
 7. Direct `curl` POST with `forceSubmit: true` → row appended (only if secretariat reviews the email marker they can spot the override).
+
+---
+
+## 📥 Added 2026-09-06 — T39 (Reorder track sections on primary + secondary)
+
+> **Status: planning — awaiting user confirmation.** User's report: "in primary and secondary page, please move this part [TRACK 01 太空任務標誌設計] after 航天 AI 創新大賽 [TRACK 02 AI 工程]".
+
+### Current vs desired order
+
+**primary.html** (3 tracks):
+- Current: `TRACK 01 太空任務標誌設計` → `TRACK 02 航天 AI 創新大賽 · 未來月球基地` → `TRACK 03 中國航天發展演講比賽`
+- Desired: 太空任務標誌設計 moves to AFTER 航天 AI 創新大賽 → `TRACK 02 航天 AI 創新大賽` → `TRACK 01 太空任務標誌設計` → `TRACK 03 中國航天發展演講比賽`
+
+**secondary.html** (2 tracks):
+- Current: `TRACK 01 太空任務標誌設計` → `TRACK 02 航天 AI 創新大賽 · 未來火星基地`
+- Desired: `TRACK 02 航天 AI 創新大賽` → `TRACK 01 太空任務標誌設計`
+
+The TRACK labels themselves are user-visible chips ("TRACK 01", "TRACK 02", "TRACK 03") — three different reorder behaviors are possible. **Pick one**:
+
+### Variant A — Reorder blocks only, keep TRACK labels as-is
+
+```
+primary.html:
+  TRACK 02 [AI 工程 航天 AI 創新大賽 · 未來月球基地]    (label stays "TRACK 02")
+  TRACK 01 [太空任務標誌設計]                         (label stays "TRACK 01")
+  TRACK 03 [中國航天發展演講比賽]                    (label stays "TRACK 03")
+```
+
+Pros: minimal change (move HTML blocks only — chip text + ID + section ID all stay).
+Cons: visually confusing — TRACK 02 appears first, then TRACK 01.
+
+### Variant B ★ recommended — Reorder blocks AND renumber labels
+
+```
+primary.html:
+  TRACK 01 [AI 工程 航天 AI 創新大賽 · 未來月球基地]   (was TRACK 02)
+  TRACK 02 [太空任務標誌設計]                         (was TRACK 01)
+  TRACK 03 [中國航天發展演講比賽]                    (unchanged)
+```
+
+Pros: clean visual order. AI 工程 is the flagship and now reads as TRACK 01. Anchor IDs (`#track-ai`, `#track-logo`, `#track-speech`) stay the same — anchor nav links still work.
+Cons: chips change in two places. Section comment text changes ("TRACK 02: AI 工程" → "TRACK 01: AI 工程").
+
+### Variant C — Different rename (標誌 first / AI 工程 second)
+
+```
+primary.html:
+  TRACK 01 [太空任務標誌設計]                         (no change)
+  TRACK 02 [AI 工程 航天 AI 創新大賽 · 未來月球基地]   (was TRACK 02)
+  TRACK 03 [中國航天發展演講比賽]                    (unchanged)
+```
+
+Pros: nothing to change.
+Cons: **doesn't match user's request** — they explicitly said to move 太空任務標誌設計 AFTER 航天 AI 創新大賽. Listed only for completeness.
+
+### Files touched at implementation time
+
+- `primary.html` — reorder 3 track `<section>` blocks (variant B requires also updating the chip text + HTML comments).
+- `secondary.html` — reorder 2 track `<section>` blocks (variant B requires also updating the chip text + HTML comments).
+- `.kilo/plans/REVAMP_PLAN_V3.md` — T39 → ✅ DONE + worklog entry.
+
+### Result — what "done" looks like
+
+1. Hard-refresh `primary.html` → page now reads: AI 工程 (航天 AI 創新大賽) first, 太空任務標誌設計 second, 中國航天發展演講比賽 third.
+2. Hard-refresh `secondary.html` → AI 工程 (航天 AI 創新大賽) first, 太空任務標誌設計 second.
+3. Anchor nav still works (IDs unchanged in variant A/B; chips/text change in variant B).
+4. Alternating section backgrounds (`section-y` / `surface-alt`) preserved — may need to flip which sections get which background so the alternation still works after reorder.
 
 ---
 
