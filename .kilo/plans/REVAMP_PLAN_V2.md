@@ -495,5 +495,6 @@ Anything above can be flipped by the user; the plan is internally consistent wit
 | 2026-09-06 | User → Kilo | T13 (extension) | School district dropdown changed from 4 regions to all 18 HK districts (港島 4 + 九龍 5 + 新界 8 + 離島 1) with bilingual labels and `<optgroup>` grouping. | `apply.html` |
 | 2026-09-06 | User → Kilo | T18 (extension) | Removed "校長授權" (principal authorization) section from apply form. Added new "比賽選擇" (Competition Selection) section with 3 segment radios (幼兒/小學/中學) + per-segment track checklists. Removed "+ 太空基地填色" from Primary/Secondary Track 01 to align with apply form. | `apply.html`, `primary.html`, `secondary.html` |
 | 2026-09-06 | User → Kilo | T5 (extension) | Header nav link color → white (`var(--text-hi)`) per user request. Header logo switched from `logo.png` to original `doc/img/LOGO 1.png` with `bg-white` background and gold ring (no `mix-blend-mode`). | `index.html`, `apply.html`, `kindergarten.html`, `primary.html`, `secondary.html` |
+| 2026-09-06 | User → Kilo | T8–T10 (extension) — **UNDONE** | "move this section after 截止日期" was added then reverted in the same session; 3 group CTA cards were not actually wanted on the prospectus pages. | `kindergarten.html`, `primary.html`, `secondary.html` |
 |---|---|---|---|---|
 | _(pending)_ | Kilo | — | _add your first entry here_ | — |
