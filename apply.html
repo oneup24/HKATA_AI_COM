@@ -370,15 +370,20 @@
         </div>
     </div>
 
-    <!-- T33: Duplicate-warning modal — soft block when the entered 學校英文全稱 already exists in the Sheet -->
+    <!-- T33 + T34: Duplicate-warning modal — soft block with directive warning copy -->
     <div id="duplicateModal" class="modal-backdrop" role="dialog" aria-modal="true" aria-labelledby="duplicateModalTitle" hidden>
         <div class="modal" role="document">
             <div class="modal-icon modal-icon-warn" aria-hidden="true"><i class="fa-solid fa-circle-exclamation"></i></div>
-            <h3 id="duplicateModalTitle">此學校已登記</h3>
-            <p class="modal-body">秘書處記錄顯示，<strong id="duplicateName" class="text-[var(--text-hi)]">—</strong> 已經有報名紀錄。</p>
-            <p class="modal-sub">如需更改資料或查詢，請電郵秘書處 <a href="mailto:marketing@hkata.space" class="link">marketing@hkata.space</a>。</p>
+            <h3 id="duplicateModalTitle">此學校已申請過</h3>
+            <p class="modal-body"><strong id="duplicateName" class="text-[var(--text-hi)]">—</strong> 已於本系統登記。</p>
+            <p class="modal-body">請先再次核對學校名稱是否正確：</p>
+            <ul class="modal-sub text-left pl-1 space-y-1 list-none">
+                <li>• 如屬輸入錯誤，請按「返回核對」並修改學校名稱</li>
+                <li>• 如確認資料正確並需要重新提交（例如更新聯絡人資料），請按「仍然提交」</li>
+            </ul>
+            <p class="modal-sub">如有疑問，請電郵秘書處 <a href="mailto:marketing@hkata.space" class="link">marketing@hkata.space</a>。</p>
             <div class="modal-actions">
-                <button type="button" class="btn btn-ghost" id="duplicateModalCancel">取消</button>
+                <button type="button" class="btn btn-ghost" id="duplicateModalCancel">返回核對</button>
                 <button type="button" class="btn btn-primary" id="duplicateModalProceed">仍然提交</button>
             </div>
         </div>

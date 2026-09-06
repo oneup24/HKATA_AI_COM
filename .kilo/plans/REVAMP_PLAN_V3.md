@@ -73,6 +73,7 @@ This doc is the **single source of truth** for V3 work. Keep it in sync with rea
 | T31 | Swap `/exec` URL — bound-script unblocks the lookup | V3 §1 | ✅ DONE | ⚠️ User hit `Document … is missing (perhaps it was deleted, or you don't have read access?)` because the original deployment was a **standalone** Apps Script project (`openById()` of an external Sheet fails in that mode). User recreated the script via **Extensions → Apps Script from inside the Sheet** (now container-bound), switched line 5 from `SpreadsheetApp.openById(...)` to `SpreadsheetApp.getActiveSpreadsheet().getSheetByName('Registrations')` (eliminates the whole class of "doc not found" errors), redeployed as a new web app, and pasted the new `/exec` URL. Kilo swapped the URL constant in `apply.html:436`. No other code changed. |
 | T32 | Replace bottom toast with a centered success modal on submit | T32 | ✅ DONE | User: "the pop-up to show the 申請編號 now is a very small down at bottom, no good. please a proper pop up a square in the center, something like thank you for apply the competition, here is your 申請編號 and show the next Nov will have result etc." Added a centered modal in `apply.html` (next to the existing `#toast`) + `.modal-backdrop` / `.modal` styles in `assets/theme.css`. Modal shows: ✓ icon + **感謝您的報名！** + appId (gold pill) + **請記下您的申請編號** + "秘書處將於 11月下旬 官宣抽籤分組結果，並通知校方領取官方「硬件套件」" + 關閉 button. Backdrop click + Esc + close button all dismiss. `#consent` toast preserved for the consent-gate error (transient). Token discipline: reuses `--surface-700` / `--gold-500` / `--primary-500` / `--elev-2` / `.btn-gold`; `prefers-reduced-motion` respected. |
 | T33 | De-duplicate registration by **學校英文全稱** before submit | V3 § `📥 Added 2026-09-06 — T33` | ✅ DONE | User confirmed defaults: **A soft-block, B one-key (English only), C no appId surfaced**. Implemented: (1) `apply.html` pre-loads the existing-name list on page load via `fetch(EXEC_URL, {method:'GET'})` → caches in `sessionStorage` → builds `window.__hkataKnownNames` Set. (2) Pre-submit check compares `normName(formData.schoolNameEn)` against the Set; if match → `#duplicateModal` with 取消 / 仍然提交 buttons. (3) Extracted `performSubmit(formData)` so the 仍然提交 callback can re-fire the actual submit cleanly. (4) Added `#duplicateModal` markup + `.modal-icon-warn` + `.modal-actions` styles. (5) Apps Script update (user to paste + redeploy): added `doGet()` returning `{count, names}` of normalized English names; added server-side duplicate guard in `doPost()` returning `{ok:false, reason:'duplicate'}` — defense in depth so a bypassed client check still can't dirty the Sheet. |
+| T34 | Refine `#duplicateModal` warning copy + button labels | T34 | ✅ DONE | User feedback after T33: current copy reads as "school already registered, contact secretariat" — too passive. User wanted a **directive** warning: "school already applied, please check again and submit again". Implemented variant **B** (per user pick): new copy `此學校已申請過` heading + echoed school name + "請先再次核對學校名稱是否正確" + 2-bullet decision guide + mailto line + button labels `返回核對` (was 取消) / `仍然提交`. Behavior unchanged: 返回核對 closes modal + focuses #schoolNameEn; 仍然提交 re-fires `performSubmit(formData)`. No CSS / Apps Script changes. |
 
 > **V3 is fully closed** as of 2026-09-06 — **T30 + T31 verified end-to-end** by user (live form submit → row in `Registrations` + enriched email to `marketing@hkata.space`). No outstanding work in Kilo's queue. Future work will appear as new rows starting at **T32**, with specs appended in the `📥 Added YYYY-MM-DD` section below.
 >
@@ -176,6 +177,8 @@ This doc is the **single source of truth** for V3 work. Keep it in sync with rea
 | 2026-09-06 | User → Kilo | **T32** (success modal) | User: bottom toast for submission confirmation was too small / too transient and didn't surface the appId prominently. Replaced with a centered modal: ✓ icon, **感謝您的報名！**, appId displayed in a gold pill, "秘書處將於 11月下旬 官宣抽籤分組結果，並通知校方領取官方「硬件套件」。", gold 關閉 button. Backdrop click + Esc + close button all dismiss. Existing `#consent` toast preserved for the consent-gate error so transient messages don't need a full modal. Tokens reused (`--surface-700`, `--gold-500`, `--primary-500`, `--elev-2`, `.btn-gold`); `prefers-reduced-motion` respected. | `apply.html`, `assets/theme.css`, `.kilo/plans/REVAMP_PLAN_V3.md` |
 | 2026-09-06 | User → Kilo | **T33** (planning) | User requested a pre-submit duplicate check using "學校英文全稱" as the dedupe key. Asked Kilo to plan before implementing. Spec drafted in `📥 Added 2026-09-06 — T33` block (server `doGet()` exposes English-name list; client pre-loads + caches in `sessionStorage`; soft-block modal on match; server-side `doPost()` duplicate guard as defense-in-depth). **Implementation paused** for user confirmation on 3 design choices (soft vs hard block; single vs two-key dedupe; surface existing appId or not). No code change yet. | `.kilo/plans/REVAMP_PLAN_V3.md` |
 | 2026-09-06 | User → Kilo | **T33** (implement) | User accepted defaults (soft / one-key / no appId surfaced). Implemented: `apply.html` adds `loadKnownNames()` IIFE → `window.__hkataKnownNames` Set (cached in `sessionStorage`); pre-submit check via `normName()`; new `#duplicateModal` with 取消 / 仍然提交 buttons; refactored submit handler to extract `performSubmit(formData)` so the 仍然提交 callback cleanly re-fires the actual submit; added `.modal-icon-warn` + `.modal-actions` styles. Apps Script update handed to user to paste + redeploy (adds `doGet()` + server-side duplicate guard in `doPost()`). | `apply.html`, `assets/theme.css`, `.kilo/plans/REVAMP_PLAN_V3.md` |
+| 2026-09-06 | User → Kilo | **T34** (planning) | User feedback after T33 implementation: current soft-block modal reads as "school already registered, contact secretariat to update" — they want a more **directive** warning that explicitly says "school already applied, please check again and submit again if correct". Spec drafted in `📥 Added 2026-09-06 — T34` block; 2 button-label variants proposed (A: 取消 / 仍然提交 — keep; B: 返回核對 / 仍然提交 — rename 取消 for clearer intent). Awaiting user pick. No code change yet. | `.kilo/plans/REVAMP_PLAN_V3.md` |
+| 2026-09-06 | User → Kilo | **T34** (implement) | User picked variant B. Refined `#duplicateModal` body copy: heading `此學校已登記` → `此學校已申請過`; added "請先再次核對學校名稱是否正確" + 2-bullet decision guide; Cancel button renamed `取消` → `返回核對` for action-clarity. Behavior unchanged: 返回核對 closes + focuses #schoolNameEn; 仍然提交 re-fires performSubmit. No CSS / Apps Script changes. | `apply.html`, `.kilo/plans/REVAMP_PLAN_V3.md` |
 
 ---
 
@@ -321,6 +324,81 @@ End-to-end live test passed: form submit → new row in `Registrations` + enrich
 > 2. **Root cause / rationale.**
 > 3. **Fix / spec** — file list, exact changes, expected behavior.
 > 4. **Result** — what "done" looks like.
+
+---
+
+## 📥 Added 2026-09-06 — T34 (Refine duplicate-modal warning copy + button labels)
+
+> **Status: planning — awaiting user confirmation on button-label variant.** User's request: "now have an issue, if duplicated, no warning, the teacher will never know if he can apply or not. … i do not want Soft or Hard, but Soft, but add a warning like 'the school applied already, please check again and submit again'".
+
+### Root cause / rationale
+
+T33's `#duplicateModal` currently says:
+
+```
+此學校已登記
+秘書處記錄顯示，[name] 已經有報名紀錄。
+如需更改資料或查詢，請電郵秘書處 marketing@hkata.space。
+[取消]  [仍然提交]
+```
+
+This **reads** as "school already registered → contact the secretariat" — too passive. The teacher can't easily tell whether they should *stop* or *re-confirm and submit again*. User wants a more **directive** copy that explicitly walks the teacher through the decision: "school already applied → check name carefully → either correct it or proceed to submit again". Behavior stays soft-block (cancel = exit, proceed = submit again); only the **copy** changes.
+
+### Fix / spec
+
+**Scope of change:** `apply.html` `#duplicateModal` body text + button labels only. No CSS change (existing `.modal-icon-warn` / `.modal-body` / `.modal-sub` / `.modal-actions` classes are sufficient). No Apps Script change. No new row in the Sheet.
+
+**New modal body (text-only swap inside `#duplicateModal`):**
+
+```
+[warn icon - gold]
+此學校已申請過
+
+[school name in gold pill] 已於本系統登記。
+
+請先再次核對學校名稱是否正確：
+  • 如屬輸入錯誤，請按「返回核對」並修改學校名稱
+  • 如確認資料正確並需要重新提交（例如更新聯絡人資料），請按「仍然提交」
+
+如有疑問，請電郵秘書處 marketing@hkata.space
+
+[返回核對]  [仍然提交]
+```
+
+Key changes vs current:
+- Heading: `此學校已登記` → **`此學校已申請過`** — past tense, more direct.
+- Echoed name: still in a `<strong>` styled with `text-[var(--text-hi)]` (no separate pill — keeps it simple).
+- New body line: "**請先再次核對學校名稱是否正確**" — explicit "check again" instruction matching the user's literal request.
+- Two bulleted outcomes make the decision crystal clear.
+- Existing `mailto:marketing@hkata.space` line kept as the safety valve.
+
+### Open design choice — button labels
+
+| # | Variant | Cancel button | Proceed button |
+|---|---|---|---|
+| **A** | **Keep current labels** | 取消 | 仍然提交 |
+| **B** | **Rename cancel for clarity** (recommended) | **返回核對** | 仍然提交 |
+
+Variant B (recommended) makes the cancel button more action-oriented — "返回核對" tells the teacher exactly what will happen (return to the form to verify), instead of the generic 取消 which can feel like "give up entirely".
+
+### Files touched at implementation time
+
+- `apply.html` — replace the `#duplicateModal` body content only (~12 lines). The opening/closing div, icon, IDs, classes all stay. No JS change.
+- `assets/theme.css` — no change.
+- `Code.gs` (Apps Script) — no change.
+- `.kilo/plans/REVAMP_PLAN_V3.md` — T34 → ✅ DONE + worklog entry.
+
+### Result — what "done" looks like
+
+1. Hard-refresh `apply.html` (`Cmd+Shift+R`).
+2. Submit a school already in the Sheet.
+3. Duplicate modal appears with new copy:
+   - Heading **「此學校已申請過」**
+   - Echoed school name
+   - "請先再次核對學校名稱是否正確" + two bulleted outcomes
+   - Two buttons: **返回核對** / **仍然提交** (variant B) or 取消 / 仍然提交 (variant A)
+4. Click 返回核對 / 取消 → modal closes, focus returns to 學校英文全稱 field, no POST.
+5. Click 仍然提交 → modal closes, POST fires, success modal appears.
 
 ---
 
