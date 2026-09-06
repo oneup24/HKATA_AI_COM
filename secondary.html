@@ -71,8 +71,8 @@
 
     <main id="main" class="relative z-10">
 
-        <!-- HERO BANNER (T20 + Cartographic Cosmos banner image) — T26: breadcrumb moved inside hero, pt-40 removed -->
-        <section class="pt-24 pb-6">
+        <!-- HERO BANNER (T20 + Cartographic Cosmos banner image) — T26: breadcrumb moved inside hero -->
+        <section class="pt-24 pb-8">
             <div class="container-x">
                 <nav class="text-sm mb-5" aria-label="麵包屑">
                     <ol class="flex flex-wrap gap-1 caption">
@@ -82,31 +82,65 @@
                     </ol>
                 </nav>
                 <figure class="mb-8">
-                    <img src="doc/img/prospectus-banner-secondary.png" alt="中學比賽章程 — 火星移民工程挑戰" class="w-full h-auto rounded-2xl border border-[var(--border)] shadow-[var(--elev-2)]" loading="eager" fetchpriority="high">
+                    <img src="doc/img/prospectus-banner-secondary.png" alt="中學比賽章程 — 未來火星基地築夢計劃" class="w-full h-auto rounded-2xl border border-[var(--border)] shadow-[var(--elev-2)]" loading="eager" fetchpriority="high">
                 </figure>
-                <div class="flex flex-wrap gap-3 justify-center">
-                    <a href="#" id="dlPdf" class="btn btn-ghost"><i class="fa-solid fa-file-arrow-down"></i> 下載章程 PDF</a>
+                <div class="flex flex-wrap gap-3 justify-center mb-4">
                     <a href="apply.html?level=secondary" class="btn btn-gold"><i class="fa-solid fa-file-pen"></i> 立即報名</a>
+                    <a href="#" id="dlPdf" class="btn btn-ghost"><i class="fa-solid fa-file-arrow-down"></i> 下載章程 PDF</a>
+                </div>
+
+                <!-- T55: 報名截止日期 inline in hero (matches homepage + primary pattern) -->
+                <div id="registration-deadline" class="text-center mt-10 space-y-2">
+                    <p class="text-base sm:text-lg text-[var(--text-body)]">
+                        報名截止日期：<span class="text-[var(--gold-300)] font-display font-bold text-2xl sm:text-3xl ml-1">2026 年 10 月 31 日 <span class="text-[var(--text-mute)] text-sm sm:text-base font-sans font-normal">23:59 HKT</span></span>
+                    </p>
+                    <p class="text-sm text-[var(--text-mute)]">
+                        提交作品截止：2027 年 3 月 31 日
+                    </p>
                 </div>
             </div>
         </section>
 
-        <!-- T23: IN-PAGE ANCHOR NAV -->
-        <nav class="sticky top-20 z-30 bg-[var(--surface-900)]/90 backdrop-blur border-b border-[var(--border-soft)]" aria-label="頁內導航">
+
+
+
+        <!-- T55: linear 9-section flow (TRACK 04 概念藍圖 dropped per T57): 一、背景 → 二、對象 → TRACK 02 AI → TRACK 01 標誌 → 四、評審 → 五、比賽日程 → 六、獎項 → 七、支援 -->
+
+        <!-- 1. 一、活動背景與宗旨 -->
+        <section id="ch-1" class="section-y">
             <div class="container-x">
-                <div class="flex items-center gap-2 sm:gap-4 py-3 overflow-x-auto">
-                    <span class="eyebrow shrink-0">本頁內容</span>
-                    <span class="text-[var(--text-mute)]">·</span>
-                    <a href="#track-logo" class="nav-link text-xs whitespace-nowrap">TRACK 01 標誌</a>
-                    <a href="#track-ai"   class="nav-link text-xs whitespace-nowrap">TRACK 02 AI 工程</a>
-                    <a href="#key-dates"  class="nav-link text-xs whitespace-nowrap">重要日子</a>
+                <p class="eyebrow mb-2 text-[var(--primary-300)]">一、活動背景與宗旨</p>
+                <h2 class="h2 mb-6">活動背景與宗旨</h2>
+                <div class="space-y-5 body max-w-3xl">
+                    <div>
+                        <p class="caption uppercase tracking-wider text-[var(--primary-300)] mb-2">活動背景</p>
+                        <p>本賽事為香港回歸 30 周年教育局「心繫家國」活動之一，由教育局、香港津貼中學議會及香港航天科技教育學院 (HKATA) 聯合主辦。</p>
+                    </div>
+                    <div>
+                        <p class="caption uppercase tracking-wider text-[var(--primary-300)] mb-2">活動願景</p>
+                        <p>打造香港首屈一指、面向全港中學生的年度航天科技創新盛事。</p>
+                    </div>
+                    <div>
+                        <p class="caption uppercase tracking-wider text-[var(--primary-300)] mb-2">核心宗旨</p>
+                        <p>透過真實任務導向與跨學科學習，融合航天科技、人工智能與科研探究，培育香港未來航天創科人才，並深化學生對中國航天發展的認識與國民身份認同。</p>
+                    </div>
                 </div>
             </div>
-        </nav>
+        </section>
 
+        <!-- 2. 二、參賽對象 -->
+        <section id="ch-2" class="section-y surface-alt">
+            <div class="container-x">
+                <p class="eyebrow mb-2 text-[var(--primary-300)]">二、參賽對象</p>
+                <h2 class="h2 mb-6">參賽對象</h2>
+                <ul class="space-y-3 body max-w-3xl">
+                    <li class="flex gap-3"><i class="fa-solid fa-circle-check text-[var(--primary-300)] mt-1.5"></i><span><strong class="text-[var(--text-hi)]">全港中學學生。</strong></span></li>
+                    <li class="flex gap-3"><i class="fa-solid fa-circle-check text-[var(--primary-300)] mt-1.5"></i><span>賽事針對不同年級設有「<strong class="text-[var(--text-hi)]">初中組別</strong>」及「<strong class="text-[var(--text-hi)]">高中組別</strong>」，並設有全校均可參與的項目。</span></li>
+                </ul>
+            </div>
+        </section>
 
-
-        <!-- TRACK 02: AI 工程 — 未來火星基地 -->
+        <!-- 3. TRACK 02: 航天 AI 創新大賽 · 未來火星基地 (secondary — 4 kits, 初中/高中分流) -->
         <section id="track-ai" class="section-y">
             <div class="container-x">
                 <div class="flex items-center justify-between mb-6 flex-wrap gap-3">
@@ -121,23 +155,19 @@
                     <div class="grid md:grid-cols-2 gap-6 mt-6">
                         <div>
                             <h4 class="text-sm font-bold text-[var(--text-hi)] mb-3">初中 (S1–S3)</h4>
-                            <ul class="space-y-2">
-                                <li class="chip chip-s">3U CubeSat 微型衛星</li>
-                                <li class="chip chip-s">探測車 (Rover)</li>
-                                <li class="chip chip-s">3D 打印火箭工程</li>
-                            </ul>
+                            <p class="caption text-[var(--text-mute)] mb-2">套件組別：3U CubeSat 微型衛星、探測車 (Rover)、3D 打印火箭工程</p>
+                            <p class="caption"><strong class="text-[var(--text-hi)]">應用範例：</strong>運用電腦視覺預測隕石撞擊軌跡（微型衛星）；開發無延遲的自動駕駛避障算法（探測車）；設計及 3D 打印出火箭並進行發射。</p>
                         </div>
                         <div>
                             <h4 class="text-sm font-bold text-[var(--text-hi)] mb-3">高中 (S4–S6)</h4>
-                            <ul class="space-y-2">
-                                <li class="chip chip-s">探測車 (Rover)</li>
-                                <li class="chip chip-s">智能機械手</li>
-                            </ul>
+                            <p class="caption text-[var(--text-mute)] mb-2">套件組別：探測車 (Rover)、智能機械手</p>
+                            <p class="caption"><strong class="text-[var(--text-hi)]">應用範例：</strong>利用圖像分割技術檢測基地外牆裂縫（探測車）；透過編程及 AI 識別，讓機械手以合適力度拿取樣本而不破壞其本體。</p>
                         </div>
                     </div>
+                    <p class="caption mt-4"><strong class="text-[var(--text-hi)]">AI 核心要求：</strong>AI 必須真正應用於解決套件的工程問題。參賽隊伍須交代 AI 解決甚麼問題、收集哪些感測器資料、如何分析判斷，以及如何提升套件的整體效能。</p>
                 </div>
 
-                <!-- T21: HARDWARE KIT SHOWCASE (secondary — 4 kits, both streams) -->
+                <!-- T21: HARDWARE KIT SHOWCASE (secondary — 4 kits) -->
                 <div class="surface-alt card p-6 sm:p-8 mb-6">
                     <div class="flex items-center justify-between mb-5 flex-wrap gap-3">
                         <div>
@@ -187,16 +217,14 @@
                 <div class="grid lg:grid-cols-2 gap-8">
                     <div class="card p-8">
                         <h3 class="h3 mb-3">AI 核心要求</h3>
-                        <p class="body mb-3">AI 必須真正應用於解決套件的工程問題。隊伍須交代：</p>
-                        <ul class="space-y-2 body">
+                        <p class="body">AI 必須真正應用於解決套件的工程問題。隊伍須交代：</p>
+                        <ul class="space-y-2 body mt-3">
                             <li class="flex gap-3"><i class="fa-solid fa-circle-check text-[var(--primary-300)] mt-1.5"></i>AI 解決甚麼問題</li>
                             <li class="flex gap-3"><i class="fa-solid fa-circle-check text-[var(--primary-300)] mt-1.5"></i>收集哪些感測器資料</li>
                             <li class="flex gap-3"><i class="fa-solid fa-circle-check text-[var(--primary-300)] mt-1.5"></i>如何分析判斷</li>
                             <li class="flex gap-3"><i class="fa-solid fa-circle-check text-[var(--primary-300)] mt-1.5"></i>如何提升套件整體效能</li>
                         </ul>
-                        <p class="caption mt-4">參考方向：電腦視覺預測隕石撞擊軌跡、自動駕駛避障算法、植物病害辨識、樣本識別機械手等。</p>
                     </div>
-
                     <div class="card p-8">
                         <h3 class="h3 mb-3">提交作品</h3>
                         <ul class="space-y-3 body">
@@ -223,6 +251,7 @@
             </div>
         </section>
 
+        <!-- 4. TRACK 01: 太空任務標誌設計 (全校 S1–S6) -->
         <!-- SHARED BLOCK: 標誌設計 (all levels) -->
         <!-- SHARED BLOCK: logo-track — keep in sync across kindergarten/primary/secondary -->
         <section id="track-logo" class="section-y surface-alt">
@@ -260,19 +289,150 @@
             </div>
         </section>
 
-        <!-- KEY DATES -->
-        <section id="key-dates" class="section-y surface-alt">
+        <!-- 6. 四、評審準則與展示形式 -->
+        <section id="ch-4" class="section-y surface-alt">
             <div class="container-x">
-                <div class="text-center mb-8">
-                    <div class="eyebrow mb-3">Key Dates</div>
-                    <h2 class="h2 mb-3">重要日子</h2>
+                <p class="eyebrow mb-2 text-[var(--primary-300)]">四、評審準則與展示形式</p>
+                <h2 class="h2 mb-6">評審準則與展示形式</h2>
+                <div class="space-y-6">
+                    <div>
+                        <h4 class="h3 text-base mb-3">1. 航天 AI 創新大賽 展示要求</h4>
+                        <p class="body mb-4">有別於傳統機械人或編程比賽，賽事以「<strong class="text-[var(--text-hi)]">科研海報 (Research Poster) 加 原型展示 (Prototype Demonstration)</strong>」展現完整研發歷程。</p>
+                        <ul class="space-y-3 body ml-4">
+                            <li class="flex gap-3"><i class="fa-solid fa-circle-check text-[var(--primary-300)] mt-1.5"></i><span><strong class="text-[var(--text-hi)]">科研海報：</strong>尺寸為 84.1 × 118.9 cm，內容須包括問題定義與背景研究、現有技術分析與創新方案、工程設計及 AI 系統設計、原型開發及預期成效等。</span></li>
+                            <li class="flex gap-3"><i class="fa-solid fa-circle-check text-[var(--primary-300)] mt-1.5"></i><span><strong class="text-[var(--text-hi)]">原型展示：</strong>展示核心創新概念及技術可行性，形式可包括 Arduino、機械人、AI 視覺系統等，毋須完整實現整個太空系統。</span></li>
+                        </ul>
+                    </div>
                 </div>
-                <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-4">
-                    <div class="card p-5"><div class="font-display font-bold text-[var(--primary-300)] mb-1">2026/10/31</div><p class="caption">學校報名截止</p></div>
-                    <div class="card p-5"><div class="font-display font-bold text-[var(--primary-300)] mb-1">2027/01/12–22</div><p class="caption">領取硬件套材</p></div>
-                    <div class="card p-5"><div class="font-display font-bold text-[var(--primary-300)] mb-1">2027/03/31</div><p class="caption">作品截止遞交</p></div>
-                    <div class="card p-5"><div class="font-display font-bold text-[var(--gold-300)] mb-1">2027/05 中</div><p class="caption">總決賽暨作品展</p></div>
+            </div>
+        </section>
+
+        <!-- 7. 五、比賽日程 -->
+        <section id="ch-5" class="section-y">
+            <div class="container-x">
+                <p class="eyebrow mb-2 text-[var(--primary-300)]">五、比賽日程</p>
+                <h2 class="h2 mb-6">比賽日程</h2>
+                <ol class="space-y-5">
+                    <li class="flex gap-4">
+                        <div class="flex flex-col items-center shrink-0 pt-1">
+                            <div class="w-3 h-3 rounded-full bg-[var(--primary-500)]"></div>
+                            <div class="w-px flex-1 bg-[var(--border)] mt-1"></div>
+                        </div>
+                        <div>
+                            <div class="flex items-baseline gap-2 mb-1"><span class="caption uppercase tracking-wider text-[var(--primary-300)]">2026/09–10</span><span class="status status-active">招募</span></div>
+                            <p class="body"><strong class="text-[var(--text-hi)]">招募階段：</strong>全港中學招募、各區學校簡介會、教師指導培訓、報名及抽籤分配組別。</p>
+                        </div>
+                    </li>
+                    <li class="flex gap-4">
+                        <div class="flex flex-col items-center shrink-0 pt-1">
+                            <div class="w-3 h-3 rounded-full bg-[var(--primary-500)]"></div>
+                            <div class="w-px flex-1 bg-[var(--border)] mt-1"></div>
+                        </div>
+                        <div>
+                            <div class="flex items-baseline gap-2 mb-1"><span class="caption uppercase tracking-wider text-[var(--primary-300)]">2027/01/11</span><span class="status status-active">啟動</span></div>
+                            <p class="body"><strong class="text-[var(--text-hi)]">啟動禮：</strong>比賽正式啟動、主題發布、任務簡介及評審準則介紹。</p>
+                        </div>
+                    </li>
+                    <li class="flex gap-4">
+                        <div class="flex flex-col items-center shrink-0 pt-1">
+                            <div class="w-3 h-3 rounded-full bg-[var(--primary-500)]"></div>
+                            <div class="w-px flex-1 bg-[var(--border)] mt-1"></div>
+                        </div>
+                        <div>
+                            <div class="flex items-baseline gap-2 mb-1"><span class="caption uppercase tracking-wider text-[var(--primary-300)]">2027/01–03</span><span class="status status-soon">研發</span></div>
+                            <p class="body"><strong class="text-[var(--text-hi)]">創新研發：</strong>航天專家校園巡迴講座、大學教授分享參觀、HKATA 太空 AI 工作坊。</p>
+                        </div>
+                    </li>
+                    <li class="flex gap-4">
+                        <div class="flex flex-col items-center shrink-0 pt-1">
+                            <div class="w-3 h-3 rounded-full bg-[var(--gold-500)]"></div>
+                            <div class="w-px flex-1 bg-[var(--border)] mt-1"></div>
+                        </div>
+                        <div>
+                            <div class="flex items-baseline gap-2 mb-1"><span class="caption uppercase tracking-wider text-[var(--gold-300)]">2027/03/31</span><span class="status status-milestone">截止</span></div>
+                            <p class="body"><strong class="text-[var(--text-hi)]">作品提交：</strong>提交研究 proposal 及 prototype 示範影片。</p>
+                        </div>
+                    </li>
+                    <li class="flex gap-4">
+                        <div class="flex flex-col items-center shrink-0 pt-1">
+                            <div class="w-3 h-3 rounded-full bg-[var(--primary-500)]"></div>
+                            <div class="w-px flex-1 bg-[var(--border)] mt-1"></div>
+                        </div>
+                        <div>
+                            <div class="flex items-baseline gap-2 mb-1"><span class="caption uppercase tracking-wider text-[var(--primary-300)]">2027/04/30</span><span class="status status-soon">半決賽</span></div>
+                            <p class="body"><strong class="text-[var(--text-hi)]">半決賽：</strong>入圍隊伍現場展示，由大學及專業界別人士評審。</p>
+                        </div>
+                    </li>
+                    <li class="flex gap-4">
+                        <div class="flex flex-col items-center shrink-0 pt-1">
+                            <div class="w-3 h-3 rounded-full bg-[var(--gold-500)]"></div>
+                            <div class="w-px flex-1 bg-[var(--border)] mt-1"></div>
+                        </div>
+                        <div>
+                            <div class="flex items-baseline gap-2 mb-1"><span class="caption uppercase tracking-wider text-[var(--gold-300)]">2027/05 中</span><span class="status status-milestone">總決賽</span></div>
+                            <p class="body"><strong class="text-[var(--text-hi)]">總決賽暨創新作品展：</strong>公開展示決賽作品，公佈得獎名單及舉行頒獎典禮。</p>
+                        </div>
+                    </li>
+                    <li class="flex gap-4">
+                        <div class="flex flex-col items-center shrink-0 pt-1">
+                            <div class="w-3 h-3 rounded-full bg-[var(--gold-500)]"></div>
+                        </div>
+                        <div>
+                            <div class="flex items-baseline gap-2 mb-1"><span class="caption uppercase tracking-wider text-[var(--gold-300)]">2027/06</span><span class="status status-milestone">升空</span></div>
+                            <p class="body"><strong class="text-[var(--text-hi)]">衛星發射：</strong>得獎作品將隨衛星發射到宇宙太空。</p>
+                        </div>
+                    </li>
+                </ol>
+            </div>
+        </section>
+
+        <!-- 8. 六、獎項及獎勵 -->
+        <section id="ch-6" class="section-y surface-alt">
+            <div class="container-x">
+                <p class="eyebrow mb-2 text-[var(--primary-300)]">六、獎項及獎勵</p>
+                <h2 class="h2 mb-6">獎項及獎勵</h2>
+                <div class="grid md:grid-cols-2 gap-4">
+                    <div class="card p-5">
+                        <span class="chip chip-gold mb-3">🏆 獎項級別</span>
+                        <p class="body mb-3">各組別設有：</p>
+                        <ul class="space-y-2 body">
+                            <li class="flex gap-3"><i class="fa-solid fa-trophy text-[var(--gold-300)] mt-1.5"></i><span><strong class="text-[var(--text-hi)]">一等獎</strong></span></li>
+                            <li class="flex gap-3"><i class="fa-solid fa-trophy text-[var(--text-mute)] mt-1.5"></i><span><strong class="text-[var(--text-hi)]">二等獎</strong></span></li>
+                            <li class="flex gap-3"><i class="fa-solid fa-trophy text-[var(--text-mute)] mt-1.5"></i><span><strong class="text-[var(--text-hi)]">三等獎</strong></span></li>
+                            <li class="flex gap-3"><i class="fa-solid fa-medal text-[var(--text-mute)] mt-1.5"></i><span><strong class="text-[var(--text-hi)]">優異獎</strong></span></li>
+                            <li class="flex gap-3"><i class="fa-solid fa-lightbulb text-[var(--primary-300)] mt-1.5"></i><span><strong class="text-[var(--text-hi)]">最具創意大獎</strong></span></li>
+                        </ul>
+                        <p class="caption mt-3"><strong class="text-[var(--text-hi)]">公眾參與：</strong>比賽設有「公眾投票」機制，可透過專屬 APP 進行投票。</p>
+                    </div>
                 </div>
+            </div>
+        </section>
+
+        <!-- 9. 七、學習支援平台 -->
+        <section id="ch-7" class="section-y">
+            <div class="container-x">
+                <p class="eyebrow mb-2 text-[var(--primary-300)]">七、學習支援平台</p>
+                <h2 class="h2 mb-6">學習支援平台</h2>
+                <div class="grid md:grid-cols-3 gap-4">
+                    <div class="md:col-span-2 card p-5">
+                        <span class="chip mb-3">N.O.R.A. Kids · 星際 AI 學院</span>
+                        <p class="body mb-3">大會將提供 「N.O.R.A. Kids - 星際 AI 學院」APP 供參與學生使用。</p>
+                        <p class="body">該平台提供<strong class="text-[var(--text-hi)]">遊戲化航天與 AI 教育</strong>，內容涵蓋：</p>
+                        <ul class="space-y-2 body mt-2 ml-4 list-disc">
+                            <li>中國航天科普知識</li>
+                            <li>中國航天發展歷程（如嫦娥探月工程）</li>
+                            <li>航天英雄故事</li>
+                            <li>香港科研貢獻</li>
+                        </ul>
+                    </div>
+                    <div class="card p-5 border-l-4 border-[var(--gold-500)] flex flex-col justify-center text-center">
+                        <i class="fa-solid fa-rocket text-[var(--primary-300)] text-3xl mb-3"></i>
+                        <p class="caption uppercase tracking-wider text-[var(--primary-300)] mb-2">App 狀態</p>
+                        <p class="h3 text-base mb-3">即將推出 · Coming Soon</p>
+                        <p class="caption">正式推出時將於 N.O.R.A. Kids 公佈詳情。</p>
+                    </div>
+                </div>
+                <p class="caption text-center mt-6 pt-6 border-t border-[var(--border-soft)]">章程如有更新，以秘書處最新公佈為準。如有查詢請電郵 <a href="mailto:marketing@hkata.space" class="link">marketing@hkata.space</a> 或致電 6113 0828。</p>
             </div>
         </section>
 
@@ -285,6 +445,7 @@
                 <p class="caption mt-4">秘書處 · <a href="mailto:marketing@hkata.space" class="link">marketing@hkata.space</a> · 6113 0828</p>
             </div>
         </section>
+
 
     </main>
 
