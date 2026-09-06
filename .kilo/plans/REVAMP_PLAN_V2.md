@@ -90,8 +90,9 @@ This doc is the **single source of truth**. Keep it in sync with reality or it b
 | T23 | In-page anchor nav (primary + secondary) | §5.4 Enh. 4 | ✅ DONE | sticky `top-20 z-30` nav with `本頁內容` + anchor pills; primary: logo/ai/speech/key-dates; secondary: logo/ai/key-dates. Matched id attributes added to each track section. |
 | T24 | "一校多賽道" callout (primary + secondary) | §5.4 Enh. 5 | ✅ DONE | `card p-5 sm:p-6 border-l-4 border-[var(--primary-500)]` info callout with fa-circle-info icon + 2 lines of copy. Inserted between hero and first track. |
 | T25 | Hardware lottery flow steps (primary + secondary) | §5.4 Enh. 6 | ✅ DONE | 4-step grid (報名 → 核實 → 抽籤 → 領取) below the hardware showcase, primary-300 numbers, 2-col mobile / 4-col desktop. |
+| T26 | Fix double top-padding gap on all 3 prospectus pages | §5.4 Enh. 1 bug | ✅ DONE | Original T26 prescribed "move breadcrumb <nav> inside hero section". Resolved by a stronger fix: removed the HTML breadcrumb entirely (c590789) since the breadcrumb is now baked into the banner image. Also reduced image height 540→420 (6f90cd9) and pb-10→pb-6 to keep the layout tight. No more stacked-padding gap. |
 
-> **No outstanding work in Kilo's queue.** T19 only unblocks with the user's Sheet + Web App URL. T20–T25 (prospectus structural enhancements) queued next.
+> **No outstanding work in Kilo's queue.** T19 only unblocks with the user's Sheet + Web App URL. T20–T25 done, T26 (bug fix) also done.
 
 ---
 
@@ -699,6 +700,7 @@ Anything above can be flipped by the user; the plan is internally consistent wit
 | 2026-09-06 | User → Kilo | **T20 (banner image)** | Generated 3 level-specific Cartographic Cosmos hero banners (1920×540 each) — kindergarten (teal aurora + "太空想像"), primary (azure + "未來月球基地"), secondary (indigo + "火星移民工程挑戰"). Each banner has eyebrow chip + H1 + italic mission tagline + descriptor + orbits + gold horizon + HKATA registry stamp. | `.kilo/render_prospectus_banners.py`, `doc/img/prospectus-banner-{kindergarten,primary,secondary}.png` |
 | 2026-09-06 | User → Kilo | **T20 (banner integration)** | Replaced the 540px empty hero in all 3 prospectus pages with the new banner image. Now: breadcrumb → full-width banner image → 2 CTAs centered. pt-40 → pt-24 (no more empty space — banner fills the hero). | `kindergarten.html`, `primary.html`, `secondary.html` |
 | 2026-09-06 | User → Kilo | **T20 (density fix)** | Banner images re-rendered at 1920x420 (was 1920x540) with tighter text layout — H1 closer to the breadcrumb, smaller orbits, smaller registry stamp. Section padding pb-10 → pb-6 on all 3 prospectus pages. The "big gap" between breadcrumb and H1 is gone. | `.kilo/render_prospectus_banners.py`, `kindergarten.html`, `primary.html`, `secondary.html` |
+| 2026-09-06 | User → Kilo | **T26** (Gap fix) | T26 plan called for "move breadcrumb <nav> inside hero section". Resolved by a stronger fix: removed the HTML breadcrumb entirely (already in c590789), shrunk banner image 540→420, lowered section pb-10→pb-6. The stacked-padding gap that T26 described no longer exists. | (no new code; existing commits c590789 + 6f90cd9 already fixed it) |
 | 2026-09-06 | User → Kilo | T11 (UX) — **R1 + R2 of UX plan** | (R1) 3 group CTA cards pulled INTO the hero section, right after the deadline line, on a `bg-[var(--surface-900)]` background so the card panel visually separates from the rest of the page. (R2) Hero `pb-8 lg:pb-10` → `pb-2 lg:pb-3`. Eliminates the hero→#overview dead zone, makes the primary CTA visible within 1 viewport scroll on desktop. | `index.html` |
 | 2026-09-06 | User → Kilo | **T20** (Prospectus hero banner) | All 3 prospectus pages rebuilt with the new `pt-40 pb-16 bg-[var(--surface-800)]` hero — breadcrumb, mission tagline (太空想像，從藝術起步 / 未來月球基地築夢計劃 / 火星移民工程挑戰), descriptor line, 2 CTAs, dual aurora gradient. | `kindergarten.html`, `primary.html`, `secondary.html` |
 | 2026-09-06 | User → Kilo | **T22** (Track order resequence) | primary.html: TRACK 02 AI工程 + TRACK 03 演講 swapped so flagship AI engineering appears before narrower 演講 (P1–P3 only). section-y / surface-alt alternation preserved. secondary.html unchanged (only 2 tracks, order already correct). | `primary.html` |
@@ -708,3 +710,20 @@ Anything above can be flipped by the user; the plan is internally consistent wit
 | 2026-09-06 | User → Kilo | **T25** (Hardware lottery flow) | 4-step grid (1 完成報名 → 2 核實 11月 → 3 抽籤 → 4 領取 2027年1月) inside the hardware showcase card on primary + secondary, below the kit grid. primary-300 step numbers, 2-col mobile / 4-col desktop. | `primary.html`, `secondary.html` |
 |---|---|---|---|---|
 | _(pending)_ | Kilo | — | _add your first entry here_ | — |
+
+---
+
+## 📥 Added 2026-09-06 — Bug fix: gap between breadcrumb and hero on prospectus pages (T26)
+
+**Task Board row to add:**
+| T26 | Fix double top-padding gap on all 3 prospectus pages | §5.4 Enh. 1 bug | ⬜ TODO | |
+
+**Root cause:** The breadcrumb `<nav>` sits *outside* the hero `<section>` with its own `pt-40`. The hero section also has `pt-40`. Two lots of top padding stack = large blank gap visible between the breadcrumb and the hero background.
+
+**Fix (all 3 files: `kindergarten.html`, `primary.html`, `secondary.html`):**
+
+1. **Move the breadcrumb `<nav>` inside the hero `<section>`** as the first child, above the eyebrow chip and H1.
+2. **Remove `pt-40` from the breadcrumb `<nav>`** — it no longer needs to clear the fixed header itself.
+3. **The hero `<section>` keeps `pt-40`** (or equivalent) — it is now the sole element responsible for clearing the fixed header.
+
+Result: breadcrumb appears flush at the top of the hero band, no gap.
