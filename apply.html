@@ -3,945 +3,439 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>HKATA 學校報名系統 | 全港首屆「航天築夢」航天AI創新大賽</title>
-    <!-- Tailwind CSS CDN -->
+    <title>學校報名系統 | 全港首屆中小學「航天築夢」航天 AI 創新大賽</title>
+    <meta name="description" content="全港中小學及幼稚園航天 AI 創新大賽官方學校報名通道。截止：2026 年 10 月 31 日。">
+
+    <meta property="og:title" content="學校報名系統 | 航天築夢大賽">
+    <meta property="og:description" content="教育局「心繫家國」聯校活動 · 學校代表官方報名">
+    <meta property="og:image" content="doc/img/hero-banner-og.png">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+    <meta property="og:type" content="website">
+    <meta property="og:locale" content="zh_HK">
+    <meta name="twitter:card" content="summary_large_image">
+    <link rel="canonical" href="/apply.html">
+    <link rel="icon" type="image/png" href="logo.png">
+
+    <link rel="stylesheet" href="assets/theme.css">
     <script src="https://cdn.tailwindcss.com"></script>
-    <!-- FontAwesome Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <!-- Google Fonts Inter & Orbitron -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Orbitron:wght@600;700;800;900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&family=Inter:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&family=Noto+Sans+TC:wght@400;500;700;900&family=Noto+Serif+TC:wght@700;900&display=swap" rel="stylesheet">
 
-    <!-- Tailwind Config -->
     <script>
-        tailwind.config = {
-            theme: {
-                extend: {
-                    fontFamily: {
-                        sans: ['Inter', 'sans-serif'],
-                        tech: ['Orbitron', 'sans-serif'],
-                    },
-                    colors: {
-                        space: {
-                            950: '#030712',
-                            900: '#060913',
-                            800: '#0B1120',
-                            700: '#111827',
-                            600: '#1F2937',
-                        },
-                        cyanNeon: '#00F2FE',
-                        blueNeon: '#4FACFE',
-                        purpleNeon: '#7F00FF',
-                        goldSpace: '#FFD700',
-                    },
-                    boxShadow: {
-                        'glow-cyan': '0 0 25px rgba(0, 242, 254, 0.35)',
-                        'glow-purple': '0 0 25px rgba(127, 0, 255, 0.35)',
-                        'glow-gold': '0 0 25px rgba(255, 215, 0, 0.35)',
-                    }
-                }
+        tailwind.config = { theme: { extend: {
+            fontFamily: { sans: ['"Noto Sans TC"','Inter','sans-serif'], display: ['"Space Grotesk"','"Noto Sans TC"','sans-serif'], serif: ['"Noto Serif TC"','serif'] },
+            colors: {
+                surface: { 900:'var(--surface-900)', 800:'var(--surface-800)', 700:'var(--surface-700)', 600:'var(--surface-600)' },
+                primary: { 700:'var(--primary-700)', 500:'var(--primary-500)', 400:'var(--primary-400)', 300:'var(--primary-300)' },
+                gold:    { 700:'var(--gold-700)', 500:'var(--gold-500)', 300:'var(--gold-300)' },
+                ink:     { hi:'var(--text-hi)', body:'var(--text-body)', mute:'var(--text-mute)' },
+                group:   { k:'var(--group-k)', p:'var(--group-p)', s:'var(--group-s)' }
             }
-        }
+        }}}
     </script>
 
     <style>
-        body {
-            background-color: #060913;
-            color: #F3F4F6;
-            min-height: 100vh;
-        }
-
-        .glass-panel {
-            background: rgba(17, 24, 39, 0.7);
-            backdrop-filter: blur(16px);
-            -webkit-backdrop-filter: blur(16px);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-        }
-
         .glass-input {
-            background: rgba(11, 17, 32, 0.8);
-            border: 1px solid rgba(255, 255, 255, 0.15);
-            color: #FFFFFF;
-            transition: all 0.2s ease;
+            background: var(--surface-800);
+            border: 1px solid var(--border);
+            color: var(--text-hi);
+            transition: border-color .15s, box-shadow .15s;
         }
-
         .glass-input:focus {
-            border-color: #00F2FE;
-            box-shadow: 0 0 15px rgba(0, 242, 254, 0.25);
+            border-color: var(--primary-400);
+            box-shadow: 0 0 0 3px rgba(46,111,224,0.15);
             outline: none;
         }
-
-        .gradient-text-cyan {
-            background: linear-gradient(135deg, #00F2FE 0%, #4FACFE 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
-
-        .gradient-text-gold {
-            background: linear-gradient(135deg, #FFE259 0%, #FFA751 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
-
-        /* Starfield Background Canvas */
-        #starfield {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            pointer-events: none;
-            z-index: 0;
-        }
-
-        /* Metallic Badge Preview Simulation */
         .metallic-plate {
-            background: linear-gradient(135deg, #1e293b 0%, #0f172a 50%, #334155 100%);
-            border: 2px solid #94a3b8;
-            box-shadow: inset 0 0 15px rgba(255,255,255,0.1), 0 10px 25px rgba(0,0,0,0.5);
+            background: linear-gradient(135deg, var(--surface-700) 0%, var(--surface-800) 50%, var(--surface-600) 100%);
+            border: 2px solid var(--border-strong);
+            box-shadow: inset 0 0 15px rgba(255,255,255,0.05), 0 10px 25px rgba(0,0,0,0.4);
             position: relative;
         }
-
         .metallic-plate::before {
-            content: '';
-            position: absolute;
-            inset: 4px;
-            border: 1px dashed rgba(255,255,255,0.2);
-            pointer-events: none;
+            content: ''; position: absolute; inset: 4px;
+            border: 1px dashed rgba(255,255,255,0.12); pointer-events: none;
         }
     </style>
 </head>
 <body class="font-sans antialiased relative">
 
-    <canvas id="starfield"></canvas>
+    <div class="relative z-10 min-h-screen flex flex-col">
 
-    <!-- CONTENT WRAPPER -->
-    <div class="relative z-10 min-h-screen flex flex-col justify-between">
-
-        <header class="sticky top-0 z-50 glass-panel border-b border-gray-800/80">
-            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
-                <!-- HKATA Brand Logo -->
+        <header class="fixed top-0 w-full z-40 border-b border-[var(--border-soft)] bg-[var(--surface-900)]/85 backdrop-blur-md">
+            <div class="max-w-[1400px] mx-auto px-6 h-20 flex items-center justify-between">
                 <a href="index.html" class="flex items-center gap-3 group">
-                    <div class="w-12 h-12 rounded-full bg-gradient-to-tr from-cyan-500 via-indigo-600 to-purple-600 p-0.5 shadow-glow-cyan">
-                        <div class="w-full h-full bg-space-900 rounded-full flex items-center justify-center">
-                            <i class="fa-solid fa-rocket text-cyanNeon text-xl group-hover:rotate-45 transition-transform duration-300"></i>
-                        </div>
-                    </div>
-                    <div>
-                        <span class="font-tech text-lg font-extrabold tracking-wider text-white block leading-none">HKATA</span>
-                        <span class="text-[10px] text-cyanNeon tracking-widest uppercase font-semibold">Hong Kong Aerospace Tech Academy</span>
+                    <img src="doc/img/LOGO 1.png" alt="Logo" class="w-12 h-12 sm:w-14 sm:h-14 rounded-full object-cover ring-2 ring-[var(--gold-500)]/40 bg-white">
+                    <div class="flex flex-col justify-center">
+                        <span class="font-display text-[10px] sm:text-[11px] font-bold tracking-[0.18em] text-white uppercase leading-tight">HONG KONG AEROSPACE</span>
+                        <span class="font-display text-[10px] sm:text-[11px] font-bold tracking-[0.18em] text-white uppercase leading-tight mb-0.5">TECHNOLOGY ACADEMY</span>
+                        <span class="font-sans text-[10px] sm:text-xs text-[var(--text-hi)] tracking-[0.18em] leading-none">香港航天科技教育學院</span>
                     </div>
                 </a>
-
-                <!-- Navigation Links & Badge -->
-                <div class="flex items-center gap-4">
-                    <a href="index.html" class="hidden md:inline-block text-sm font-medium text-gray-300 hover:text-cyanNeon transition-colors">大賽首頁</a>
-                    <a href="vote.html" class="hidden md:inline-block text-sm font-medium text-gray-300 hover:text-cyanNeon transition-colors">公眾投票區</a>
-                    
-                    <div class="flex items-center gap-2 px-3 py-1.5 rounded-full bg-cyan-950/80 border border-cyan-500/40 text-xs font-medium text-cyanNeon ml-2">
-                        <i class="fa-solid fa-file-signature"></i>
-                        <span class="hidden sm:inline">2026-2027 大賽學校官方報名通道</span>
-                        <span class="sm:hidden">官方報名通道</span>
-                    </div>
-                    
-                    <!-- Login / Resume Button -->
-                    <button type="button" onclick="document.getElementById('loginModal').classList.remove('hidden')" class="hidden sm:flex items-center gap-2 px-4 py-1.5 rounded-full bg-space-800 border border-gray-600 text-xs font-medium text-gray-300 hover:text-white hover:border-cyan-500 transition-colors shadow-lg">
-                        <i class="fa-solid fa-arrow-right-to-bracket text-cyanNeon"></i> 繼續填寫
+                <nav class="hidden lg:flex items-center gap-7" aria-label="主選單">
+                    <a href="index.html" class="nav-link">首頁</a>
+                    <a href="kindergarten.html" class="nav-link">幼兒章程</a>
+                    <a href="primary.html" class="nav-link">小學章程</a>
+                    <a href="secondary.html" class="nav-link">中學章程</a>
+                    <a href="index.html#schedule" class="nav-link">賽事日程</a>
+                </nav>
+                <div class="hidden lg:flex items-center gap-3">
+                    <button type="button" onclick="document.getElementById('loginModal').classList.remove('hidden')" class="btn btn-ghost text-xs px-4 py-2">
+                        <i class="fa-solid fa-arrow-right-to-bracket"></i> 繼續填寫
                     </button>
                 </div>
+                <button class="lg:hidden text-white p-2" onclick="document.getElementById('mb').classList.toggle('hidden')"><i class="fa-solid fa-bars text-xl"></i></button>
+            </div>
+            <div id="mb" class="hidden lg:hidden border-t border-[var(--border-soft)] bg-[var(--surface-900)]/95 backdrop-blur-md">
+                <nav class="max-w-[1400px] mx-auto px-6 py-4 flex flex-col gap-3">
+                    <a href="index.html" class="nav-link">首頁</a>
+                    <a href="kindergarten.html" class="nav-link">幼兒章程</a>
+                    <a href="primary.html" class="nav-link">小學章程</a>
+                    <a href="secondary.html" class="nav-link">中學章程</a>
+                    <a href="index.html#schedule" class="nav-link">賽事日程</a>
+                </nav>
             </div>
         </header>
 
-        <!-- MAIN REGISTRATION FORM CONTAINER -->
-        <main class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-10 w-full">
+        <main class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 pt-36 pb-10 w-full flex-1">
 
-            <!-- Header Title -->
             <div class="text-center mb-10">
-                <span class="px-3 py-1 rounded-full bg-purple-950/80 border border-purple-500/40 text-purple-300 text-xs font-tech font-bold uppercase tracking-widest mb-3 inline-block">
-                    Official School Registration Form
-                </span>
-                <h1 class="text-3xl sm:text-5xl font-extrabold text-white tracking-tight">
-                    全港中小學「航天築夢」航天AI創新大賽 <br>
-                    <span class="gradient-text-cyan">參賽學校代表報名系統</span>
+                <span class="chip chip-gold mb-3 inline-block">Official School Registration</span>
+                <h1 class="font-serif text-3xl sm:text-5xl font-black text-[var(--text-hi)] leading-tight">
+                    參賽學校代表<br>報名系統
                 </h1>
-                <p class="mt-3 text-gray-400 max-w-2xl mx-auto text-xs sm:text-sm">
-                    請由校長、副校長、STEM主任或負責帶隊教師填寫。提交後秘書處將於 3 個工作天內核實並通知領取安排官方「HKATA 專屬學校代碼」與研發材料套材。
+                <p class="body mt-3 max-w-2xl mx-auto">
+                    提交後秘書處將於 11月下旬官宣抽籤分組結果及通知校方領取官方「官方硬件套件」。
                 </p>
+                <p class="caption mt-2">截止日期：<strong class="text-[var(--text-hi)]">2026 年 10 月 31 日 23:59</strong> (香港時間)</p>
             </div>
 
-            <!-- STEP PROGRESS BAR -->
-            <div class="glass-panel p-6 rounded-2xl mb-8 border border-gray-800">
-                <div class="grid grid-cols-4 gap-2 text-center text-xs font-semibold">
-                    
-                    <!-- Step 1 Indicator -->
-                    <div id="step-tab-1" class="step-indicator transition-all text-cyanNeon">
-                        <div class="w-8 h-8 rounded-full bg-cyan-950 border-2 border-cyanNeon mx-auto flex items-center justify-center font-bold mb-2 shadow-glow-cyan">1</div>
-                        <span class="hidden sm:inline">學校及校長資料</span>
-                        <span class="sm:hidden">學校資料</span>
-                    </div>
-
-                    <!-- Step 2 Indicator -->
-                    <div id="step-tab-2" class="step-indicator transition-all text-gray-500">
-                        <div class="w-8 h-8 rounded-full bg-space-900 border-2 border-gray-700 mx-auto flex items-center justify-center font-bold mb-2">2</div>
-                        <span class="hidden sm:inline">比賽組別及套件申領</span>
-                        <span class="sm:hidden">組別申領</span>
-                    </div>
-
-                    <!-- Step 3 Indicator -->
-                    <div id="step-tab-3" class="step-indicator transition-all text-gray-500">
-                        <div class="w-8 h-8 rounded-full bg-space-900 border-2 border-gray-700 mx-auto flex items-center justify-center font-bold mb-2">3</div>
-                        <span class="hidden sm:inline">參賽隊伍與導師名單</span>
-                        <span class="sm:hidden">隊伍名單</span>
-                    </div>
-
-                    <!-- Step 4 Indicator -->
-                    <div id="step-tab-4" class="step-indicator transition-all text-gray-500">
-                        <div class="w-8 h-8 rounded-full bg-space-900 border-2 border-gray-700 mx-auto flex items-center justify-center font-bold mb-2">4</div>
-                        <span class="hidden sm:inline">學校 Logo 牌與聲明</span>
-                        <span class="sm:hidden">Logo與聲明</span>
-                    </div>
-
-                </div>
-                <!-- Progress Line -->
-                <div class="w-full bg-gray-800 h-1.5 rounded-full mt-4 overflow-hidden">
-                    <div id="progress-bar-fill" class="bg-gradient-to-r from-cyan-500 to-blue-600 h-full w-[25%] transition-all duration-300"></div>
-                </div>
-            </div>
-
-            <!-- FORM CONTAINER -->
+            <!-- FORM CONTAINER (single-step, per Plan V2 §5.1) -->
             <form id="registrationForm" onsubmit="event.preventDefault();" class="space-y-8">
 
-                <!-- STEP 1: SCHOOL & PRINCIPAL INFORMATION -->
-                <div id="step-content-1" class="step-panel glass-panel p-6 sm:p-8 rounded-3xl border border-cyan-500/20 space-y-6">
-                    <div class="border-b border-gray-800 pb-4">
-                        <h3 class="text-xl font-bold text-white flex items-center gap-2">
-                            <i class="fa-solid fa-school text-cyanNeon"></i> 第一步：學校基本資料與授權 <span class="text-cyanNeon text-sm ml-2">(同教育局學校註冊證明書)</span>
+                <!-- SCHOOL INFO + CONTACT (single card) -->
+                <div class="card p-6 sm:p-8 rounded-2xl space-y-6">
+
+                    <div class="border-b border-[var(--border-soft)] pb-5">
+                        <h3 class="h3 mb-2 flex items-center gap-2">
+                            <i class="fa-solid fa-school text-[var(--primary-300)]"></i> 學校基本資料
                         </h3>
-                        <p class="text-xs text-gray-400 mt-1">請填寫貴校官方登記名稱及負責老師資料。</p>
+                        <p class="caption">請填寫貴校官方登記名稱(同教育局學校註冊證明書)。</p>
                     </div>
 
                     <div class="grid sm:grid-cols-2 gap-6">
-                        <!-- School Name Chinese -->
                         <div>
-                            <label class="block text-xs font-semibold text-gray-300 mb-2">學校中文全稱 <span class="text-red-400">*</span></label>
-                            <input type="text" id="schoolNameCn" required placeholder="例：香港培正中學" class="w-full px-4 py-3 rounded-xl glass-input text-sm">
+                            <label class="field-label">學校中文全稱 <span class="text-[var(--gold-300)]">*</span></label>
+                            <input type="text" id="schoolNameCn" required placeholder="例:XXXX 學校" class="field">
                         </div>
-
-                        <!-- School Name English -->
                         <div>
-                            <label class="block text-xs font-semibold text-gray-300 mb-2">學校英文全稱 <span class="text-red-400">*</span></label>
-                            <input type="text" id="schoolNameEn" required placeholder="e.g. Pui Ching Middle School" class="w-full px-4 py-3 rounded-xl glass-input text-sm">
+                            <label class="field-label">學校英文全稱 <span class="text-[var(--gold-300)]">*</span></label>
+                            <input type="text" id="schoolNameEn" required placeholder="e.g. XXXX School" class="field">
                         </div>
-
-                        <!-- School Category -->
                         <div>
-                            <label class="block text-xs font-semibold text-gray-300 mb-2">學校類別 <span class="text-red-400">*</span></label>
-                            <select id="schoolCategory" required class="w-full px-4 py-3 rounded-xl glass-input text-sm">
+                            <label class="field-label">學校類別 <span class="text-[var(--gold-300)]">*</span></label>
+                            <select id="schoolCategory" required class="field">
                                 <option value="" disabled selected>請選擇學校類別</option>
+                                <option value="kindergarten">幼稚園 (Kindergarten)</option>
                                 <option value="primary">小學 (Primary School)</option>
                                 <option value="secondary">中學 (Secondary School)</option>
-                                <option value="kindergarten">幼稚園 (Kindergarten)</option>
                                 <option value="special">特殊學校 / 其他教育機構</option>
                             </select>
                         </div>
-
-                        <!-- School District -->
                         <div>
-                            <label class="block text-xs font-semibold text-gray-300 mb-2">所屬分區 <span class="text-red-400">*</span></label>
-                            <select id="schoolDistrict" required class="w-full px-4 py-3 rounded-xl glass-input text-sm">
+                            <label class="field-label">所屬分區 <span class="text-[var(--gold-300)]">*</span></label>
+                            <select id="schoolDistrict" required class="field">
                                 <option value="" disabled selected>請選擇校舍地區</option>
-                                <option value="hk_island">港島區 (Hong Kong Island)</option>
-                                <option value="kowloon">九龍區 (Kowloon)</option>
-                                <option value="nt_east">新界東 (NT East)</option>
-                                <option value="nt_west">新界西 (NT West)</option>
+                                <optgroup label="港島 Hong Kong Island">
+                                    <option value="central_western">中西區 (Central &amp; Western)</option>
+                                    <option value="wan_chai">灣仔區 (Wan Chai)</option>
+                                    <option value="eastern">東區 (Eastern)</option>
+                                    <option value="southern">南區 (Southern)</option>
+                                </optgroup>
+                                <optgroup label="九龍 Kowloon">
+                                    <option value="yau_tsim_mong">油尖旺區 (Yau Tsim Mong)</option>
+                                    <option value="sham_shui_po">深水埗區 (Sham Shui Po)</option>
+                                    <option value="kowloon_city">九龍城區 (Kowloon City)</option>
+                                    <option value="wong_tai_sin">黃大仙區 (Wong Tai Sin)</option>
+                                    <option value="kwun_tong">觀塘區 (Kwun Tong)</option>
+                                </optgroup>
+                                <optgroup label="新界 New Territories">
+                                    <option value="kwai_tsing">葵青區 (Kwai Tsing)</option>
+                                    <option value="tsuen_wan">荃灣區 (Tsuen Wan)</option>
+                                    <option value="tuen_mun">屯門區 (Tuen Mun)</option>
+                                    <option value="yuen_long">元朗區 (Yuen Long)</option>
+                                    <option value="north">北區 (North)</option>
+                                    <option value="tai_po">大埔區 (Tai Po)</option>
+                                    <option value="sha_tin">沙田區 (Sha Tin)</option>
+                                    <option value="sai_kung">西貢區 (Sai Kung)</option>
+                                </optgroup>
+                                <optgroup label="離島 Islands">
+                                    <option value="islands">離島區 (Islands)</option>
+                                </optgroup>
                             </select>
                         </div>
-
-                        <!-- School Address -->
                         <div class="sm:col-span-2">
-                            <label class="block text-xs font-semibold text-gray-300 mb-2">校舍通訊地址 (官方通訊地點) <span class="text-red-400">*</span></label>
-                            <input type="text" id="schoolAddress" required placeholder="請填寫完整校舍地址" class="w-full px-4 py-3 rounded-xl glass-input text-sm">
+                            <label class="field-label">校舍通訊地址 <span class="text-[var(--gold-300)]">*</span></label>
+                            <input type="text" id="schoolAddress" required placeholder="請填寫完整校舍地址" class="field">
                         </div>
                     </div>
 
-                    <div class="border-t border-gray-800 pt-6 grid sm:grid-cols-2 gap-6">
-                        <!-- Contact Teacher Name -->
-                        <div>
-                            <label class="block text-xs font-semibold text-gray-300 mb-2">帶隊統籌老師 / STEM 主任姓名 <span class="text-red-400">*</span></label>
-                            <input type="text" id="teacherName" required placeholder="例：陳大文 老師" class="w-full px-4 py-3 rounded-xl glass-input text-sm">
-                        </div>
-
-                        <!-- Teacher Position -->
-                        <div>
-                            <label class="block text-xs font-semibold text-gray-300 mb-2">職銜 / 職位 <span class="text-red-400">*</span></label>
-                            <input type="text" id="teacherTitle" required placeholder="例：科統籌主任 / 物理科科panel" class="w-full px-4 py-3 rounded-xl glass-input text-sm">
-                        </div>
-
-                        <!-- Teacher Email -->
-                        <div>
-                            <label class="block text-xs font-semibold text-gray-300 mb-2">帶隊老師電郵 (接收大賽通告) <span class="text-red-400">*</span></label>
-                            <input type="email" id="teacherEmail" required placeholder="teacher@school.edu.hk" class="w-full px-4 py-3 rounded-xl glass-input text-sm">
-                        </div>
-
-                        <!-- Teacher Phone -->
-                        <div>
-                            <label class="block text-xs font-semibold text-gray-300 mb-2">聯絡電話 / WhatsApp <span class="text-red-400">*</span></label>
-                            <input type="tel" id="teacherPhone" required placeholder="+852 9123 4567" class="w-full px-4 py-3 rounded-xl glass-input text-sm">
-                        </div>
-
-                        <!-- Principal Name -->
-                        <div>
-                            <label class="block text-xs font-semibold text-gray-300 mb-2">校長姓名 <span class="text-red-400">*</span></label>
-                            <input type="text" id="principalName" required placeholder="例：張校長" class="w-full px-4 py-3 rounded-xl glass-input text-sm">
-                        </div>
-
-                        <!-- Principal Email -->
-                        <div>
-                            <label class="block text-xs font-semibold text-gray-300 mb-2">校長電郵 / 校務處電郵 <span class="text-red-400">*</span></label>
-                            <input type="email" id="principalEmail" required placeholder="principal@school.edu.hk" class="w-full px-4 py-3 rounded-xl glass-input text-sm">
-                        </div>
-                    </div>
-                </div>
-
-                <!-- STEP 2: COMPETITION TRACKS & KITS ALLOCATION -->
-                <div id="step-content-2" class="step-panel glass-panel p-6 sm:p-8 rounded-3xl border border-blue-500/20 space-y-6 hidden">
-                    <div class="border-b border-gray-800 pb-4">
-                        <h3 class="text-xl font-bold text-white flex items-center gap-2">
-                            <i class="fa-solid fa-layer-group text-blueNeon"></i> 第二步：報名比賽組別與官方套材申領
+                    <!-- 初步建議負責人 -->
+                    <div class="border-b border-[var(--border-soft)] pb-5">
+                        <h3 class="h3 mb-2 flex items-center gap-2">
+                            <i class="fa-solid fa-user-astronaut text-[var(--primary-300)]"></i> 初步建議負責人
                         </h3>
-                        <p class="text-xs text-gray-400 mt-1">請選擇貴校擬參加的賽事組別，並勾選申領之航天研發硬體套件。</p>
+                        <p class="caption">此為貴校初步建議之帶隊負責人,秘書處核實後仍可更改。</p>
                     </div>
 
-                    <div class="space-y-4">
-
-                        <!-- Track 1 Box -->
-                        <div class="glass-panel p-5 rounded-2xl border border-cyan-500/30 hover:border-cyan-400 transition-colors">
-                            <div class="flex items-start gap-4">
-                                <input type="checkbox" id="track1_enable" onchange="toggleTrackDetails('track1_details', this.checked)" class="mt-1 w-5 h-5 rounded text-cyanNeon accent-cyan-500">
-                                <div class="flex-1">
-                                    <div class="flex items-center justify-between">
-                                        <h4 class="font-bold text-white text-base">Track 01: AI 太空工程創新挑戰賽</h4>
-                                        <span class="px-2.5 py-0.5 rounded bg-cyan-950 text-cyanNeon text-[10px] font-semibold border border-cyan-500/30">每校最多 2 隊</span>
-                                    </div>
-                                    <p class="text-xs text-gray-300 mt-1">運用大會硬體套材進行編程與 AI 演算法開發，解構月球/火星工程難題。</p>
-
-                                    <!-- Expandable options -->
-                                    <div id="track1_details" class="mt-4 pt-4 border-t border-gray-800 space-y-4 hidden">
-                                        <div class="text-xs font-semibold text-cyanNeon mb-2">請選擇申領之官方硬體材料包款式：</div>
-                                        <div class="text-[11px] text-amber-400 font-bold bg-amber-950/30 border border-amber-500/30 p-2.5 rounded-lg mb-4 leading-relaxed">
-                                            <i class="fa-solid fa-list-ol mr-1"></i> <strong>意願排序：</strong> 最優先填 1，之後次選填 2，如此類推。<br class="hidden sm:block">最終分組結果會按報名情況及抽籤決定。
-                                        </div>
-
-                                        <div class="space-y-4">
-                                            <!-- 小學組別 -->
-                                            <div class="flex flex-col sm:flex-row gap-3 sm:items-stretch bg-space-900/30 p-3 rounded-xl border border-gray-800/50">
-                                                <div class="sm:w-28 shrink-0 flex sm:flex-col items-center sm:items-start gap-2 sm:gap-1 pt-1">
-                                                    <span class="px-2 py-1 rounded bg-blue-950 text-blueNeon font-bold text-[11px] border border-blue-500/30">小學組別</span>
-                                                    <span class="text-[10px] text-gray-500">(初小 / 高小)</span>
-                                                </div>
-                                                <div class="grid sm:grid-cols-2 gap-3 flex-1 text-xs">
-                                                    <label class="flex items-center gap-3 p-2.5 rounded-lg bg-space-900 border border-gray-700 hover:border-cyan-500 transition-colors">
-                                                        <select class="bg-space-950 border border-gray-600 rounded p-1.5 text-center text-white focus:border-cyanNeon focus:outline-none cursor-pointer">
-                                                            <option value="">-</option><option value="1">1</option><option value="2">2</option><option value="3">3</option>
-                                                        </select>
-                                                        <span class="flex-1">CubeSat 微型衛星套材</span>
-                                                    </label>
-                                                    <label class="flex items-center gap-3 p-2.5 rounded-lg bg-space-900 border border-gray-700 hover:border-cyan-500 transition-colors">
-                                                        <select class="bg-space-950 border border-gray-600 rounded p-1.5 text-center text-white focus:border-cyanNeon focus:outline-none cursor-pointer">
-                                                            <option value="">-</option><option value="1">1</option><option value="2">2</option><option value="3">3</option>
-                                                        </select>
-                                                        <span class="flex-1">太空種植方艙 (Greenhouse)</span>
-                                                    </label>
-                                                    <label class="flex items-center gap-3 p-2.5 rounded-lg bg-space-900 border border-gray-700 hover:border-cyan-500 transition-colors">
-                                                        <select class="bg-space-950 border border-gray-600 rounded p-1.5 text-center text-white focus:border-cyanNeon focus:outline-none cursor-pointer">
-                                                            <option value="">-</option><option value="1">1</option><option value="2">2</option><option value="3">3</option>
-                                                        </select>
-                                                        <span class="flex-1">E28太空 AI 機械人</span>
-                                                    </label>
-                                                </div>
-                                            </div>
-
-                                            <!-- 中學組別 -->
-                                            <div class="flex flex-col sm:flex-row gap-3 sm:items-stretch bg-space-900/30 p-3 rounded-xl border border-gray-800/50">
-                                                <div class="sm:w-28 shrink-0 flex sm:flex-col items-center sm:items-start gap-2 sm:gap-1 pt-1">
-                                                    <span class="px-2 py-1 rounded bg-purple-950 text-purpleNeon font-bold text-[11px] border border-purple-500/30">中學組別</span>
-                                                    <span class="text-[10px] text-gray-500">(初中 / 高中)</span>
-                                                </div>
-                                                <div class="grid sm:grid-cols-2 gap-3 flex-1 text-xs">
-                                                    <label class="flex items-center gap-3 p-2.5 rounded-lg bg-space-900 border border-gray-700 hover:border-cyan-500 transition-colors">
-                                                        <select class="bg-space-950 border border-gray-600 rounded p-1.5 text-center text-white focus:border-cyanNeon focus:outline-none cursor-pointer">
-                                                            <option value="">-</option><option value="1">1</option><option value="2">2</option><option value="3">3</option><option value="4">4</option>
-                                                        </select>
-                                                        <span class="flex-1">3U CubeSat 微型衛星</span>
-                                                    </label>
-                                                    <label class="flex items-center gap-3 p-2.5 rounded-lg bg-space-900 border border-gray-700 hover:border-cyan-500 transition-colors">
-                                                        <select class="bg-space-950 border border-gray-600 rounded p-1.5 text-center text-white focus:border-cyanNeon focus:outline-none cursor-pointer">
-                                                            <option value="">-</option><option value="1">1</option><option value="2">2</option><option value="3">3</option><option value="4">4</option>
-                                                        </select>
-                                                        <span class="flex-1">火星探測車 (Mars Rover)</span>
-                                                    </label>
-                                                    <label class="flex items-center gap-3 p-2.5 rounded-lg bg-space-900 border border-gray-700 hover:border-cyan-500 transition-colors">
-                                                        <select class="bg-space-950 border border-gray-600 rounded p-1.5 text-center text-white focus:border-cyanNeon focus:outline-none cursor-pointer">
-                                                            <option value="">-</option><option value="1">1</option><option value="2">2</option><option value="3">3</option><option value="4">4</option>
-                                                        </select>
-                                                        <span class="flex-1">3D 打印火箭工程</span>
-                                                    </label>
-                                                    <label class="flex items-center gap-3 p-2.5 rounded-lg bg-space-900 border border-gray-700 hover:border-cyan-500 transition-colors">
-                                                        <select class="bg-space-950 border border-gray-600 rounded p-1.5 text-center text-white focus:border-cyanNeon focus:outline-none cursor-pointer">
-                                                            <option value="">-</option><option value="1">1</option><option value="2">2</option><option value="3">3</option><option value="4">4</option>
-                                                        </select>
-                                                        <span class="flex-1">智能機械手 (Robotic Arm)</span>
-                                                    </label>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- Track 2 Box -->
-                        <div class="glass-panel p-5 rounded-2xl border border-blue-500/30 hover:border-blue-400 transition-colors">
-                            <div class="flex items-start gap-4">
-                                <input type="checkbox" id="track2_enable" onchange="toggleTrackDetails('track2_details', this.checked)" class="mt-1 w-5 h-5 rounded text-blueNeon accent-blue-500">
-                                <div class="flex-1">
-                                    <div class="flex items-center justify-between">
-                                        <h4 class="font-bold text-white text-base">Track 02: 未來基地概念藍圖大賽</h4>
-                                        <span class="px-2.5 py-0.5 rounded bg-blue-950 text-blueNeon text-[10px] font-semibold border border-blue-500/30">每校最多 2 隊</span>
-                                    </div>
-                                    <p class="text-xs text-gray-300 mt-1">提交視覺設計概念藍圖及 2 分鐘提案短片 (Elevator Pitch)，展示以 AI 解決太空痛點的藍圖。</p>
-
-                                    <div id="track2_details" class="mt-4 pt-4 border-t border-gray-800 space-y-3 hidden">
-                                        <div class="text-xs font-semibold text-blueNeon">請選擇參賽主題：</div>
-                                        <div class="flex gap-4 text-xs">
-                                            <label class="flex items-center gap-2 cursor-pointer">
-                                                <input type="radio" name="track2_topic" value="lunar" class="accent-blue-500">
-                                                <span>小學組：未來月球基地創意設計</span>
-                                            </label>
-                                            <label class="flex items-center gap-2 cursor-pointer">
-                                                <input type="radio" name="track2_topic" value="mars" class="accent-blue-500">
-                                                <span>中學組：未來火星基地整體佈局</span>
-                                            </label>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- Track 3 Box -->
-                        <div class="glass-panel p-5 rounded-2xl border border-purple-500/30 hover:border-purple-400 transition-colors">
-                            <div class="flex items-start gap-4">
-                                <input type="checkbox" id="track3_enable" checked class="mt-1 w-5 h-5 rounded text-purpleNeon accent-purple-500">
-                                <div class="flex-1">
-                                    <div class="flex items-center justify-between">
-                                        <h4 class="font-bold text-white text-base">Track 03: 太空任務標誌設計大賽 (School Space Logo)</h4>
-                                        <span class="px-2.5 py-0.5 rounded bg-purple-950 text-purpleNeon text-[10px] font-semibold border border-purple-500/30">全校學生免費參與</span>
-                                    </div>
-                                    <p class="text-xs text-gray-300 mt-1">
-                                        全校學生均可參與，每校選出 1 個代表作品，由 HKATA 製成<strong class="text-purple-300">實體金屬標誌牌隨衛星發射升空</strong>！
-                                    </p>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- Track 4 Box -->
-                        <div class="glass-panel p-5 rounded-2xl border border-amber-500/30 hover:border-amber-400 transition-colors">
-                            <div class="flex items-start gap-4">
-                                <input type="checkbox" id="track4_enable" class="mt-1 w-5 h-5 rounded text-amber-400 accent-amber-500">
-                                <div class="flex-1">
-                                    <div class="flex items-center justify-between">
-                                        <h4 class="font-bold text-white text-base">Track 04: 中國航天發展演講比賽</h4>
-                                        <span class="px-2.5 py-0.5 rounded bg-amber-950 text-amber-400 text-[10px] font-semibold border border-amber-500/30">小學組 (小一至小三)</span>
-                                    </div>
-                                    <p class="text-xs text-gray-300 mt-1">配合大會發放之「航天模型套裝」進行個人英語/粵語/普通話演說。</p>
-                                </div>
-                            </div>
-                        </div>
-
-                    </div>
-                </div>
-
-                <!-- STEP 3: TEAM & MENTOR DETAILS -->
-                <div id="step-content-3" class="step-panel glass-panel p-6 sm:p-8 rounded-3xl border border-purple-500/20 space-y-6 hidden">
-                    <div class="border-b border-gray-800 pb-4 flex items-center justify-between">
+                    <div class="grid sm:grid-cols-2 gap-6">
                         <div>
-                            <h3 class="text-xl font-bold text-white flex items-center gap-2">
-                                <i class="fa-solid fa-users text-purpleNeon"></i> 第三步：參賽學生與帶隊導師名單
-                            </h3>
-                            <p class="text-xs text-gray-400 mt-1">填寫學生姓名（用於大賽參賽證書及決賽入場證印製）。</p>
+                            <label class="field-label">負責人姓名 <span class="text-[var(--gold-300)]">*</span></label>
+                            <input type="text" id="teacherName" required placeholder="例:陳 X X 老師" class="field">
                         </div>
-                        <button type="button" onclick="addStudentRow()" class="px-4 py-2 rounded-xl bg-purple-950 border border-purple-500/50 text-purple-300 text-xs font-semibold hover:bg-purple-900 transition-colors flex items-center gap-2">
-                            <i class="fa-solid fa-user-plus"></i> 新增參賽學生
-                        </button>
+                        <div>
+                            <label class="field-label">職銜 / 職位 <span class="text-[var(--gold-300)]">*</span></label>
+                            <select id="teacherTitle" required class="field">
+                                <option value="" disabled selected>請選擇職銜 / 職位</option>
+                                <option value="stem_coordinator">STEM / STEAM 主任 / 統籌員 (STEM / STEAM Coordinator)</option>
+                                <option value="science_head">科學科主任 / 教師 (Science Department Head / Teacher)</option>
+                                <option value="primary_science">小學科學科教師 (Primary Science Teacher)</option>
+                                <option value="physics">物理科教師 (Physics Teacher)</option>
+                                <option value="ict">資訊科技(ICT)主任 / 教師 (ICT Teacher)</option>
+                                <option value="bio_chem">生物 / 化學科教師 (Biology / Chemistry Teacher)</option>
+                                <option value="general_studies">常識科主任 / 教師 (General Studies Teacher — 適用於小學)</option>
+                                <option value="it_coordinator">創新科技 / 資訊科技統籌員 (Innovation &amp; Technology / IT Coordinator)</option>
+                                <option value="extracurricular">課外活動 / 競賽組主任 (Extra-curricular / Competition Coordinator)</option>
+                                <option value="other">其他教職員 (Other Teaching Staff)</option>
+                            </select>
+                            <input type="text" id="teacherTitleOther" placeholder="請說明其他職銜" class="field mt-2 hidden">
+                        </div>
+                        <div>
+                            <label class="field-label">負責人電郵(接收大賽通告) <span class="text-[var(--gold-300)]">*</span></label>
+                            <input type="email" id="teacherEmail" required placeholder="teacher@xxxx.edu.hk" class="field">
+                        </div>
+                        <div>
+                            <label class="field-label">負責人 WhatsApp <span class="text-[var(--gold-300)]">*</span></label>
+                            <input type="tel" id="teacherPhone" required placeholder="+852 9123 4567" class="field">
+                        </div>
                     </div>
 
-                    <!-- Dynamic Student Roster Table -->
-                    <div class="overflow-x-auto">
-                        <table class="w-full text-left text-xs text-gray-300">
-                            <thead class="bg-space-900 text-gray-400 font-tech uppercase border-b border-gray-800">
-                                <tr>
-                                    <th class="p-3">#</th>
-                                    <th class="p-3">學生中文姓名</th>
-                                    <th class="p-3">學生英文姓名</th>
-                                    <th class="p-3">就讀年級</th>
-                                    <th class="p-3">參賽組別</th>
-                                    <th class="p-3 text-center">操作</th>
-                                </tr>
-                            </thead>
-                            <tbody id="studentRosterBody" class="divide-y divide-gray-800/60">
-                                <!-- Default Row 1 -->
-                                <tr>
-                                    <td class="p-3 font-mono text-cyanNeon">1</td>
-                                    <td class="p-3"><input type="text" placeholder="例：陳小明" required class="w-full px-3 py-2 rounded-lg glass-input"></td>
-                                    <td class="p-3"><input type="text" placeholder="Chan Siu Ming" required class="w-full px-3 py-2 rounded-lg glass-input"></td>
-                                    <td class="p-3">
-                                        <select class="w-full px-3 py-2 rounded-lg glass-input">
-                                            <option>小一至小三</option>
-                                            <option selected>小四至小六</option>
-                                            <option>中一至中三</option>
-                                            <option>中四至中六</option>
-                                        </select>
-                                    </td>
-                                    <td class="p-3">
-                                        <select class="w-full px-3 py-2 rounded-lg glass-input">
-                                            <option>Track 01 (AI太空工程)</option>
-                                            <option>Track 02 (概念藍圖)</option>
-                                            <option>Track 03 (標誌設計)</option>
-                                            <option>Track 04 (演講比賽)</option>
-                                        </select>
-                                    </td>
-                                    <td class="p-3 text-center">
-                                        <button type="button" onclick="removeStudentRow(this)" class="text-red-400 hover:text-red-300 p-1"><i class="fa-solid fa-trash-can"></i></button>
-                                    </td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-
-                <!-- STEP 4: SCHOOL SPACE LOGO UPLOAD & DECLARATION -->
-                <div id="step-content-4" class="step-panel glass-panel p-6 sm:p-8 rounded-3xl border border-amber-500/20 space-y-6 hidden">
-                    <div class="border-b border-gray-800 pb-4">
-                        <h3 class="text-xl font-bold text-white flex items-center gap-2">
-                            <i class="fa-solid fa-satellite text-amber-400"></i> 第四步：學校 Space Logo 牌與聲明確認
+                    <!-- 比賽選擇 -->
+                    <div>
+                        <h3 class="h3 mb-2 flex items-center gap-2">
+                            <i class="fa-solid fa-trophy text-[var(--primary-300)]"></i> 比賽選擇
                         </h3>
-                        <p class="text-xs text-gray-400 mt-1">上載貴校標誌圖檔，系統即時模擬隨衛星升空之金屬銘牌樣貌。</p>
+                        <p class="caption">請選擇貴校擬參加的學段賽道。完成後秘書處會依學段確認章程與硬件套件安排。</p>
                     </div>
 
-                    <div class="grid lg:grid-cols-2 gap-8 items-center">
-                        
-                        <!-- File Upload Box -->
-                        <div class="space-y-4">
-                            <label class="block text-xs font-semibold text-gray-300">上載學校官方校徽 / 學生勝出標誌圖檔 (PNG/SVG/JPG)</label>
-                            
-                            <div class="border-2 border-dashed border-gray-700 rounded-2xl p-6 text-center hover:border-cyan-500 transition-colors bg-space-900/50 cursor-pointer" onclick="document.getElementById('logoFileInput').click()">
-                                <i class="fa-solid fa-cloud-arrow-up text-4xl text-cyanNeon mb-3"></i>
-                                <div class="text-xs font-semibold text-white">按此選擇檔案或拖曳圖檔至此</div>
-                                <div class="text-[10px] text-gray-500 mt-1">支援高解析度 PNG, SVG, JPG (最大 10MB)</div>
-                                <input type="file" id="logoFileInput" accept="image/*" onchange="previewSchoolLogo(event)" class="hidden">
-                            </div>
+                    <div class="mb-6">
+                        <label class="field-label">報名學段 <span class="text-[var(--gold-300)]">*</span></label>
+                        <div class="grid sm:grid-cols-3 gap-3" id="segmentGroup">
+                            <label class="seg-card flex items-center gap-3 p-4 rounded-xl border border-[var(--border)] bg-[var(--surface-800)] cursor-pointer hover:border-[var(--primary-400)] transition-colors has-[:checked]:border-[var(--primary-500)] has-[:checked]:bg-[rgba(46,111,224,0.10)]">
+                                <input type="radio" name="segment" value="kindergarten" required class="accent-[var(--primary-500)]">
+                                <div>
+                                    <div class="text-[var(--text-hi)] font-bold text-sm">幼兒組</div>
+                                    <div class="text-[var(--text-mute)] text-[11px]">KINDERGARTEN</div>
+                                </div>
+                            </label>
+                            <label class="seg-card flex items-center gap-3 p-4 rounded-xl border border-[var(--border)] bg-[var(--surface-800)] cursor-pointer hover:border-[var(--primary-400)] transition-colors has-[:checked]:border-[var(--primary-500)] has-[:checked]:bg-[rgba(46,111,224,0.10)]">
+                                <input type="radio" name="segment" value="primary" class="accent-[var(--primary-500)]">
+                                <div>
+                                    <div class="text-[var(--text-hi)] font-bold text-sm">小學組</div>
+                                    <div class="text-[var(--text-mute)] text-[11px]">PRIMARY (P1–P6)</div>
+                                </div>
+                            </label>
+                            <label class="seg-card flex items-center gap-3 p-4 rounded-xl border border-[var(--border)] bg-[var(--surface-800)] cursor-pointer hover:border-[var(--primary-400)] transition-colors has-[:checked]:border-[var(--primary-500)] has-[:checked]:bg-[rgba(46,111,224,0.10)]">
+                                <input type="radio" name="segment" value="secondary" class="accent-[var(--primary-500)]">
+                                <div>
+                                    <div class="text-[var(--text-hi)] font-bold text-sm">中學組</div>
+                                    <div class="text-[var(--text-mute)] text-[11px]">SECONDARY (S1–S6)</div>
+                                </div>
+                            </label>
+                        </div>
+                    </div>
 
-                            <div class="text-[11px] text-amber-300 leading-relaxed bg-amber-950/30 p-3 rounded-xl border border-amber-500/30">
-                                <i class="fa-solid fa-circle-info"></i> <strong>衛星升空提示：</strong> 每間參賽學校均可獲派 1 枚專屬實體銘牌，圖樣經核實後將於 2027年6月隨 HKATA 衛星發射任務升空。
-                            </div>
+                    <div class="mb-2">
+                        <label class="field-label">參賽賽道 <span class="text-[var(--gold-300)]">*</span></label>
+                        <p class="caption mb-3">可選多項。秘書處將以抽籤方式分配各校之賽道及硬件套件。</p>
+
+                        <div data-tracks-for="kindergarten" class="track-block space-y-2 hidden">
+                            <label class="track-pick flex items-start gap-3 p-3 rounded-xl border border-[var(--border)] bg-[var(--surface-800)] cursor-pointer hover:border-[var(--primary-400)]">
+                                <input type="checkbox" name="tracks" value="logo" class="mt-1 accent-[var(--primary-500)]">
+                                <div>
+                                    <div class="text-[var(--text-hi)] font-bold text-sm">太空任務標誌設計 + 太空基地填色</div>
+                                    <div class="text-[var(--text-mute)] text-[11px]">TRACK 01 · 全港學校 · 毋須編程</div>
+                                </div>
+                            </label>
                         </div>
 
-                        <!-- Metallic Badge Live Preview Box -->
-                        <div class="flex flex-col items-center justify-center">
-                            <div class="text-xs font-tech text-gray-400 uppercase tracking-widest mb-3">SATELLITE PLAQUE LIVE SIMULATION</div>
-                            
-                            <div class="metallic-plate w-64 h-80 rounded-2xl p-6 flex flex-col items-center justify-between text-center relative overflow-hidden">
-                                <!-- Corner Screws -->
-                                <div class="absolute top-2 left-2 w-2 h-2 rounded-full bg-gray-400 border border-gray-600"></div>
-                                <div class="absolute top-2 right-2 w-2 h-2 rounded-full bg-gray-400 border border-gray-600"></div>
-                                <div class="absolute bottom-2 left-2 w-2 h-2 rounded-full bg-gray-400 border border-gray-600"></div>
-                                <div class="absolute bottom-2 right-2 w-2 h-2 rounded-full bg-gray-400 border border-gray-600"></div>
-
-                                <!-- Plaque Header -->
+                        <div data-tracks-for="primary" class="track-block space-y-2 hidden">
+                            <label class="track-pick flex items-start gap-3 p-3 rounded-xl border border-[var(--border)] bg-[var(--surface-800)] cursor-pointer hover:border-[var(--primary-400)]">
+                                <input type="checkbox" name="tracks" value="logo" class="mt-1 accent-[var(--primary-500)]">
                                 <div>
-                                    <div class="font-tech text-[10px] text-cyanNeon tracking-widest uppercase font-bold">HKATA SATELLITE MISSION</div>
-                                    <div class="text-[9px] text-gray-300 font-mono">ORBITAL PAYLOAD 2027</div>
+                                    <div class="text-[var(--text-hi)] font-bold text-sm">太空任務標誌設計</div>
+                                    <div class="text-[var(--text-mute)] text-[11px]">TRACK 01 · 全級 · 毋須編程</div>
                                 </div>
-
-                                <!-- Dynamic Preview Image -->
-                                <div class="w-24 h-24 rounded-xl border border-gray-500 flex items-center justify-center p-2 bg-space-950/60 my-2">
-                                    <img id="plaqueLogoPreview" src="https://placehold.co/100x100/1e293b/00F2FE?text=School+Logo" alt="School Logo Preview" class="max-h-full max-w-full object-contain filter drop-shadow">
-                                </div>
-
-                                <!-- Plaque Footer -->
+                            </label>
+                            <label class="track-pick flex items-start gap-3 p-3 rounded-xl border border-[var(--border)] bg-[var(--surface-800)] cursor-pointer hover:border-[var(--primary-400)]">
+                                <input type="checkbox" name="tracks" value="speech" class="mt-1 accent-[var(--primary-500)]">
                                 <div>
-                                    <div id="plaqueSchoolName" class="font-bold text-xs text-white tracking-wider">貴校學校名稱</div>
-                                    <div class="text-[8px] text-amber-300 mt-1 font-mono">SPACE LOGO PLATE #2027-HK</div>
+                                    <div class="text-[var(--text-hi)] font-bold text-sm">中國航天發展演講比賽</div>
+                                    <div class="text-[var(--text-mute)] text-[11px]">TRACK 02 · 初小 P1–P3 · 3 分鐘演說</div>
                                 </div>
-                            </div>
+                            </label>
+                            <label class="track-pick flex items-start gap-3 p-3 rounded-xl border border-[var(--border)] bg-[var(--surface-800)] cursor-pointer hover:border-[var(--primary-400)]">
+                                <input type="checkbox" name="tracks" value="engineering" class="mt-1 accent-[var(--primary-500)]">
+                                <div>
+                                    <div class="text-[var(--text-hi)] font-bold text-sm">航天 AI 工程挑戰 · 未來月球基地</div>
+                                    <div class="text-[var(--text-mute)] text-[11px]">TRACK 03 · 高小 P4–P6 · 配備硬件</div>
+                                </div>
+                            </label>
                         </div>
 
+                        <div data-tracks-for="secondary" class="track-block space-y-2 hidden">
+                            <label class="track-pick flex items-start gap-3 p-3 rounded-xl border border-[var(--border)] bg-[var(--surface-800)] cursor-pointer hover:border-[var(--primary-400)]">
+                                <input type="checkbox" name="tracks" value="logo" class="mt-1 accent-[var(--primary-500)]">
+                                <div>
+                                    <div class="text-[var(--text-hi)] font-bold text-sm">太空任務標誌設計</div>
+                                    <div class="text-[var(--text-mute)] text-[11px]">TRACK 01 · 全級 · 毋須編程</div>
+                                </div>
+                            </label>
+                            <label class="track-pick flex items-start gap-3 p-3 rounded-xl border border-[var(--border)] bg-[var(--surface-800)] cursor-pointer hover:border-[var(--primary-400)]">
+                                <input type="checkbox" name="tracks" value="engineering" class="mt-1 accent-[var(--primary-500)]">
+                                <div>
+                                    <div class="text-[var(--text-hi)] font-bold text-sm">航天 AI 工程挑戰 · 未來火星基地</div>
+                                    <div class="text-[var(--text-mute)] text-[11px]">TRACK 02 · 初中 / 高中 · 配備硬件</div>
+                                </div>
+                            </label>
+                        </div>
                     </div>
 
-                    <!-- Declaration Checkbox -->
-                    <div class="border-t border-gray-800 pt-6 space-y-3 text-xs text-gray-300">
-                        <label class="flex items-start gap-3 cursor-pointer">
-                            <input type="checkbox" id="declaration_agree" required class="mt-0.5 w-4 h-4 rounded text-cyanNeon accent-cyan-500">
-                            <span>本人代表貴校確認上述資料均真實無誤，並已獲校長 / 學校管理層授權參加「全港首屆『航天築夢』航天AI創新大賽」。</span>
-                        </label>
-                    </div>
-
+                    <input type="hidden" id="referrerLevel" name="referrerLevel" value="">
                 </div>
 
-                <!-- NAVIGATION BUTTONS -->
-                <div class="flex items-center justify-between pt-6 border-t border-gray-800">
-                    <button type="button" id="prevBtn" onclick="changeStep(-1)" class="px-6 py-3 rounded-xl glass-panel border border-gray-700 text-gray-400 text-xs font-semibold hover:text-white transition-colors hidden">
-                        <i class="fa-solid fa-arrow-left mr-2"></i> 上一步
+                <!-- SUBMIT -->
+                <div class="flex flex-col items-center gap-3">
+                    <label class="flex items-start gap-3 text-sm text-[var(--text-body)] cursor-pointer max-w-xl">
+                        <input type="checkbox" id="consent" required class="mt-1 accent-[var(--primary-500)]">
+                        <span>本人已閱讀並同意大會秘書處收集及處理上述資料,作報名審核及聯絡用途。</span>
+                    </label>
+                    <button type="submit" id="submitBtn" class="btn btn-gold text-base px-10 py-4">
+                        <i class="fa-solid fa-rocket"></i> 提交學校報名
                     </button>
-                    <div class="flex-1"></div> <!-- Spacer -->
-                    
-                    <div class="flex items-center gap-3">
-                        <button type="button" id="saveBtn" onclick="saveProgress()" class="px-4 sm:px-6 py-3.5 rounded-xl glass-panel border border-cyan-500/30 text-cyanNeon text-xs font-bold hover:bg-cyan-950/50 transition-colors flex items-center">
-                            <i class="fa-solid fa-floppy-disk mr-2"></i> <span class="hidden sm:inline">儲存進度並離開</span><span class="sm:hidden">儲存</span>
-                        </button>
-                        <button type="button" id="nextBtn" onclick="changeStep(1)" class="px-6 sm:px-8 py-3.5 rounded-xl bg-gradient-to-r from-cyan-500 to-blue-600 text-white text-xs font-bold shadow-glow-cyan hover:opacity-90 transition-opacity flex items-center">
-                            下一步 <i class="fa-solid fa-arrow-right ml-2"></i>
-                        </button>
-                        <button type="button" id="submitBtn" onclick="submitRegistration()" class="px-6 sm:px-8 py-3.5 rounded-xl bg-gradient-to-r from-amber-400 via-orange-500 to-red-500 text-white text-xs font-extrabold shadow-glow-gold hover:scale-105 transition-transform hidden flex items-center">
-                            <i class="fa-solid fa-rocket mr-2"></i> <span class="hidden sm:inline">正式提交學校報名</span><span class="sm:hidden">提交報名</span>
-                        </button>
-                    </div>
                 </div>
 
             </form>
 
         </main>
 
-        <!-- LOGIN / RESUME MODAL -->
-        <div id="loginModal" class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-space-950/80 backdrop-blur-md hidden">
-            <div class="glass-panel max-w-md w-full p-8 rounded-3xl border border-gray-700 relative shadow-2xl">
-                <button type="button" onclick="document.getElementById('loginModal').classList.add('hidden')" class="absolute top-5 right-5 text-gray-400 hover:text-white">
-                    <i class="fa-solid fa-xmark text-lg"></i>
-                </button>
-                <div class="text-center mb-6">
-                    <i class="fa-solid fa-arrow-right-to-bracket text-3xl text-cyanNeon mb-3"></i>
-                    <h3 class="text-xl font-bold text-white">載入已儲存的報名進度</h3>
-                    <p class="text-xs text-gray-400 mt-2">請輸入您先前獲得的參加編號與安全 PIN 碼。</p>
+        <footer class="pt-12 pb-8 border-t border-[var(--border-soft)]">
+            <div class="container-x flex flex-col md:flex-row items-center justify-between gap-6 text-center md:text-left">
+                <div>
+                    <div class="font-display text-base font-bold tracking-[0.18em] text-[var(--text-hi)] mb-1">HKATA</div>
+                    <div class="text-[10px] text-[var(--text-mute)] tracking-[0.18em] uppercase">Hong Kong Aerospace Technology Academy</div>
                 </div>
-                <div class="space-y-4 mb-6">
-                    <div>
-                        <label class="block text-xs font-semibold text-gray-300 mb-1">參賽編號 (Application ID)</label>
-                        <input type="text" id="loginId" placeholder="例如：HKATA-2027-XXXX" class="w-full px-4 py-3 rounded-xl glass-input text-sm uppercase">
-                    </div>
-                    <div>
-                        <label class="block text-xs font-semibold text-gray-300 mb-1">安全密碼 (PIN)</label>
-                        <input type="password" id="loginPin" placeholder="6位數字" maxlength="6" class="w-full px-4 py-3 rounded-xl glass-input text-sm tracking-widest font-mono">
-                    </div>
+                <nav class="flex flex-wrap justify-center gap-5 text-xs text-[var(--text-body)]">
+                    <a href="index.html" class="link">首頁</a>
+                    <a href="kindergarten.html" class="link">幼兒章程</a>
+                    <a href="primary.html" class="link">小學章程</a>
+                    <a href="secondary.html" class="link">中學章程</a>
+                    <a href="mailto:marketing@hkata.space" class="link">聯絡秘書處</a>
+                </nav>
+                <div class="text-xs text-[var(--text-mute)]">
+                    &copy; 2026 HKATA.<br>
+                    <a href="mailto:marketing@hkata.space" class="link">marketing@hkata.space</a> · 6113 0828
                 </div>
-                <button type="button" onclick="loginResume()" class="w-full py-3.5 rounded-xl bg-cyan-600 hover:bg-cyan-500 text-white text-xs font-bold tracking-wider transition-colors">
-                    登入並繼續填寫
-                </button>
             </div>
-        </div>
-
-        <!-- SAVE SUCCESS MODAL -->
-        <div id="saveSuccessModal" class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-space-950/80 backdrop-blur-md hidden">
-            <div class="glass-panel max-w-md w-full p-8 rounded-3xl border border-cyan-500/50 relative shadow-glow-cyan text-center">
-                <div class="w-16 h-16 rounded-full bg-cyan-950 border-2 border-cyanNeon mx-auto flex items-center justify-center text-cyanNeon text-2xl mb-4 shadow-glow-cyan">
-                    <i class="fa-solid fa-floppy-disk"></i>
-                </div>
-                <h3 class="text-xl font-bold text-white mb-2">進度已成功儲存！</h3>
-                <p class="text-xs text-gray-300 leading-relaxed mb-6">
-                    您隨時可以憑以下資料返回本系統繼續填寫或上載作品。<strong>請務必截圖或抄下保存。</strong>
-                </p>
-                
-                <div class="bg-space-900 p-5 rounded-2xl border border-gray-700 text-left space-y-4 mb-6 font-mono">
-                    <div>
-                        <div class="text-[10px] text-gray-500 font-sans font-bold tracking-wider mb-1">參賽編號 (APP ID)</div>
-                        <div id="savedAppId" class="text-lg text-cyanNeon font-bold tracking-widest bg-space-950 px-3 py-2 rounded-lg border border-gray-800 text-center">HKATA-2027-XXXX</div>
-                    </div>
-                    <div>
-                        <div class="text-[10px] text-gray-500 font-sans font-bold tracking-wider mb-1">安全密碼 (PIN)</div>
-                        <div id="savedPin" class="text-lg text-white font-bold tracking-widest bg-space-950 px-3 py-2 rounded-lg border border-gray-800 text-center">123456</div>
-                    </div>
-                </div>
-
-                <a href="index.html" class="block w-full py-3.5 rounded-xl glass-panel border border-gray-600 text-white text-xs font-bold hover:bg-gray-800 transition-colors text-center">
-                    返回大賽首頁
-                </a>
-            </div>
-        </div>
-
-        <!-- SUCCESS MODAL DIALOG -->
-        <div id="successModal" class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-space-950/80 backdrop-blur-md hidden">
-            <div class="glass-panel max-w-lg w-full p-8 rounded-3xl border border-cyan-500/50 text-center relative shadow-glow-cyan">
-                
-                <div class="w-16 h-16 rounded-full bg-cyan-950 border-2 border-cyanNeon mx-auto flex items-center justify-center text-cyanNeon text-2xl mb-4 shadow-glow-cyan">
-                    <i class="fa-solid fa-check"></i>
-                </div>
-
-                <h3 class="text-2xl font-bold text-white mb-2">報名申請已成功提交！</h3>
-                <p class="text-xs text-gray-300 leading-relaxed mb-6">
-                    感謝貴校參與全港首屆中小學「航天築夢」航天AI創新大賽！<br>
-                    大賽秘書處已收到貴校資料，確認電郵已發送至帶隊老師信箱。
-                </p>
-
-                <div class="bg-space-900 p-4 rounded-2xl border border-gray-800 text-left text-xs space-y-2 mb-6 font-mono">
-                    <div class="flex justify-between text-gray-400">
-                        <span>預派學校代碼：</span>
-                        <span id="modalCode" class="text-cyanNeon font-bold">HKATA-2027-8821</span>
-                    </div>
-                    <div class="flex justify-between text-gray-400">
-                        <span>研發套材通知：</span>
-                        <span class="text-white">將於3個工作天內通知領取安排</span>
-                    </div>
-                </div>
-
-                <a href="index.html" class="block w-full py-3.5 rounded-xl bg-gradient-to-r from-cyan-500 to-blue-600 text-white text-xs font-bold uppercase tracking-wider hover:scale-[1.02] transition-transform text-center">
-                    返回大賽首頁
-                </a>
-            </div>
-        </div>
-
-        <!-- FOOTER -->
-        <footer class="border-t border-gray-800/80 bg-space-950 py-6 text-center text-xs text-gray-500">
-            <p>&copy; 2026 Hong Kong Aerospace Technology Academy Limited (HKATA). All rights reserved.</p>
         </footer>
 
     </div>
 
-    <script>
-        // Starfield Canvas Effect
-        const canvas = document.getElementById('starfield');
-        const ctx = canvas.getContext('2d');
-        let width = canvas.width = window.innerWidth;
-        let height = canvas.height = window.innerHeight;
+    <div id="toast" class="toast" role="status" aria-live="polite"></div>
 
-        window.addEventListener('resize', () => {
-            width = canvas.width = window.innerWidth;
-            height = canvas.height = window.innerHeight;
+    <script>
+        // Pre-select from ?level= + initial track block
+        (function() {
+            const params = new URLSearchParams(window.location.search);
+            const level = params.get('level');
+            const map = { kindergarten: 'kindergarten', primary: 'primary', secondary: 'secondary' };
+            if (level && map[level]) {
+                const sel = document.getElementById('schoolCategory');
+                if (sel) sel.value = map[level];
+                const refField = document.getElementById('referrerLevel');
+                if (refField) refField.value = level;
+                const radio = document.querySelector(`input[name="segment"][value="${level}"]`);
+                if (radio) { radio.checked = true; showTrackBlock(level); }
+            }
+        })();
+
+        function showTrackBlock(seg) {
+            document.querySelectorAll('.track-block').forEach(el => el.classList.add('hidden'));
+            const target = document.querySelector(`[data-tracks-for="${seg}"]`);
+            if (target) target.classList.remove('hidden');
+        }
+        document.querySelectorAll('input[name="segment"]').forEach(r => {
+            r.addEventListener('change', () => {
+                document.querySelectorAll('input[name="tracks"]').forEach(cb => cb.checked = false);
+                showTrackBlock(r.value);
+                const refField = document.getElementById('referrerLevel');
+                if (refField) refField.value = r.value;
+            });
         });
 
-        const stars = Array.from({ length: 120 }, () => ({
-            x: Math.random() * width,
-            y: Math.random() * height,
-            size: Math.random() * 1.5,
-            alpha: Math.random(),
-            speed: Math.random() * 0.008 + 0.002
-        }));
+        // Show free-text field when "other" is selected
+        document.getElementById('teacherTitle').addEventListener('change', e => {
+            const o = document.getElementById('teacherTitleOther');
+            if (!o) return;
+            if (e.target.value === 'other') o.classList.remove('hidden');
+            else { o.classList.add('hidden'); o.value = ''; }
+        });
 
-        function drawStars() {
-            ctx.clearRect(0, 0, width, height);
-            stars.forEach(star => {
-                star.alpha += star.speed;
-                if (star.alpha > 1 || star.alpha < 0) star.speed = -star.speed;
-                ctx.fillStyle = `rgba(255, 255, 255, ${Math.abs(star.alpha)})`;
-                ctx.beginPath();
-                ctx.arc(star.x, star.y, star.size, 0, Math.PI * 2);
-                ctx.fill();
-            });
-            requestAnimationFrame(drawStars);
-        }
-        drawStars();
-
-        // Step Navigation Logic
-        let currentStep = 1;
-
-        function updateStepUI() {
-            // Hide all step panels
-            for (let i = 1; i <= 4; i++) {
-                document.getElementById(`step-content-${i}`).classList.add('hidden');
-                const tab = document.getElementById(`step-tab-${i}`);
-                if (i <= currentStep) {
-                    tab.classList.remove('text-gray-500');
-                    tab.classList.add('text-cyanNeon');
-                    tab.querySelector('div').classList.add('border-cyanNeon', 'bg-cyan-950');
-                    tab.querySelector('div').classList.remove('border-gray-700', 'bg-space-900');
-                } else {
-                    tab.classList.add('text-gray-500');
-                    tab.classList.remove('text-cyanNeon');
-                    tab.querySelector('div').classList.remove('border-cyanNeon', 'bg-cyan-950');
-                    tab.querySelector('div').classList.add('border-gray-700', 'bg-space-900');
-                }
-            }
-
-            // Show current panel
-            document.getElementById(`step-content-${currentStep}`).classList.remove('hidden');
-
-            // Update progress bar
-            const fillWidth = (currentStep / 4) * 100;
-            document.getElementById('progress-bar-fill').style.width = `${fillWidth}%`;
-
-            // Button states
-            document.getElementById('prevBtn').classList.toggle('hidden', currentStep === 1);
-            document.getElementById('nextBtn').classList.toggle('hidden', currentStep === 4);
-            document.getElementById('submitBtn').classList.toggle('hidden', currentStep !== 4);
-            document.getElementById('saveBtn').classList.toggle('hidden', currentStep === 4);
-        }
-
-        function changeStep(delta) {
-            if (delta === 1 && !validateCurrentStep()) return;
-            currentStep += delta;
-            if (currentStep < 1) currentStep = 1;
-            if (currentStep > 4) currentStep = 4;
-            updateStepUI();
-            window.scrollTo({ top: 150, behavior: 'smooth' });
-        }
-
-        function validateCurrentStep() {
-            if (currentStep === 1) {
-                const cnName = document.getElementById('schoolNameCn').value.trim();
-                const teacherName = document.getElementById('teacherName').value.trim();
-                const teacherEmail = document.getElementById('teacherEmail').value.trim();
-                if (!cnName || !teacherName || !teacherEmail) {
-                    showToast('請填寫所有必填的學校及老師資料！');
-                    return false;
-                }
-            }
-            return true;
-        }
-
-        function toggleTrackDetails(elementId, isChecked) {
-            const el = document.getElementById(elementId);
-            if (el) {
-                if (isChecked) el.classList.remove('hidden');
-                else el.classList.add('hidden');
-            }
-        }
-
-        // Dynamic Student Roster Manager
-        let studentCount = 1;
-        function addStudentRow() {
-            studentCount++;
-            const tbody = document.getElementById('studentRosterBody');
-            const tr = document.createElement('tr');
-            tr.innerHTML = `
-                <td class="p-3 font-mono text-cyanNeon">${studentCount}</td>
-                <td class="p-3"><input type="text" placeholder="例：張小華" required class="w-full px-3 py-2 rounded-lg glass-input"></td>
-                <td class="p-3"><input type="text" placeholder="Cheung Siu Wah" required class="w-full px-3 py-2 rounded-lg glass-input"></td>
-                <td class="p-3">
-                    <select class="w-full px-3 py-2 rounded-lg glass-input">
-                        <option>小一至小三</option>
-                        <option selected>小四至小六</option>
-                        <option>中一至中三</option>
-                        <option>中四至中六</option>
-                    </select>
-                </td>
-                <td class="p-3">
-                    <select class="w-full px-3 py-2 rounded-lg glass-input">
-                        <option>Track 01 (AI太空工程)</option>
-                        <option>Track 02 (概念藍圖)</option>
-                        <option>Track 03 (標誌設計)</option>
-                        <option>Track 04 (演講比賽)</option>
-                    </select>
-                </td>
-                <td class="p-3 text-center">
-                    <button type="button" onclick="removeStudentRow(this)" class="text-red-400 hover:text-red-300 p-1"><i class="fa-solid fa-trash-can"></i></button>
-                </td>
-            `;
-            tbody.appendChild(tr);
-        }
-
-        function removeStudentRow(btn) {
-            const rows = document.querySelectorAll('#studentRosterBody tr');
-            if (rows.length > 1) {
-                btn.closest('tr').remove();
-            } else {
-                showToast('最少須保留一位參賽學生記錄');
-            }
-        }
-
-        // Logo Upload & Plaque Preview Sync
-        function previewSchoolLogo(event) {
-            const file = event.target.files[0];
-            if (file) {
-                const reader = new FileReader();
-                reader.onload = function(e) {
-                    document.getElementById('plaqueLogoPreview').src = e.target.result;
-                };
-                reader.readAsDataURL(file);
-            }
-            
-            const schoolName = document.getElementById('schoolNameCn').value.trim();
-            if (schoolName) {
-                document.getElementById('plaqueSchoolName').innerText = schoolName;
-            }
-        }
-
-        // Toast Message Notification Helper
-        function showToast(message) {
-            const toast = document.createElement('div');
-            toast.className = 'fixed bottom-5 right-5 z-50 px-5 py-3 rounded-xl bg-cyan-950/90 border border-cyan-500 text-white text-xs font-semibold shadow-glow-cyan backdrop-blur-md transition-all';
-            toast.innerHTML = `<i class="fa-solid fa-circle-check text-cyanNeon mr-2"></i> ${message}`;
-            document.body.appendChild(toast);
-            setTimeout(() => toast.remove(), 3500);
-        }
-
-        // Final Submission Trigger
-        function submitRegistration() {
-            const agree = document.getElementById('declaration_agree').checked;
-            if (!agree) {
-                showToast('請先勾選授權聲明確認');
+        // Submit handler
+        document.getElementById('registrationForm').addEventListener('submit', e => {
+            e.preventDefault();
+            const consent = document.getElementById('consent');
+            if (consent && !consent.checked) {
+                const t = document.getElementById('toast');
+                t.textContent = '請先同意資料收集及處理條款';
+                t.classList.add('show');
+                setTimeout(() => t.classList.remove('show'), 2200);
                 return;
             }
+            const seg = document.querySelector('input[name="segment"]:checked');
+            const tracks = [...document.querySelectorAll('input[name="tracks"]:checked')].map(c => c.value);
+            if (!seg) { alert('請選擇報名學段'); return; }
+            if (tracks.length === 0) { alert('請至少選擇一個參賽賽道'); return; }
 
-            // Generate Random Registration Code
-            const randomCode = 'HKATA-2027-' + Math.floor(1000 + Math.random() * 9000);
-            document.getElementById('modalCode').innerText = randomCode;
-
-            // Show Success Modal
-            document.getElementById('successModal').classList.remove('hidden');
-        }
-
-        // --- Save & Resume Mock Logic (Using LocalStorage) ---
-        
-        function saveProgress() {
-            // Check if ID already exists, if not generate one
-            let appId = localStorage.getItem('hkata_app_id');
-            let pin = localStorage.getItem('hkata_pin');
-            
-            if (!appId || !pin) {
-                appId = 'HKATA-2027-' + Math.floor(1000 + Math.random() * 9000);
-                pin = Math.floor(100000 + Math.random() * 900000).toString();
-                localStorage.setItem('hkata_app_id', appId);
-                localStorage.setItem('hkata_pin', pin);
-            }
-            
-            // Save basic form data (Mocking a real database save)
             const formData = {
-                schoolNameCn: document.getElementById('schoolNameCn').value,
-                teacherName: document.getElementById('teacherName').value,
-                currentStep: currentStep
+                appId: 'HKATA-' + new Date().toISOString().slice(0,10).replace(/-/g,'') + '-' + Math.floor(Math.random()*9000+1000),
+                schoolNameCn: document.getElementById('schoolNameCn').value.trim(),
+                schoolNameEn: document.getElementById('schoolNameEn').value.trim(),
+                schoolCategory: document.getElementById('schoolCategory').value,
+                schoolDistrict: document.getElementById('schoolDistrict').value,
+                schoolAddress: document.getElementById('schoolAddress').value.trim(),
+                teacherName: document.getElementById('teacherName').value.trim(),
+                teacherTitle: document.getElementById('teacherTitle').value,
+                teacherTitleOther: document.getElementById('teacherTitleOther').value.trim(),
+                teacherEmail: document.getElementById('teacherEmail').value.trim(),
+                teacherPhone: document.getElementById('teacherPhone').value.trim(),
+                level: seg.value,
+                tracks: tracks,
+                referrerLevel: document.getElementById('referrerLevel').value
             };
-            localStorage.setItem('hkata_form_data', JSON.stringify(formData));
-            
-            // Show Modal
-            document.getElementById('savedAppId').innerText = appId;
-            document.getElementById('savedPin').innerText = pin;
-            document.getElementById('saveSuccessModal').classList.remove('hidden');
-        }
 
-        function loginResume() {
-            const inputId = document.getElementById('loginId').value.trim().toUpperCase();
-            const inputPin = document.getElementById('loginPin').value.trim();
-            
-            const savedId = localStorage.getItem('hkata_app_id');
-            const savedPin = localStorage.getItem('hkata_pin');
-            
-            if (inputId === savedId && inputPin === savedPin) {
-                // Restore data
-                const formData = JSON.parse(localStorage.getItem('hkata_form_data'));
-                if (formData) {
-                    if(formData.schoolNameCn) document.getElementById('schoolNameCn').value = formData.schoolNameCn;
-                    if(formData.teacherName) document.getElementById('teacherName').value = formData.teacherName;
-                    
-                    // Jump to saved step
-                    currentStep = formData.currentStep || 1;
-                    updateStepUI();
-                }
-                
-                document.getElementById('loginModal').classList.add('hidden');
-                showToast('登入成功！已載入您的報名進度。');
-            } else {
-                showToast('參賽編號或密碼錯誤，請重新確認！');
-            }
-        }
+            // Save to localStorage
+            try { localStorage.setItem('hkata_registration', JSON.stringify(formData)); } catch (e) {}
+
+            // Show success
+            const t = document.getElementById('toast');
+            t.textContent = '已提交 · 申請編號 ' + formData.appId + ' · 秘書處將於 3 個工作天內核實';
+            t.classList.add('show');
+            setTimeout(() => t.classList.remove('show'), 4000);
+        });
     </script>
 </body>
 </html>

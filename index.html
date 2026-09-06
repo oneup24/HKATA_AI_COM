@@ -3,776 +3,722 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>HKATA | 全港首屆中小學「航天築夢」航天AI創新大賽</title>
-    
+    <title>全港首屆中小學「航天築夢」航天 AI 創新大賽 | HKATA</title>
+    <meta name="description" content="2026–2027 年度全港中小學及幼稚園航天 AI 創新盛事。慶祝香港特區成立30週年 · 教育局「心繫家國」聯校活動。預計 >300 學校 · >1,000 隊伍 · >20,000 學生參與。">
+
+    <meta property="og:title" content="全港首屆中小學「航天築夢」航天 AI 創新大賽 | HKATA">
+    <meta property="og:description" content="教育局「心繫家國」聯校活動 · 慶祝香港特區成立30週年。預計 >300 學校、>1,000 隊伍、>20,000 學生參與。">
+    <meta property="og:image" content="doc/img/hero-banner-og.png">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+    <meta property="og:type" content="website">
+    <meta property="og:locale" content="zh_HK">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="全港首屆中小學「航天築夢」航天 AI 創新大賽 | HKATA">
+    <meta name="twitter:description" content="教育局「心繫家國」聯校活動 · 慶祝香港特區成立30週年。">
+    <meta name="twitter:image" content="doc/img/hero-banner-og.png">
+    <link rel="canonical" href="/index.html">
+    <link rel="icon" type="image/png" href="logo.png">
+
+    <link rel="stylesheet" href="assets/theme.css">
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800;900&family=Orbitron:wght@600;800;900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&family=Inter:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&family=Noto+Sans+TC:wght@400;500;700;900&family=Noto+Serif+TC:wght@700;900&display=swap" rel="stylesheet">
 
     <script>
-        tailwind.config = {
-            theme: {
-                extend: {
-                    fontFamily: {
-                        sans: ['Inter', 'sans-serif'],
-                        tech: ['Orbitron', 'sans-serif'],
-                    },
-                    colors: {
-                        space: {
-                            950: '#030712',
-                            900: '#060913',
-                            800: '#0B1120',
-                            700: '#111827',
-                            600: '#1F2937',
-                        },
-                        cyanNeon: '#00F2FE',
-                        blueNeon: '#4FACFE',
-                        purpleNeon: '#A855F7',
-                    },
-                    boxShadow: {
-                        'glow-cyan': '0 0 20px rgba(0, 242, 254, 0.4)',
-                        'glow-orange': '0 0 25px rgba(249, 115, 22, 0.5)',
-                    }
-                }
+        tailwind.config = { theme: { extend: {
+            fontFamily: { sans: ['"Noto Sans TC"','Inter','sans-serif'], display: ['"Space Grotesk"','"Noto Sans TC"','sans-serif'], serif: ['"Noto Serif TC"','serif'] },
+            colors: {
+                surface: { 900:'var(--surface-900)', 800:'var(--surface-800)', 700:'var(--surface-700)', 600:'var(--surface-600)' },
+                primary: { 700:'var(--primary-700)', 500:'var(--primary-500)', 400:'var(--primary-400)', 300:'var(--primary-300)' },
+                gold:    { 700:'var(--gold-700)', 500:'var(--gold-500)', 300:'var(--gold-300)' },
+                ink:     { hi:'var(--text-hi)', body:'var(--text-body)', mute:'var(--text-mute)' },
+                group:   { k:'var(--group-k)', p:'var(--group-p)', s:'var(--group-s)' }
             }
-        }
+        }}}
     </script>
 
     <style>
-        body {
-            background-color: #060913;
-            color: #F3F4F6;
-            overflow-x: hidden;
-            -webkit-font-smoothing: antialiased;
-        }
-
-        /* Starfield Background Canvas */
-        #starfieldCanvas {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            pointer-events: none;
-            z-index: 0;
-            background: radial-gradient(circle at center, #0B1120 0%, #030712 100%);
-        }
-
-        .glass-panel {
-            background: rgba(11, 17, 32, 0.6);
-            backdrop-filter: blur(12px);
-            -webkit-backdrop-filter: blur(12px);
-            border: 1px solid rgba(255, 255, 255, 0.08);
-        }
+        .group-card { transition: transform .25s ease, border-color .25s ease, opacity .25s ease, box-shadow .25s ease; }
+        .group-card:hover { transform: translateY(-4px); }
+        .group-card .arrow-slide { transition: transform .25s ease; display: inline-block; }
+        .group-card:hover .arrow-slide { transform: translateX(4px); }
+        .audience-dim { opacity: .35; transform: scale(.98); }
+        .audience-pop  { transform: scale(1.03); border-color: var(--accent) !important; }
 
         .stat-card {
-            background: linear-gradient(180deg, rgba(17, 24, 39, 0.7) 0%, rgba(11, 17, 32, 0.9) 100%);
-            border: 1px solid rgba(255, 255, 255, 0.05);
-            transition: all 0.3s ease;
+            background: linear-gradient(180deg, var(--surface-700) 0%, var(--surface-800) 100%);
+            border: 1px solid var(--border);
+            transition: border-color .2s ease;
         }
-        
-        .stat-card:hover {
-            border-color: rgba(255, 255, 255, 0.2);
-            transform: translateY(-5px);
+        .stat-card:hover { border-color: var(--border-strong); }
+
+        .ics-pill {
+            display: inline-flex; align-items: center; gap: .4rem;
+            padding: .35rem .7rem; border-radius: 9999px;
+            background: rgba(255,255,255,0.04); border: 1px solid var(--border);
+            color: var(--text-body); font-size: 11px; font-weight: 600;
+            transition: all .2s ease;
+        }
+        .ics-pill:hover { background: rgba(46,111,224,0.10); border-color: rgba(46,111,224,0.40); color: var(--primary-300); }
+
+        .pathway-wrap { overflow-x: auto; }
+        .pathway-wrap table { border-collapse: collapse; min-width: 640px; width: 100%; }
+        .pathway-wrap th, .pathway-wrap td { padding: .75rem 1rem; text-align: center; border-bottom: 1px solid var(--border-soft); color: var(--text-body); }
+        .pathway-wrap th { font-weight: 600; color: var(--text-hi); background: var(--surface-800); font-size: .8rem; letter-spacing: .04em; }
+        .pathway-wrap td:first-child, .pathway-wrap th:first-child {
+            position: sticky; left: 0; background: var(--surface-900);
+            text-align: left; color: var(--text-hi); font-weight: 600;
+            border-right: 1px solid var(--border);
         }
 
-        /* Custom Scrollbar */
-        ::-webkit-scrollbar { width: 6px; }
-        ::-webkit-scrollbar-track { background: #060913; }
-        ::-webkit-scrollbar-thumb { background: #1F2937; border-radius: 10px; }
-        ::-webkit-scrollbar-thumb:hover { background: #00F2FE; }
+        .ring-segment { transition: stroke-dashoffset 1.4s ease-out; }
+
+        @media (prefers-reduced-motion: reduce) {
+            .group-card, .stat-card, .arrow-slide { transition: none !important; }
+        }
     </style>
 </head>
 <body class="relative">
 
-    <!-- Interactive Starfield -->
-    <canvas id="starfieldCanvas"></canvas>
+    <a href="#main" class="sr-only sr-only-focusable">跳到主內容</a>
 
     <div class="relative z-10">
 
-        <!-- HEADER -->
-        <header class="fixed top-0 w-full z-50 transition-all duration-300 border-b border-white/5 bg-space-950/80 backdrop-blur-md" id="mainNav">
+        <header class="fixed top-0 w-full z-40 transition-all duration-300 border-b border-[var(--border-soft)] bg-[var(--surface-900)]/85 backdrop-blur-md" id="mainNav">
             <div class="max-w-[1400px] mx-auto px-6 h-20 flex items-center justify-between">
-                
-                <!-- Logo Block -->
-                <a href="index.html" class="flex items-center gap-3 group">
-                    <div class="w-10 h-10 sm:w-12 sm:h-12 rounded-full bg-transparent border border-white/20 flex items-center justify-center p-1">
-                        <i class="fa-solid fa-rocket text-white text-lg group-hover:text-cyanNeon transition-colors"></i>
-                    </div>
+                <a href="index.html" class="flex items-center gap-3 group" aria-label="HKATA 首頁">
+                    <img src="doc/img/LOGO 1.png" alt="航天築夢大賽 Logo" class="w-12 h-12 sm:w-14 sm:h-14 rounded-full object-cover ring-2 ring-[var(--gold-500)]/40 bg-white group-hover:ring-[var(--gold-500)] transition-all">
                     <div class="flex flex-col justify-center">
-                        <span class="font-sans text-[10px] sm:text-[11px] font-bold tracking-wider text-white uppercase leading-tight">HONG KONG AEROSPACE</span>
-                        <span class="font-sans text-[10px] sm:text-[11px] font-bold tracking-wider text-white uppercase leading-tight mb-0.5">TECHNOLOGY ACADEMY</span>
-                        <span class="font-sans text-[10px] sm:text-xs text-gray-400 tracking-widest leading-none">香港航天科技教育學院</span>
+                        <span class="font-display text-[10px] sm:text-[11px] font-bold tracking-[0.18em] text-white uppercase leading-tight">HONG KONG AEROSPACE</span>
+                        <span class="font-display text-[10px] sm:text-[11px] font-bold tracking-[0.18em] text-white uppercase leading-tight mb-0.5">TECHNOLOGY ACADEMY</span>
+                        <span class="font-sans text-[10px] sm:text-xs text-[var(--text-hi)] tracking-[0.18em] leading-none">香港航天科技教育學院</span>
                     </div>
                 </a>
 
-                <!-- Desktop Nav -->
-                <nav class="hidden lg:flex items-center gap-8">
-                    <a href="#vision" class="text-[13px] text-gray-300 font-medium tracking-wider hover:text-cyanNeon transition-colors">學院願景</a>
-                    <a href="#missions" class="text-[13px] text-gray-300 font-medium tracking-wider hover:text-cyanNeon transition-colors">比賽組別</a>
-                    <a href="#hardware" class="text-[13px] text-gray-300 font-medium tracking-wider hover:text-cyanNeon transition-colors">太空套件</a>
-                    <a href="#timeline" class="text-[13px] text-gray-300 font-medium tracking-wider hover:text-cyanNeon transition-colors">賽事日程</a>
+                <nav class="hidden lg:flex items-center gap-7" aria-label="主選單">
+                    <a href="#overview" class="nav-link">比賽概覽</a>
+                    <a href="#tracks"   class="nav-link">組別賽道</a>
+                    <a href="#schedule" class="nav-link">賽事日程</a>
+                    <a href="#judging"  class="nav-link">評審準則</a>
                 </nav>
 
-                <!-- CTA -->
-                <div class="hidden lg:flex items-center gap-4">
-                    <a href="vote.html" class="text-[13px] text-cyanNeon font-bold tracking-wider hover:text-white transition-colors mr-4">公眾投票</a>
-                    <a href="apply.html" class="px-6 py-2.5 rounded-full bg-gradient-to-r from-yellow-400 to-red-500 text-white font-bold text-[13px] tracking-wider shadow-glow-orange hover:scale-105 transition-transform flex items-center gap-2">
+                <div class="hidden lg:flex items-center gap-3">
+                    <a href="apply.html" class="btn btn-gold">
                         <i class="fa-solid fa-file-pen"></i> 學校報名
                     </a>
                 </div>
 
-                <!-- Mobile Toggle -->
-                <div class="lg:hidden text-white cursor-pointer p-2">
+                <button class="lg:hidden text-white p-2" aria-label="開啟選單" onclick="document.getElementById('mobileMenu').classList.toggle('hidden')">
                     <i class="fa-solid fa-bars text-xl"></i>
-                </div>
+                </button>
+            </div>
+
+            <div id="mobileMenu" class="hidden lg:hidden border-t border-[var(--border-soft)] bg-[var(--surface-900)]/95 backdrop-blur-md">
+                <nav class="max-w-[1400px] mx-auto px-6 py-4 flex flex-col gap-3" aria-label="行動版選單">
+                    <a href="#overview" class="nav-link">比賽概覽</a>
+                    <a href="#tracks"   class="nav-link">組別賽道</a>
+                    <a href="#schedule" class="nav-link">賽事日程</a>
+                    <a href="#judging"  class="nav-link">評審準則</a>
+                    <a href="apply.html" class="mt-2 btn btn-gold w-fit">
+                        <i class="fa-solid fa-file-pen"></i> 學校報名
+                    </a>
+                </nav>
             </div>
         </header>
 
-        <!-- HERO SECTION -->
-        <section class="relative pt-32 pb-16 lg:pt-40 lg:pb-24 px-4 overflow-hidden flex flex-col items-center justify-center min-h-[80vh]">
-            <!-- Subtle Nebula Glows -->
-            <div class="absolute top-1/3 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[500px] bg-cyan-900/20 rounded-full blur-[120px] pointer-events-none"></div>
-            
-            <div class="max-w-[1200px] mx-auto w-full text-center relative z-10 flex flex-col items-center">
-                
-                <!-- Glowing Top Pill -->
-                <div class="inline-flex items-center gap-2 px-5 py-2 rounded-full border border-cyan-500/50 bg-cyan-950/30 text-cyanNeon text-[13px] font-medium tracking-wide mb-10 shadow-glow-cyan">
-                    <i class="fa-solid fa-satellite"></i> 全港首屆中小學「航天築夢」航天AI創新大賽
-                </div>
+        <main id="main" class="relative z-10">
 
-                <!-- Main Headlines -->
-                <h1 class="text-4xl sm:text-6xl md:text-[80px] font-bold text-white leading-[1.1] tracking-wide mb-6">
-                    築夢太空創未來<br>
-                    探索宇宙新想像
-                </h1>
-                
-                <p class="text-gray-400 text-base sm:text-xl tracking-wide max-w-3xl mx-auto mb-12">
-                    結合航天工程、人工智能與創新思維。 <span class="text-white font-bold text-lg sm:text-2xl ml-1">共創航天夢想</span>
-                </p>
+            <!-- 01 HERO -->
+            <section id="hero" class="relative pt-44 pb-8 lg:pt-52 lg:pb-10 px-4 overflow-hidden">
+                <div class="max-w-[1400px] mx-auto w-full relative z-10">
+                    <figure class="mb-12 lg:mb-16">
+                        <img src="doc/img/hero-banner.png" alt="Cartographic Cosmos — 全港首屆中小學「航天築夢」航天 AI 創新大賽" class="w-full h-auto rounded-2xl border border-[var(--border)] shadow-[var(--elev-2)]" loading="eager" fetchpriority="high">
+                    </figure>
 
-                <!-- Primary CTA Button -->
-                <a href="apply.html" class="inline-flex items-center justify-center gap-3 px-8 py-4 rounded-full bg-gradient-to-r from-amber-400 to-red-500 text-white font-bold text-base tracking-wider shadow-[0_0_30px_rgba(249,115,22,0.4)] hover:shadow-[0_0_40px_rgba(249,115,22,0.6)] hover:scale-105 transition-all">
-                    <i class="fa-solid fa-file-pen text-lg"></i>
-                    參賽學校報名 / 提交作品 <i class="fa-solid fa-arrow-right ml-1"></i>
-                </a>
-
-                <!-- Secondary Voting CTA -->
-                <div class="mt-6">
-                    <a href="vote.html" class="text-sm text-cyanNeon hover:text-white underline underline-offset-4 transition-colors">
-                        或點擊進入 公眾投票大賞 Portal
-                    </a>
-                </div>
-
-                <!-- STATS / GOALS GRID -->
-                <div class="w-full mt-24 text-left max-w-[1000px] mx-auto">
-                    <h2 class="text-2xl font-bold text-white mb-6 tracking-wide">比賽目標：</h2>
-                    
-                    <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 sm:gap-6">
-                        
-                        <!-- Stat 1 -->
-                        <div class="stat-card rounded-2xl p-6 sm:p-8 flex flex-col justify-center">
-                            <span class="text-white text-lg font-medium mb-1">約</span>
-                            <div class="text-3xl sm:text-5xl font-tech font-extrabold text-[#00F2FE] mb-2 tracking-tight">>300<span class="text-2xl sm:text-3xl font-sans ml-1">間</span></div>
-                            <p class="text-gray-400 text-xs sm:text-sm">預計參與中小學及幼兒園</p>
-                        </div>
-
-                        <!-- Stat 2 -->
-                        <div class="stat-card rounded-2xl p-6 sm:p-8 flex flex-col justify-center">
-                            <span class="text-white text-lg font-medium mb-1">約</span>
-                            <div class="text-3xl sm:text-5xl font-tech font-extrabold text-[#3B82F6] mb-2 tracking-tight">>1,000<span class="text-2xl sm:text-3xl font-sans ml-1">隊</span></div>
-                            <p class="text-gray-400 text-xs sm:text-sm">全港學生創新研發隊伍</p>
-                        </div>
-
-                        <!-- Stat 3 -->
-                        <div class="stat-card rounded-2xl p-6 sm:p-8 flex flex-col justify-center">
-                            <span class="text-white text-lg font-medium mb-1">約</span>
-                            <div class="text-3xl sm:text-5xl font-tech font-extrabold text-[#A855F7] mb-2 tracking-tight">>20,000<span class="text-2xl sm:text-3xl font-sans ml-1">名</span></div>
-                            <p class="text-gray-400 text-xs sm:text-sm">受惠青少年及創科人才</p>
-                        </div>
-
-                    </div>
-                </div>
-
-            </div>
-        </section>
-
-        <!-- VISION SECTION -->
-        <section id="vision" class="py-24 bg-space-950 border-t border-white/5 relative">
-            <div class="max-w-[1200px] mx-auto px-6 text-center relative z-10">
-                
-                <!-- Block 1: 實體中心與願景 -->
-                <div class="mb-20">
-                    <span class="text-cyanNeon text-xs font-tech font-bold uppercase tracking-widest mb-4 block">OUR VISION</span>
-                    <h2 class="text-4xl sm:text-5xl font-bold text-white mb-6 tracking-wide">
-                        共創人類未來太空文明<br>鑄就青年邁向宇宙征途
-                    </h2>
-                    <p class="text-gray-400 text-base max-w-3xl mx-auto mb-12 leading-relaxed">
-                        HKATA 致力於結合航天及 AI 科技與青少年教育，打造香港首個以太空探索為核心的教育平台。透過沉浸式展廳與實操課程，讓中小學生在親身參與中建立對航天、科學與工程的興趣，從而啟發未來的科技創新人才。
-                    </p>
-
-                    <!-- Center Intro Card -->
-                    <div class="glass-panel p-8 sm:p-10 rounded-3xl inline-flex flex-col items-center border-cyan-500/30 shadow-glow-cyan w-full max-w-4xl">
-                        <i class="fa-solid fa-building-user text-5xl text-cyanNeon mb-6"></i>
-                        <h3 class="text-2xl sm:text-3xl font-bold text-white mb-3">6,000+ 呎北角實體航天 AI 學院中心</h3>
-                        <p class="text-sm sm:text-base text-gray-400">配備 N.O.R.A. Space Lounge 及專業太空創科教室，為參賽師生提供頂尖硬體支援。</p>
-                    </div>
-                </div>
-
-                <!-- Block 2: 核心理念與政策響應 -->
-                <div class="pt-16 border-t border-gray-800">
-                    <span class="text-cyanNeon text-xs font-tech font-bold uppercase tracking-widest mb-4 block">HKATA ACADEMY VISION</span>
-                    <h2 class="text-3xl sm:text-5xl font-bold text-white mb-6 tracking-wide">
-                        我們，未來見 <span class="text-cyanNeon">See You In The Future</span>
-                    </h2>
-                    <p class="text-gray-400 text-sm sm:text-base max-w-2xl mx-auto mb-12 leading-relaxed">
-                        香港航天科技教育學院 (HKATA) 致力於結合航天及 AI 科技與青少年教育，打造香港首個以太空探索為核心的教育平台。
-                    </p>
-
-                    <!-- 2x2 Grid -->
-                    <div class="glass-panel p-8 sm:p-12 rounded-3xl border border-gray-800 text-left mb-8">
-                        <div class="grid md:grid-cols-2 gap-10">
-                            <!-- Item 1 -->
-                            <div class="flex gap-5">
-                                <div class="w-14 h-14 shrink-0 rounded-full bg-cyan-950/50 border border-cyan-500/30 flex items-center justify-center text-cyanNeon text-xl">
-                                    <i class="fa-solid fa-bullseye"></i>
-                                </div>
-                                <div>
-                                    <h4 class="text-lg font-bold text-white mb-2">真實任務導向</h4>
-                                    <p class="text-sm text-gray-400 leading-relaxed">從月球及火星探索面對的工程挑戰出發，鼓勵學生以航天工程師角度思考。</p>
-                                </div>
-                            </div>
-                            <!-- Item 2 -->
-                            <div class="flex gap-5">
-                                <div class="w-14 h-14 shrink-0 rounded-full bg-cyan-950/50 border border-cyan-500/30 flex items-center justify-center text-cyanNeon text-xl">
-                                    <i class="fa-solid fa-sitemap"></i>
-                                </div>
-                                <div>
-                                    <h4 class="text-lg font-bold text-white mb-2">跨學科學習</h4>
-                                    <p class="text-sm text-gray-400 leading-relaxed">融合航天科技、人工智能、工程設計、科研探究、創新思維及創業精神。</p>
-                                </div>
-                            </div>
-                            <!-- Item 3 -->
-                            <div class="flex gap-5">
-                                <div class="w-14 h-14 shrink-0 rounded-full bg-cyan-950/50 border border-cyan-500/30 flex items-center justify-center text-cyanNeon text-xl">
-                                    <i class="fa-solid fa-flask"></i>
-                                </div>
-                                <div>
-                                    <h4 class="text-lg font-bold text-white mb-2">科研展覽模式</h4>
-                                    <p class="text-sm text-gray-400 leading-relaxed">有別於傳統機械人或編程比賽，以 Research Poster 加 Prototype Demonstration 展現完整研發歷程。</p>
-                                </div>
-                            </div>
-                            <!-- Item 4 -->
-                            <div class="flex gap-5">
-                                <div class="w-14 h-14 shrink-0 rounded-full bg-cyan-950/50 border border-cyan-500/30 flex items-center justify-center text-cyanNeon text-xl">
-                                    <i class="fa-solid fa-handshake"></i>
-                                </div>
-                                <div>
-                                    <h4 class="text-lg font-bold text-white mb-2">全港協作平台</h4>
-                                    <p class="text-sm text-gray-400 leading-relaxed">連繫政府、企業、學界、非政府機構及教育界，共同培育香港未來航天創科人才。</p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Bottom Golden Banner -->
-                    <div class="glass-panel p-6 sm:p-8 rounded-2xl border border-amber-500/30 bg-gradient-to-r from-amber-950/40 to-space-900 flex flex-col md:flex-row items-center justify-between gap-6 text-left shadow-[0_0_20px_rgba(245,158,11,0.2)]">
-                        <div class="flex items-center gap-5">
-                            <div class="w-12 h-12 shrink-0 rounded-lg bg-amber-500/20 border border-amber-400/50 flex items-center justify-center text-amber-400 text-xl">
-                                <i class="fa-solid fa-flag"></i>
-                            </div>
-                            <div>
-                                <h4 class="text-base sm:text-lg font-bold text-white mb-1">響應「科教興國」國家航天戰略與特區政府教育政策</h4>
-                                <p class="text-xs sm:text-sm text-gray-400">配合要求教育局在中小學課程中增加航天科普，培育大灣區未來高薪高端科技人才。</p>
-                            </div>
-                        </div>
-                        <div class="shrink-0 mt-4 md:mt-0">
-                            <span class="inline-block px-4 py-2 rounded-full border border-amber-500/50 text-amber-400 text-xs font-bold tracking-wider bg-space-950/80 whitespace-nowrap">
-                                慶祝特區成立30週年重點項目
-                            </span>
-                        </div>
-                    </div>
-                </div>
-
-            </div>
-        </section>
-
-        <!-- MISSIONS / TRACKS DIRECTORY -->
-        <section id="missions" class="py-24 bg-space-900 border-t border-white/5">
-            <div class="max-w-[1200px] mx-auto px-6">
-                <div class="text-center mb-16">
-                    <span class="text-cyanNeon text-xs font-tech font-bold uppercase tracking-widest mb-4 block">Competition Tracks</span>
-                    <h2 class="text-3xl sm:text-4xl font-bold text-white mb-4 tracking-wide">賽事組別與主題任務</h2>
-                    <p class="text-gray-400">專為幼稚園至中學不同年齡層量身打造的四大航天挑戰。</p>
-                </div>
-
-                <div class="grid md:grid-cols-2 gap-8">
-                    <!-- Track 01 -->
-                    <div class="glass-panel p-8 rounded-3xl border border-white/10 hover:border-cyan-500/50 transition-all group flex flex-col justify-between">
-                        <div>
-                            <div class="flex justify-between items-start mb-4">
-                                <span class="px-3 py-1 bg-cyan-950/50 border border-cyan-500/30 text-cyanNeon text-[10px] font-tech font-bold rounded-full">Track 01</span>
-                                <span class="text-[11px] text-gray-500 font-medium border border-gray-700 px-2 py-1 rounded">高小 / 中學組</span>
-                            </div>
-                            <h3 class="text-2xl font-bold text-white mb-3 group-hover:text-cyanNeon transition-colors">AI 太空工程實體挑戰賽</h3>
-                            <p class="text-sm text-gray-400 leading-relaxed mb-6">
-                                運用真實航天研發套件（如CubeSat、火星車）與 AI 演算法，親手建構並解決月球與火星定居點的真實工程難題。
-                            </p>
-                        </div>
-                        <a href="track01.html" class="inline-flex items-center gap-2 text-sm text-cyanNeon font-bold hover:text-white transition-colors">
-                            查看任務詳情 <i class="fa-solid fa-arrow-right"></i>
+                    <div class="flex flex-wrap gap-3 justify-center mb-4">
+                        <a href="apply.html" class="btn btn-gold">
+                            <i class="fa-solid fa-file-pen"></i> 立即報名 <i class="fa-solid fa-arrow-right ml-1"></i>
+                        </a>
+                        <a href="#manual" id="downloadManualBtn" class="btn btn-ghost">
+                            <i class="fa-solid fa-file-arrow-down"></i> 下載比賽手冊 (PDF)
                         </a>
                     </div>
 
-                    <!-- Track 02 -->
-                    <div class="glass-panel p-8 rounded-3xl border border-white/10 hover:border-blue-500/50 transition-all group flex flex-col justify-between">
-                        <div>
-                            <div class="flex justify-between items-start mb-4">
-                                <span class="px-3 py-1 bg-blue-950/50 border border-blue-500/30 text-blueNeon text-[10px] font-tech font-bold rounded-full">Track 02</span>
-                                <span class="text-[11px] text-gray-500 font-medium border border-gray-700 px-2 py-1 rounded">全港中小學</span>
-                            </div>
-                            <h3 class="text-2xl font-bold text-white mb-3 group-hover:text-blueNeon transition-colors">未來基地概念藍圖大賽</h3>
-                            <p class="text-sm text-gray-400 leading-relaxed mb-6">
-                                毋須製作實體模型。運用視覺設計（手繪/電繪/3D）與演說技巧，提出以 AI 解決太空生存痛點的創新基地藍圖。
-                            </p>
+                    <div class="text-center mt-10 space-y-2">
+                        <p class="text-base sm:text-lg text-[var(--text-body)]">
+                            報名截止日期：<span class="text-[var(--gold-300)] font-display font-bold text-2xl sm:text-3xl ml-1">2026 年 10 月 31 日</span>
+                        </p>
+                        <p class="text-sm text-[var(--text-mute)]">
+                            提交作品截止：2027 年 3 月 31 日
+                        </p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- ORGANIZERS (moved up, formerly at bottom) -->
+            <section class="pt-2 pb-12">
+                <div class="container-x text-center">
+                    <div class="eyebrow mb-3">Co-organizers · 聯合主辦</div>
+                    <h2 class="h2 mb-8">主辦機構</h2>
+                    <div class="flex flex-wrap items-center justify-center gap-3">
+                        <span class="chip">教育局</span>
+                        <span class="chip">心繫家國</span>
+                        <span class="chip">香港津貼小學議會 (SPSC)</span>
+                        <span class="chip">香港津貼中學議會 (HKSSSC)</span>
+                        <span class="chip chip-p">HKATA</span>
+                    </div>
+                </div>
+            </section>
+
+            <!-- SCALE BAND — slim strip of stats -->
+            <section class="py-8 border-y border-[var(--border-soft)]">
+                <div class="container-x">
+                    <div class="flex items-center justify-center gap-3 mb-5">
+                        <span class="eyebrow">預計規模 · At Scale</span>
+                    </div>
+                    <div class="grid grid-cols-3 gap-4">
+                        <div class="text-center">
+                            <div class="font-display text-2xl sm:text-3xl font-bold text-[var(--primary-300)]">約 300<span class="text-sm sm:text-base ml-1 text-[var(--text-hi)]">間</span></div>
+                            <p class="caption mt-1">中小學及幼稚園</p>
                         </div>
-                        <a href="track02.html" class="inline-flex items-center gap-2 text-sm text-blueNeon font-bold hover:text-white transition-colors">
-                            查看任務詳情 <i class="fa-solid fa-arrow-right"></i>
+                        <div class="text-center">
+                            <div class="font-display text-2xl sm:text-3xl font-bold text-[var(--primary-300)]">約 1,000<span class="text-sm sm:text-base ml-1 text-[var(--text-hi)]">隊</span></div>
+                            <p class="caption mt-1">創新研發隊伍</p>
+                        </div>
+                        <div class="text-center">
+                            <div class="font-display text-2xl sm:text-3xl font-bold text-[var(--primary-300)]">約 20,000<span class="text-sm sm:text-base ml-1 text-[var(--text-hi)]">名</span></div>
+                            <p class="caption mt-1">受惠創科人才</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 02 COMPETITION OVERVIEW -->
+            <section id="overview" class="section-y surface-alt">
+                <div class="container-x">
+                    <div class="text-center mb-12">
+                        <div class="eyebrow mb-3">Competition Overview</div>
+                        <h2 class="h2 mb-3">比賽目標</h2>
+                        <p class="body-lg max-w-2xl mx-auto">
+                            打造香港首屈一指、面向全港中小學生的年度航天科技創新盛事。
+                        </p>
+                    </div>
+
+                    <div class="flex items-center justify-center gap-3 mb-10">
+                        <span class="hidden sm:inline-block flex-1 max-w-[120px] h-px bg-[var(--border)]"></span>
+                        <span class="eyebrow">4大特色 · Why This Competition</span>
+                        <span class="hidden sm:inline-block flex-1 max-w-[120px] h-px bg-[var(--border)]"></span>
+                    </div>
+
+                    <div class="grid sm:grid-cols-2 gap-5">
+                        <article class="card p-7">
+                            <div class="w-12 h-12 rounded-full bg-[rgba(46,111,224,0.10)] border border-[var(--primary-500)] flex items-center justify-center text-[var(--primary-300)] mb-5">
+                                <i class="fa-solid fa-crosshairs text-lg"></i>
+                            </div>
+                            <h3 class="h3 mb-3">真實任務導向</h3>
+                            <p class="body">從月球及火星探索面對的工程挑戰出發，鼓勵學生以航天工程師角度思考。</p>
+                        </article>
+                        <article class="card p-7">
+                            <div class="w-12 h-12 rounded-full bg-[rgba(46,111,224,0.10)] border border-[var(--primary-500)] flex items-center justify-center text-[var(--primary-300)] mb-5">
+                                <i class="fa-solid fa-diagram-project text-lg"></i>
+                            </div>
+                            <h3 class="h3 mb-3">跨學科學習</h3>
+                            <p class="body">融合航天科技、人工智能、工程設計、科研探究、創新思維及創業精神。</p>
+                        </article>
+                        <article class="card p-7">
+                            <div class="w-12 h-12 rounded-full bg-[rgba(46,111,224,0.10)] border border-[var(--primary-500)] flex items-center justify-center text-[var(--primary-300)] mb-5">
+                                <i class="fa-solid fa-flask text-lg"></i>
+                            </div>
+                            <h3 class="h3 mb-3">科研展覽模式</h3>
+                            <p class="body">有別於傳統機械人或編程比賽，以 Research Poster 加 Prototype Demonstration 展現完整研發歷程。</p>
+                        </article>
+                        <article class="card p-7">
+                            <div class="w-12 h-12 rounded-full bg-[rgba(46,111,224,0.10)] border border-[var(--primary-500)] flex items-center justify-center text-[var(--primary-300)] mb-5">
+                                <i class="fa-solid fa-handshake text-lg"></i>
+                            </div>
+                            <h3 class="h3 mb-3">全港協作平台</h3>
+                            <p class="body">建繫政府、企業、學界、非政府機構及教育界，共同培育香港未來航天創科人才。</p>
+                        </article>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 03 TRACKS DIRECTORY -->
+            <section id="tracks" class="section-y relative">
+                <div class="container-x">
+                    <div class="text-center mb-12">
+                        <div class="eyebrow mb-3">Competition Tracks</div>
+                        <h2 class="h2 mb-3">三大賽事組別</h2>
+                        <p class="body max-w-2xl mx-auto">專為幼稚園、小學及中學不同年齡層量身打造的航天與 AI 挑戰。</p>
+                    </div>
+
+                    <div class="grid md:grid-cols-3 gap-5">
+                        <a href="kindergarten.html" class="group-card card card-k rounded-2xl overflow-hidden block text-left">
+                            <img src="doc/img/group-k.png" alt="KINDERGARTEN" class="w-full h-auto block">
+                            <div class="p-5">
+                                <div class="chip chip-k mb-2">KINDERGARTEN</div>
+                                <h3 class="text-lg font-bold text-[var(--text-hi)] mb-1">幼稚園組</h3>
+                                <p class="caption mb-3">K1–K3 · 毋須編程 · 全校皆可</p>
+                                <div class="text-[12px] font-bold flex items-center gap-1 text-[var(--primary-300)]">查看章程 <i class="fa-solid fa-arrow-right arrow-slide"></i></div>
+                            </div>
+                        </a>
+                        <a href="primary.html" class="group-card card card-p rounded-2xl overflow-hidden block text-left">
+                            <img src="doc/img/group-p.png" alt="PRIMARY" class="w-full h-auto block">
+                            <div class="p-5">
+                                <div class="chip chip-p mb-2">PRIMARY</div>
+                                <h3 class="text-lg font-bold text-[var(--text-hi)] mb-1">小學組</h3>
+                                <p class="caption mb-3">P1–P6 · 標誌 · 演講 · AI 工程</p>
+                                <div class="text-[12px] font-bold flex items-center gap-1 text-[var(--primary-300)]">查看章程 <i class="fa-solid fa-arrow-right arrow-slide"></i></div>
+                            </div>
+                        </a>
+                        <a href="secondary.html" class="group-card card card-s rounded-2xl overflow-hidden block text-left">
+                            <img src="doc/img/group-s.png" alt="SECONDARY" class="w-full h-auto block">
+                            <div class="p-5">
+                                <div class="chip chip-s mb-2">SECONDARY</div>
+                                <h3 class="text-lg font-bold text-[var(--text-hi)] mb-1">中學組</h3>
+                                <p class="caption mb-3">S1–S6 · 標誌 · AI 工程</p>
+                                <div class="text-[12px] font-bold flex items-center gap-1 text-[var(--primary-300)]">查看章程 <i class="fa-solid fa-arrow-right arrow-slide"></i></div>
+                            </div>
                         </a>
                     </div>
 
-                    <!-- Track 03 -->
-                    <div class="glass-panel p-8 rounded-3xl border border-white/10 hover:border-purple-500/50 transition-all group flex flex-col justify-between">
+                    <p class="text-center text-[var(--text-body)] text-sm mt-10">
+                        高小至高中組可獲大會提供七大航天硬件套件 (CubeSat · 太空種植方艙 · E28 機械人 · 3U CubeSat · 探測車 · 3D 火箭 · 智能機械手)，
+                        <a href="secondary.html" class="link underline underline-offset-4 font-semibold">詳見中學章程</a>。
+                    </p>
+                </div>
+            </section>
+
+            <!-- 04 PATHWAY MATRIX -->
+            <section id="pathway" class="section-y surface-alt">
+                <div class="container-x">
+                    <div class="text-center mb-10">
+                        <div class="eyebrow mb-3">Find Your Track</div>
+                        <h2 class="h2 mb-3">我適合甚麼比賽?</h2>
+                        <p class="body max-w-2xl mx-auto">揾到最適合你年級的賽道 — 一表看清。</p>
+                    </div>
+
+                    <div class="flex flex-wrap justify-center gap-2 mb-6" role="group" aria-label="組別篩選" id="pathwayFilter">
+                        <button data-filter="all" class="filter-btn px-4 py-1.5 rounded-full text-xs font-semibold border border-[var(--primary-400)] bg-[rgba(46,111,224,0.15)] text-[var(--primary-300)]" aria-pressed="true">全部</button>
+                        <button data-filter="K" class="filter-btn px-4 py-1.5 rounded-full text-xs font-semibold border border-[var(--border)] text-[var(--text-body)] hover:border-[var(--group-k)]">幼稚園</button>
+                        <button data-filter="P" class="filter-btn px-4 py-1.5 rounded-full text-xs font-semibold border border-[var(--border)] text-[var(--text-body)] hover:border-[var(--group-p)]">小學</button>
+                        <button data-filter="S" class="filter-btn px-4 py-1.5 rounded-full text-xs font-semibold border border-[var(--border)] text-[var(--text-body)] hover:border-[var(--group-s)]">中學</button>
+                    </div>
+
+                    <div class="pathway-wrap card rounded-2xl p-4">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th scope="col">年級</th>
+                                    <th scope="col">標誌設計 / 填色</th>
+                                    <th scope="col">中國航天演講</th>
+                                    <th scope="col">AI 工程挑戰</th>
+                                    <th scope="col">提交作品</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr data-groups="K">
+                                    <td>幼稚園</td><td><span class="check">✓</span></td><td><span class="dash">—</span></td><td><span class="dash">—</span></td><td>校內 1 個優勝</td>
+                                </tr>
+                                <tr data-groups="P P1 P2 P3">
+                                    <td>小學初小 (P1–P3)</td><td><span class="check">✓</span></td><td><span class="check">✓</span></td><td><span class="dash">—</span></td><td>海報 + 演講</td>
+                                </tr>
+                                <tr data-groups="P P4 P5 P6">
+                                    <td>小學高小 (P4–P6)</td><td><span class="check">✓</span></td><td><span class="dash">—</span></td><td>✓ (CubeSat / E28 / 種植)</td><td>海報 + 原型示範</td>
+                                </tr>
+                                <tr data-groups="S S1 S2 S3">
+                                    <td>中學初中</td><td><span class="check">✓</span></td><td><span class="dash">—</span></td><td>✓ (CubeSat / Rover / 3D 火箭)</td><td>海報 + 原型示範</td>
+                                </tr>
+                                <tr data-groups="S S4 S5 S6">
+                                    <td>中學高中</td><td><span class="check">✓</span></td><td><span class="dash">—</span></td><td>✓ (Rover / 智能機械手)</td><td>海報 + 原型示範</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <p class="text-center text-xs text-[var(--text-mute)] mt-4">提示：所有組別均接受跨校合作組隊，詳情請參閱<a href="#manual" class="link underline underline-offset-2">比賽手冊</a>。</p>
+                </div>
+            </section>
+
+            <!-- 05 JUDGING & STANDARDS -->
+            <section id="judging" class="section-y">
+                <div class="container-x">
+                    <div class="text-center mb-12">
+                        <div class="eyebrow mb-3">Judging Standards</div>
+                        <h2 class="h2 mb-3">評審準則</h2>
+                        <p class="body max-w-2xl mx-auto">60% 評分聚焦創新、工程與 AI。各組別分開評審，評審重點為創新思維、工程設計與技術可行性。</p>
+                    </div>
+
+                    <div class="grid lg:grid-cols-2 gap-10 items-center">
+                        <div class="flex flex-col items-center">
+                            <svg viewBox="0 0 200 200" width="280" height="280" role="img" aria-labelledby="donutTitle donutDesc">
+                                <title id="donutTitle">評審權重分佈</title>
+                                <desc id="donutDesc">創新程度 30%、AI 應用 20%、問題定義 15%、科研分析 15%、工程設計 10%、原型展示 5%、簡報及答辯 5%。</desc>
+                                <circle cx="100" cy="100" r="80" fill="none" stroke="rgba(255,255,255,0.08)" stroke-width="22"/>
+                                <circle cx="100" cy="100" r="80" fill="none" stroke="var(--primary-400)" stroke-width="22" stroke-dasharray="150.79 351.86" stroke-dashoffset="0" transform="rotate(-90 100 100)" class="ring-segment"/>
+                                <circle cx="100" cy="100" r="80" fill="none" stroke="var(--group-s)"  stroke-width="22" stroke-dasharray="100.53 351.86" stroke-dashoffset="-150.79" transform="rotate(-90 100 100)" class="ring-segment"/>
+                                <circle cx="100" cy="100" r="80" fill="none" stroke="var(--gold-300)"  stroke-width="22" stroke-dasharray="75.40 351.86" stroke-dashoffset="-251.32" transform="rotate(-90 100 100)" class="ring-segment"/>
+                                <circle cx="100" cy="100" r="80" fill="none" stroke="#24A148"        stroke-width="22" stroke-dasharray="75.40 351.86" stroke-dashoffset="-326.72" transform="rotate(-90 100 100)" class="ring-segment"/>
+                                <circle cx="100" cy="100" r="80" fill="none" stroke="var(--group-p)"  stroke-width="22" stroke-dasharray="50.27 351.86" stroke-dashoffset="-402.12" transform="rotate(-90 100 100)" class="ring-segment"/>
+                                <circle cx="100" cy="100" r="80" fill="none" stroke="#6B7890"        stroke-width="22" stroke-dasharray="25.13 351.86" stroke-dashoffset="-452.39" transform="rotate(-90 100 100)" class="ring-segment"/>
+                                <circle cx="100" cy="100" r="80" fill="none" stroke="var(--gold-500)"  stroke-width="22" stroke-dasharray="25.13 351.86" stroke-dashoffset="-477.52" transform="rotate(-90 100 100)" class="ring-segment"/>
+                                <text x="100" y="94" text-anchor="middle" fill="#fff" font-family="Space Grotesk" font-size="22" font-weight="700">100%</text>
+                                <text x="100" y="114" text-anchor="middle" fill="#7C8AA3" font-family="Inter" font-size="10" letter-spacing="2">核心評分</text>
+                            </svg>
+
+                            <table class="sr-only">
+                                <caption>評審權重</caption>
+                                <thead><tr><th>評審項目</th><th>權重</th></tr></thead>
+                                <tbody>
+                                    <tr><td>創新程度</td><td>30%</td></tr><tr><td>工程設計</td><td>10%</td></tr><tr><td>AI 應用</td><td>20%</td></tr>
+                                    <tr><td>問題定義</td><td>15%</td></tr><tr><td>科研分析</td><td>15%</td></tr><tr><td>原型展示</td><td>5%</td></tr><tr><td>簡報及答辯</td><td>5%</td></tr>
+                                </tbody>
+                            </table>
+                            <p class="text-center text-xs text-[var(--text-mute)] mt-3">圖表數據與下表同步；屏幕閱讀器可朗讀評分比例。</p>
+                        </div>
+
                         <div>
-                            <div class="flex justify-between items-start mb-4">
-                                <span class="px-3 py-1 bg-purple-950/50 border border-purple-500/30 text-purpleNeon text-[10px] font-tech font-bold rounded-full">Track 03</span>
-                                <span class="text-[11px] text-gray-500 font-medium border border-gray-700 px-2 py-1 rounded">幼稚園至中學</span>
+                            <ul class="grid grid-cols-2 gap-x-6 gap-y-3 mb-8">
+                                <li class="flex items-center gap-2"><span class="w-3 h-3 rounded-sm" style="background:var(--primary-400)"></span><span class="text-sm text-[var(--text-hi)]">創新程度</span><span class="ml-auto text-sm font-display text-[var(--primary-300)]">30%</span></li>
+                                <li class="flex items-center gap-2"><span class="w-3 h-3 rounded-sm" style="background:var(--group-s)"></span><span class="text-sm text-[var(--text-hi)]">AI 應用</span><span class="ml-auto text-sm font-display text-[var(--group-s)]">20%</span></li>
+                                <li class="flex items-center gap-2"><span class="w-3 h-3 rounded-sm" style="background:var(--gold-300)"></span><span class="text-sm text-[var(--text-hi)]">問題定義</span><span class="ml-auto text-sm font-display text-[var(--gold-300)]">15%</span></li>
+                                <li class="flex items-center gap-2"><span class="w-3 h-3 rounded-sm" style="background:#24A148"></span><span class="text-sm text-[var(--text-hi)]">科研分析</span><span class="ml-auto text-sm font-display" style="color:#24A148">15%</span></li>
+                                <li class="flex items-center gap-2"><span class="w-3 h-3 rounded-sm" style="background:var(--group-p)"></span><span class="text-sm text-[var(--text-hi)]">工程設計</span><span class="ml-auto text-sm font-display text-[var(--group-p)]">10%</span></li>
+                                <li class="flex items-center gap-2"><span class="w-3 h-3 rounded-sm" style="background:#6B7890"></span><span class="text-sm text-[var(--text-hi)]">原型展示</span><span class="ml-auto text-sm font-display" style="color:#8C97A8">5%</span></li>
+                                <li class="flex items-center gap-2"><span class="w-3 h-3 rounded-sm" style="background:var(--gold-500)"></span><span class="text-sm text-[var(--text-hi)]">簡報及答辯</span><span class="ml-auto text-sm font-display text-[var(--gold-300)]">5%</span></li>
+                            </ul>
+
+                            <div class="card p-6 mb-6">
+                                <h3 class="text-[var(--text-hi)] font-bold mb-2 text-base">評審重點</h3>
+                                <p class="text-[13px] text-[var(--text-body)] leading-relaxed">着重創新思維、工程設計及技術可行性，而非作品成本或規模。各組別分開評審，確保對應不同年齡學生的能力水平。</p>
                             </div>
-                            <h3 class="text-2xl font-bold text-white mb-3 group-hover:text-purpleNeon transition-colors">太空任務標誌設計大賽</h3>
-                            <p class="text-sm text-gray-400 leading-relaxed mb-6">
-                                全校學生免費參與。勝出的專屬 School Space Logo 將製成實體金屬銘牌，於 2027 年隨真實衛星發射升空！
-                            </p>
-                        </div>
-                        <a href="track03.html" class="inline-flex items-center gap-2 text-sm text-purpleNeon font-bold hover:text-white transition-colors">
-                            查看任務詳情 <i class="fa-solid fa-arrow-right"></i>
-                        </a>
-                    </div>
 
-                    <!-- Track 04 -->
-                    <div class="glass-panel p-8 rounded-3xl border border-white/10 hover:border-amber-500/50 transition-all group flex flex-col justify-between">
-                        <div>
-                            <div class="flex justify-between items-start mb-4">
-                                <span class="px-3 py-1 bg-amber-950/50 border border-amber-500/30 text-amber-400 text-[10px] font-tech font-bold rounded-full">Track 04</span>
-                                <span class="text-[11px] text-gray-500 font-medium border border-gray-700 px-2 py-1 rounded">初小組別</span>
-                            </div>
-                            <h3 class="text-2xl font-bold text-white mb-3 group-hover:text-amber-400 transition-colors">中國航天發展演講比賽</h3>
-                            <p class="text-sm text-gray-400 leading-relaxed mb-6">
-                                專為小一至小三而設。配合官方發放的航天模型進行演說，從小培育國民素養與深空探索夢想。
-                            </p>
-                        </div>
-                        <a href="track04.html" class="inline-flex items-center gap-2 text-sm text-amber-400 font-bold hover:text-white transition-colors">
-                            查看任務詳情 <i class="fa-solid fa-arrow-right"></i>
-                        </a>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- OFFICIAL HARDWARE -->
-        <section id="hardware" class="py-24 bg-space-950 border-t border-white/5 relative overflow-hidden">
-            <!-- Subtle Nebula Glows -->
-            <div class="absolute top-0 right-0 w-[600px] h-[600px] bg-blue-900/10 rounded-full blur-[120px] pointer-events-none"></div>
-
-            <div class="max-w-[1200px] mx-auto px-6 relative z-10">
-                <div class="text-center mb-16">
-                    <span class="text-cyanNeon text-xs font-tech font-bold uppercase tracking-widest mb-4 block">HARDWARE KITS & AI APPLICATIONS</span>
-                    <h2 class="text-3xl sm:text-4xl font-bold text-white mb-4 tracking-wide">官方航天工程研發套材包</h2>
-                    <p class="text-gray-400 max-w-3xl mx-auto leading-relaxed">
-                        參賽隊伍將獲派專屬硬體套材，將電腦視覺、自動駕駛、感測器分析等<span class="text-cyanNeon font-bold">進行技術級應用或理論層面研究。</span>
-                    </p>
-                </div>
-
-                <!-- Primary School Row -->
-                <div class="mb-16">
-                    <h3 class="text-2xl font-bold text-white mb-6 flex items-center gap-3 border-b border-gray-800 pb-3">
-                        <div class="w-2 h-6 bg-cyanNeon rounded-full"></div> 小學組別
-                    </h3>
-                    
-                    <div class="grid grid-cols-1 md:grid-cols-3 gap-6 sm:gap-8">
-                        <!-- Kit 1 -->
-                        <div class="glass-panel rounded-3xl border border-gray-800 hover:border-cyan-500/50 transition-all group overflow-hidden flex flex-col shadow-lg">
-                            <div class="h-48 bg-space-900 border-b border-gray-800 flex items-center justify-center relative overflow-hidden">
-                                <div class="absolute inset-0 bg-cyan-500/5 opacity-0 group-hover:opacity-100 transition-opacity"></div>
-                                <i class="fa-solid fa-satellite-dish text-6xl text-gray-600 group-hover:text-cyan-400 transition-colors z-10 duration-300 group-hover:scale-110"></i>
-                            </div>
-                            <div class="p-6 flex flex-col flex-1">
-                                <h4 class="text-xl font-bold text-white mb-3 group-hover:text-cyanNeon transition-colors">CubeSat 微型衛星套材</h4>
-                                <p class="text-xs text-gray-400 leading-relaxed flex-1 mb-6">
-                                    <span class="text-gray-200 font-semibold block mb-1">AI 應用：</span>
-                                    電腦視覺預測隕石撞擊軌跡、分析地表光譜尋找地下水冰。
+                            <div class="card p-6">
+                                <h3 class="text-[var(--text-hi)] font-bold mb-4 flex items-center gap-2">
+                                    <i class="fa-solid fa-user-astronaut text-[var(--primary-300)]"></i> 評審團
+                                </h3>
+                                <p class="body text-[var(--text-body)] leading-relaxed">
+                                    由具備工程與航天系統、人工智能與機械人、STEM 教學與工程可行性、真實航天任務視野，以及科研探究與簡報答辯等專業背景的國家級航天專家、香港學術權威、教育與創科產業代表、國家任務總指揮級專家與創新創業導師組成，確保評分公平並切合不同年齡學生的能力水平。
                                 </p>
-                                <div class="flex items-center">
-                                    <span class="px-3 py-1 bg-space-800 border border-gray-700 rounded-lg text-[10px] text-gray-400 font-medium">初中 / 高小組別</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 06 TIMELINE -->
+            <section id="schedule" class="section-y surface-alt">
+                <div class="max-w-[1100px] mx-auto px-6">
+                    <div class="text-center mb-12">
+                        <div class="eyebrow mb-3">Roadmap & Timeline</div>
+                        <h2 class="h2 mb-3">2026 – 2027 賽事日程</h2>
+                        <p class="body">重要日子一目了然，支援匯入行事曆。</p>
+                    </div>
+
+                    <div class="flex flex-wrap justify-center gap-3 text-xs mb-10">
+                        <span class="status status-ok">已完成</span>
+                        <span class="status status-active">進行中</span>
+                        <span class="status status-soon">即將開始</span>
+                        <span class="status status-milestone">重點里程碑</span>
+                    </div>
+
+                    <ol class="flex gap-3 overflow-x-auto pb-3 mb-10 snap-x" id="timelinePills">
+                        <li><button class="tl-pill whitespace-nowrap px-4 py-2 rounded-full border border-[var(--primary-400)] text-xs text-[var(--primary-300)] font-display bg-[rgba(46,111,224,0.15)]" data-target="m1">09/16 – 10/31</button></li>
+                        <li><button class="tl-pill whitespace-nowrap px-4 py-2 rounded-full border border-[var(--border)] text-xs text-[var(--text-hi)] font-display" data-target="m2">2026/11/16</button></li>
+                        <li><button class="tl-pill whitespace-nowrap px-4 py-2 rounded-full border border-[var(--border)] text-xs text-[var(--text-hi)] font-display" data-target="m3">2027/01/11</button></li>
+                        <li><button class="tl-pill whitespace-nowrap px-4 py-2 rounded-full border border-[var(--border)] text-xs text-[var(--text-hi)] font-display" data-target="m4">2027/01/12–22</button></li>
+                        <li><button class="tl-pill whitespace-nowrap px-4 py-2 rounded-full border border-[var(--border)] text-xs text-[var(--text-hi)] font-display" data-target="m5">2027/01–03</button></li>
+                        <li><button class="tl-pill whitespace-nowrap px-4 py-2 rounded-full border border-[var(--border)] text-xs text-[var(--text-hi)] font-display" data-target="m6">2027/03/31</button></li>
+                        <li><button class="tl-pill whitespace-nowrap px-4 py-2 rounded-full border border-[var(--border)] text-xs text-[var(--text-hi)] font-display" data-target="m7">2027/04/30</button></li>
+                        <li><button class="tl-pill whitespace-nowrap px-4 py-2 rounded-full border border-[var(--gold-500)] text-xs text-[var(--gold-300)] font-display bg-[rgba(199,162,76,0.12)]" data-target="m8">2027/05 中</button></li>
+                    </ol>
+
+                    <div class="space-y-4">
+                        <article id="m1" class="card rounded-2xl p-5 border-[var(--primary-400)] grid md:grid-cols-12 gap-4 items-start" style="background:var(--surface-700)">
+                            <div class="md:col-span-2 flex md:flex-col items-center md:items-start gap-3 md:gap-1">
+                                <span class="font-display text-[var(--primary-300)] text-sm font-bold">09/16 – 10/31</span>
+                                <span class="status status-active">進行中</span>
+                            </div>
+                            <div class="md:col-span-8">
+                                <h4 class="text-[var(--text-hi)] font-bold mb-1">全港學校招募 + 各區簡介會 + 教師培訓</h4>
+                                <p class="caption">9 月 28 日至 10 月 22 日：各區學校簡介會及教師培訓工作坊。</p>
+                            </div>
+                            <div class="md:col-span-2 md:text-right">
+                                <a href="assets/ics/m1-registration.ics" class="ics-pill" download data-ics="m1"><i class="fa-regular fa-calendar-plus"></i> 加到行事曆</a>
+                            </div>
+                        </article>
+
+                        <article id="m2" class="card rounded-2xl p-5 grid md:grid-cols-12 gap-4 items-start">
+                            <div class="md:col-span-2 flex md:flex-col items-center md:items-start gap-3 md:gap-1">
+                                <span class="font-display text-[#6B7890] text-sm font-bold">2026/11/16</span>
+                                <span class="status status-soon">即將開始</span>
+                            </div>
+                            <div class="md:col-span-8">
+                                <h4 class="text-[var(--text-hi)] font-bold mb-1">官宣抽籤分組結果</h4>
+                                <p class="caption">正式公佈各參賽學校的組別分配結果。</p>
+                            </div>
+                            <div class="md:col-span-2 md:text-right">
+                                <a href="assets/ics/m2-lottery.ics" class="ics-pill" download data-ics="m2"><i class="fa-regular fa-calendar-plus"></i> 加到行事曆</a>
+                            </div>
+                        </article>
+
+                        <article id="m3" class="card rounded-2xl p-5 grid md:grid-cols-12 gap-4 items-start">
+                            <div class="md:col-span-2 flex md:flex-col items-center md:items-start gap-3 md:gap-1">
+                                <span class="font-display text-[#6B7890] text-sm font-bold">2027/01/11</span>
+                                <span class="status status-soon">即將開始</span>
+                            </div>
+                            <div class="md:col-span-8">
+                                <h4 class="text-[var(--text-hi)] font-bold mb-1">賽事啟動禮 + 任務與評審準則發布</h4>
+                                <p class="caption">大賽正式啟動，公布本年度任務參數、技術文件及評分細則。</p>
+                            </div>
+                            <div class="md:col-span-2 md:text-right">
+                                <a href="assets/ics/m3-launch.ics" class="ics-pill" download data-ics="m3"><i class="fa-regular fa-calendar-plus"></i> 加到行事曆</a>
+                            </div>
+                        </article>
+
+                        <article id="m4" class="card rounded-2xl p-5 grid md:grid-cols-12 gap-4 items-start">
+                            <div class="md:col-span-2 flex md:flex-col items-center md:items-start gap-3 md:gap-1">
+                                <span class="font-display text-[var(--group-p)] text-sm font-bold">2027/01/12 – 22</span>
+                                <span class="status status-soon">即將開始</span>
+                            </div>
+                            <div class="md:col-span-8">
+                                <h4 class="text-[var(--text-hi)] font-bold mb-1">領取大會硬件套材</h4>
+                                <p class="caption">入圍學校到大會指定地點領取官方航天研發硬體套材。</p>
+                            </div>
+                            <div class="md:col-span-2 md:text-right">
+                                <a href="assets/ics/m4-pickup.ics" class="ics-pill" download data-ics="m4"><i class="fa-regular fa-calendar-plus"></i> 加到行事曆</a>
+                            </div>
+                        </article>
+
+                        <article id="m5" class="card rounded-2xl p-5 grid md:grid-cols-12 gap-4 items-start">
+                            <div class="md:col-span-2 flex md:flex-col items-center md:items-start gap-3 md:gap-1">
+                                <span class="font-display text-[var(--group-s)] text-sm font-bold">2027/01 – 03</span>
+                                <span class="status status-soon">即將開始</span>
+                            </div>
+                            <div class="md:col-span-8">
+                                <h4 class="text-[var(--text-hi)] font-bold mb-1">創新研發期 · 專家巡迴講座、大學參觀、AI 工作坊</h4>
+                                <p class="caption">3 個月密集研發期，期間設多場導師講座與實作工作坊。</p>
+                            </div>
+                            <div class="md:col-span-2 md:text-right">
+                                <a href="assets/ics/m5-build.ics" class="ics-pill" download data-ics="m5"><i class="fa-regular fa-calendar-plus"></i> 加到行事曆</a>
+                            </div>
+                        </article>
+
+                        <article id="m6" class="card rounded-2xl p-5 grid md:grid-cols-12 gap-4 items-start">
+                            <div class="md:col-span-2 flex md:flex-col items-center md:items-start gap-3 md:gap-1">
+                                <span class="font-display text-[#6B7890] text-sm font-bold">2027/03/31</span>
+                                <span class="status status-soon">即將開始</span>
+                            </div>
+                            <div class="md:col-span-8">
+                                <h4 class="text-[var(--text-hi)] font-bold mb-1">作品截止遞交 (A0 研究海報 + 原型示範影片)</h4>
+                                <p class="caption">提交 A0 研究海報、原型示範影片、源代碼與設計日誌。</p>
+                            </div>
+                            <div class="md:col-span-2 md:text-right">
+                                <a href="assets/ics/m6-submit.ics" class="ics-pill" download data-ics="m6"><i class="fa-regular fa-calendar-plus"></i> 加到行事曆</a>
+                            </div>
+                        </article>
+
+                        <article id="m7" class="card rounded-2xl p-5 grid md:grid-cols-12 gap-4 items-start">
+                            <div class="md:col-span-2 flex md:flex-col items-center md:items-start gap-3 md:gap-1">
+                                <span class="font-display text-[#6B7890] text-sm font-bold">2027/04/30</span>
+                                <span class="status status-soon">即將開始</span>
+                            </div>
+                            <div class="md:col-span-8">
+                                <h4 class="text-[var(--text-hi)] font-bold mb-1">半決賽 (Semi-final)</h4>
+                                <p class="caption">晉級隊伍向評審團進行研究海報答辯與原型展示。</p>
+                            </div>
+                            <div class="md:col-span-2 md:text-right">
+                                <a href="assets/ics/m7-semifinal.ics" class="ics-pill" download data-ics="m7"><i class="fa-regular fa-calendar-plus"></i> 加到行事曆</a>
+                            </div>
+                        </article>
+
+                        <article id="m8" class="card rounded-2xl p-5 border-[var(--gold-500)] grid md:grid-cols-12 gap-4 items-start" style="background:var(--surface-700)">
+                            <div class="md:col-span-2 flex md:flex-col items-center md:items-start gap-3 md:gap-1">
+                                <span class="font-display text-[var(--gold-300)] text-sm font-bold">2027/05 中</span>
+                                <span class="status status-milestone">重點里程碑</span>
+                            </div>
+                            <div class="md:col-span-8">
+                                <h4 class="text-[var(--text-hi)] font-bold mb-1">總決賽暨創新作品展 (Final Aerospace Fair)</h4>
+                                <p class="caption">總決賽現場答辯，並聯同期青年航天作品展覽，連繫政商與傳媒。</p>
+                            </div>
+                            <div class="md:col-span-2 md:text-right">
+                                <a href="assets/ics/m8-final.ics" class="ics-pill" download data-ics="m8"><i class="fa-regular fa-calendar-plus"></i> 加到行事曆</a>
+                            </div>
+                        </article>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 07 ECOSYSTEM - N.O.R.A. (Coming soon) -->
+            <section id="ecosystem" class="section-y">
+                <div class="container-x flex flex-col md:flex-row items-center gap-12">
+                    <div class="w-full md:w-1/2">
+                        <div class="eyebrow mb-3" style="color:var(--group-s)">Digital Ecosystem</div>
+                        <h2 class="h2 mb-4">
+                            N.O.R.A. Kids<br><span style="color:var(--group-s)">星際 AI 學院 App</span>
+                        </h2>
+                        <p class="body mb-6">
+                            專為全港學生設計的遊戲化航天教育 App。採用碎片化學習路徑，讓深奧的航天知識變成有趣的星際冒險。
+                        </p>
+                        <div class="chip chip-gold mb-6">即將推出 · Coming soon</div>
+                        <ul class="space-y-2 text-sm text-[var(--text-body)] mb-6">
+                            <li class="flex items-start gap-2"><i class="fa-solid fa-circle-check text-[var(--primary-300)] mt-1"></i> 中國航天科普知識</li>
+                            <li class="flex items-start gap-2"><i class="fa-solid fa-circle-check text-[var(--primary-300)] mt-1"></i> 中國航天發展歷程</li>
+                            <li class="flex items-start gap-2"><i class="fa-solid fa-circle-check text-[var(--primary-300)] mt-1"></i> 航天英雄故事</li>
+                            <li class="flex items-start gap-2"><i class="fa-solid fa-circle-check text-[var(--primary-300)] mt-1"></i> 香港科研貢獻</li>
+                        </ul>
+                        <form class="card p-4 rounded-xl" onsubmit="event.preventDefault(); this.querySelector('button').textContent='已登記 · 謝謝'; this.querySelector('input').value='';">
+                            <label class="eyebrow mb-2 block">App 上線時通知我</label>
+                            <div class="flex flex-col sm:flex-row gap-2">
+                                <input type="email" required placeholder="電郵地址" class="field flex-1">
+                                <button type="submit" class="btn btn-primary whitespace-nowrap"><i class="fa-solid fa-bell"></i> 登記通知</button>
+                            </div>
+                            <p class="field-help mt-2">只會發送上線通知，不會用作其他推廣用途。</p>
+                        </form>
+                    </div>
+
+                    <div class="w-full md:w-1/2 flex justify-center">
+                        <div class="card rounded-[36px] p-3 w-[260px] h-[540px] relative">
+                            <div class="absolute top-3 left-1/2 -translate-x-1/2 w-28 h-5 bg-[var(--surface-800)] rounded-b-2xl z-10"></div>
+                            <div class="w-full h-full rounded-[28px] bg-[var(--surface-900)] overflow-hidden border border-[var(--border)] relative flex flex-col">
+                                <div class="p-4 pt-7 text-center border-b border-[var(--border-soft)]">
+                                    <div class="text-[var(--text-hi)] font-bold text-sm">探索宇宙</div>
+                                    <div class="text-[var(--primary-300)] text-[10px]">學習進度 28%</div>
+                                </div>
+                                <div class="flex-1 p-4 flex flex-col gap-3">
+                                    <div class="bg-[var(--surface-700)] rounded-xl p-3 flex items-center gap-3">
+                                        <div class="w-9 h-9 rounded-full bg-[rgba(46,111,224,0.15)] flex items-center justify-center text-[var(--primary-300)]"><i class="fa-solid fa-rocket"></i></div>
+                                        <div class="flex-1"><div class="text-[var(--text-hi)] text-xs font-bold">火箭工程</div><div class="text-[var(--text-mute)] text-[9px]">推進 · 結構</div></div>
+                                    </div>
+                                    <div class="bg-[var(--surface-700)] rounded-xl p-3 flex items-center gap-3">
+                                        <div class="w-9 h-9 rounded-full bg-[rgba(107,99,196,0.15)] flex items-center justify-center text-[var(--group-s)]"><i class="fa-solid fa-satellite"></i></div>
+                                        <div class="flex-1"><div class="text-[var(--text-hi)] text-xs font-bold">軌道與衛星</div><div class="text-[var(--text-mute)] text-[9px]">4 / 6 已完成</div></div>
+                                    </div>
+                                    <div class="bg-[var(--surface-700)] rounded-xl p-3 flex items-center gap-3 opacity-70">
+                                        <div class="w-9 h-9 rounded-full bg-[rgba(199,162,76,0.15)] flex items-center justify-center text-[var(--gold-300)]"><i class="fa-solid fa-user-astronaut"></i></div>
+                                        <div class="flex-1"><div class="text-[var(--text-hi)] text-xs font-bold">航天英雄</div><div class="text-[var(--text-mute)] text-[9px]">即將解鎖</div></div>
+                                    </div>
+                                </div>
+                                <div class="p-4 bg-[var(--primary-500)] m-3 rounded-xl text-center">
+                                    <div class="text-white text-xs font-bold">繼續學習 <i class="fa-solid fa-arrow-right"></i></div>
                                 </div>
                             </div>
                         </div>
-
-                        <!-- Kit 2 -->
-                        <div class="glass-panel rounded-3xl border border-gray-800 hover:border-emerald-500/50 transition-all group overflow-hidden flex flex-col shadow-lg">
-                            <div class="h-48 bg-space-900 border-b border-gray-800 flex items-center justify-center relative overflow-hidden">
-                                <div class="absolute inset-0 bg-emerald-500/5 opacity-0 group-hover:opacity-100 transition-opacity"></div>
-                                <i class="fa-solid fa-seedling text-6xl text-gray-600 group-hover:text-emerald-400 transition-colors z-10 duration-300 group-hover:scale-110"></i>
-                            </div>
-                            <div class="p-6 flex flex-col flex-1">
-                                <h4 class="text-xl font-bold text-white mb-3 group-hover:text-emerald-400 transition-colors">太空種植方艙套材</h4>
-                                <p class="text-xs text-gray-400 leading-relaxed flex-1 mb-6">
-                                    <span class="text-gray-200 font-semibold block mb-1">AI 應用：</span>
-                                    訓練影像模型辨識植物病害，動態調節溫室水電資源以極致節能。
-                                </p>
-                                <div class="flex items-center">
-                                    <span class="px-3 py-1 bg-space-800 border border-gray-700 rounded-lg text-[10px] text-gray-400 font-medium">高小組別</span>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- Kit 3 -->
-                        <div class="glass-panel rounded-3xl border border-gray-800 hover:border-blue-500/50 transition-all group overflow-hidden flex flex-col shadow-lg">
-                            <div class="h-48 bg-space-900 border-b border-gray-800 flex items-center justify-center relative overflow-hidden">
-                                <div class="absolute inset-0 bg-blue-500/5 opacity-0 group-hover:opacity-100 transition-opacity"></div>
-                                <i class="fa-solid fa-robot text-6xl text-gray-600 group-hover:text-blue-400 transition-colors z-10 duration-300 group-hover:scale-110"></i>
-                            </div>
-                            <div class="p-6 flex flex-col flex-1">
-                                <h4 class="text-xl font-bold text-white mb-3 group-hover:text-blue-400 transition-colors">E28太空 AI 機械人</h4>
-                                <p class="text-xs text-gray-400 leading-relaxed flex-1 mb-6">
-                                    <span class="text-gray-200 font-semibold block mb-1">Eg.</span>
-                                    訓練AI模型機械人，編程及識別目標進行任務。
-                                </p>
-                                <div class="flex items-center">
-                                    <span class="px-3 py-1 bg-space-800 border border-gray-700 rounded-lg text-[10px] text-gray-400 font-medium">小學組別</span>
-                                </div>
-                            </div>
-                        </div>
                     </div>
                 </div>
+            </section>
 
-                <!-- Secondary School Row -->
-                <div>
-                    <h3 class="text-2xl font-bold text-white mb-6 flex items-center gap-3 border-b border-gray-800 pb-3 mt-12">
-                        <div class="w-2 h-6 bg-purpleNeon rounded-full"></div> 中學組別
-                    </h3>
-                    
-                    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 sm:gap-8">
-                        <!-- Kit 4 -->
-                        <div class="glass-panel rounded-3xl border border-gray-800 hover:border-purple-500/50 transition-all group overflow-hidden flex flex-col shadow-lg">
-                            <div class="h-48 bg-space-900 border-b border-gray-800 flex items-center justify-center relative overflow-hidden">
-                                <div class="absolute inset-0 bg-purple-500/5 opacity-0 group-hover:opacity-100 transition-opacity"></div>
-                                <i class="fa-solid fa-satellite text-6xl text-gray-600 group-hover:text-purple-400 transition-colors z-10 duration-300 group-hover:scale-110"></i>
-                            </div>
-                            <div class="p-6 flex flex-col flex-1">
-                                <h4 class="text-xl font-bold text-white mb-3 group-hover:text-purple-400 transition-colors">初中「3U CubeSat 微型衛星」組別</h4>
-                                <p class="text-xs text-gray-400 leading-relaxed flex-1 mb-6">
-                                    <span class="text-gray-200 font-semibold block mb-1">Eg.</span>
-                                    運用電腦視覺預測隕石撞擊軌跡，或分析地表光譜尋找地下水冰。
-                                </p>
-                            </div>
-                        </div>
-
-                        <!-- Kit 5 -->
-                        <div class="glass-panel rounded-3xl border border-gray-800 hover:border-amber-500/50 transition-all group overflow-hidden flex flex-col shadow-lg">
-                            <div class="h-48 bg-space-900 border-b border-gray-800 flex items-center justify-center relative overflow-hidden">
-                                <div class="absolute inset-0 bg-amber-500/5 opacity-0 group-hover:opacity-100 transition-opacity"></div>
-                                <i class="fa-solid fa-truck-monster text-6xl text-gray-600 group-hover:text-amber-400 transition-colors z-10 duration-300 group-hover:scale-110"></i>
-                            </div>
-                            <div class="p-6 flex flex-col flex-1">
-                                <h4 class="text-xl font-bold text-white mb-3 group-hover:text-amber-400 transition-colors">初中/高中「探測車 (Rover)」組別</h4>
-                                <p class="text-xs text-gray-400 leading-relaxed flex-1 mb-6">
-                                    <span class="text-gray-200 font-semibold block mb-1">Eg.</span>
-                                    開發無延遲的自動駕駛避障算法，或利用圖像分割技術檢測基地外牆裂縫。
-                                </p>
-                            </div>
-                        </div>
-
-                        <!-- Kit 6 -->
-                        <div class="glass-panel rounded-3xl border border-gray-800 hover:border-red-500/50 transition-all group overflow-hidden flex flex-col shadow-lg">
-                            <div class="h-48 bg-space-900 border-b border-gray-800 flex items-center justify-center relative overflow-hidden">
-                                <div class="absolute inset-0 bg-red-500/5 opacity-0 group-hover:opacity-100 transition-opacity"></div>
-                                <i class="fa-solid fa-rocket text-6xl text-gray-600 group-hover:text-red-400 transition-colors z-10 duration-300 group-hover:scale-110"></i>
-                            </div>
-                            <div class="p-6 flex flex-col flex-1">
-                                <h4 class="text-xl font-bold text-white mb-3 group-hover:text-red-400 transition-colors">初中「3D 打印火箭工程」組別</h4>
-                                <p class="text-xs text-gray-400 leading-relaxed flex-1 mb-6">
-                                    <span class="text-gray-200 font-semibold block mb-1">Eg.</span>
-                                    設計及3D打印出火箭並進行發射。
-                                </p>
-                            </div>
-                        </div>
-
-                        <!-- Kit 7 -->
-                        <div class="glass-panel rounded-3xl border border-gray-800 hover:border-teal-500/50 transition-all group overflow-hidden flex flex-col shadow-lg">
-                            <div class="h-48 bg-space-900 border-b border-gray-800 flex items-center justify-center relative overflow-hidden">
-                                <div class="absolute inset-0 bg-teal-500/5 opacity-0 group-hover:opacity-100 transition-opacity"></div>
-                                <i class="fa-solid fa-hand-holding text-6xl text-gray-600 group-hover:text-teal-400 transition-colors z-10 duration-300 group-hover:scale-110"></i>
-                            </div>
-                            <div class="p-6 flex flex-col flex-1">
-                                <h4 class="text-xl font-bold text-white mb-3 group-hover:text-teal-400 transition-colors">高中「智能機械手」組別</h4>
-                                <p class="text-xs text-gray-400 leading-relaxed flex-1 mb-6">
-                                    <span class="text-gray-200 font-semibold block mb-1">Eg.</span>
-                                    透過編程及 AI 識別，機械手能夠用合適力度拿取樣本，而不破壞樣本本體。
-                                </p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-            </div>
-        </section>
-
-        <!-- APP ECOSYSTEM -->
-        <section class="py-24 bg-space-900 border-t border-white/5 overflow-hidden relative">
-            <div class="max-w-[1200px] mx-auto px-6 flex flex-col md:flex-row items-center gap-16 relative z-10">
-                <div class="w-full md:w-1/2">
-                    <span class="text-purpleNeon text-xs font-tech font-bold uppercase tracking-widest mb-4 block">Digital Ecosystem</span>
-                    <h2 class="text-3xl sm:text-4xl font-bold text-white mb-6 tracking-wide">
-                        N.O.R.A. Kids<br>星際 AI 學院 App
-                    </h2>
-                    <p class="text-gray-400 text-sm leading-relaxed mb-8">
-                        專為全港學生設計的遊戲化航天教育 App。採用 Duolingo 式碎片化學習，讓深奧的航天知識變成有趣的星際冒險。
-                        <br><br>
-                        <strong>公眾投票加成：</strong> 學生每日登入完成航天任務，即可獲得額外投票權，為母校的參賽作品大力拉票！
-                    </p>
-                    <div class="flex gap-4">
-                        <button class="px-5 py-2.5 rounded-lg bg-white text-black font-bold text-xs flex items-center gap-2 hover:bg-gray-200 transition-colors">
-                            <i class="fa-brands fa-apple text-lg"></i> App Store
-                        </button>
-                        <button class="px-5 py-2.5 rounded-lg bg-white text-black font-bold text-xs flex items-center gap-2 hover:bg-gray-200 transition-colors">
-                            <i class="fa-brands fa-google-play text-lg"></i> Google Play
-                        </button>
-                    </div>
-                </div>
-                
-                <div class="w-full md:w-1/2 flex justify-center">
-                    <!-- App Phone Mockup -->
-                    <div class="w-[280px] h-[580px] rounded-[40px] border-[6px] border-gray-800 bg-space-950 p-2 shadow-[0_0_50px_rgba(168,85,247,0.2)] relative">
-                        <div class="absolute top-0 left-1/2 -translate-x-1/2 w-32 h-6 bg-gray-800 rounded-b-2xl"></div>
-                        <div class="w-full h-full rounded-[28px] bg-gradient-to-b from-indigo-900 to-space-950 overflow-hidden border border-white/10 relative flex flex-col">
-                            <div class="p-4 pt-8 text-center border-b border-white/10 bg-white/5">
-                                <div class="text-white font-bold text-sm">探索宇宙</div>
-                                <div class="text-cyanNeon text-[10px]">你的航程已完成 28%</div>
-                            </div>
-                            <div class="flex-1 p-4 flex flex-col gap-3">
-                                <div class="bg-white/10 rounded-xl p-3 flex items-center gap-3">
-                                    <div class="w-10 h-10 rounded-full bg-blue-500/20 flex items-center justify-center text-blue-400"><i class="fa-solid fa-rocket"></i></div>
-                                    <div class="flex-1"><div class="text-white text-xs font-bold">火箭工程</div><div class="text-gray-400 text-[9px]">推進・結構</div></div>
-                                </div>
-                                <div class="bg-white/10 rounded-xl p-3 flex items-center gap-3">
-                                    <div class="w-10 h-10 rounded-full bg-purple-500/20 flex items-center justify-center text-purple-400"><i class="fa-solid fa-satellite"></i></div>
-                                    <div class="flex-1"><div class="text-white text-xs font-bold">軌道與衛星</div><div class="text-gray-400 text-[9px]">4/6 已完成</div></div>
-                                </div>
-                            </div>
-                            <div class="p-4 bg-gradient-to-r from-purple-600 to-blue-600 m-4 rounded-xl text-center shadow-glow-purple cursor-pointer">
-                                <div class="text-white text-xs font-bold">前往公眾投票區拉票 <i class="fa-solid fa-arrow-right"></i></div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- JURY SECTION -->
-        <section id="jury" class="py-24 bg-space-950 border-t border-white/5">
-            <div class="max-w-[1200px] mx-auto px-6 text-center">
-                <span class="text-cyanNeon text-xs font-tech font-bold uppercase tracking-widest mb-4 block">Mission Command</span>
-                <h2 class="text-3xl sm:text-4xl font-bold text-white mb-10 tracking-wide">專家評審團</h2>
-
-                <div class="max-w-4xl mx-auto glass-panel p-8 sm:p-12 rounded-3xl border border-cyan-500/20 shadow-glow-cyan relative overflow-hidden">
-                    <div class="absolute top-0 right-0 w-64 h-64 bg-cyan-500/10 rounded-full blur-3xl pointer-events-none"></div>
-                    
-                    <i class="fa-solid fa-user-astronaut text-4xl text-cyanNeon mb-6 opacity-80"></i>
-                    
-                    <p class="text-gray-300 text-base sm:text-lg leading-relaxed text-justify sm:text-center relative z-10">
-                        大賽匯聚國家級航天英雄與頂尖學術界泰斗。我們的專家評審團由<strong class="text-white">中國首位女航天員</strong>及<strong class="text-cyanNeon">香港首位載荷專家</strong>領銜，並邀請來自香港理工大學、香港科技大學及香港中文大學的航空航天與人工智能領域權威教授共同組成。
-                        <br><br>
-                        他們將以最嚴謹的科學標準及前瞻性的工程視角，親自點評每支隊伍的研究藍圖與實體原型設計。這不僅是一場頂尖科技賽事，更是香港青年學子與國家級航天專家近距離交流、激發無窮創科潛能的終極舞台！
-                    </p>
-                </div>
-            </div>
-        </section>
-
-        <!-- TIMELINE -->
-        <section id="timeline" class="py-24 bg-space-900 border-t border-white/5">
-            <div class="max-w-[800px] mx-auto px-6">
-                <div class="text-center mb-16">
-                    <span class="text-cyanNeon text-xs font-tech font-bold uppercase tracking-widest mb-4 block">Roadmap & Timeline</span>
-                    <h2 class="text-3xl sm:text-4xl font-bold text-white tracking-wide">2026 - 2027 賽事日程</h2>
-                </div>
-
-                <div class="space-y-8 relative before:absolute before:inset-0 before:ml-5 before:-translate-x-px md:before:mx-auto md:before:translate-x-0 before:h-full before:w-0.5 before:bg-gradient-to-b before:from-cyan-500 before:via-purple-500 before:to-transparent">
-                    
-                    <!-- Milestone 1 -->
-                    <div class="relative flex items-center justify-between md:justify-normal md:odd:flex-row-reverse group is-active">
-                        <div class="flex items-center justify-center w-10 h-10 rounded-full border-4 border-space-900 bg-cyan-500 text-white shadow-[0_0_15px_rgba(0,242,254,0.5)] shrink-0 md:order-1 md:group-odd:-translate-x-1/2 md:group-even:translate-x-1/2 z-10">
-                            <i class="fa-solid fa-bullhorn text-sm"></i>
-                        </div>
-                        <div class="w-[calc(100%-4rem)] md:w-[calc(50%-3rem)] glass-panel p-5 rounded-2xl border-cyan-500/30 hover:border-cyan-400 transition-colors">
-                            <div class="text-cyanNeon font-tech text-xs font-bold mb-1">2026年9月16日 - 10月31日</div>
-                            <h4 class="text-white font-bold text-base mb-1">全港中小學招募與教師培訓</h4>
-                            <p class="text-xs text-gray-400">9月28日至10月22日：各區學校簡介會及教師培訓。</p>
-                        </div>
-                    </div>
-
-                    <!-- Milestone 2 -->
-                    <div class="relative flex items-center justify-between md:justify-normal md:odd:flex-row-reverse group">
-                        <div class="flex items-center justify-center w-10 h-10 rounded-full border-4 border-space-900 bg-blue-500 text-white shrink-0 md:order-1 md:group-odd:-translate-x-1/2 md:group-even:translate-x-1/2 z-10">
-                            <i class="fa-solid fa-shuffle text-sm"></i>
-                        </div>
-                        <div class="w-[calc(100%-4rem)] md:w-[calc(50%-3rem)] glass-panel p-5 rounded-2xl border-gray-800 hover:border-blue-500/50 transition-colors">
-                            <div class="text-blueNeon font-tech text-xs font-bold mb-1">2026年11月16日</div>
-                            <h4 class="text-white font-bold text-base mb-1">官宣抽籤分組結果</h4>
-                            <p class="text-xs text-gray-400">正式公佈各參賽學校的組別分配結果。</p>
-                        </div>
-                    </div>
-
-                    <!-- Milestone 3 -->
-                    <div class="relative flex items-center justify-between md:justify-normal md:odd:flex-row-reverse group">
-                        <div class="flex items-center justify-center w-10 h-10 rounded-full border-4 border-space-900 bg-indigo-500 text-white shrink-0 md:order-1 md:group-odd:-translate-x-1/2 md:group-even:translate-x-1/2 z-10">
-                            <i class="fa-solid fa-flag-checkered text-sm"></i>
-                        </div>
-                        <div class="w-[calc(100%-4rem)] md:w-[calc(50%-3rem)] glass-panel p-5 rounded-2xl border-gray-800 hover:border-indigo-500/50 transition-colors">
-                            <div class="text-indigo-400 font-tech text-xs font-bold mb-1">2027年1月11日</div>
-                            <h4 class="text-white font-bold text-base mb-1">賽事啟動禮</h4>
-                            <p class="text-xs text-gray-400">大賽正式啟動，發布具體任務參數與評審準則。</p>
-                        </div>
-                    </div>
-
-                    <!-- Milestone 4 -->
-                    <div class="relative flex items-center justify-between md:justify-normal md:odd:flex-row-reverse group">
-                        <div class="flex items-center justify-center w-10 h-10 rounded-full border-4 border-space-900 bg-purple-500 text-white shrink-0 md:order-1 md:group-odd:-translate-x-1/2 md:group-even:translate-x-1/2 z-10">
-                            <i class="fa-solid fa-box-open text-sm"></i>
-                        </div>
-                        <div class="w-[calc(100%-4rem)] md:w-[calc(50%-3rem)] glass-panel p-5 rounded-2xl border-gray-800 hover:border-purple-500/50 transition-colors">
-                            <div class="text-purple-400 font-tech text-xs font-bold mb-1">2027年1月12日 - 22日</div>
-                            <h4 class="text-white font-bold text-base mb-1">通知領取大會硬體套材</h4>
-                            <p class="text-xs text-gray-400">通知各入圍學校領取官方指定的航天研發硬體套材。</p>
-                        </div>
-                    </div>
-
-                    <!-- Milestone 5 -->
-                    <div class="relative flex items-center justify-between md:justify-normal md:odd:flex-row-reverse group">
-                        <div class="flex items-center justify-center w-10 h-10 rounded-full border-4 border-space-900 bg-pink-500 text-white shrink-0 md:order-1 md:group-odd:-translate-x-1/2 md:group-even:translate-x-1/2 z-10">
-                            <i class="fa-solid fa-upload text-sm"></i>
-                        </div>
-                        <div class="w-[calc(100%-4rem)] md:w-[calc(50%-3rem)] glass-panel p-5 rounded-2xl border-gray-800 hover:border-pink-500/50 transition-colors">
-                            <div class="text-pink-400 font-tech text-xs font-bold mb-1">2027年3月31日</div>
-                            <h4 class="text-white font-bold text-base mb-1">作品截止遞交</h4>
-                            <p class="text-xs text-gray-400">提交概念藍圖、研究報告及 Prototype 示範影片等參賽資料。</p>
-                        </div>
-                    </div>
-
-                    <!-- Milestone 6 -->
-                    <div class="relative flex items-center justify-between md:justify-normal md:odd:flex-row-reverse group">
-                        <div class="flex items-center justify-center w-10 h-10 rounded-full border-4 border-space-900 bg-red-500 text-white shrink-0 md:order-1 md:group-odd:-translate-x-1/2 md:group-even:translate-x-1/2 z-10">
-                            <i class="fa-solid fa-users-viewfinder text-sm"></i>
-                        </div>
-                        <div class="w-[calc(100%-4rem)] md:w-[calc(50%-3rem)] glass-panel p-5 rounded-2xl border-gray-800 hover:border-red-500/50 transition-colors">
-                            <div class="text-red-400 font-tech text-xs font-bold mb-1">2027年4月30日 & 5月22日</div>
-                            <h4 class="text-white font-bold text-base mb-1">半決賽 & 總決賽創新作品展 (Final Aerospace Fair)</h4>
-                            <p class="text-xs text-gray-400">入圍隊伍現場 Research Poster 答辯與 Prototype 展演，連繫政商與傳媒。</p>
-                        </div>
-                    </div>
-
-                    <!-- Milestone 7 -->
-                    <div class="relative flex items-center justify-between md:justify-normal md:odd:flex-row-reverse group">
-                        <div class="flex items-center justify-center w-10 h-10 rounded-full border-4 border-space-900 bg-amber-500 text-white shadow-[0_0_15px_rgba(245,158,11,0.5)] shrink-0 md:order-1 md:group-odd:-translate-x-1/2 md:group-even:translate-x-1/2 z-10">
-                            <i class="fa-solid fa-satellite text-sm"></i>
-                        </div>
-                        <div class="w-[calc(100%-4rem)] md:w-[calc(50%-3rem)] glass-panel p-5 rounded-2xl border-amber-500/30 hover:border-amber-400 transition-colors">
-                            <div class="text-amber-400 font-tech text-xs font-bold mb-1">2027年6月 - 終極大獎</div>
-                            <h4 class="text-white font-bold text-base mb-1">得獎作品與學校標誌牌 隨衛星發射升空！</h4>
-                            <p class="text-xs text-gray-400">冠軍研發作品數碼化並於真實衛星載荷驗證；得獎參賽學校 Space Logo 牌載入宇宙 orbit！</p>
-                        </div>
-                    </div>
-
-                </div>
-            </div>
-        </section>
+        </main>
 
         <!-- FOOTER -->
-        <footer class="bg-space-950 pt-16 pb-8 border-t border-white/10">
-            <div class="max-w-[1200px] mx-auto px-6 flex flex-col md:flex-row items-center justify-between gap-6 text-center md:text-left">
+        <footer class="pt-12 pb-8 border-t border-[var(--border-soft)]">
+            <div class="container-x flex flex-col md:flex-row items-center justify-between gap-6 text-center md:text-left">
                 <div>
-                    <div class="font-tech text-lg font-bold tracking-wider text-white mb-1">HKATA</div>
-                    <div class="text-[10px] text-gray-500 tracking-widest uppercase">Hong Kong Aerospace Technology Academy</div>
+                    <div class="font-display text-base font-bold tracking-[0.18em] text-[var(--text-hi)] mb-1">HKATA</div>
+                    <div class="text-[10px] text-[var(--text-mute)] tracking-[0.18em] uppercase">Hong Kong Aerospace Technology Academy</div>
+                    <div class="text-[10px] text-[var(--text-mute)] tracking-[0.18em] mt-1">香港航天科技教育學院</div>
                 </div>
-                <div class="flex flex-wrap justify-center gap-6 text-xs text-gray-400 font-medium">
-                    <a href="apply.html" class="hover:text-cyanNeon transition-colors">學校報名 Portal</a>
-                    <a href="vote.html" class="hover:text-cyanNeon transition-colors">公眾投票大賞</a>
-                    <a href="#" class="hover:text-white transition-colors">聯絡秘書處</a>
-                </div>
-                <div class="text-xs text-gray-600">
-                    &copy; 2026 HKATA. All rights reserved.
+                <nav class="flex flex-wrap justify-center gap-5 text-xs text-[var(--text-body)]">
+                    <a href="apply.html" class="link">學校報名</a>
+                    <a href="kindergarten.html" class="link">幼兒章程</a>
+                    <a href="primary.html" class="link">小學章程</a>
+                    <a href="secondary.html" class="link">中學章程</a>
+                    <a href="#schedule" class="link">賽事日程</a>
+                    <a href="#judging" class="link">評審準則</a>
+                    <a href="mailto:marketing@hkata.space" class="link">聯絡秘書處</a>
+                </nav>
+                <div class="text-xs text-[var(--text-mute)]">
+                    &copy; 2026 HKATA.<br>
+                    <a href="mailto:marketing@hkata.space" class="link">marketing@hkata.space</a> · 6113 0828
                 </div>
             </div>
         </footer>
 
     </div>
 
-    <!-- Background Animation Script -->
+    <div id="toast" class="toast" role="status" aria-live="polite">已加入行事曆</div>
+
+    <a href="apply.html" id="mobileStickyBar" class="lg:hidden fixed bottom-0 left-0 right-0 z-50 btn btn-gold rounded-none py-4" style="opacity:0; pointer-events:none; transform:translateY(100%); transition:opacity .25s ease, transform .25s ease;">
+        <i class="fa-solid fa-file-pen"></i> 立即報名
+    </a>
+
     <script>
-        const canvas = document.getElementById('starfieldCanvas');
-        const ctx = canvas.getContext('2d');
-        let width = canvas.width = window.innerWidth;
-        let height = canvas.height = window.innerHeight;
+        (function() {
+            document.querySelectorAll('input[name="segment"]').forEach(() => {});
+        })();
 
-        window.addEventListener('resize', () => {
-            width = canvas.width = window.innerWidth;
-            height = canvas.height = window.innerHeight;
-            initStars();
-        });
-
-        let stars = [];
-        function initStars() {
-            stars = [];
-            const starCount = Math.floor((width * height) / 3000);
-            for (let i = 0; i < starCount; i++) {
-                stars.push({
-                    x: Math.random() * width,
-                    y: Math.random() * height,
-                    size: Math.random() * 1.5,
-                    alpha: Math.random(),
-                    speed: Math.random() * 0.005 + 0.002
+        (function() {
+            const root = document.getElementById('pathwayFilter');
+            if (!root) return;
+            const rows = document.querySelectorAll('#pathway tbody tr');
+            root.addEventListener('click', e => {
+                const btn = e.target.closest('button[data-filter]');
+                if (!btn) return;
+                root.querySelectorAll('button').forEach(b => {
+                    b.classList.remove('border-[var(--primary-400)]','bg-[rgba(46,111,224,0.15)]','text-[var(--primary-300)]');
+                    b.classList.add('border-[var(--border)]','text-[var(--text-body)]');
+                    b.setAttribute('aria-pressed','false');
                 });
-            }
-        }
-
-        function animateStars() {
-            ctx.clearRect(0, 0, width, height);
-            stars.forEach(star => {
-                star.alpha += star.speed;
-                if (star.alpha > 1 || star.alpha < 0) star.speed = -star.speed;
-                ctx.fillStyle = `rgba(255, 255, 255, ${Math.abs(star.alpha)})`;
-                ctx.beginPath();
-                ctx.arc(star.x, star.y, star.size, 0, Math.PI * 2);
-                ctx.fill();
+                btn.classList.add('border-[var(--primary-400)]','bg-[rgba(46,111,224,0.15)]','text-[var(--primary-300)]');
+                btn.setAttribute('aria-pressed','true');
+                const f = btn.dataset.filter;
+                rows.forEach(r => {
+                    r.style.display = (f === 'all' || r.dataset.groups.split(/\s+/).includes(f)) ? '' : 'none';
+                });
             });
-            requestAnimationFrame(animateStars);
-        }
+        })();
 
-        initStars();
-        animateStars();
+        (function() {
+            document.querySelectorAll('.tl-pill').forEach(p => p.addEventListener('click', () => {
+                const t = document.getElementById(p.dataset.target);
+                if (t) t.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            }));
+        })();
 
-        // Nav Scroll Effect
-        const nav = document.getElementById('mainNav');
-        window.addEventListener('scroll', () => {
-            if (window.scrollY > 50) {
-                nav.classList.add('bg-space-950/95', 'shadow-lg');
-                nav.classList.remove('bg-space-950/80');
-            } else {
-                nav.classList.remove('bg-space-950/95', 'shadow-lg');
-                nav.classList.add('bg-space-950/80');
-            }
-        });
+        (function() {
+            const toast = document.getElementById('toast');
+            document.addEventListener('click', e => {
+                const a = e.target.closest('a[data-ics]');
+                if (!a || !toast) return;
+                setTimeout(() => {
+                    toast.textContent = '已加入行事曆 · ' + (a.getAttribute('data-ics') || '');
+                    toast.classList.add('show');
+                    setTimeout(() => toast.classList.remove('show'), 1800);
+                }, 80);
+            });
+        })();
+
+        (function() {
+            const btn = document.getElementById('downloadManualBtn');
+            const toast = document.getElementById('toast');
+            if (!btn) return;
+            btn.addEventListener('click', e => {
+                if (btn.getAttribute('href') === '#manual') {
+                    e.preventDefault();
+                    if (toast) {
+                        toast.textContent = '比賽手冊將於 9 月發佈 · 請留意學校電郵';
+                        toast.classList.add('show');
+                        setTimeout(() => toast.classList.remove('show'), 2200);
+                    }
+                }
+            });
+        })();
+
+        (function() {
+            const bar = document.getElementById('mobileStickyBar');
+            const hero = document.getElementById('hero');
+            if (!bar || !hero) return;
+            const obs = new IntersectionObserver(([entry]) => {
+                const visible = entry.isIntersecting;
+                bar.style.opacity = visible ? '0' : '1';
+                bar.style.transform = visible ? 'translateY(100%)' : 'translateY(0)';
+                bar.style.pointerEvents = visible ? 'none' : 'auto';
+            }, { threshold: 0.05 });
+            obs.observe(hero);
+        })();
     </script>
 </body>
 </html>

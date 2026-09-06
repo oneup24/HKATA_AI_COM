@@ -1,0 +1,11 @@
+# Local backups
+*.bak
+*pre-revamp.bak
+
+# Embedded git (canvas-design fonts)
+vendor/design-md/
+
+# OS
+.DS_Store
+.AppleDouble
+.LSOverride
