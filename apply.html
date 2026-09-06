@@ -433,7 +433,7 @@
             try { localStorage.setItem('hkata_registration', JSON.stringify(formData)); } catch (e) {}
 
             // T30: Fire-and-forget POST to the Google Sheets registration endpoint (no UI block if unreachable)
-            fetch('https://script.google.com/macros/s/AKfycbzSd8vLIXt4uvRHF14pr610G4ZAa49iitFBiLvs34wE7SKqrHh7riKkYeTmKnRyMh8z/exec', {
+            fetch('https://script.google.com/macros/s/AKfycbyTnzh9gajIswj88U97dpx0f-qNs5RV2WHcwcOGbEh9kv2Rbop3Xi7zqK9BM2S6rCGM/exec', {
                 method: 'POST',
                 mode: 'no-cors',
                 headers: { 'Content-Type': 'text/plain;charset=utf-8' },
