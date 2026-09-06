@@ -5,6 +5,10 @@
 # Embedded git (canvas-design fonts)
 vendor/design-md/
 
+# Tool state
+.claude/
+.kilo/skills/
+
 # OS
 .DS_Store
 .AppleDouble
