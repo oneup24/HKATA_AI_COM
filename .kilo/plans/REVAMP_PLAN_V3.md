@@ -74,6 +74,7 @@ This doc is the **single source of truth** for V3 work. Keep it in sync with rea
 | T32 | Replace bottom toast with a centered success modal on submit | T32 | ✅ DONE | User: "the pop-up to show the 申請編號 now is a very small down at bottom, no good. please a proper pop up a square in the center, something like thank you for apply the competition, here is your 申請編號 and show the next Nov will have result etc." Added a centered modal in `apply.html` (next to the existing `#toast`) + `.modal-backdrop` / `.modal` styles in `assets/theme.css`. Modal shows: ✓ icon + **感謝您的報名！** + appId (gold pill) + **請記下您的申請編號** + "秘書處將於 11月下旬 官宣抽籤分組結果，並通知校方領取官方「硬件套件」" + 關閉 button. Backdrop click + Esc + close button all dismiss. `#consent` toast preserved for the consent-gate error (transient). Token discipline: reuses `--surface-700` / `--gold-500` / `--primary-500` / `--elev-2` / `.btn-gold`; `prefers-reduced-motion` respected. |
 | T33 | De-duplicate registration by **學校英文全稱** before submit | V3 § `📥 Added 2026-09-06 — T33` | ✅ DONE | User confirmed defaults: **A soft-block, B one-key (English only), C no appId surfaced**. Implemented: (1) `apply.html` pre-loads the existing-name list on page load via `fetch(EXEC_URL, {method:'GET'})` → caches in `sessionStorage` → builds `window.__hkataKnownNames` Set. (2) Pre-submit check compares `normName(formData.schoolNameEn)` against the Set; if match → `#duplicateModal` with 取消 / 仍然提交 buttons. (3) Extracted `performSubmit(formData)` so the 仍然提交 callback can re-fire the actual submit cleanly. (4) Added `#duplicateModal` markup + `.modal-icon-warn` + `.modal-actions` styles. (5) Apps Script update (user to paste + redeploy): added `doGet()` returning `{count, names}` of normalized English names; added server-side duplicate guard in `doPost()` returning `{ok:false, reason:'duplicate'}` — defense in depth so a bypassed client check still can't dirty the Sheet. |
 | T34 | Refine `#duplicateModal` warning copy + button labels | T34 | ✅ DONE | User feedback after T33: current copy reads as "school already registered, contact secretariat" — too passive. User wanted a **directive** warning: "school already applied, please check again and submit again". Implemented variant **B** (per user pick): new copy `此學校已申請過` heading + echoed school name + "請先再次核對學校名稱是否正確" + 2-bullet decision guide + mailto line + button labels `返回核對` (was 取消) / `仍然提交`. Behavior unchanged: 返回核對 closes modal + focuses #schoolNameEn; 仍然提交 re-fires `performSubmit(formData)`. No CSS / Apps Script changes. |
+| T35 | Fix: server-side dedupe guard blocks user-approved overrides | T35 | ✅ DONE | **Bug:** teacher clicks 仍然提交 → POST fires → server-side T33 guard returns `{ok:false,reason:'duplicate'}` → `mode:'no-cors'` makes response opaque → client ignores rejection → success modal shows → **no row appended**. **Fix:** added `forceSubmit: false` to default `formData`; in the duplicate modal's 仍然提交 callback, set `formData.forceSubmit = true` before calling `performSubmit(formData)`. Server-side `doPost()` guard condition updated to `if (existing && existing === submittedName && !d.forceSubmit)` → reject; if `forceSubmit === true`, allow the row to be appended. Email subject gains `[重複]` marker + body adds `(注意：此為重複提交...)` so secretariat can audit overrides in their inbox. Sheet rows themselves are unchanged. Apps Script update handed to user to paste + redeploy as new version. |
 
 > **V3 is fully closed** as of 2026-09-06 — **T30 + T31 verified end-to-end** by user (live form submit → row in `Registrations` + enriched email to `marketing@hkata.space`). No outstanding work in Kilo's queue. Future work will appear as new rows starting at **T32**, with specs appended in the `📥 Added YYYY-MM-DD` section below.
 >
@@ -179,6 +180,8 @@ This doc is the **single source of truth** for V3 work. Keep it in sync with rea
 | 2026-09-06 | User → Kilo | **T33** (implement) | User accepted defaults (soft / one-key / no appId surfaced). Implemented: `apply.html` adds `loadKnownNames()` IIFE → `window.__hkataKnownNames` Set (cached in `sessionStorage`); pre-submit check via `normName()`; new `#duplicateModal` with 取消 / 仍然提交 buttons; refactored submit handler to extract `performSubmit(formData)` so the 仍然提交 callback cleanly re-fires the actual submit; added `.modal-icon-warn` + `.modal-actions` styles. Apps Script update handed to user to paste + redeploy (adds `doGet()` + server-side duplicate guard in `doPost()`). | `apply.html`, `assets/theme.css`, `.kilo/plans/REVAMP_PLAN_V3.md` |
 | 2026-09-06 | User → Kilo | **T34** (planning) | User feedback after T33 implementation: current soft-block modal reads as "school already registered, contact secretariat to update" — they want a more **directive** warning that explicitly says "school already applied, please check again and submit again if correct". Spec drafted in `📥 Added 2026-09-06 — T34` block; 2 button-label variants proposed (A: 取消 / 仍然提交 — keep; B: 返回核對 / 仍然提交 — rename 取消 for clearer intent). Awaiting user pick. No code change yet. | `.kilo/plans/REVAMP_PLAN_V3.md` |
 | 2026-09-06 | User → Kilo | **T34** (implement) | User picked variant B. Refined `#duplicateModal` body copy: heading `此學校已登記` → `此學校已申請過`; added "請先再次核對學校名稱是否正確" + 2-bullet decision guide; Cancel button renamed `取消` → `返回核對` for action-clarity. Behavior unchanged: 返回核對 closes + focuses #schoolNameEn; 仍然提交 re-fires performSubmit. No CSS / Apps Script changes. | `apply.html`, `.kilo/plans/REVAMP_PLAN_V3.md` |
+| 2026-09-06 | User → Kilo | **T35** (planning) | User reported: when teacher triggers duplicate modal and clicks 仍然提交, the success modal shows but no row appears in the Sheet. Root cause: T33 server-side duplicate guard returns `{ok:false, reason:'duplicate'}` for ALL duplicates; `mode:'no-cors'` makes the response opaque so client ignores rejection. Spec drafted in `📥 Added 2026-09-06 — T35` block: add `forceSubmit` flag to request body, server-side guard only rejects when `forceSubmit !== true`. Email subject gets `[重複]` marker so secretariat can identify overrides. No code change yet. | `.kilo/plans/REVAMP_PLAN_V3.md` |
+| 2026-09-06 | User → Kilo | **T35** (implement) | Added `forceSubmit: false` to default `formData` in `apply.html`; in the duplicate modal's 仍然提交 callback, set `formData.forceSubmit = true` before calling `performSubmit(formData)`. Apps Script update handed to user to paste + redeploy: guard condition `if (existing && existing === submittedName && !d.forceSubmit)` → reject; email subject gets `[重複]` prefix + body appends `(注意：此為重複提交 — 用戶已於表單確認覆核)` when force-submitted. | `apply.html`, `.kilo/plans/REVAMP_PLAN_V3.md` |
 
 ---
 
@@ -324,6 +327,91 @@ End-to-end live test passed: form submit → new row in `Registrations` + enrich
 > 2. **Root cause / rationale.**
 > 3. **Fix / spec** — file list, exact changes, expected behavior.
 > 4. **Result** — what "done" looks like.
+
+---
+
+## 📥 Added 2026-09-06 — T35 (Fix: server dedupe guard blocks user-approved overrides)
+
+> **Status: planning — awaiting user confirmation.** User's report: "when find the duplicate, if the teacher click 仍然提交, the google sheet did not show the new record".
+
+### Root cause / rationale
+
+After T33 + T34, the duplicate flow works like this:
+
+1. Teacher enters a school name already in the Sheet.
+2. `#duplicateModal` appears with 取消 / 仍然提交 (variant B: 返回核對 / 仍然提交).
+3. Teacher clicks 仍然提交.
+4. Client calls `performSubmit(formData)` → `fetch(URL, { mode: 'no-cors', body: JSON.stringify(formData) })`.
+5. **Server-side `doPost()` detects the duplicate** (T33's defense-in-depth guard) → returns `{ok: false, reason: 'duplicate'}` → **no row appended**.
+6. But the client uses `mode: 'no-cors'` → response is opaque → client **can't read** the rejection → success modal still shows.
+7. Teacher sees "submission accepted" but the Sheet has no new row → confusion.
+
+The server-side guard is correct for catching bypassed client checks (e.g. someone calling the API directly), but it has **no way to know** the teacher has explicitly approved an override via the modal. The soft-block semantics break at this seam.
+
+### Fix / spec
+
+Pass a `forceSubmit` flag in the request body. Server-side guard only rejects when `forceSubmit !== true`. Client sets `forceSubmit: true` only in the `仍然提交` callback.
+
+**`apply.html` changes (~5 lines):**
+
+1. In the submit handler where `formData` is built, add a default `forceSubmit: false`:
+   ```javascript
+   const formData = {
+       appId: ...,
+       ...,
+       forceSubmit: false
+   };
+   ```
+2. In `showDuplicateModal`'s `proceed` callback (currently `() => performSubmit(formData)`), set the flag before re-firing:
+   ```javascript
+   const proceed = () => { close(); if (onProceed) { formData.forceSubmit = true; onProceed(); } };
+   ```
+3. That's it — `performSubmit(formData)` and the existing `fetch` body pick up the flag naturally.
+
+**`Code.gs` changes (user to paste + redeploy):**
+
+1. In `doPost()`, change the duplicate guard's reject condition:
+   ```javascript
+   // Before:
+   if (existing && existing === submittedName) {
+       return ContentService.createTextOutput(JSON.stringify({ ok: false, reason: 'duplicate' }))
+           .setMimeType(ContentService.MimeType.JSON);
+   }
+
+   // After:
+   if (existing && existing === submittedName && !d.forceSubmit) {
+       return ContentService.createTextOutput(JSON.stringify({ ok: false, reason: 'duplicate' }))
+           .setMimeType(ContentService.MimeType.JSON);
+   }
+   ```
+2. **Email marker for overrides** — so secretariat can identify intentionally-overridden submissions in their inbox:
+   ```javascript
+   var subject = (d.forceSubmit ? '[重複] ' : '') + '新學校報名：' + d.schoolNameCn;
+   MailApp.sendEmail(
+     'marketing@hkata.space',
+     subject,
+     d.schoolNameCn + ' (' + d.appId + ') 已提交報名。' +
+     ...
+     (d.forceSubmit ? '\n（注意：此為重複提交 — 用戶已於表單確認覆核）' : '')
+   );
+   ```
+   Sheet rows themselves are unchanged — the `[重複]` marker lives only in the email subject/body so secretariat can grep their inbox.
+
+### Files touched at implementation time
+
+- `apply.html` — 2 small edits (default `forceSubmit: false` in formData + set to true in proceed callback).
+- `Code.gs` (Apps Script) — 2 small edits (guard condition + email subject/body marker). User to paste + redeploy as new version.
+- `.kilo/plans/REVAMP_PLAN_V3.md` — T35 → ✅ DONE + worklog entries.
+
+### Result — what "done" looks like
+
+1. Submit a school already in the Sheet → duplicate modal appears (T33+T34).
+2. Click **返回核對** → modal closes, no POST, no row. (Same as today — no regression.)
+3. Click **仍然提交** → modal closes, POST fires with `forceSubmit: true`, **server appends row**, success modal shows. **Sheet has the new row within a few seconds.**
+4. Submit a new school (no dupe) → no modal, success modal as before.
+5. `marketing@hkata.space` inbox: an override submission's email subject is `**[重複] 新學校報名：[name]**`; body ends with `（注意：此為重複提交 — 用戶已於表單確認覆核）`. Easy to filter.
+6. Direct `curl` POST to `/exec` with `{schoolNameEn: 'X', ...}` (no `forceSubmit`) → server returns `{ok:false, reason:'duplicate'}` → no row. Defense-in-depth preserved for bypasses.
+7. Direct `curl` POST with `forceSubmit: true` → row appended (only if secretariat reviews the email marker they can spot the override).
 
 ---
 

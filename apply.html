@@ -457,13 +457,14 @@
                 teacherPhone: document.getElementById('teacherPhone').value.trim(),
                 level: seg.value,
                 tracks: tracks,
-                referrerLevel: document.getElementById('referrerLevel').value
+                referrerLevel: document.getElementById('referrerLevel').value,
+                forceSubmit: false
             };
 
             // T33: Pre-submit duplicate check (school English name, lowercase + trim)
             const known = window.__hkataKnownNames;
             if (known && known.size > 0 && known.has(normName(formData.schoolNameEn))) {
-                showDuplicateModal(formData.schoolNameEn, () => performSubmit(formData));
+                showDuplicateModal(formData.schoolNameEn, () => { formData.forceSubmit = true; performSubmit(formData); });
                 return;
             }
             // Continue with the actual submit (localStorage + POST + success modal)
