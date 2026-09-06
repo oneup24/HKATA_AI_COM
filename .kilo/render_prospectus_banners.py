@@ -28,7 +28,7 @@ TEXT_HI = (234, 240, 250)
 TEXT_BD = (200, 210, 224)
 TEXT_MT = (140, 155, 180)
 
-W, H = 1920, 540
+W, H = 1920, 420
 
 def base_canvas(accent, accent_warm=None):
     """Navy canvas with VERY subtle aurora — readability first."""
@@ -76,16 +76,16 @@ def base_canvas(accent, accent_warm=None):
 
 def add_atlas_orbits(d, cx, cy, color, num_orbits=7):
     """Concentric orbits with satellites — the cartographic cosmos signature."""
-    for i, r in enumerate([40, 80, 130, 190, 260, 340, 430]):
+    for i, r in enumerate([25, 55, 95, 145, 200, 260, 320]):
         a = max(40, 180 - i * 20)
         d.ellipse([cx-r, cy-r, cx+r, cy+r], outline=(*color, a), width=1)
-    for r, deg in [(40, 35), (80, 215), (130, 142), (190, 25), (260, 290), (340, 170), (430, 60)]:
+    for r, deg in [(25, 35), (55, 215), (95, 142), (145, 25), (200, 290), (260, 170), (320, 60)]:
         rad = radians(deg)
         x = cx + r * cos(rad)
         y = cy + r * sin(rad)
-        d.ellipse([x-4, y-4, x+4, y+4], fill=TEXT_HI)
-        d.ellipse([x-2, y-2, x+2, y+2], fill=color)
-    arc_r = 510
+        d.ellipse([x-3, y-3, x+3, y+3], fill=TEXT_HI)
+        d.ellipse([x-1.5, y-1.5, x+1.5, y+1.5], fill=color)
+    arc_r = 380
     bbox = [cx-arc_r, cy-arc_r, cx+arc_r, cy+arc_r]
     d.arc(bbox, start=200, end=320, fill=(*color, 200), width=2)
     for ang in range(200, 321, 8):
@@ -95,19 +95,19 @@ def add_atlas_orbits(d, cx, cy, color, num_orbits=7):
         d.line([(x1, y1), (x2, y2)], fill=(*color, 160), width=1)
 
 def add_left_text(d, eyebrow, h1_text, subtitle, descriptor, accent):
-    """Eyebrow + H1 + italic subtitle + descriptor — all on the left dark area."""
+    """Eyebrow + H1 + italic subtitle + descriptor — packed tight, all on the left."""
     # Eyebrow
-    d.text((100, 110), eyebrow, fill=GOLD_3, font=F('JetBrainsMono-Bold', 18))
+    d.text((100, 50), eyebrow, fill=GOLD_3, font=F('JetBrainsMono-Bold', 16))
     # H1
-    d.text((100, 150), h1_text, fill=TEXT_HI, font=CN(72))
+    d.text((100, 85), h1_text, fill=TEXT_HI, font=CN(64))
     # Italic subtitle
-    d.text((100, 245), subtitle, fill=accent, font=CN(38))
-    # Descriptor (smaller, muted)
-    d.text((100, 310), descriptor, fill=TEXT_MT, font=CN(20))
+    d.text((100, 180), subtitle, fill=accent, font=CN(34))
+    # Descriptor
+    d.text((100, 240), descriptor, fill=TEXT_MT, font=CN(20))
 
 def add_gold_horizon_strip(d, color=GOLD):
     """Bottom hairline horizon for ceremonial anchor."""
-    horizon_y = H - 30
+    horizon_y = H - 25
     horizon_width = 1200
     x_start = (W - horizon_width) // 2
     x_end = x_start + horizon_width
@@ -115,22 +115,21 @@ def add_gold_horizon_strip(d, color=GOLD):
         t = (x - x_start) / horizon_width
         a = int(180 * (1 - abs(2*t - 1)))
         d.line([(x, horizon_y), (x+2, horizon_y)], fill=(*color, a), width=2)
-    # Ticks at intervals
     for tick_x in range(x_start + 50, x_end, 100):
         d.line([(tick_x, horizon_y-4), (tick_x, horizon_y+4)], fill=(*color, 100), width=1)
 
-def add_registry_stamp(d, code, label, x=140, y=H-90):
+def add_registry_stamp(d, code, label, x=140, y=H-70):
     """Bottom-left registry stamp."""
-    box_w, box_h = 220, 56
+    box_w, box_h = 220, 50
     d.rectangle([x, y, x+box_w, y+box_h], outline=GOLD, width=2)
     d.rectangle([x+6, y+6, x+box_w-6, y+box_h-6], outline=(255,255,255,60), width=1)
-    d.text((x+12, y+8), 'HKATA', fill=GOLD_3, font=F('JetBrainsMono-Bold', 12))
-    d.text((x+12, y+24), f'{code} · {label}', fill=TEXT_MT, font=F('JetBrainsMono-Regular', 10))
-    d.text((x+12, y+38), 'STATUS · OPEN', fill=(36, 161, 72), font=F('JetBrainsMono-Bold', 10))
+    d.text((x+12, y+6), 'HKATA', fill=GOLD_3, font=F('JetBrainsMono-Bold', 12))
+    d.text((x+12, y+22), f'{code} · {label}', fill=TEXT_MT, font=F('JetBrainsMono-Regular', 10))
+    d.text((x+12, y+34), 'STATUS · OPEN', fill=(36, 161, 72), font=F('JetBrainsMono-Bold', 10))
 
 def make_kindergarten():
     img, d = base_canvas(K, GOLD_3)
-    add_atlas_orbits(d, W*0.80, H*0.50, K)
+    add_atlas_orbits(d, W*0.82, H*0.50, K)
     add_gold_horizon_strip(d)
     add_left_text(d,
         'KINDERGARTEN · 幼兒組',
@@ -143,7 +142,7 @@ def make_kindergarten():
 
 def make_primary():
     img, d = base_canvas(P, GOLD_3)
-    add_atlas_orbits(d, W*0.80, H*0.50, P)
+    add_atlas_orbits(d, W*0.82, H*0.50, P)
     add_gold_horizon_strip(d)
     add_left_text(d,
         'PRIMARY · 小學組',
@@ -156,7 +155,7 @@ def make_primary():
 
 def make_secondary():
     img, d = base_canvas(S, GOLD_3)
-    add_atlas_orbits(d, W*0.80, H*0.50, S)
+    add_atlas_orbits(d, W*0.82, H*0.50, S)
     add_gold_horizon_strip(d)
     add_left_text(d,
         'SECONDARY · 中學組',
