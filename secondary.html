@@ -86,7 +86,7 @@
                 </figure>
                 <div class="flex flex-wrap gap-3 justify-center mb-4">
                     <a href="apply.html?level=secondary" class="btn btn-gold"><i class="fa-solid fa-file-pen"></i> 立即報名</a>
-                    <a href="#" id="dlPdf" class="btn btn-ghost"><i class="fa-solid fa-file-arrow-down"></i> 下載章程 PDF</a>
+                    
                 </div>
 
                 <!-- T55: 報名截止日期 inline in hero (matches homepage + primary pattern) -->
@@ -468,13 +468,6 @@
     <div id="toast" class="toast" role="status" aria-live="polite"></div>
 
     <script>
-        document.getElementById('dlPdf')?.addEventListener('click', e => {
-            e.preventDefault();
-            const t = document.getElementById('toast');
-            t.textContent = '章程 PDF 即將提供 · 請稍候';
-            t.classList.add('show');
-            setTimeout(() => t.classList.remove('show'), 2000);
-        });
     </script>
 </body>
 </html>

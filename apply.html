@@ -266,7 +266,7 @@
 
                         <div data-tracks-for="kindergarten" class="track-block space-y-2 hidden">
                             <label class="track-pick flex items-start gap-3 p-3 rounded-xl border border-[var(--border)] bg-[var(--surface-800)] cursor-pointer hover:border-[var(--primary-400)]">
-                                <input type="checkbox" name="tracks" value="logo" class="mt-1 accent-[var(--primary-500)]">
+                                <input type="checkbox" name="tracks" value="logo" class="mt-1 accent-[var(--primary-500)]" checked>
                                 <div>
                                     <div class="text-[var(--text-hi)] font-bold text-sm">太空任務標誌設計 + 太空基地填色</div>
                                     <div class="text-[var(--text-mute)] text-[11px]">TRACK 01 · 全港學校 · 毋須編程</div>
@@ -276,21 +276,21 @@
 
                         <div data-tracks-for="primary" class="track-block space-y-2 hidden">
                             <label class="track-pick flex items-start gap-3 p-3 rounded-xl border border-[var(--border)] bg-[var(--surface-800)] cursor-pointer hover:border-[var(--primary-400)]">
-                                <input type="checkbox" name="tracks" value="logo" class="mt-1 accent-[var(--primary-500)]">
+                                <input type="checkbox" name="tracks" value="logo" class="mt-1 accent-[var(--primary-500)]" checked>
                                 <div>
                                     <div class="text-[var(--text-hi)] font-bold text-sm">太空任務標誌設計</div>
                                     <div class="text-[var(--text-mute)] text-[11px]">TRACK 01 · 全級 · 毋須編程</div>
                                 </div>
                             </label>
                             <label class="track-pick flex items-start gap-3 p-3 rounded-xl border border-[var(--border)] bg-[var(--surface-800)] cursor-pointer hover:border-[var(--primary-400)]">
-                                <input type="checkbox" name="tracks" value="speech" class="mt-1 accent-[var(--primary-500)]">
+                                <input type="checkbox" name="tracks" value="speech" class="mt-1 accent-[var(--primary-500)]" checked>
                                 <div>
                                     <div class="text-[var(--text-hi)] font-bold text-sm">中國航天發展演講比賽</div>
                                     <div class="text-[var(--text-mute)] text-[11px]">TRACK 02 · 初小 P1–P3 · 3 分鐘演說</div>
                                 </div>
                             </label>
                             <label class="track-pick flex items-start gap-3 p-3 rounded-xl border border-[var(--border)] bg-[var(--surface-800)] cursor-pointer hover:border-[var(--primary-400)]">
-                                <input type="checkbox" name="tracks" value="engineering" class="mt-1 accent-[var(--primary-500)]">
+                                <input type="checkbox" name="tracks" value="engineering" class="mt-1 accent-[var(--primary-500)]" checked>
                                 <div>
                                     <div class="text-[var(--text-hi)] font-bold text-sm">航天 AI 工程挑戰 · 未來月球基地</div>
                                     <div class="text-[var(--text-mute)] text-[11px]">TRACK 03 · 高小 P4–P6 · 配備硬件</div>
@@ -300,14 +300,14 @@
 
                         <div data-tracks-for="secondary" class="track-block space-y-2 hidden">
                             <label class="track-pick flex items-start gap-3 p-3 rounded-xl border border-[var(--border)] bg-[var(--surface-800)] cursor-pointer hover:border-[var(--primary-400)]">
-                                <input type="checkbox" name="tracks" value="logo" class="mt-1 accent-[var(--primary-500)]">
+                                <input type="checkbox" name="tracks" value="logo" class="mt-1 accent-[var(--primary-500)]" checked>
                                 <div>
                                     <div class="text-[var(--text-hi)] font-bold text-sm">太空任務標誌設計</div>
                                     <div class="text-[var(--text-mute)] text-[11px]">TRACK 01 · 全級 · 毋須編程</div>
                                 </div>
                             </label>
                             <label class="track-pick flex items-start gap-3 p-3 rounded-xl border border-[var(--border)] bg-[var(--surface-800)] cursor-pointer hover:border-[var(--primary-400)]">
-                                <input type="checkbox" name="tracks" value="engineering" class="mt-1 accent-[var(--primary-500)]">
+                                <input type="checkbox" name="tracks" value="engineering" class="mt-1 accent-[var(--primary-500)]" checked>
                                 <div>
                                     <div class="text-[var(--text-hi)] font-bold text-sm">航天 AI 工程挑戰 · 未來火星基地</div>
                                     <div class="text-[var(--text-mute)] text-[11px]">TRACK 02 · 初中 / 高中 · 配備硬件</div>
@@ -412,7 +412,6 @@
         }
         document.querySelectorAll('input[name="segment"]').forEach(r => {
             r.addEventListener('change', () => {
-                document.querySelectorAll('input[name="tracks"]').forEach(cb => cb.checked = false);
                 showTrackBlock(r.value);
                 const refField = document.getElementById('referrerLevel');
                 if (refField) refField.value = r.value;

@@ -85,7 +85,7 @@
                     <img src="doc/img/prospectus-banner-kindergarten.png" alt="幼兒比賽章程 — 太空想像，從藝術起步" class="w-full h-auto rounded-2xl border border-[var(--border)] shadow-[var(--elev-2)]" loading="eager" fetchpriority="high">
                 </figure>
                 <div class="flex flex-wrap gap-3 justify-center">
-                    <a href="#" id="dlPdf" class="btn btn-ghost"><i class="fa-solid fa-file-arrow-down"></i> 下載章程 PDF</a>
+                    
                     <a href="apply.html?level=kindergarten" class="btn btn-gold"><i class="fa-solid fa-file-pen"></i> 立即報名</a>
                 </div>
             </div>
@@ -178,13 +178,6 @@
     <div id="toast" class="toast" role="status" aria-live="polite"></div>
 
     <script>
-        document.getElementById('dlPdf')?.addEventListener('click', e => {
-            e.preventDefault();
-            const t = document.getElementById('toast');
-            t.textContent = '章程 PDF 即將提供 · 請稍候';
-            t.classList.add('show');
-            setTimeout(() => t.classList.remove('show'), 2000);
-        });
     </script>
 </body>
 </html>

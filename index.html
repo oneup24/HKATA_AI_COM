@@ -150,9 +150,7 @@
                         <a href="apply.html" class="btn btn-gold">
                             <i class="fa-solid fa-file-pen"></i> 立即報名 <i class="fa-solid fa-arrow-right ml-1"></i>
                         </a>
-                        <a href="#manual" id="downloadManualBtn" class="btn btn-ghost">
-                            <i class="fa-solid fa-file-arrow-down"></i> 下載比賽手冊 (PDF)
-                        </a>
+                        
                     </div>
 
                     <div class="text-center mt-10 space-y-2">
@@ -653,22 +651,6 @@
                     toast.classList.add('show');
                     setTimeout(() => toast.classList.remove('show'), 1800);
                 }, 80);
-            });
-        })();
-
-        (function() {
-            const btn = document.getElementById('downloadManualBtn');
-            const toast = document.getElementById('toast');
-            if (!btn) return;
-            btn.addEventListener('click', e => {
-                if (btn.getAttribute('href') === '#manual') {
-                    e.preventDefault();
-                    if (toast) {
-                        toast.textContent = '比賽手冊將於 9 月發佈 · 請留意學校電郵';
-                        toast.classList.add('show');
-                        setTimeout(() => toast.classList.remove('show'), 2200);
-                    }
-                }
             });
         })();
 
