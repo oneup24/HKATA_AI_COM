@@ -206,6 +206,9 @@ body {
 ::-webkit-scrollbar-thumb { background: var(--surface-600); border-radius: 8px; border: 2px solid var(--surface-900); }
 ::-webkit-scrollbar-thumb:hover { background: var(--primary-500); }
 
+.scrollbar-hide { scrollbar-width: none; -ms-overflow-style: none; }
+.scrollbar-hide::-webkit-scrollbar { display: none; width: 0; height: 0; }
+
 /* FOCUS */
 :focus-visible {
   outline: 2px solid var(--primary-400);
