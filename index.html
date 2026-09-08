@@ -76,6 +76,14 @@
 
         .ring-segment { transition: stroke-dashoffset 1.4s ease-out; }
 
+        .track-tag {
+            display: inline-flex; align-items: center; gap: .2rem;
+            padding: .25rem .55rem; border-radius: 6px;
+            background: rgba(255,255,255,0.05); border: 1px solid var(--border-soft);
+            color: var(--text-body); font-size: 11px; font-weight: 500;
+            line-height: 1.4;
+        }
+
         @media (prefers-reduced-motion: reduce) {
             .group-card, .stat-card, .arrow-slide { transition: none !important; }
         }
@@ -92,7 +100,7 @@
                 <a href="index.html" class="flex items-center gap-3 group" aria-label="HKATA 首頁">
                     <div class="flex flex-col justify-center">
                         <span class="font-sans text-[10px] sm:text-xs text-[var(--text-hi)] tracking-[0.18em] leading-none">全港首屆中小學「航天築夢」</span>
-                        <span class="font-sans text-[10px] sm:text-xs text-[var(--text-hi)] tracking-[0.18em] leading-none">AI 航天工程挑戰賽</span>
+                        <span class="font-sans text-[10px] sm:text-xs text-[var(--text-hi)] tracking-[0.18em] leading-none">航天 AI 創新大賽</span>
                     </div>
                 </a>
 
@@ -215,6 +223,11 @@
                                 <div class="chip chip-k mb-2">KINDERGARTEN</div>
                                 <h3 class="text-lg font-bold text-[var(--text-hi)] mb-1">幼稚園組</h3>
                                 <p class="caption mb-3">K1–K3 · 毋須編程 · 全校皆可</p>
+                                <p class="text-[11px] font-semibold text-[var(--text-mute)] uppercase tracking-widest mb-2">賽事項目</p>
+                                <div class="flex flex-wrap gap-1.5 mb-4">
+                                    <span class="track-tag">1. 太空任務標誌設計</span>
+                                    <span class="track-tag">2. 太空基地填色大賽</span>
+                                </div>
                                 <div class="text-[12px] font-bold flex items-center gap-1 text-[var(--primary-300)]">查看章程 <i class="fa-solid fa-arrow-right arrow-slide"></i></div>
                             </div>
                         </a>
@@ -224,6 +237,14 @@
                                 <div class="chip chip-p mb-2">PRIMARY</div>
                                 <h3 class="text-lg font-bold text-[var(--text-hi)] mb-1">小學組</h3>
                                 <p class="caption mb-3">P1–P6 · 標誌 · 演講 · AI 工程</p>
+                                <p class="text-[11px] font-semibold text-[var(--text-mute)] uppercase tracking-widest mb-2">賽事項目</p>
+                                <div class="flex flex-wrap gap-1.5 mb-4">
+                                    <span class="track-tag">航天標誌設計賽</span>
+                                    <span class="track-tag">中國航天演講賽 <span class="text-[var(--text-mute)]">P1–P3</span></span>
+                                    <span class="track-tag">立方衛星工程 <span class="text-[var(--text-mute)]">P4–P6</span></span>
+                                    <span class="track-tag">太空 AI 機械人 <span class="text-[var(--text-mute)]">P4–P6</span></span>
+                                    <span class="track-tag">太空種植艙 <span class="text-[var(--text-mute)]">P4–P6</span></span>
+                                </div>
                                 <div class="text-[12px] font-bold flex items-center gap-1 text-[var(--primary-300)]">查看章程 <i class="fa-solid fa-arrow-right arrow-slide"></i></div>
                             </div>
                         </a>
@@ -233,6 +254,14 @@
                                 <div class="chip chip-s mb-2">SECONDARY</div>
                                 <h3 class="text-lg font-bold text-[var(--text-hi)] mb-1">中學組</h3>
                                 <p class="caption mb-3">S1–S6 · 標誌 · AI 工程</p>
+                                <p class="text-[11px] font-semibold text-[var(--text-mute)] uppercase tracking-widest mb-2">賽事項目</p>
+                                <div class="flex flex-wrap gap-1.5 mb-4">
+                                    <span class="track-tag">航天標誌設計賽</span>
+                                    <span class="track-tag">立方衛星工程</span>
+                                    <span class="track-tag">智能火星探測車</span>
+                                    <span class="track-tag">3D 打印火箭工程</span>
+                                    <span class="track-tag">智能機械手</span>
+                                </div>
                                 <div class="text-[12px] font-bold flex items-center gap-1 text-[var(--primary-300)]">查看章程 <i class="fa-solid fa-arrow-right arrow-slide"></i></div>
                             </div>
                         </a>
