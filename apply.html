@@ -315,6 +315,72 @@
                     </div>
 
                     <input type="hidden" id="referrerLevel" name="referrerLevel" value="">
+
+                    <!-- HARDWARE KIT PRIORITY (primary/secondary only) -->
+                    <div class="mb-2">
+                        <label class="field-label">硬件事次選擇 <span class="text-[var(--gold-300)]">*</span></label>
+                        <p class="caption mb-3">請按優次選擇 3 款硬件事套件。秘書處將按優次以抽籤方式分配。</p>
+
+                        <div data-kits-for="primary" class="kit-block space-y-3 hidden">
+                            <div class="flex items-center gap-3">
+                                <span class="font-display text-[var(--gold-300)] text-sm w-16 shrink-0">第 1 選擇</span>
+                                <select name="kitPriority1" data-kit-level="primary" class="kit-select flex-1 bg-[var(--surface-800)] border border-[var(--border)] rounded-lg px-3 py-2 text-sm text-[var(--text-hi)]">
+                                    <option value="">— 請選擇 —</option>
+                                    <option value="cubesat-1u">1U 立方衛星工程</option>
+                                    <option value="robot-arm">太空AI機械人</option>
+                                    <option value="plant-pod">太空種植艙</option>
+                                </select>
+                            </div>
+                            <div class="flex items-center gap-3">
+                                <span class="font-display text-[var(--gold-300)] text-sm w-16 shrink-0">第 2 選擇</span>
+                                <select name="kitPriority2" data-kit-level="primary" class="kit-select flex-1 bg-[var(--surface-800)] border border-[var(--border)] rounded-lg px-3 py-2 text-sm text-[var(--text-hi)]">
+                                    <option value="">— 請選擇 —</option>
+                                    <option value="cubesat-1u">1U 立方衛星工程</option>
+                                    <option value="robot-arm">太空AI機械人</option>
+                                    <option value="plant-pod">太空種植艙</option>
+                                </select>
+                            </div>
+                            <div class="flex items-center gap-3">
+                                <span class="font-display text-[var(--gold-300)] text-sm w-16 shrink-0">第 3 選擇</span>
+                                <select name="kitPriority3" data-kit-level="primary" class="kit-select flex-1 bg-[var(--surface-800)] border border-[var(--border)] rounded-lg px-3 py-2 text-sm text-[var(--text-hi)]">
+                                    <option value="">— 請選擇 —</option>
+                                    <option value="cubesat-1u">1U 立方衛星工程</option>
+                                    <option value="robot-arm">太空AI機械人</option>
+                                    <option value="plant-pod">太空種植艙</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div data-kits-for="secondary" class="kit-block space-y-3 hidden">
+                            <div class="flex items-center gap-3">
+                                <span class="font-display text-[var(--gold-300)] text-sm w-16 shrink-0">第 1 選擇</span>
+                                <select name="kitPriority1" data-kit-level="secondary" class="kit-select flex-1 bg-[var(--surface-800)] border border-[var(--border)] rounded-lg px-3 py-2 text-sm text-[var(--text-hi)]">
+                                    <option value="">— 請選擇 —</option>
+                                    <option value="cubesat-3u">3U CubeSat 微型衛星</option>
+                                    <option value="mars-rover">智能火星探測車</option>
+                                    <option value="3d-rocket">3D 打印火箭工程</option>
+                                </select>
+                            </div>
+                            <div class="flex items-center gap-3">
+                                <span class="font-display text-[var(--gold-300)] text-sm w-16 shrink-0">第 2 選擇</span>
+                                <select name="kitPriority2" data-kit-level="secondary" class="kit-select flex-1 bg-[var(--surface-800)] border border-[var(--border)] rounded-lg px-3 py-2 text-sm text-[var(--text-hi)]">
+                                    <option value="">— 請選擇 —</option>
+                                    <option value="cubesat-3u">3U CubeSat 微型衛星</option>
+                                    <option value="mars-rover">智能火星探測車</option>
+                                    <option value="3d-rocket">3D 打印火箭工程</option>
+                                </select>
+                            </div>
+                            <div class="flex items-center gap-3">
+                                <span class="font-display text-[var(--gold-300)] text-sm w-16 shrink-0">第 3 選擇</span>
+                                <select name="kitPriority3" data-kit-level="secondary" class="kit-select flex-1 bg-[var(--surface-800)] border border-[var(--border)] rounded-lg px-3 py-2 text-sm text-[var(--text-hi)]">
+                                    <option value="">— 請選擇 —</option>
+                                    <option value="cubesat-3u">3U CubeSat 微型衛星</option>
+                                    <option value="mars-rover">智能火星探測車</option>
+                                    <option value="3d-rocket">3D 打印火箭工程</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
                 </div>
 
                 <!-- SUBMIT -->
@@ -399,13 +465,23 @@
                 const refField = document.getElementById('referrerLevel');
                 if (refField) refField.value = level;
                 const radio = document.querySelector(`input[name="segment"][value="${level}"]`);
-                if (radio) { radio.checked = true; showTrackBlock(level); }
+                if (radio) { radio.checked = true; showTrackBlock(level); updateKitVisibility(); }
             }
         })();
 
         function showTrackBlock(seg) {
             document.querySelectorAll('.track-block').forEach(el => el.classList.add('hidden'));
             const target = document.querySelector(`[data-tracks-for="${seg}"]`);
+            if (target) target.classList.remove('hidden');
+            updateKitVisibility();
+        }
+        function updateKitVisibility() {
+            document.querySelectorAll('.kit-block').forEach(el => el.classList.add('hidden'));
+            const seg = document.querySelector('input[name="segment"]:checked');
+            if (!seg || seg.value === 'kindergarten') return;
+            const engineeringChecked = document.querySelector('input[name="tracks"][value="engineering"]:checked');
+            if (!engineeringChecked) return;
+            const target = document.querySelector(`[data-kits-for="${seg.value}"]`);
             if (target) target.classList.remove('hidden');
         }
         document.querySelectorAll('input[name="segment"]').forEach(r => {
@@ -414,6 +490,9 @@
                 const refField = document.getElementById('referrerLevel');
                 if (refField) refField.value = r.value;
             });
+        });
+        document.querySelectorAll('input[name="tracks"]').forEach(c => {
+            c.addEventListener('change', updateKitVisibility);
         });
 
         // Show free-text field when "other" is selected
@@ -440,6 +519,25 @@
             if (!seg) { alert('請選擇報名學段'); return; }
             if (tracks.length === 0) { alert('請至少選擇一個參賽賽道'); return; }
 
+            // Hardware kit priority (required for primary/secondary when engineering track selected)
+            const kitPrios = { p1: '', p2: '', p3: '' };
+            if (seg.value !== 'kindergarten' && tracks.includes('engineering')) {
+                const levels = seg.value;
+                const sel1 = document.querySelector(`select[name="kitPriority1"][data-kit-level="${levels}"]`);
+                const sel2 = document.querySelector(`select[name="kitPriority2"][data-kit-level="${levels}"]`);
+                const sel3 = document.querySelector(`select[name="kitPriority3"][data-kit-level="${levels}"]`);
+                kitPrios.p1 = sel1 ? sel1.value : '';
+                kitPrios.p2 = sel2 ? sel2.value : '';
+                kitPrios.p3 = sel3 ? sel3.value : '';
+                if (!kitPrios.p1 || !kitPrios.p2 || !kitPrios.p3) {
+                    alert('請完成硬件事次選擇（第 1 / 2 / 3 選擇）'); return;
+                }
+                const set = new Set([kitPrios.p1, kitPrios.p2, kitPrios.p3]);
+                if (set.size !== 3) {
+                    alert('每次選擇必須為不同之硬件事套件'); return;
+                }
+            }
+
             const formData = {
                 appId: 'HKATA-' + new Date().toISOString().slice(0,10).replace(/-/g,'') + '-' + Math.floor(Math.random()*9000+1000),
                 schoolNameCn: document.getElementById('schoolNameCn').value.trim(),
@@ -454,6 +552,7 @@
                 teacherPhone: document.getElementById('teacherPhone').value.trim(),
                 level: seg.value,
                 tracks: tracks,
+                kitPriority: kitPrios,
                 referrerLevel: document.getElementById('referrerLevel').value,
                 forceSubmit: false
             };
