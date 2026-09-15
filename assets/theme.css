@@ -93,7 +93,7 @@ body {
 .section-y { padding-block: clamp(1.5rem, 2.5vw, 2.5rem); }
 .eyebrow {
   font-family: var(--font-display);
-  font-size: 11px;
+  font-size: 14px;
   font-weight: 600;
   letter-spacing: 0.18em;
   text-transform: uppercase;
