@@ -322,78 +322,73 @@
             <section
               class="bg-white rounded-3xl border border-[var(--border)] p-6 sm:p-8 mb-8 shadow-[var(--elev-2)]"
             >
-              <!-- Row 1: main organizers -->
-              <div class="grid grid-cols-1 sm:grid-cols-3 gap-6 sm:gap-8 mb-8">
-                <!-- 1. 主辦機構 (overall) -->
-                <div class="text-left">
-                  <p
-                    class="eyebrow uppercase text-xs tracking-[0.18em] text-[var(--text-mute)] mb-3"
-                  >
-                    主辦機構
-                  </p>
+              <!-- Tier 1: 主辦機構 -->
+              <div class="grid grid-cols-[10rem_1fr_1fr] gap-x-8 gap-y-3 mb-8 items-end">
+                <!-- Row 1: titles (only 小學 / 中學) -->
+                <div></div>
+                <h3
+                  class="font-display text-base sm:text-lg font-bold text-[var(--surface-900)] leading-snug"
+                >
+                  全港小學「航天築夢」 航天AI創新大賽
+                </h3>
+                <h3
+                  class="font-display text-base sm:text-lg font-bold text-[var(--surface-900)] leading-snug"
+                >
+                  全港中學「航天築夢」 航天AI創新大賽
+                </h3>
+
+                <!-- Row 2: 主辦機構 label (left only) -->
+                <p
+                  class="eyebrow uppercase text-xs tracking-[0.18em] text-[var(--text-mute)]"
+                >
+                  主辦機構
+                </p>
+                <div></div>
+                <div></div>
+
+                <!-- Row 3: logos (EDB | SPSC+HKATA | HKSSSC+HKATA) -->
+                <img
+                  src="doc/img/organizers/edb.png"
+                  alt="教育局 · 心繫家國"
+                  class="h-16 sm:h-[72px] w-auto object-contain"
+                  loading="lazy"
+                />
+                <div class="flex flex-nowrap items-center justify-start gap-2">
                   <img
-                    src="doc/img/organizers/edb.png"
-                    alt="教育局 · 心繫家國"
-                    class="h-12 sm:h-14 w-auto object-contain"
+                    src="doc/img/organizers/spsc.png"
+                    alt="香港津貼小學議會 (SPSC)"
+                    class="h-20 sm:h-24 w-auto max-w-[55%] object-contain flex-shrink min-w-0"
+                    loading="lazy"
+                  />
+                  <img
+                    src="doc/img/organizers/hkata.png"
+                    alt="HKATA"
+                    class="h-16 sm:h-20 w-auto max-w-[55%] object-contain flex-shrink min-w-0"
                     loading="lazy"
                   />
                 </div>
-
-                <!-- 2. 全港小學 -->
-                <div class="text-left">
-                  <h3
-                    class="font-display text-base sm:text-lg font-bold text-[var(--surface-900)] mb-3 leading-snug"
-                  >
-                    全港小學「航天築夢」 航天AI創新大賽
-                  </h3>
-
-                  <div class="flex flex-wrap items-center justify-start gap-2">
-                    <img
-                      src="doc/img/organizers/spsc.png"
-                      alt="香港津貼小學議會 (SPSC)"
-                      class="h-12 sm:h-12 w-auto object-contain"
-                      loading="lazy"
-                    />
-                    <img
-                      src="doc/img/organizers/hkata.png"
-                      alt="HKATA"
-                      class="h-10 sm:h-12 w-auto object-contain"
-                      loading="lazy"
-                    />
-                  </div>
-                </div>
-
-                <!-- 3. 全港中學 -->
-                <div class="text-left">
-                  <h3
-                    class="font-display text-base sm:text-lg font-bold text-[var(--surface-900)] mb-3 leading-snug"
-                  >
-                    全港中學「航天築夢」 航天AI創新大賽
-                  </h3>
-
-                  <div class="flex flex-wrap items-center justify-start gap-2">
-                    <img
-                      src="doc/img/organizers/hksssc.png"
-                      alt="香港津貼中學議會 (HKSSSC)"
-                      class="h-12 sm:h-12 w-auto object-contain"
-                      loading="lazy"
-                    />
-                    <img
-                      src="doc/img/organizers/hkata.png"
-                      alt="HKATA"
-                      class="h-10 sm:h-12 w-auto object-contain"
-                      loading="lazy"
-                    />
-                  </div>
+                <div class="flex flex-nowrap items-center justify-start gap-2">
+                  <img
+                    src="doc/img/organizers/hksssc.png"
+                    alt="香港津貼中學議會 (HKSSSC)"
+                    class="h-20 sm:h-24 w-auto max-w-[55%] object-contain flex-shrink min-w-0"
+                    loading="lazy"
+                  />
+                  <img
+                    src="doc/img/organizers/hkata.png"
+                    alt="HKATA"
+                    class="h-16 sm:h-20 w-auto max-w-[55%] object-contain flex-shrink min-w-0"
+                    loading="lazy"
+                  />
                 </div>
               </div>
 
-              <!-- Row 2: sponsor & co-organizers -->
+              <!-- Tier 2: 贊助 + 協辦 -->
               <div
-                class="grid grid-cols-1 sm:grid-cols-2 gap-6 sm:gap-8 pt-6 border-t border-[var(--border-soft)]"
+                class="flex flex-col sm:flex-row gap-x-6 gap-y-6 pt-6 border-t border-[var(--border-soft)]"
               >
-                <!-- 4. 贊助機構 -->
-                <div class="text-left">
+                <!-- 贊助機構 -->
+                <div>
                   <p
                     class="eyebrow uppercase text-xs tracking-[0.18em] text-[var(--text-mute)] mb-3"
                   >
@@ -402,13 +397,13 @@
                   <img
                     src="doc/img/organizers/hkatdf.png"
                     alt="香港航天人才發展慈善基金會"
-                    class="h-12 sm:h-14 w-auto object-contain"
+                    class="h-16 sm:h-[72px] w-auto object-contain"
                     loading="lazy"
                   />
                 </div>
 
-                <!-- 5. 協辦機構 -->
-                <div class="text-left">
+                <!-- 協辦機構 -->
+                <div>
                   <p
                     class="eyebrow uppercase text-xs tracking-[0.18em] text-[var(--text-mute)] mb-3"
                   >
@@ -418,13 +413,25 @@
                     <img
                       src="doc/img/organizers/gbae.png"
                       alt="GBAE"
-                      class="h-12 sm:h-14 w-auto max-w-[45%] object-contain"
+                      class="h-16 sm:h-[72px] w-auto object-contain"
                       loading="lazy"
                     />
                     <img
                       src="doc/img/organizers/wze.png"
                       alt="WZE"
-                      class="h-12 sm:h-14 w-auto max-w-[45%] object-contain"
+                      class="h-16 sm:h-[72px] w-auto object-contain"
+                      loading="lazy"
+                    />
+                    <img
+                      src="doc/img/organizers/hkace.png"
+                      alt="HKACE"
+                      class="h-16 sm:h-[72px] w-auto object-contain"
+                      loading="lazy"
+                    />
+                    <img
+                      src="doc/img/organizers/aitle.png"
+                      alt="AITLE"
+                      class="h-16 sm:h-[72px] w-auto object-contain"
                       loading="lazy"
                     />
                   </div>
