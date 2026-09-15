@@ -85,20 +85,31 @@
 
                 <!-- ORGANIZERS -->
                 <section class="bg-white rounded-3xl border border-[var(--border)] p-6 sm:p-8 mb-8 shadow-[var(--elev-2)]">
-                    <div class="grid grid-cols-1 sm:grid-cols-[1.5fr_1fr] gap-6 sm:gap-8">
-                        <!-- 全港小學 -->
-                        <div class="text-center">
-                            <p class="eyebrow uppercase text-xs tracking-[0.18em] text-[var(--text-mute)] mb-3">主辦機構</p>
-                            <div class="flex flex-nowrap items-center justify-center gap-2">
-                                <img src="doc/img/organizers/spsc.png" alt="香港津貼小學議會 (SPSC)" class="h-12 sm:h-14 w-auto max-w-[48%] object-contain flex-shrink min-w-0" loading="lazy">
-                                <img src="doc/img/organizers/hkata.png" alt="HKATA" class="h-12 sm:h-14 w-auto max-w-[48%] object-contain flex-shrink min-w-0" loading="lazy">
-                            </div>
+                    <!-- Row 1: 主辦機構 -->
+                    <div class="mb-8">
+                        <p class="eyebrow uppercase text-xs tracking-[0.18em] text-[var(--text-mute)] mb-3">主辦機構</p>
+                        <div class="flex flex-wrap items-center justify-start gap-3">
+                            <img src="doc/img/organizers/edb.png" alt="教育局 · 心繫家國" class="h-12 sm:h-14 w-auto object-contain" loading="lazy">
+                            <img src="doc/img/organizers/spsc.png" alt="香港津貼小學議會 (SPSC)" class="h-12 sm:h-14 w-auto object-contain" loading="lazy">
+                            <img src="doc/img/organizers/hkata.png" alt="HKATA" class="h-12 sm:h-14 w-auto object-contain" loading="lazy">
+                        </div>
+                    </div>
+
+                    <!-- Row 2: 贊助機構 + 協辦機構 -->
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-6 sm:gap-8 pt-6 border-t border-[var(--border-soft)]">
+                        <!-- 贊助機構 -->
+                        <div class="text-left">
+                            <p class="eyebrow uppercase text-xs tracking-[0.18em] text-[var(--text-mute)] mb-3">贊助機構</p>
+                            <img src="doc/img/organizers/hkatdf.png" alt="香港航天人才發展慈善基金會" class="h-12 sm:h-14 w-auto object-contain" loading="lazy">
                         </div>
 
-                        <!-- 贊助機構 -->
-                        <div class="text-center">
-                            <p class="eyebrow uppercase text-xs tracking-[0.18em] text-[var(--text-mute)] mb-3">贊助機構</p>
-                            <img src="doc/img/organizers/hkatdf.png" alt="香港航天人才發展慈善基金會" class="h-12 sm:h-14 w-auto object-contain mx-auto" loading="lazy">
+                        <!-- 協辦機構 -->
+                        <div class="text-left">
+                            <p class="eyebrow uppercase text-xs tracking-[0.18em] text-[var(--text-mute)] mb-3">協辦機構</p>
+                            <div class="flex flex-wrap items-center justify-start gap-3">
+                                <img src="doc/img/organizers/gbae.png" alt="GBAE" class="h-12 sm:h-14 w-auto object-contain" loading="lazy">
+                                <img src="doc/img/organizers/wze.png" alt="WZE" class="h-12 sm:h-14 w-auto object-contain" loading="lazy">
+                            </div>
                         </div>
                     </div>
                 </section>
@@ -243,7 +254,7 @@
 
                 <div class="card p-8 mb-6">
                     <h3 class="h3 mb-3">出賽形式 · 隊伍組成</h3>
-                    <p class="body mb-4">高小組 <strong class="text-[var(--text-hi)]">P4–P6</strong> 學生以小隊形式出賽，每校 <strong class="text-[var(--gold-300)] font-display text-xl">6–10 人一隊</strong>。隊伍角色包括：</p>
+                    <p class="body mb-4">高小組 <strong class="text-[var(--text-hi)]">P4–P6</strong> 學生以小隊形式出賽，每校 <strong class="text-[var(--gold-300)] font-display text-xl">6 人或以上</strong>。隊伍角色包括：</p>
                     <ul class="grid sm:grid-cols-3 gap-3 body">
                         <li class="chip chip-s justify-center text-center py-3 px-4">
                             <div>
@@ -670,8 +681,8 @@
     <footer class="pt-12 pb-8 border-t border-[var(--border-soft)]">
         <div class="container-x flex flex-col md:flex-row items-center justify-between gap-6 text-center md:text-left">
             <div>
-                <div class="font-display text-base font-bold tracking-[0.18em] text-[var(--text-hi)] mb-1">HKATA</div>
-                <div class="text-[10px] text-[var(--text-mute)] tracking-[0.18em] uppercase">Hong Kong Aerospace Talent Development Foundation</div>
+                <div class="font-display text-base font-bold tracking-[0.18em] text-[var(--text-hi)] mb-1">全港首屆中小學「航天築夢」</div>
+                <div class="text-[10px] text-[var(--text-mute)] tracking-[0.18em] mt-1">航天 AI 創新大賽</div>
             </div>
             <nav class="flex flex-wrap justify-center gap-5 text-xs text-[var(--text-body)]">
                 <a href="index.html" class="link">首頁</a>
