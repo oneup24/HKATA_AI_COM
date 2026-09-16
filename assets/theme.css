@@ -12,6 +12,11 @@
   --surface-700: #16233F;
   --surface-600: #1E2E4D;
 
+  /* SEMI-TRANSPARENT SURFACES — explicit rgba so iOS Safari reliably
+     applies the opacity (var-based /N modifiers are flaky on mobile) */
+  --header-bg: rgba(10, 18, 36, 0.85);
+  --mobile-menu-bg: rgba(10, 18, 36, 0.96);
+
   /* BORDERS */
   --border:      rgba(255, 255, 255, 0.10);
   --border-soft: rgba(255, 255, 255, 0.06);
@@ -318,6 +323,10 @@ body {
 @media (prefers-reduced-motion: reduce) {
   .modal-backdrop, .modal { transition: none; }
 }
+
+/* HEADER / MOBILE MENU — solid backgrounds that work on iOS Safari */
+.header-solid { background-color: var(--header-bg); backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px); }
+.mobile-menu-solid { background-color: var(--mobile-menu-bg); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); }
 
 /* NAV */
 .nav-link {
