@@ -14,8 +14,8 @@
 
   /* SEMI-TRANSPARENT SURFACES — explicit rgba so iOS Safari reliably
      applies the opacity (var-based /N modifiers are flaky on mobile) */
-  --header-bg: rgba(10, 18, 36, 0.85);
-  --mobile-menu-bg: rgba(10, 18, 36, 0.96);
+  --header-bg: #0A1224;
+  --mobile-menu-bg: #0A1224;
 
   /* BORDERS */
   --border:      rgba(255, 255, 255, 0.10);
