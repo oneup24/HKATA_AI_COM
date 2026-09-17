@@ -401,15 +401,15 @@
                     <div class="flex flex-col items-center">
                         <svg viewBox="0 0 200 200" width="280" height="280" role="img" aria-labelledby="donutTitle donutDesc">
                             <title id="donutTitle">評審權重分佈</title>
-                            <desc id="donutDesc">創新程度 20%、AI 應用 20%、問題定義 15%、科研分析 15%、工程設計 10%、原型展示 5%、簡報及答辯 15%。</desc>
+                            <desc id="donutDesc">創新程度 30%、AI 應用 20%、問題定義 15%、科研分析 15%、工程設計 10%、原型展示 5%、簡報及答辯 5%。</desc>
                             <circle cx="100" cy="100" r="80" fill="none" stroke="rgba(255,255,255,0.08)" stroke-width="22"/>
-                            <circle cx="100" cy="100" r="80" fill="none" stroke="var(--primary-400)" stroke-width="22" stroke-dasharray="100.53 402.12" stroke-dashoffset="0" transform="rotate(-90 100 100)" class="ring-segment"/>
-                            <circle cx="100" cy="100" r="80" fill="none" stroke="var(--group-s)"  stroke-width="22" stroke-dasharray="100.53 402.12" stroke-dashoffset="-100.53" transform="rotate(-90 100 100)" class="ring-segment"/>
-                            <circle cx="100" cy="100" r="80" fill="none" stroke="var(--gold-300)"  stroke-width="22" stroke-dasharray="75.40 427.26" stroke-dashoffset="-201.06" transform="rotate(-90 100 100)" class="ring-segment"/>
-                            <circle cx="100" cy="100" r="80" fill="none" stroke="#24A148"        stroke-width="22" stroke-dasharray="75.40 427.26" stroke-dashoffset="-276.46" transform="rotate(-90 100 100)" class="ring-segment"/>
-                            <circle cx="100" cy="100" r="80" fill="none" stroke="var(--group-p)"  stroke-width="22" stroke-dasharray="50.27 452.39" stroke-dashoffset="-351.86" transform="rotate(-90 100 100)" class="ring-segment"/>
-                            <circle cx="100" cy="100" r="80" fill="none" stroke="#6B7890"        stroke-width="22" stroke-dasharray="25.13 477.52" stroke-dashoffset="-402.13" transform="rotate(-90 100 100)" class="ring-segment"/>
-                            <circle cx="100" cy="100" r="80" fill="none" stroke="var(--gold-500)"  stroke-width="22" stroke-dasharray="75.40 427.26" stroke-dashoffset="-427.26" transform="rotate(-90 100 100)" class="ring-segment"/>
+                            <circle cx="100" cy="100" r="80" fill="none" stroke="var(--primary-400)" stroke-width="22" stroke-dasharray="150.80 351.86" stroke-dashoffset="0" transform="rotate(-90 100 100)" class="ring-segment"/>
+                            <circle cx="100" cy="100" r="80" fill="none" stroke="var(--group-s)"  stroke-width="22" stroke-dasharray="100.53 402.12" stroke-dashoffset="-150.80" transform="rotate(-90 100 100)" class="ring-segment"/>
+                            <circle cx="100" cy="100" r="80" fill="none" stroke="var(--gold-300)"  stroke-width="22" stroke-dasharray="75.40 427.26" stroke-dashoffset="-251.33" transform="rotate(-90 100 100)" class="ring-segment"/>
+                            <circle cx="100" cy="100" r="80" fill="none" stroke="#24A148"        stroke-width="22" stroke-dasharray="75.40 427.26" stroke-dashoffset="-326.73" transform="rotate(-90 100 100)" class="ring-segment"/>
+                            <circle cx="100" cy="100" r="80" fill="none" stroke="var(--group-p)"  stroke-width="22" stroke-dasharray="50.27 452.39" stroke-dashoffset="-402.13" transform="rotate(-90 100 100)" class="ring-segment"/>
+                            <circle cx="100" cy="100" r="80" fill="none" stroke="#6B7890"        stroke-width="22" stroke-dasharray="25.13 477.52" stroke-dashoffset="-452.40" transform="rotate(-90 100 100)" class="ring-segment"/>
+                            <circle cx="100" cy="100" r="80" fill="none" stroke="var(--gold-500)"  stroke-width="22" stroke-dasharray="25.13 477.52" stroke-dashoffset="-477.53" transform="rotate(-90 100 100)" class="ring-segment"/>
                             <text x="100" y="94" text-anchor="middle" fill="#fff" font-family="Space Grotesk" font-size="22" font-weight="700">100%</text>
                             <text x="100" y="114" text-anchor="middle" fill="#7C8AA3" font-family="Inter" font-size="10" letter-spacing="2">核心評分</text>
                         </svg>
@@ -418,8 +418,8 @@
                             <caption>評審權重</caption>
                             <thead><tr><th>評審項目</th><th>權重</th></tr></thead>
                             <tbody>
-                                <tr><td>創新程度</td><td>20%</td></tr><tr><td>工程設計</td><td>10%</td></tr><tr><td>AI 應用</td><td>20%</td></tr>
-                                <tr><td>問題定義</td><td>15%</td></tr><tr><td>科研分析</td><td>15%</td></tr><tr><td>原型展示</td><td>5%</td></tr><tr><td>簡報及答辯</td><td>15%</td></tr>
+                                <tr><td>創新程度</td><td>30%</td></tr><tr><td>工程設計</td><td>10%</td></tr><tr><td>AI 應用</td><td>20%</td></tr>
+                                <tr><td>問題定義</td><td>15%</td></tr><tr><td>科研分析</td><td>15%</td></tr><tr><td>原型展示</td><td>5%</td></tr><tr><td>簡報及答辯</td><td>5%</td></tr>
                             </tbody>
                         </table>
                         <p class="text-center text-xs text-[var(--text-mute)] mt-3">圖表數據與下表同步；屏幕閱讀器可朗讀評分比例。</p>
@@ -428,13 +428,13 @@
                     <!-- RIGHT: Legend + 評審重點 + 評審團 -->
                     <div>
                         <ul class="grid grid-cols-2 gap-x-6 gap-y-3 mb-8">
-                            <li class="flex items-center gap-2"><span class="w-3 h-3 rounded-sm" style="background:var(--primary-400)"></span><span class="text-sm text-[var(--text-hi)]">創新程度</span><span class="ml-auto text-sm font-display text-[var(--primary-300)]">20%</span></li>
+                            <li class="flex items-center gap-2"><span class="w-3 h-3 rounded-sm" style="background:var(--primary-400)"></span><span class="text-sm text-[var(--text-hi)]">創新程度</span><span class="ml-auto text-sm font-display text-[var(--primary-300)]">30%</span></li>
                             <li class="flex items-center gap-2"><span class="w-3 h-3 rounded-sm" style="background:var(--group-s)"></span><span class="text-sm text-[var(--text-hi)]">AI 應用</span><span class="ml-auto text-sm font-display text-[var(--group-s)]">20%</span></li>
                             <li class="flex items-center gap-2"><span class="w-3 h-3 rounded-sm" style="background:var(--gold-300)"></span><span class="text-sm text-[var(--text-hi)]">問題定義</span><span class="ml-auto text-sm font-display text-[var(--gold-300)]">15%</span></li>
                             <li class="flex items-center gap-2"><span class="w-3 h-3 rounded-sm" style="background:#24A148"></span><span class="text-sm text-[var(--text-hi)]">科研分析</span><span class="ml-auto text-sm font-display" style="color:#24A148">15%</span></li>
                             <li class="flex items-center gap-2"><span class="w-3 h-3 rounded-sm" style="background:var(--group-p)"></span><span class="text-sm text-[var(--text-hi)]">工程設計</span><span class="ml-auto text-sm font-display text-[var(--group-p)]">10%</span></li>
                             <li class="flex items-center gap-2"><span class="w-3 h-3 rounded-sm" style="background:#6B7890"></span><span class="text-sm text-[var(--text-hi)]">原型展示</span><span class="ml-auto text-sm font-display" style="color:#8C97A8">5%</span></li>
-                            <li class="flex items-center gap-2"><span class="w-3 h-3 rounded-sm" style="background:var(--gold-500)"></span><span class="text-sm text-[var(--text-hi)]">簡報及答辯</span><span class="ml-auto text-sm font-display text-[var(--gold-300)]">15%</span></li>
+                            <li class="flex items-center gap-2"><span class="w-3 h-3 rounded-sm" style="background:var(--gold-500)"></span><span class="text-sm text-[var(--text-hi)]">簡報及答辯</span><span class="ml-auto text-sm font-display text-[var(--gold-300)]">5%</span></li>
                         </ul>
 
                         <div class="card p-6 mb-6">
