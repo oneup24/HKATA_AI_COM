@@ -1,660 +1,1207 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="zh-HK" class="scroll-smooth">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>學校報名系統 | 全港首屆中小學「航天築夢」AI 航天工程挑戰賽</title>
-    <meta name="description" content="全港中小學及幼稚園AI 航天工程挑戰賽官方學校報名通道。截止：2026 年 10 月 31 日。">
+    <meta
+      name="description"
+      content="全港中小學及幼稚園AI 航天工程挑戰賽官方學校報名通道。截止：2026 年 10 月 31 日。"
+    />
 
-    <meta property="og:title" content="學校報名系統 | 航天築夢大賽">
-    <meta property="og:description" content="教育局「心繫家國」聯校活動 · 學校代表官方報名">
-    <meta property="og:image" content="doc/img/hero-banner-og.png">
-    <meta property="og:image:width" content="1200">
-    <meta property="og:image:height" content="630">
-    <meta property="og:type" content="website">
-    <meta property="og:locale" content="zh_HK">
-    <meta name="twitter:card" content="summary_large_image">
-    <link rel="canonical" href="/apply.html">
-    <link rel="icon" type="image/png" href="logo.png">
+    <meta property="og:title" content="學校報名系統 | 航天築夢大賽" />
+    <meta
+      property="og:description"
+      content="教育局「心繫家國」聯校活動 · 學校代表官方報名"
+    />
+    <meta property="og:image" content="doc/img/hero-banner-og.png" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:type" content="website" />
+    <meta property="og:locale" content="zh_HK" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <link rel="canonical" href="/apply.html" />
+    <link rel="icon" type="image/png" href="logo.png" />
 
-    <link rel="stylesheet" href="assets/theme.css?v=2">
+    <link rel="stylesheet" href="assets/theme.css?v=2" />
     <script src="https://cdn.tailwindcss.com"></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&family=Inter:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&family=Noto+Sans+TC:wght@400;500;700;900&family=Noto+Serif+TC:wght@700;900&display=swap" rel="stylesheet">
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&family=Inter:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&family=Noto+Sans+TC:wght@400;500;700;900&family=Noto+Serif+TC:wght@700;900&display=swap"
+      rel="stylesheet"
+    />
 
     <script>
-        tailwind.config = { theme: { extend: {
-            fontFamily: { sans: ['"Noto Sans TC"','Inter','sans-serif'], display: ['"Space Grotesk"','"Noto Sans TC"','sans-serif'], serif: ['"Noto Serif TC"','serif'] },
+      tailwind.config = {
+        theme: {
+          extend: {
+            fontFamily: {
+              sans: ['"Noto Sans TC"', "Inter", "sans-serif"],
+              display: ['"Space Grotesk"', '"Noto Sans TC"', "sans-serif"],
+              serif: ['"Noto Serif TC"', "serif"],
+            },
             colors: {
-                surface: { 900:'var(--surface-900)', 800:'var(--surface-800)', 700:'var(--surface-700)', 600:'var(--surface-600)' },
-                primary: { 700:'var(--primary-700)', 500:'var(--primary-500)', 400:'var(--primary-400)', 300:'var(--primary-300)' },
-                gold:    { 700:'var(--gold-700)', 500:'var(--gold-500)', 300:'var(--gold-300)' },
-                ink:     { hi:'var(--text-hi)', body:'var(--text-body)', mute:'var(--text-mute)' },
-                group:   { k:'var(--group-k)', p:'var(--group-p)', s:'var(--group-s)' }
-            }
-        }}}
+              surface: {
+                900: "var(--surface-900)",
+                800: "var(--surface-800)",
+                700: "var(--surface-700)",
+                600: "var(--surface-600)",
+              },
+              primary: {
+                700: "var(--primary-700)",
+                500: "var(--primary-500)",
+                400: "var(--primary-400)",
+                300: "var(--primary-300)",
+              },
+              gold: {
+                700: "var(--gold-700)",
+                500: "var(--gold-500)",
+                300: "var(--gold-300)",
+              },
+              ink: {
+                hi: "var(--text-hi)",
+                body: "var(--text-body)",
+                mute: "var(--text-mute)",
+              },
+              group: {
+                k: "var(--group-k)",
+                p: "var(--group-p)",
+                s: "var(--group-s)",
+              },
+            },
+          },
+        },
+      };
     </script>
 
     <style>
-        .glass-input {
-            background: var(--surface-800);
-            border: 1px solid var(--border);
-            color: var(--text-hi);
-            transition: border-color .15s, box-shadow .15s;
-        }
-        .glass-input:focus {
-            border-color: var(--primary-400);
-            box-shadow: 0 0 0 3px rgba(46,111,224,0.15);
-            outline: none;
-        }
-        .metallic-plate {
-            background: linear-gradient(135deg, var(--surface-700) 0%, var(--surface-800) 50%, var(--surface-600) 100%);
-            border: 2px solid var(--border-strong);
-            box-shadow: inset 0 0 15px rgba(255,255,255,0.05), 0 10px 25px rgba(0,0,0,0.4);
-            position: relative;
-        }
-        .metallic-plate::before {
-            content: ''; position: absolute; inset: 4px;
-            border: 1px dashed rgba(255,255,255,0.12); pointer-events: none;
-        }
+      .glass-input {
+        background: var(--surface-800);
+        border: 1px solid var(--border);
+        color: var(--text-hi);
+        transition:
+          border-color 0.15s,
+          box-shadow 0.15s;
+      }
+      .glass-input:focus {
+        border-color: var(--primary-400);
+        box-shadow: 0 0 0 3px rgba(46, 111, 224, 0.15);
+        outline: none;
+      }
+      .metallic-plate {
+        background: linear-gradient(
+          135deg,
+          var(--surface-700) 0%,
+          var(--surface-800) 50%,
+          var(--surface-600) 100%
+        );
+        border: 2px solid var(--border-strong);
+        box-shadow:
+          inset 0 0 15px rgba(255, 255, 255, 0.05),
+          0 10px 25px rgba(0, 0, 0, 0.4);
+        position: relative;
+      }
+      .metallic-plate::before {
+        content: "";
+        position: absolute;
+        inset: 4px;
+        border: 1px dashed rgba(255, 255, 255, 0.12);
+        pointer-events: none;
+      }
     </style>
-</head>
-<body class="font-sans antialiased relative">
-
+  </head>
+  <body class="font-sans antialiased relative">
     <div class="relative z-10 min-h-screen flex flex-col">
-
-        <header class="fixed top-0 w-full z-40 border-b border-[var(--border-soft)] header-solid">
-            <div class="max-w-[1400px] mx-auto px-6 h-20 flex items-center justify-between">
-                <a href="index.html" class="flex items-center gap-3 group">
-                    <div class="flex flex-col justify-center">
-                        <span class="font-sans text-[10px] sm:text-xs text-[var(--text-hi)] tracking-[0.18em] leading-none">全港首屆中小學「航天築夢」</span>
-                        <span class="font-sans text-[10px] sm:text-xs text-[var(--text-hi)] tracking-[0.18em] leading-none">航天 AI 創新大賽</span>
-                    </div>
-                </a>
-            <nav class="hidden lg:flex items-center gap-7" aria-label="主選單">
-                <a href="index.html" class="nav-link">比賽概覽</a>
-                <a href="index.html#schedule" class="nav-link">賽事日程</a>
-                <a href="index.html#judging" class="nav-link">評審準則</a>
-                <span class="w-px h-5 bg-[var(--border)]"></span>
-                <a href="kindergarten.html" class="nav-link text-[var(--group-k)]">幼兒組</a>
-                <a href="primary.html"      class="nav-link text-[var(--group-p)]">小學組</a>
-                <a href="secondary.html"    class="nav-link text-[var(--group-s)]">中學組</a>
-            </nav>
-                <div class="hidden lg:flex items-center gap-3">
-                    <button type="button" onclick="document.getElementById('loginModal').classList.remove('hidden')" class="btn btn-ghost text-xs px-4 py-2">
-                        <i class="fa-solid fa-arrow-right-to-bracket"></i> 繼續填寫
-                    </button>
-                </div>
-                <button class="lg:hidden text-white p-2" onclick="document.getElementById('mb').classList.toggle('hidden')"><i class="fa-solid fa-bars text-xl"></i></button>
+      <header
+        class="fixed top-0 w-full z-40 border-b border-[var(--border-soft)] header-solid"
+      >
+        <div
+          class="max-w-[1400px] mx-auto px-6 h-20 flex items-center justify-between"
+        >
+          <a href="index.html" class="flex items-center gap-3 group">
+            <div class="flex flex-col justify-center">
+              <span
+                class="font-sans text-[10px] sm:text-xs text-[var(--text-hi)] tracking-[0.18em] leading-none"
+                >全港首屆中小學「航天築夢」</span
+              >
+              <span
+                class="font-sans text-[10px] sm:text-xs text-[var(--text-hi)] tracking-[0.18em] leading-none"
+                >航天 AI 創新大賽</span
+              >
             </div>
-            <div id="mb" class="hidden lg:hidden border-t border-[var(--border-soft)] mobile-menu-solid">
-                <nav class="max-w-[1400px] mx-auto px-6 py-4 flex flex-col gap-3">
-                    <a href="index.html" class="nav-link">首頁</a>
-                    <a href="kindergarten.html" class="nav-link">幼兒章程</a>
-                    <a href="primary.html" class="nav-link">小學章程</a>
-                    <a href="secondary.html" class="nav-link">中學章程</a>
-                    <a href="index.html#schedule" class="nav-link">賽事日程</a>
-                </nav>
+          </a>
+          <nav class="hidden lg:flex items-center gap-7" aria-label="主選單">
+            <a href="index.html" class="nav-link">比賽概覽</a>
+            <a href="index.html#schedule" class="nav-link">賽事日程</a>
+            <a href="index.html#judging" class="nav-link">評審準則</a>
+            <span class="w-px h-5 bg-[var(--border)]"></span>
+            <a href="kindergarten.html" class="nav-link text-[var(--group-k)]"
+              >幼兒組</a
+            >
+            <a href="primary.html" class="nav-link text-[var(--group-p)]"
+              >小學組</a
+            >
+            <a href="secondary.html" class="nav-link text-[var(--group-s)]"
+              >中學組</a
+            >
+          </nav>
+          <div class="hidden lg:flex items-center gap-3">
+            <button
+              type="button"
+              onclick="
+                document.getElementById('loginModal').classList.remove('hidden')
+              "
+              class="btn btn-ghost text-xs px-4 py-2"
+            >
+              <i class="fa-solid fa-arrow-right-to-bracket"></i> 繼續填寫
+            </button>
+          </div>
+          <button
+            class="lg:hidden text-white p-2"
+            onclick="document.getElementById('mb').classList.toggle('hidden')"
+          >
+            <i class="fa-solid fa-bars text-xl"></i>
+          </button>
+        </div>
+        <div
+          id="mb"
+          class="hidden lg:hidden border-t border-[var(--border-soft)] mobile-menu-solid"
+        >
+          <nav class="max-w-[1400px] mx-auto px-6 py-4 flex flex-col gap-3">
+            <a href="index.html" class="nav-link">首頁</a>
+            <a href="kindergarten.html" class="nav-link">幼兒章程</a>
+            <a href="primary.html" class="nav-link">小學章程</a>
+            <a href="secondary.html" class="nav-link">中學章程</a>
+            <a href="index.html#schedule" class="nav-link">賽事日程</a>
+          </nav>
+        </div>
+      </header>
+
+      <main
+        class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 pt-36 pb-10 w-full flex-1"
+      >
+        <div class="text-center mb-10">
+          <span class="chip chip-gold mb-3 inline-block"
+            >Official School Registration</span
+          >
+          <h1
+            class="font-serif text-3xl sm:text-5xl font-black text-[var(--text-hi)] leading-tight"
+          >
+            參賽學校代表<br />報名系統
+          </h1>
+          <p class="body mt-3 max-w-2xl mx-auto">
+            提交後秘書處將於
+            11月下旬官宣抽籤分組結果及通知校方領取官方「官方硬件套件」。
+          </p>
+          <p class="caption mt-2">
+            截止日期：<strong class="text-[var(--text-hi)]"
+              >2026 年 10 月 31 日 23:59</strong
+            >
+            (香港時間)
+          </p>
+        </div>
+
+        <!-- FORM CONTAINER (single-step, per Plan V2 §5.1) -->
+        <form
+          id="registrationForm"
+          onsubmit="event.preventDefault()"
+          class="space-y-8"
+        >
+          <!-- SCHOOL INFO + CONTACT (single card) -->
+          <div class="card p-6 sm:p-8 rounded-2xl space-y-6">
+            <div class="border-b border-[var(--border-soft)] pb-5">
+              <h3 class="h3 mb-2 flex items-center gap-2">
+                <i class="fa-solid fa-school text-[var(--primary-300)]"></i>
+                學校基本資料
+              </h3>
+              <p class="caption">
+                請填寫貴校官方登記名稱(同教育局學校註冊證明書)。
+              </p>
             </div>
-        </header>
 
-        <main class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 pt-36 pb-10 w-full flex-1">
-
-            <div class="text-center mb-10">
-                <span class="chip chip-gold mb-3 inline-block">Official School Registration</span>
-                <h1 class="font-serif text-3xl sm:text-5xl font-black text-[var(--text-hi)] leading-tight">
-                    參賽學校代表<br>報名系統
-                </h1>
-                <p class="body mt-3 max-w-2xl mx-auto">
-                    提交後秘書處將於 11月下旬官宣抽籤分組結果及通知校方領取官方「官方硬件套件」。
-                </p>
-                <p class="caption mt-2">截止日期：<strong class="text-[var(--text-hi)]">2026 年 10 月 31 日 23:59</strong> (香港時間)</p>
+            <div class="grid sm:grid-cols-2 gap-6">
+              <div>
+                <label class="field-label"
+                  >學校中文全稱
+                  <span class="text-[var(--gold-300)]">*</span></label
+                >
+                <input
+                  type="text"
+                  id="schoolNameCn"
+                  required
+                  placeholder="例:XXXX 學校"
+                  class="field"
+                />
+              </div>
+              <div>
+                <label class="field-label"
+                  >學校英文全稱
+                  <span class="text-[var(--gold-300)]">*</span></label
+                >
+                <input
+                  type="text"
+                  id="schoolNameEn"
+                  required
+                  placeholder="e.g. XXXX School"
+                  class="field"
+                />
+              </div>
+              <div>
+                <label class="field-label"
+                  >學校類別 <span class="text-[var(--gold-300)]">*</span></label
+                >
+                <select id="schoolCategory" required class="field">
+                  <option value="" disabled selected>請選擇學校類別</option>
+                  <option value="kindergarten">幼稚園 (Kindergarten)</option>
+                  <option value="primary">小學 (Primary School)</option>
+                  <option value="secondary">中學 (Secondary School)</option>
+                  <option value="special">特殊學校 / 其他教育機構</option>
+                </select>
+              </div>
+              <div>
+                <label class="field-label"
+                  >所屬分區 <span class="text-[var(--gold-300)]">*</span></label
+                >
+                <select id="schoolDistrict" required class="field">
+                  <option value="" disabled selected>請選擇校舍地區</option>
+                  <optgroup label="港島 Hong Kong Island">
+                    <option value="central_western">
+                      中西區 (Central &amp; Western)
+                    </option>
+                    <option value="wan_chai">灣仔區 (Wan Chai)</option>
+                    <option value="eastern">東區 (Eastern)</option>
+                    <option value="southern">南區 (Southern)</option>
+                  </optgroup>
+                  <optgroup label="九龍 Kowloon">
+                    <option value="yau_tsim_mong">
+                      油尖旺區 (Yau Tsim Mong)
+                    </option>
+                    <option value="sham_shui_po">
+                      深水埗區 (Sham Shui Po)
+                    </option>
+                    <option value="kowloon_city">
+                      九龍城區 (Kowloon City)
+                    </option>
+                    <option value="wong_tai_sin">
+                      黃大仙區 (Wong Tai Sin)
+                    </option>
+                    <option value="kwun_tong">觀塘區 (Kwun Tong)</option>
+                  </optgroup>
+                  <optgroup label="新界 New Territories">
+                    <option value="kwai_tsing">葵青區 (Kwai Tsing)</option>
+                    <option value="tsuen_wan">荃灣區 (Tsuen Wan)</option>
+                    <option value="tuen_mun">屯門區 (Tuen Mun)</option>
+                    <option value="yuen_long">元朗區 (Yuen Long)</option>
+                    <option value="north">北區 (North)</option>
+                    <option value="tai_po">大埔區 (Tai Po)</option>
+                    <option value="sha_tin">沙田區 (Sha Tin)</option>
+                    <option value="sai_kung">西貢區 (Sai Kung)</option>
+                  </optgroup>
+                  <optgroup label="離島 Islands">
+                    <option value="islands">離島區 (Islands)</option>
+                  </optgroup>
+                </select>
+              </div>
+              <div class="sm:col-span-2">
+                <label class="field-label"
+                  >校舍通訊地址
+                  <span class="text-[var(--gold-300)]">*</span></label
+                >
+                <input
+                  type="text"
+                  id="schoolAddress"
+                  required
+                  placeholder="請填寫完整校舍地址"
+                  class="field"
+                />
+              </div>
             </div>
 
-            <!-- FORM CONTAINER (single-step, per Plan V2 §5.1) -->
-            <form id="registrationForm" onsubmit="event.preventDefault();" class="space-y-8">
-
-                <!-- SCHOOL INFO + CONTACT (single card) -->
-                <div class="card p-6 sm:p-8 rounded-2xl space-y-6">
-
-                    <div class="border-b border-[var(--border-soft)] pb-5">
-                        <h3 class="h3 mb-2 flex items-center gap-2">
-                            <i class="fa-solid fa-school text-[var(--primary-300)]"></i> 學校基本資料
-                        </h3>
-                        <p class="caption">請填寫貴校官方登記名稱(同教育局學校註冊證明書)。</p>
-                    </div>
-
-                    <div class="grid sm:grid-cols-2 gap-6">
-                        <div>
-                            <label class="field-label">學校中文全稱 <span class="text-[var(--gold-300)]">*</span></label>
-                            <input type="text" id="schoolNameCn" required placeholder="例:XXXX 學校" class="field">
-                        </div>
-                        <div>
-                            <label class="field-label">學校英文全稱 <span class="text-[var(--gold-300)]">*</span></label>
-                            <input type="text" id="schoolNameEn" required placeholder="e.g. XXXX School" class="field">
-                        </div>
-                        <div>
-                            <label class="field-label">學校類別 <span class="text-[var(--gold-300)]">*</span></label>
-                            <select id="schoolCategory" required class="field">
-                                <option value="" disabled selected>請選擇學校類別</option>
-                                <option value="kindergarten">幼稚園 (Kindergarten)</option>
-                                <option value="primary">小學 (Primary School)</option>
-                                <option value="secondary">中學 (Secondary School)</option>
-                                <option value="special">特殊學校 / 其他教育機構</option>
-                            </select>
-                        </div>
-                        <div>
-                            <label class="field-label">所屬分區 <span class="text-[var(--gold-300)]">*</span></label>
-                            <select id="schoolDistrict" required class="field">
-                                <option value="" disabled selected>請選擇校舍地區</option>
-                                <optgroup label="港島 Hong Kong Island">
-                                    <option value="central_western">中西區 (Central &amp; Western)</option>
-                                    <option value="wan_chai">灣仔區 (Wan Chai)</option>
-                                    <option value="eastern">東區 (Eastern)</option>
-                                    <option value="southern">南區 (Southern)</option>
-                                </optgroup>
-                                <optgroup label="九龍 Kowloon">
-                                    <option value="yau_tsim_mong">油尖旺區 (Yau Tsim Mong)</option>
-                                    <option value="sham_shui_po">深水埗區 (Sham Shui Po)</option>
-                                    <option value="kowloon_city">九龍城區 (Kowloon City)</option>
-                                    <option value="wong_tai_sin">黃大仙區 (Wong Tai Sin)</option>
-                                    <option value="kwun_tong">觀塘區 (Kwun Tong)</option>
-                                </optgroup>
-                                <optgroup label="新界 New Territories">
-                                    <option value="kwai_tsing">葵青區 (Kwai Tsing)</option>
-                                    <option value="tsuen_wan">荃灣區 (Tsuen Wan)</option>
-                                    <option value="tuen_mun">屯門區 (Tuen Mun)</option>
-                                    <option value="yuen_long">元朗區 (Yuen Long)</option>
-                                    <option value="north">北區 (North)</option>
-                                    <option value="tai_po">大埔區 (Tai Po)</option>
-                                    <option value="sha_tin">沙田區 (Sha Tin)</option>
-                                    <option value="sai_kung">西貢區 (Sai Kung)</option>
-                                </optgroup>
-                                <optgroup label="離島 Islands">
-                                    <option value="islands">離島區 (Islands)</option>
-                                </optgroup>
-                            </select>
-                        </div>
-                        <div class="sm:col-span-2">
-                            <label class="field-label">校舍通訊地址 <span class="text-[var(--gold-300)]">*</span></label>
-                            <input type="text" id="schoolAddress" required placeholder="請填寫完整校舍地址" class="field">
-                        </div>
-                    </div>
-
-                    <!-- 初步建議負責人 -->
-                    <div class="border-b border-[var(--border-soft)] pb-5">
-                        <h3 class="h3 mb-2 flex items-center gap-2">
-                            <i class="fa-solid fa-user-astronaut text-[var(--primary-300)]"></i> 初步建議負責人
-                        </h3>
-                        <p class="caption">此為貴校初步建議之帶隊負責人,秘書處核實後仍可更改。</p>
-                    </div>
-
-                    <div class="grid sm:grid-cols-2 gap-6">
-                        <div>
-                            <label class="field-label">負責人姓名 <span class="text-[var(--gold-300)]">*</span></label>
-                            <input type="text" id="teacherName" required placeholder="例:陳 X X 老師" class="field">
-                        </div>
-                        <div>
-                            <label class="field-label">職銜 / 職位 <span class="text-[var(--gold-300)]">*</span></label>
-                            <select id="teacherTitle" required class="field">
-                                <option value="" disabled selected>請選擇職銜 / 職位</option>
-                                <option value="stem_coordinator">STEM / STEAM 主任 / 統籌員 (STEM / STEAM Coordinator)</option>
-                                <option value="science_head">科學科主任 / 教師 (Science Department Head / Teacher)</option>
-                                <option value="primary_science">小學科學科教師 (Primary Science Teacher)</option>
-                                <option value="physics">物理科教師 (Physics Teacher)</option>
-                                <option value="ict">資訊科技(ICT)主任 / 教師 (ICT Teacher)</option>
-                                <option value="bio_chem">生物 / 化學科教師 (Biology / Chemistry Teacher)</option>
-                                <option value="general_studies">常識科主任 / 教師 (General Studies Teacher — 適用於小學)</option>
-                                <option value="it_coordinator">創新科技 / 資訊科技統籌員 (Innovation &amp; Technology / IT Coordinator)</option>
-                                <option value="extracurricular">課外活動 / 競賽組主任 (Extra-curricular / Competition Coordinator)</option>
-                                <option value="other">其他教職員 (Other Teaching Staff)</option>
-                            </select>
-                            <input type="text" id="teacherTitleOther" placeholder="請說明其他職銜" class="field mt-2 hidden">
-                        </div>
-                        <div>
-                            <label class="field-label">負責人電郵(接收大賽通告) <span class="text-[var(--gold-300)]">*</span></label>
-                            <input type="email" id="teacherEmail" required placeholder="teacher@xxxx.edu.hk" class="field">
-                        </div>
-                        <div>
-                            <label class="field-label">負責人 WhatsApp <span class="text-[var(--gold-300)]">*</span></label>
-                            <input type="tel" id="teacherPhone" required placeholder="+852 9123 4567" class="field">
-                        </div>
-                    </div>
-
-                    <!-- 比賽選擇 -->
-                    <div>
-                        <h3 class="h3 mb-2 flex items-center gap-2">
-                            <i class="fa-solid fa-trophy text-[var(--primary-300)]"></i> 比賽選擇
-                        </h3>
-                        <p class="caption">請選擇貴校擬參加的學段賽道。完成後秘書處會依學段確認章程與硬件套件安排。</p>
-                    </div>
-
-                    <div class="mb-6">
-                        <label class="field-label">報名學段 <span class="text-[var(--gold-300)]">*</span></label>
-                        <div class="grid sm:grid-cols-3 gap-3" id="segmentGroup">
-                            <label class="seg-card flex items-center gap-3 p-4 rounded-xl border border-[var(--border)] bg-[var(--surface-800)] cursor-pointer hover:border-[var(--primary-400)] transition-colors has-[:checked]:border-[var(--primary-500)] has-[:checked]:bg-[rgba(46,111,224,0.10)]">
-                                <input type="radio" name="segment" value="kindergarten" required class="accent-[var(--primary-500)]">
-                                <div>
-                                    <div class="text-[var(--text-hi)] font-bold text-sm">幼兒組</div>
-                                    <div class="text-[var(--text-mute)] text-[14px]">KINDERGARTEN</div>
-                                </div>
-                            </label>
-                            <label class="seg-card flex items-center gap-3 p-4 rounded-xl border border-[var(--border)] bg-[var(--surface-800)] cursor-pointer hover:border-[var(--primary-400)] transition-colors has-[:checked]:border-[var(--primary-500)] has-[:checked]:bg-[rgba(46,111,224,0.10)]">
-                                <input type="radio" name="segment" value="primary" class="accent-[var(--primary-500)]">
-                                <div>
-                                    <div class="text-[var(--text-hi)] font-bold text-sm">小學組</div>
-                                    <div class="text-[var(--text-mute)] text-[14px]">PRIMARY (P1–P6)</div>
-                                </div>
-                            </label>
-                            <label class="seg-card flex items-center gap-3 p-4 rounded-xl border border-[var(--border)] bg-[var(--surface-800)] cursor-pointer hover:border-[var(--primary-400)] transition-colors has-[:checked]:border-[var(--primary-500)] has-[:checked]:bg-[rgba(46,111,224,0.10)]">
-                                <input type="radio" name="segment" value="secondary" class="accent-[var(--primary-500)]">
-                                <div>
-                                    <div class="text-[var(--text-hi)] font-bold text-sm">中學組</div>
-                                    <div class="text-[var(--text-mute)] text-[14px]">SECONDARY (S1–S6)</div>
-                                </div>
-                            </label>
-                        </div>
-                    </div>
-
-                    <div class="mb-2">
-                        <label class="field-label">參賽賽道 <span class="text-[var(--gold-300)]">*</span></label>
-                        <p class="caption mb-3">可選多項。秘書處將以抽籤方式分配各校之賽道及硬件套件。</p>
-
-                        <div data-tracks-for="kindergarten" class="track-block space-y-2 hidden">
-                            <label class="track-pick flex items-start gap-3 p-3 rounded-xl border border-[var(--border)] bg-[var(--surface-800)] cursor-pointer hover:border-[var(--primary-400)]">
-                                <input type="checkbox" name="tracks" value="logo" class="mt-1 accent-[var(--primary-500)]" checked>
-                                <div>
-                                    <div class="text-[var(--text-hi)] font-bold text-sm">太空任務標誌設計 + 太空基地填色</div>
-                                    <div class="text-[var(--text-mute)] text-[14px]">TRACK 01 · 全港學校 · 毋須編程</div>
-                                </div>
-                            </label>
-                        </div>
-
-                        <div data-tracks-for="primary" class="track-block space-y-2 hidden">
-                            <label class="track-pick flex items-start gap-3 p-3 rounded-xl border border-[var(--border)] bg-[var(--surface-800)] cursor-pointer hover:border-[var(--primary-400)]">
-                                <input type="checkbox" name="tracks" value="logo" class="mt-1 accent-[var(--primary-500)]" checked>
-                                <div>
-                                    <div class="text-[var(--text-hi)] font-bold text-sm">太空任務標誌設計</div>
-                                    <div class="text-[var(--text-mute)] text-[14px]">TRACK 01 · 全級 · 毋須編程</div>
-                                </div>
-                            </label>
-                            <label class="track-pick flex items-start gap-3 p-3 rounded-xl border border-[var(--border)] bg-[var(--surface-800)] cursor-pointer hover:border-[var(--primary-400)]">
-                                <input type="checkbox" name="tracks" value="speech" class="mt-1 accent-[var(--primary-500)]" checked>
-                                <div>
-                                    <div class="text-[var(--text-hi)] font-bold text-sm">中國航天發展演講比賽</div>
-                                    <div class="text-[var(--text-mute)] text-[14px]">TRACK 02 · 初小 P1–P3 · 3 分鐘演說</div>
-                                </div>
-                            </label>
-                            <label class="track-pick flex items-start gap-3 p-3 rounded-xl border border-[var(--border)] bg-[var(--surface-800)] cursor-pointer hover:border-[var(--primary-400)]">
-                                <input type="checkbox" name="tracks" value="engineering" class="mt-1 accent-[var(--primary-500)]" checked>
-                                <div>
-                                    <div class="text-[var(--text-hi)] font-bold text-sm">航天 AI 工程挑戰 · 未來月球基地</div>
-                                    <div class="text-[var(--text-mute)] text-[14px]">TRACK 03 · 高小 P4–P6 · 配備硬件</div>
-                                </div>
-                            </label>
-                        </div>
-
-                        <div data-tracks-for="secondary" class="track-block space-y-2 hidden">
-                            <label class="track-pick flex items-start gap-3 p-3 rounded-xl border border-[var(--border)] bg-[var(--surface-800)] cursor-pointer hover:border-[var(--primary-400)]">
-                                <input type="checkbox" name="tracks" value="logo" class="mt-1 accent-[var(--primary-500)]" checked>
-                                <div>
-                                    <div class="text-[var(--text-hi)] font-bold text-sm">太空任務標誌設計</div>
-                                    <div class="text-[var(--text-mute)] text-[14px]">TRACK 01 · 全級 · 毋須編程</div>
-                                </div>
-                            </label>
-                            <label class="track-pick flex items-start gap-3 p-3 rounded-xl border border-[var(--border)] bg-[var(--surface-800)] cursor-pointer hover:border-[var(--primary-400)]">
-                                <input type="checkbox" name="tracks" value="engineering" class="mt-1 accent-[var(--primary-500)]" checked>
-                                <div>
-                                    <div class="text-[var(--text-hi)] font-bold text-sm">航天 AI 工程挑戰 · 未來火星基地</div>
-                                    <div class="text-[var(--text-mute)] text-[14px]">TRACK 02 · 初中 / 高中 · 配備硬件</div>
-                                </div>
-                            </label>
-                        </div>
-                    </div>
-
-                    <input type="hidden" id="referrerLevel" name="referrerLevel" value="">
-
-                    <!-- HARDWARE KIT PRIORITY (primary/secondary only) -->
-                    <div class="mb-2">
-                        <label class="field-label">硬件事次選擇 <span class="text-[var(--gold-300)]">*</span></label>
-                        <p class="caption mb-3">請按優次選擇 3 款硬件事套件。秘書處將按優次以抽籤方式分配。</p>
-
-                        <div data-kits-for="primary" class="kit-block space-y-3 hidden">
-                            <div class="flex items-center gap-3">
-                                <span class="font-display text-[var(--gold-300)] text-sm w-16 shrink-0">第 1 選擇</span>
-                                <select name="kitPriority1" data-kit-level="primary" class="kit-select flex-1 bg-[var(--surface-800)] border border-[var(--border)] rounded-lg px-3 py-2 text-sm text-[var(--text-hi)]">
-                                    <option value="">— 請選擇 —</option>
-                                    <option value="cubesat-1u">1U 立方衛星工程</option>
-                                    <option value="robot-arm">太空AI機械人</option>
-                                    <option value="plant-pod">太空種植艙</option>
-                                </select>
-                            </div>
-                            <div class="flex items-center gap-3">
-                                <span class="font-display text-[var(--gold-300)] text-sm w-16 shrink-0">第 2 選擇</span>
-                                <select name="kitPriority2" data-kit-level="primary" class="kit-select flex-1 bg-[var(--surface-800)] border border-[var(--border)] rounded-lg px-3 py-2 text-sm text-[var(--text-hi)]">
-                                    <option value="">— 請選擇 —</option>
-                                    <option value="cubesat-1u">1U 立方衛星工程</option>
-                                    <option value="robot-arm">太空AI機械人</option>
-                                    <option value="plant-pod">太空種植艙</option>
-                                </select>
-                            </div>
-                            <div class="flex items-center gap-3">
-                                <span class="font-display text-[var(--gold-300)] text-sm w-16 shrink-0">第 3 選擇</span>
-                                <select name="kitPriority3" data-kit-level="primary" class="kit-select flex-1 bg-[var(--surface-800)] border border-[var(--border)] rounded-lg px-3 py-2 text-sm text-[var(--text-hi)]">
-                                    <option value="">— 請選擇 —</option>
-                                    <option value="cubesat-1u">1U 立方衛星工程</option>
-                                    <option value="robot-arm">太空AI機械人</option>
-                                    <option value="plant-pod">太空種植艙</option>
-                                </select>
-                            </div>
-                        </div>
-
-                        <div data-kits-for="secondary" class="kit-block space-y-3 hidden">
-                            <div class="flex items-center gap-3">
-                                <span class="font-display text-[var(--gold-300)] text-sm w-16 shrink-0">第 1 選擇</span>
-                                <select name="kitPriority1" data-kit-level="secondary" class="kit-select flex-1 bg-[var(--surface-800)] border border-[var(--border)] rounded-lg px-3 py-2 text-sm text-[var(--text-hi)]">
-                                    <option value="">— 請選擇 —</option>
-                                    <option value="cubesat-3u">3U CubeSat 微型衛星</option>
-                                    <option value="mars-rover">智能火星探測車</option>
-                                    <option value="3d-rocket">3D 打印火箭工程</option>
-                                </select>
-                            </div>
-                            <div class="flex items-center gap-3">
-                                <span class="font-display text-[var(--gold-300)] text-sm w-16 shrink-0">第 2 選擇</span>
-                                <select name="kitPriority2" data-kit-level="secondary" class="kit-select flex-1 bg-[var(--surface-800)] border border-[var(--border)] rounded-lg px-3 py-2 text-sm text-[var(--text-hi)]">
-                                    <option value="">— 請選擇 —</option>
-                                    <option value="cubesat-3u">3U CubeSat 微型衛星</option>
-                                    <option value="mars-rover">智能火星探測車</option>
-                                    <option value="3d-rocket">3D 打印火箭工程</option>
-                                </select>
-                            </div>
-                            <div class="flex items-center gap-3">
-                                <span class="font-display text-[var(--gold-300)] text-sm w-16 shrink-0">第 3 選擇</span>
-                                <select name="kitPriority3" data-kit-level="secondary" class="kit-select flex-1 bg-[var(--surface-800)] border border-[var(--border)] rounded-lg px-3 py-2 text-sm text-[var(--text-hi)]">
-                                    <option value="">— 請選擇 —</option>
-                                    <option value="cubesat-3u">3U CubeSat 微型衛星</option>
-                                    <option value="mars-rover">智能火星探測車</option>
-                                    <option value="3d-rocket">3D 打印火箭工程</option>
-                                </select>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- SUBMIT -->
-                <div class="flex flex-col items-center gap-3">
-                    <label class="flex items-start gap-3 text-sm text-[var(--text-body)] cursor-pointer max-w-xl">
-                        <input type="checkbox" id="consent" required class="mt-1 accent-[var(--primary-500)]">
-                        <span>本人已閱讀並同意大會秘書處收集及處理上述資料,作報名審核及聯絡用途。</span>
-                    </label>
-                    <button type="submit" id="submitBtn" class="btn btn-gold text-base px-10 py-4">
-                        <i class="fa-solid fa-rocket"></i> 提交學校報名
-                    </button>
-                </div>
-
-            </form>
-
-        </main>
-
-        <footer class="pt-12 pb-8 border-t border-[var(--border-soft)]">
-            <div class="container-x flex flex-col md:flex-row items-center justify-between gap-6 text-center md:text-left">
-                <div>
-                    <div class="font-display text-base font-bold tracking-[0.18em] text-[var(--text-hi)] mb-1">全港首屆中小學「航天築夢」</div>
-                    <div class="text-[10px] text-[var(--text-mute)] tracking-[0.18em] mt-1">航天 AI 創新大賽</div>
-                </div>
-                <nav class="flex flex-wrap justify-center gap-5 text-xs text-[var(--text-body)]">
-                    <a href="index.html" class="link">首頁</a>
-                    <a href="kindergarten.html" class="link">幼兒章程</a>
-                    <a href="primary.html" class="link">小學章程</a>
-                    <a href="secondary.html" class="link">中學章程</a>
-                    <a href="mailto:marketing@hkata.space" class="link">聯絡秘書處</a>
-                </nav>
-                <div class="text-xs text-[var(--text-mute)]">
-                    &copy; 2026 HKATA.<br>
-                    <a href="mailto:marketing@hkata.space" class="link">marketing@hkata.space</a> · 6113 0828
-                </div>
+            <!-- 初步建議負責人 -->
+            <div class="border-b border-[var(--border-soft)] pb-5">
+              <h3 class="h3 mb-2 flex items-center gap-2">
+                <i
+                  class="fa-solid fa-user-astronaut text-[var(--primary-300)]"
+                ></i>
+                初步建議負責人
+              </h3>
+              <p class="caption">
+                此為貴校初步建議之帶隊負責人,秘書處核實後仍可更改。
+              </p>
             </div>
-        </footer>
 
+            <div class="grid sm:grid-cols-2 gap-6">
+              <div>
+                <label class="field-label"
+                  >負責人姓名
+                  <span class="text-[var(--gold-300)]">*</span></label
+                >
+                <input
+                  type="text"
+                  id="teacherName"
+                  required
+                  placeholder="例:陳 X X 老師"
+                  class="field"
+                />
+              </div>
+              <div>
+                <label class="field-label"
+                  >職銜 / 職位
+                  <span class="text-[var(--gold-300)]">*</span></label
+                >
+                <select id="teacherTitle" required class="field">
+                  <option value="" disabled selected>請選擇職銜 / 職位</option>
+                  <option value="stem_coordinator">
+                    STEM / STEAM 主任 / 統籌員 (STEM / STEAM Coordinator)
+                  </option>
+                  <option value="science_head">
+                    科學科主任 / 教師 (Science Department Head / Teacher)
+                  </option>
+                  <option value="primary_science">
+                    小學科學科教師 (Primary Science Teacher)
+                  </option>
+                  <option value="physics">物理科教師 (Physics Teacher)</option>
+                  <option value="ict">
+                    資訊科技(ICT)主任 / 教師 (ICT Teacher)
+                  </option>
+                  <option value="bio_chem">
+                    生物 / 化學科教師 (Biology / Chemistry Teacher)
+                  </option>
+                  <option value="general_studies">
+                    常識科主任 / 教師 (General Studies Teacher — 適用於小學)
+                  </option>
+                  <option value="it_coordinator">
+                    創新科技 / 資訊科技統籌員 (Innovation &amp; Technology / IT
+                    Coordinator)
+                  </option>
+                  <option value="extracurricular">
+                    課外活動 / 競賽組主任 (Extra-curricular / Competition
+                    Coordinator)
+                  </option>
+                  <option value="other">
+                    其他教職員 (Other Teaching Staff)
+                  </option>
+                </select>
+                <input
+                  type="text"
+                  id="teacherTitleOther"
+                  placeholder="請說明其他職銜"
+                  class="field mt-2 hidden"
+                />
+              </div>
+              <div>
+                <label class="field-label"
+                  >負責人電郵(接收大賽通告)
+                  <span class="text-[var(--gold-300)]">*</span></label
+                >
+                <input
+                  type="email"
+                  id="teacherEmail"
+                  required
+                  placeholder="teacher@xxxx.edu.hk"
+                  class="field"
+                />
+              </div>
+              <div>
+                <label class="field-label"
+                  >負責人 WhatsApp
+                  <span class="text-[var(--gold-300)]">*</span></label
+                >
+                <input
+                  type="tel"
+                  id="teacherPhone"
+                  required
+                  placeholder="+852 9123 4567"
+                  class="field"
+                />
+              </div>
+            </div>
+
+            <!-- 比賽選擇 -->
+            <div>
+              <h3 class="h3 mb-2 flex items-center gap-2">
+                <i class="fa-solid fa-trophy text-[var(--primary-300)]"></i>
+                比賽選擇
+              </h3>
+              <p class="caption">
+                請選擇貴校擬參加的學段賽道。完成後秘書處會依學段確認章程與硬件套件安排。
+              </p>
+            </div>
+
+            <div class="mb-6">
+              <label class="field-label"
+                >報名學段 <span class="text-[var(--gold-300)]">*</span></label
+              >
+              <div class="grid sm:grid-cols-3 gap-3" id="segmentGroup">
+                <label
+                  class="seg-card flex items-center gap-3 p-4 rounded-xl border border-[var(--border)] bg-[var(--surface-800)] cursor-pointer hover:border-[var(--primary-400)] transition-colors has-[:checked]:border-[var(--primary-500)] has-[:checked]:bg-[rgba(46,111,224,0.10)]"
+                >
+                  <input
+                    type="radio"
+                    name="segment"
+                    value="kindergarten"
+                    required
+                    class="accent-[var(--primary-500)]"
+                  />
+                  <div>
+                    <div class="text-[var(--text-hi)] font-bold text-sm">
+                      幼兒組
+                    </div>
+                    <div class="text-[var(--text-mute)] text-[14px]">
+                      KINDERGARTEN
+                    </div>
+                  </div>
+                </label>
+                <label
+                  class="seg-card flex items-center gap-3 p-4 rounded-xl border border-[var(--border)] bg-[var(--surface-800)] cursor-pointer hover:border-[var(--primary-400)] transition-colors has-[:checked]:border-[var(--primary-500)] has-[:checked]:bg-[rgba(46,111,224,0.10)]"
+                >
+                  <input
+                    type="radio"
+                    name="segment"
+                    value="primary"
+                    class="accent-[var(--primary-500)]"
+                  />
+                  <div>
+                    <div class="text-[var(--text-hi)] font-bold text-sm">
+                      小學組
+                    </div>
+                    <div class="text-[var(--text-mute)] text-[14px]">
+                      PRIMARY (P1–P6)
+                    </div>
+                  </div>
+                </label>
+                <label
+                  class="seg-card flex items-center gap-3 p-4 rounded-xl border border-[var(--border)] bg-[var(--surface-800)] cursor-pointer hover:border-[var(--primary-400)] transition-colors has-[:checked]:border-[var(--primary-500)] has-[:checked]:bg-[rgba(46,111,224,0.10)]"
+                >
+                  <input
+                    type="radio"
+                    name="segment"
+                    value="secondary"
+                    class="accent-[var(--primary-500)]"
+                  />
+                  <div>
+                    <div class="text-[var(--text-hi)] font-bold text-sm">
+                      中學組
+                    </div>
+                    <div class="text-[var(--text-mute)] text-[14px]">
+                      SECONDARY (S1–S6)
+                    </div>
+                  </div>
+                </label>
+              </div>
+            </div>
+
+            <div class="mb-2">
+              <label class="field-label"
+                >參賽賽道 <span class="text-[var(--gold-300)]">*</span></label
+              >
+              <p class="caption mb-3">
+                可選多項。秘書處將以抽籤方式分配各校之賽道及硬件套件。
+              </p>
+
+              <div
+                data-tracks-for="kindergarten"
+                class="track-block space-y-2 hidden"
+              >
+                <label
+                  class="track-pick flex items-start gap-3 p-3 rounded-xl border border-[var(--border)] bg-[var(--surface-800)] cursor-pointer hover:border-[var(--primary-400)]"
+                >
+                  <input
+                    type="checkbox"
+                    name="tracks"
+                    value="logo"
+                    class="mt-1 accent-[var(--primary-500)]"
+                    checked
+                  />
+                  <div>
+                    <div class="text-[var(--text-hi)] font-bold text-sm">
+                      太空任務標誌設計 + 太空基地填色
+                    </div>
+                    <div class="text-[var(--text-mute)] text-[14px]">
+                      TRACK 01 · 全港學校 · 毋須編程
+                    </div>
+                  </div>
+                </label>
+              </div>
+
+              <div
+                data-tracks-for="primary"
+                class="track-block space-y-2 hidden"
+              >
+                <label
+                  class="track-pick flex items-start gap-3 p-3 rounded-xl border border-[var(--border)] bg-[var(--surface-800)] cursor-pointer hover:border-[var(--primary-400)]"
+                >
+                  <input
+                    type="checkbox"
+                    name="tracks"
+                    value="logo"
+                    class="mt-1 accent-[var(--primary-500)]"
+                    checked
+                  />
+                  <div>
+                    <div class="text-[var(--text-hi)] font-bold text-sm">
+                      太空任務標誌設計
+                    </div>
+                    <div class="text-[var(--text-mute)] text-[14px]">
+                      TRACK 01 · 全級 · 毋須編程
+                    </div>
+                  </div>
+                </label>
+                <label
+                  class="track-pick flex items-start gap-3 p-3 rounded-xl border border-[var(--border)] bg-[var(--surface-800)] cursor-pointer hover:border-[var(--primary-400)]"
+                >
+                  <input
+                    type="checkbox"
+                    name="tracks"
+                    value="speech"
+                    class="mt-1 accent-[var(--primary-500)]"
+                    checked
+                  />
+                  <div>
+                    <div class="text-[var(--text-hi)] font-bold text-sm">
+                      中國航天發展演講比賽
+                    </div>
+                    <div class="text-[var(--text-mute)] text-[14px]">
+                      TRACK 02 · 初小 P1–P3 · 2 分鐘演說
+                    </div>
+                  </div>
+                </label>
+                <label
+                  class="track-pick flex items-start gap-3 p-3 rounded-xl border border-[var(--border)] bg-[var(--surface-800)] cursor-pointer hover:border-[var(--primary-400)]"
+                >
+                  <input
+                    type="checkbox"
+                    name="tracks"
+                    value="engineering"
+                    class="mt-1 accent-[var(--primary-500)]"
+                    checked
+                  />
+                  <div>
+                    <div class="text-[var(--text-hi)] font-bold text-sm">
+                      航天 AI 工程挑戰 · 未來月球基地
+                    </div>
+                    <div class="text-[var(--text-mute)] text-[14px]">
+                      TRACK 03 · 高小 P4–P6 · 配備硬件
+                    </div>
+                  </div>
+                </label>
+              </div>
+
+              <div
+                data-tracks-for="secondary"
+                class="track-block space-y-2 hidden"
+              >
+                <label
+                  class="track-pick flex items-start gap-3 p-3 rounded-xl border border-[var(--border)] bg-[var(--surface-800)] cursor-pointer hover:border-[var(--primary-400)]"
+                >
+                  <input
+                    type="checkbox"
+                    name="tracks"
+                    value="logo"
+                    class="mt-1 accent-[var(--primary-500)]"
+                    checked
+                  />
+                  <div>
+                    <div class="text-[var(--text-hi)] font-bold text-sm">
+                      太空任務標誌設計
+                    </div>
+                    <div class="text-[var(--text-mute)] text-[14px]">
+                      TRACK 01 · 全級 · 毋須編程
+                    </div>
+                  </div>
+                </label>
+                <label
+                  class="track-pick flex items-start gap-3 p-3 rounded-xl border border-[var(--border)] bg-[var(--surface-800)] cursor-pointer hover:border-[var(--primary-400)]"
+                >
+                  <input
+                    type="checkbox"
+                    name="tracks"
+                    value="engineering"
+                    class="mt-1 accent-[var(--primary-500)]"
+                    checked
+                  />
+                  <div>
+                    <div class="text-[var(--text-hi)] font-bold text-sm">
+                      航天 AI 工程挑戰 · 未來火星基地
+                    </div>
+                    <div class="text-[var(--text-mute)] text-[14px]">
+                      TRACK 02 · 全級 · 配備硬件
+                    </div>
+                  </div>
+                </label>
+              </div>
+            </div>
+
+            <input
+              type="hidden"
+              id="referrerLevel"
+              name="referrerLevel"
+              value=""
+            />
+
+            <!-- HARDWARE KIT PRIORITY (primary/secondary only) -->
+            <div class="mb-2">
+              <label class="field-label"
+                >硬件事次選擇
+                <span class="text-[var(--gold-300)]">*</span></label
+              >
+              <p class="caption mb-3">
+                請按優次選擇 3 款硬件事套件。秘書處將按優次以抽籤方式分配。
+              </p>
+
+              <div data-kits-for="primary" class="kit-block space-y-3 hidden">
+                <div class="flex items-center gap-3">
+                  <span
+                    class="font-display text-[var(--gold-300)] text-sm w-16 shrink-0"
+                    >第 1 選擇</span
+                  >
+                  <select
+                    name="kitPriority1"
+                    data-kit-level="primary"
+                    class="kit-select flex-1 bg-[var(--surface-800)] border border-[var(--border)] rounded-lg px-3 py-2 text-sm text-[var(--text-hi)]"
+                  >
+                    <option value="">— 請選擇 —</option>
+                    <option value="cubesat-1u">1U 立方衛星工程</option>
+                    <option value="robot-arm">太空AI機械人</option>
+                    <option value="plant-pod">太空種植艙</option>
+                  </select>
+                </div>
+                <div class="flex items-center gap-3">
+                  <span
+                    class="font-display text-[var(--gold-300)] text-sm w-16 shrink-0"
+                    >第 2 選擇</span
+                  >
+                  <select
+                    name="kitPriority2"
+                    data-kit-level="primary"
+                    class="kit-select flex-1 bg-[var(--surface-800)] border border-[var(--border)] rounded-lg px-3 py-2 text-sm text-[var(--text-hi)]"
+                  >
+                    <option value="">— 請選擇 —</option>
+                    <option value="cubesat-1u">1U 立方衛星工程</option>
+                    <option value="robot-arm">太空AI機械人</option>
+                    <option value="plant-pod">太空種植艙</option>
+                  </select>
+                </div>
+                <div class="flex items-center gap-3">
+                  <span
+                    class="font-display text-[var(--gold-300)] text-sm w-16 shrink-0"
+                    >第 3 選擇</span
+                  >
+                  <select
+                    name="kitPriority3"
+                    data-kit-level="primary"
+                    class="kit-select flex-1 bg-[var(--surface-800)] border border-[var(--border)] rounded-lg px-3 py-2 text-sm text-[var(--text-hi)]"
+                  >
+                    <option value="">— 請選擇 —</option>
+                    <option value="cubesat-1u">1U 立方衛星工程</option>
+                    <option value="robot-arm">太空AI機械人</option>
+                    <option value="plant-pod">太空種植艙</option>
+                  </select>
+                </div>
+              </div>
+
+              <div data-kits-for="secondary" class="kit-block space-y-3 hidden">
+                <div class="flex items-center gap-3">
+                  <span
+                    class="font-display text-[var(--gold-300)] text-sm w-16 shrink-0"
+                    >第 1 選擇</span
+                  >
+                  <select
+                    name="kitPriority1"
+                    data-kit-level="secondary"
+                    class="kit-select flex-1 bg-[var(--surface-800)] border border-[var(--border)] rounded-lg px-3 py-2 text-sm text-[var(--text-hi)]"
+                  >
+                    <option value="">— 請選擇 —</option>
+                    <option value="cubesat-3u">3U CubeSat 微型衛星</option>
+                    <option value="mars-rover">智能火星探測車</option>
+                    <option value="3d-rocket">3D 打印火箭工程</option>
+                  </select>
+                </div>
+                <div class="flex items-center gap-3">
+                  <span
+                    class="font-display text-[var(--gold-300)] text-sm w-16 shrink-0"
+                    >第 2 選擇</span
+                  >
+                  <select
+                    name="kitPriority2"
+                    data-kit-level="secondary"
+                    class="kit-select flex-1 bg-[var(--surface-800)] border border-[var(--border)] rounded-lg px-3 py-2 text-sm text-[var(--text-hi)]"
+                  >
+                    <option value="">— 請選擇 —</option>
+                    <option value="cubesat-3u">3U CubeSat 微型衛星</option>
+                    <option value="mars-rover">智能火星探測車</option>
+                    <option value="3d-rocket">3D 打印火箭工程</option>
+                  </select>
+                </div>
+                <div class="flex items-center gap-3">
+                  <span
+                    class="font-display text-[var(--gold-300)] text-sm w-16 shrink-0"
+                    >第 3 選擇</span
+                  >
+                  <select
+                    name="kitPriority3"
+                    data-kit-level="secondary"
+                    class="kit-select flex-1 bg-[var(--surface-800)] border border-[var(--border)] rounded-lg px-3 py-2 text-sm text-[var(--text-hi)]"
+                  >
+                    <option value="">— 請選擇 —</option>
+                    <option value="cubesat-3u">3U CubeSat 微型衛星</option>
+                    <option value="mars-rover">智能火星探測車</option>
+                    <option value="3d-rocket">3D 打印火箭工程</option>
+                  </select>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- SUBMIT -->
+          <div class="flex flex-col items-center gap-3">
+            <label
+              class="flex items-start gap-3 text-sm text-[var(--text-body)] cursor-pointer max-w-xl"
+            >
+              <input
+                type="checkbox"
+                id="consent"
+                required
+                class="mt-1 accent-[var(--primary-500)]"
+              />
+              <span
+                >本人已閱讀並同意大會秘書處收集及處理上述資料,作報名審核及聯絡用途。</span
+              >
+            </label>
+            <button
+              type="submit"
+              id="submitBtn"
+              class="btn btn-gold text-base px-10 py-4"
+            >
+              <i class="fa-solid fa-rocket"></i> 提交學校報名
+            </button>
+          </div>
+        </form>
+      </main>
+
+      <footer class="pt-12 pb-8 border-t border-[var(--border-soft)]">
+        <div
+          class="container-x flex flex-col md:flex-row items-center justify-between gap-6 text-center md:text-left"
+        >
+          <div>
+            <div
+              class="font-display text-base font-bold tracking-[0.18em] text-[var(--text-hi)] mb-1"
+            >
+              全港首屆中小學「航天築夢」
+            </div>
+            <div
+              class="text-[10px] text-[var(--text-mute)] tracking-[0.18em] mt-1"
+            >
+              航天 AI 創新大賽
+            </div>
+          </div>
+          <nav
+            class="flex flex-wrap justify-center gap-5 text-xs text-[var(--text-body)]"
+          >
+            <a href="index.html" class="link">首頁</a>
+            <a href="kindergarten.html" class="link">幼兒章程</a>
+            <a href="primary.html" class="link">小學章程</a>
+            <a href="secondary.html" class="link">中學章程</a>
+            <a href="mailto:marketing@hkata.space" class="link">聯絡秘書處</a>
+          </nav>
+          <div class="text-xs text-[var(--text-mute)]">
+            &copy; 2026 HKATA.<br />
+            <a href="mailto:marketing@hkata.space" class="link"
+              >marketing@hkata.space</a
+            >
+            · 6113 0828
+          </div>
+        </div>
+      </footer>
     </div>
 
     <div id="toast" class="toast" role="status" aria-live="polite"></div>
 
     <!-- T32: Success modal — centered, replaces the bottom toast for the submission confirmation UX -->
-    <div id="successModal" class="modal-backdrop" role="dialog" aria-modal="true" aria-labelledby="successModalTitle" hidden>
-        <div class="modal" role="document">
-            <div class="modal-icon" aria-hidden="true"><i class="fa-solid fa-check"></i></div>
-            <h3 id="successModalTitle">感謝您的報名！</h3>
-            <p class="modal-body">秘書處已收到貴校之報名。請記下您的申請編號：</p>
-            <div class="modal-appid" id="successAppId">HKATA-—</div>
-            <p class="modal-sub">秘書處將於 <span class="accent">11月下旬</span> 官宣抽籤分組結果，並通知校方領取官方「硬件套件」。</p>
-            <button type="button" class="btn btn-gold px-8" id="successModalClose">關閉</button>
+    <div
+      id="successModal"
+      class="modal-backdrop"
+      role="dialog"
+      aria-modal="true"
+      aria-labelledby="successModalTitle"
+      hidden
+    >
+      <div class="modal" role="document">
+        <div class="modal-icon" aria-hidden="true">
+          <i class="fa-solid fa-check"></i>
         </div>
+        <h3 id="successModalTitle">感謝您的報名！</h3>
+        <p class="modal-body">秘書處已收到貴校之報名。請記下您的申請編號：</p>
+        <div class="modal-appid" id="successAppId">HKATA-—</div>
+        <p class="modal-sub">
+          秘書處將於
+          <span class="accent">11月下旬</span>
+          官宣抽籤分組結果，並通知校方領取官方「硬件套件」。
+        </p>
+        <button type="button" class="btn btn-gold px-8" id="successModalClose">
+          關閉
+        </button>
+      </div>
     </div>
 
     <!-- T33 + T34: Duplicate-warning modal — soft block with directive warning copy -->
-    <div id="duplicateModal" class="modal-backdrop" role="dialog" aria-modal="true" aria-labelledby="duplicateModalTitle" hidden>
-        <div class="modal" role="document">
-            <div class="modal-icon modal-icon-warn" aria-hidden="true"><i class="fa-solid fa-circle-exclamation"></i></div>
-            <h3 id="duplicateModalTitle">此學校已申請過</h3>
-            <p class="modal-body"><strong id="duplicateName" class="text-[var(--text-hi)]">—</strong> 已於本系統登記。</p>
-            <p class="modal-body">請先再次核對學校名稱是否正確：</p>
-            <ul class="modal-sub text-left pl-1 space-y-1 list-none">
-                <li>• 如屬輸入錯誤，請按「返回核對」並修改學校名稱</li>
-                <li>• 如確認資料正確並需要重新提交（例如更新聯絡人資料），請按「仍然提交」</li>
-            </ul>
-            <p class="modal-sub">如有疑問，請電郵秘書處 <a href="mailto:marketing@hkata.space" class="link">marketing@hkata.space</a>。</p>
-            <div class="modal-actions">
-                <button type="button" class="btn btn-ghost" id="duplicateModalCancel">返回核對</button>
-                <button type="button" class="btn btn-primary" id="duplicateModalProceed">仍然提交</button>
-            </div>
+    <div
+      id="duplicateModal"
+      class="modal-backdrop"
+      role="dialog"
+      aria-modal="true"
+      aria-labelledby="duplicateModalTitle"
+      hidden
+    >
+      <div class="modal" role="document">
+        <div class="modal-icon modal-icon-warn" aria-hidden="true">
+          <i class="fa-solid fa-circle-exclamation"></i>
         </div>
+        <h3 id="duplicateModalTitle">此學校已申請過</h3>
+        <p class="modal-body">
+          <strong id="duplicateName" class="text-[var(--text-hi)]">—</strong>
+          已於本系統登記。
+        </p>
+        <p class="modal-body">請先再次核對學校名稱是否正確：</p>
+        <ul class="modal-sub text-left pl-1 space-y-1 list-none">
+          <li>• 如屬輸入錯誤，請按「返回核對」並修改學校名稱</li>
+          <li>
+            •
+            如確認資料正確並需要重新提交（例如更新聯絡人資料），請按「仍然提交」
+          </li>
+        </ul>
+        <p class="modal-sub">
+          如有疑問，請電郵秘書處
+          <a href="mailto:marketing@hkata.space" class="link"
+            >marketing@hkata.space</a
+          >。
+        </p>
+        <div class="modal-actions">
+          <button type="button" class="btn btn-ghost" id="duplicateModalCancel">
+            返回核對
+          </button>
+          <button
+            type="button"
+            class="btn btn-primary"
+            id="duplicateModalProceed"
+          >
+            仍然提交
+          </button>
+        </div>
+      </div>
     </div>
 
     <script>
-        // Pre-select from ?level= + initial track block
-        (function() {
-            const params = new URLSearchParams(window.location.search);
-            const level = params.get('level');
-            const map = { kindergarten: 'kindergarten', primary: 'primary', secondary: 'secondary' };
-            if (level && map[level]) {
-                const sel = document.getElementById('schoolCategory');
-                if (sel) sel.value = map[level];
-                const refField = document.getElementById('referrerLevel');
-                if (refField) refField.value = level;
-                const radio = document.querySelector(`input[name="segment"][value="${level}"]`);
-                if (radio) { radio.checked = true; showTrackBlock(level); updateKitVisibility(); }
-            }
-        })();
-
-        function showTrackBlock(seg) {
-            document.querySelectorAll('.track-block').forEach(el => el.classList.add('hidden'));
-            const target = document.querySelector(`[data-tracks-for="${seg}"]`);
-            if (target) target.classList.remove('hidden');
+      // Pre-select from ?level= + initial track block
+      (function () {
+        const params = new URLSearchParams(window.location.search);
+        const level = params.get("level");
+        const map = {
+          kindergarten: "kindergarten",
+          primary: "primary",
+          secondary: "secondary",
+        };
+        if (level && map[level]) {
+          const sel = document.getElementById("schoolCategory");
+          if (sel) sel.value = map[level];
+          const refField = document.getElementById("referrerLevel");
+          if (refField) refField.value = level;
+          const radio = document.querySelector(
+            `input[name="segment"][value="${level}"]`,
+          );
+          if (radio) {
+            radio.checked = true;
+            showTrackBlock(level);
             updateKitVisibility();
+          }
         }
-        function updateKitVisibility() {
-            document.querySelectorAll('.kit-block').forEach(el => el.classList.add('hidden'));
-            const seg = document.querySelector('input[name="segment"]:checked');
-            if (!seg || seg.value === 'kindergarten') return;
-            const engineeringChecked = document.querySelector('input[name="tracks"][value="engineering"]:checked');
-            if (!engineeringChecked) return;
-            const target = document.querySelector(`[data-kits-for="${seg.value}"]`);
-            if (target) target.classList.remove('hidden');
-        }
-        document.querySelectorAll('input[name="segment"]').forEach(r => {
-            r.addEventListener('change', () => {
-                showTrackBlock(r.value);
-                const refField = document.getElementById('referrerLevel');
-                if (refField) refField.value = r.value;
+      })();
+
+      function showTrackBlock(seg) {
+        document
+          .querySelectorAll(".track-block")
+          .forEach((el) => el.classList.add("hidden"));
+        const target = document.querySelector(`[data-tracks-for="${seg}"]`);
+        if (target) target.classList.remove("hidden");
+        updateKitVisibility();
+      }
+      function updateKitVisibility() {
+        document
+          .querySelectorAll(".kit-block")
+          .forEach((el) => el.classList.add("hidden"));
+        const seg = document.querySelector('input[name="segment"]:checked');
+        if (!seg || seg.value === "kindergarten") return;
+        const engineeringChecked = document.querySelector(
+          'input[name="tracks"][value="engineering"]:checked',
+        );
+        if (!engineeringChecked) return;
+        const target = document.querySelector(`[data-kits-for="${seg.value}"]`);
+        if (target) target.classList.remove("hidden");
+      }
+      document.querySelectorAll('input[name="segment"]').forEach((r) => {
+        r.addEventListener("change", () => {
+          showTrackBlock(r.value);
+          const refField = document.getElementById("referrerLevel");
+          if (refField) refField.value = r.value;
+        });
+      });
+      document.querySelectorAll('input[name="tracks"]').forEach((c) => {
+        c.addEventListener("change", updateKitVisibility);
+      });
+
+      // Show free-text field when "other" is selected
+      document
+        .getElementById("teacherTitle")
+        .addEventListener("change", (e) => {
+          const o = document.getElementById("teacherTitleOther");
+          if (!o) return;
+          if (e.target.value === "other") o.classList.remove("hidden");
+          else {
+            o.classList.add("hidden");
+            o.value = "";
+          }
+        });
+
+      // Submit handler
+      document
+        .getElementById("registrationForm")
+        .addEventListener("submit", (e) => {
+          e.preventDefault();
+          const consent = document.getElementById("consent");
+          if (consent && !consent.checked) {
+            const t = document.getElementById("toast");
+            t.textContent = "請先同意資料收集及處理條款";
+            t.classList.add("show");
+            setTimeout(() => t.classList.remove("show"), 2200);
+            return;
+          }
+          const seg = document.querySelector('input[name="segment"]:checked');
+          const tracks = [
+            ...document.querySelectorAll('input[name="tracks"]:checked'),
+          ].map((c) => c.value);
+          if (!seg) {
+            alert("請選擇報名學段");
+            return;
+          }
+          if (tracks.length === 0) {
+            alert("請至少選擇一個參賽賽道");
+            return;
+          }
+
+          // Hardware kit priority (required for primary/secondary when engineering track selected)
+          const kitPrios = { p1: "", p2: "", p3: "" };
+          if (seg.value !== "kindergarten" && tracks.includes("engineering")) {
+            const levels = seg.value;
+            const sel1 = document.querySelector(
+              `select[name="kitPriority1"][data-kit-level="${levels}"]`,
+            );
+            const sel2 = document.querySelector(
+              `select[name="kitPriority2"][data-kit-level="${levels}"]`,
+            );
+            const sel3 = document.querySelector(
+              `select[name="kitPriority3"][data-kit-level="${levels}"]`,
+            );
+            kitPrios.p1 = sel1 ? sel1.value : "";
+            kitPrios.p2 = sel2 ? sel2.value : "";
+            kitPrios.p3 = sel3 ? sel3.value : "";
+            if (!kitPrios.p1 || !kitPrios.p2 || !kitPrios.p3) {
+              alert("請完成硬件事次選擇（第 1 / 2 / 3 選擇）");
+              return;
+            }
+            const set = new Set([kitPrios.p1, kitPrios.p2, kitPrios.p3]);
+            if (set.size !== 3) {
+              alert("每次選擇必須為不同之硬件事套件");
+              return;
+            }
+          }
+
+          const formData = {
+            appId:
+              "HKATA-" +
+              new Date().toISOString().slice(0, 10).replace(/-/g, "") +
+              "-" +
+              Math.floor(Math.random() * 9000 + 1000),
+            schoolNameCn: document.getElementById("schoolNameCn").value.trim(),
+            schoolNameEn: document.getElementById("schoolNameEn").value.trim(),
+            schoolCategory: document.getElementById("schoolCategory").value,
+            schoolDistrict: document.getElementById("schoolDistrict").value,
+            schoolAddress: document
+              .getElementById("schoolAddress")
+              .value.trim(),
+            teacherName: document.getElementById("teacherName").value.trim(),
+            teacherTitle: document.getElementById("teacherTitle").value,
+            teacherTitleOther: document
+              .getElementById("teacherTitleOther")
+              .value.trim(),
+            teacherEmail: document.getElementById("teacherEmail").value.trim(),
+            teacherPhone: document.getElementById("teacherPhone").value.trim(),
+            level: seg.value,
+            tracks: tracks,
+            kitPriority: kitPrios,
+            referrerLevel: document.getElementById("referrerLevel").value,
+            forceSubmit: false,
+          };
+
+          // T33: Pre-submit duplicate check (school English name, lowercase + trim)
+          const known = window.__hkataKnownNames;
+          if (
+            known &&
+            known.size > 0 &&
+            known.has(normName(formData.schoolNameEn))
+          ) {
+            showDuplicateModal(formData.schoolNameEn, () => {
+              formData.forceSubmit = true;
+              performSubmit(formData);
             });
-        });
-        document.querySelectorAll('input[name="tracks"]').forEach(c => {
-            c.addEventListener('change', updateKitVisibility);
-        });
-
-        // Show free-text field when "other" is selected
-        document.getElementById('teacherTitle').addEventListener('change', e => {
-            const o = document.getElementById('teacherTitleOther');
-            if (!o) return;
-            if (e.target.value === 'other') o.classList.remove('hidden');
-            else { o.classList.add('hidden'); o.value = ''; }
+            return;
+          }
+          // Continue with the actual submit (localStorage + POST + success modal)
+          performSubmit(formData);
         });
 
-        // Submit handler
-        document.getElementById('registrationForm').addEventListener('submit', e => {
-            e.preventDefault();
-            const consent = document.getElementById('consent');
-            if (consent && !consent.checked) {
-                const t = document.getElementById('toast');
-                t.textContent = '請先同意資料收集及處理條款';
-                t.classList.add('show');
-                setTimeout(() => t.classList.remove('show'), 2200);
-                return;
-            }
-            const seg = document.querySelector('input[name="segment"]:checked');
-            const tracks = [...document.querySelectorAll('input[name="tracks"]:checked')].map(c => c.value);
-            if (!seg) { alert('請選擇報名學段'); return; }
-            if (tracks.length === 0) { alert('請至少選擇一個參賽賽道'); return; }
+      // T33 + T30: actual submit — localStorage save + fire-and-forget POST + success modal
+      function performSubmit(formData) {
+        try {
+          localStorage.setItem("hkata_registration", JSON.stringify(formData));
+        } catch (e) {}
+        // T30: Fire-and-forget POST to the Google Sheets registration endpoint (no UI block if unreachable)
+        fetch(
+          "https://script.google.com/macros/s/AKfycbyTnzh9gajIswj88U97dpx0f-qNs5RV2WHcwcOGbEh9kv2Rbop3Xi7zqK9BM2S6rCGM/exec",
+          {
+            method: "POST",
+            mode: "no-cors",
+            headers: { "Content-Type": "text/plain;charset=utf-8" },
+            body: JSON.stringify(formData),
+          },
+        ).catch((err) =>
+          console.warn(
+            "[HKATA] Sheet sync failed; submission saved to localStorage only:",
+            err,
+          ),
+        );
+        showSuccessModal(formData.appId);
+      }
 
-            // Hardware kit priority (required for primary/secondary when engineering track selected)
-            const kitPrios = { p1: '', p2: '', p3: '' };
-            if (seg.value !== 'kindergarten' && tracks.includes('engineering')) {
-                const levels = seg.value;
-                const sel1 = document.querySelector(`select[name="kitPriority1"][data-kit-level="${levels}"]`);
-                const sel2 = document.querySelector(`select[name="kitPriority2"][data-kit-level="${levels}"]`);
-                const sel3 = document.querySelector(`select[name="kitPriority3"][data-kit-level="${levels}"]`);
-                kitPrios.p1 = sel1 ? sel1.value : '';
-                kitPrios.p2 = sel2 ? sel2.value : '';
-                kitPrios.p3 = sel3 ? sel3.value : '';
-                if (!kitPrios.p1 || !kitPrios.p2 || !kitPrios.p3) {
-                    alert('請完成硬件事次選擇（第 1 / 2 / 3 選擇）'); return;
-                }
-                const set = new Set([kitPrios.p1, kitPrios.p2, kitPrios.p3]);
-                if (set.size !== 3) {
-                    alert('每次選擇必須為不同之硬件事套件'); return;
-                }
-            }
+      // T32: success modal — centered, dismiss via 關閉 button / backdrop click / Esc
+      function showSuccessModal(appId) {
+        const m = document.getElementById("successModal");
+        document.getElementById("successAppId").textContent = appId;
+        m.hidden = false;
+        void m.offsetWidth; // force reflow so the transition runs
+        m.classList.add("show");
+        const close = () => {
+          m.classList.remove("show");
+          setTimeout(() => {
+            m.hidden = true;
+          }, 220);
+          document
+            .getElementById("successModalClose")
+            .removeEventListener("click", close);
+          m.removeEventListener("click", backdrop);
+          document.removeEventListener("keydown", esc);
+        };
+        const backdrop = (e) => {
+          if (e.target === m) close();
+        };
+        const esc = (e) => {
+          if (e.key === "Escape") close();
+        };
+        document
+          .getElementById("successModalClose")
+          .addEventListener("click", close);
+        m.addEventListener("click", backdrop);
+        document.addEventListener("keydown", esc);
+      }
 
-            const formData = {
-                appId: 'HKATA-' + new Date().toISOString().slice(0,10).replace(/-/g,'') + '-' + Math.floor(Math.random()*9000+1000),
-                schoolNameCn: document.getElementById('schoolNameCn').value.trim(),
-                schoolNameEn: document.getElementById('schoolNameEn').value.trim(),
-                schoolCategory: document.getElementById('schoolCategory').value,
-                schoolDistrict: document.getElementById('schoolDistrict').value,
-                schoolAddress: document.getElementById('schoolAddress').value.trim(),
-                teacherName: document.getElementById('teacherName').value.trim(),
-                teacherTitle: document.getElementById('teacherTitle').value,
-                teacherTitleOther: document.getElementById('teacherTitleOther').value.trim(),
-                teacherEmail: document.getElementById('teacherEmail').value.trim(),
-                teacherPhone: document.getElementById('teacherPhone').value.trim(),
-                level: seg.value,
-                tracks: tracks,
-                kitPriority: kitPrios,
-                referrerLevel: document.getElementById('referrerLevel').value,
-                forceSubmit: false
-            };
+      // T33: duplicate modal — soft block. 取消 = focus schoolNameEn; 仍然提交 = onProceed callback
+      function showDuplicateModal(name, onProceed) {
+        const m = document.getElementById("duplicateModal");
+        document.getElementById("duplicateName").textContent = name;
+        m.hidden = false;
+        void m.offsetWidth;
+        m.classList.add("show");
+        const close = () => {
+          m.classList.remove("show");
+          setTimeout(() => {
+            m.hidden = true;
+          }, 220);
+          document
+            .getElementById("duplicateModalCancel")
+            .removeEventListener("click", cancel);
+          document
+            .getElementById("duplicateModalProceed")
+            .removeEventListener("click", proceed);
+          m.removeEventListener("click", backdrop);
+          document.removeEventListener("keydown", esc);
+        };
+        const cancel = () => {
+          close();
+          const el = document.getElementById("schoolNameEn");
+          if (el) {
+            el.focus();
+            if (el.select) el.select();
+          }
+        };
+        const proceed = () => {
+          close();
+          if (onProceed) onProceed();
+        };
+        const backdrop = (e) => {
+          if (e.target === m) cancel();
+        };
+        const esc = (e) => {
+          if (e.key === "Escape") cancel();
+        };
+        document
+          .getElementById("duplicateModalCancel")
+          .addEventListener("click", cancel);
+        document
+          .getElementById("duplicateModalProceed")
+          .addEventListener("click", proceed);
+        m.addEventListener("click", backdrop);
+        document.addEventListener("keydown", esc);
+      }
 
-            // T33: Pre-submit duplicate check (school English name, lowercase + trim)
-            const known = window.__hkataKnownNames;
-            if (known && known.size > 0 && known.has(normName(formData.schoolNameEn))) {
-                showDuplicateModal(formData.schoolNameEn, () => { formData.forceSubmit = true; performSubmit(formData); });
-                return;
-            }
-            // Continue with the actual submit (localStorage + POST + success modal)
-            performSubmit(formData);
-        });
+      // T33: normalize school name for duplicate comparison (lowercase + trim)
+      function normName(s) {
+        return (s || "").toString().trim().toLowerCase();
+      }
 
-        // T33 + T30: actual submit — localStorage save + fire-and-forget POST + success modal
-        function performSubmit(formData) {
-            try { localStorage.setItem('hkata_registration', JSON.stringify(formData)); } catch (e) {}
-            // T30: Fire-and-forget POST to the Google Sheets registration endpoint (no UI block if unreachable)
-            fetch('https://script.google.com/macros/s/AKfycbyTnzh9gajIswj88U97dpx0f-qNs5RV2WHcwcOGbEh9kv2Rbop3Xi7zqK9BM2S6rCGM/exec', {
-                method: 'POST',
-                mode: 'no-cors',
-                headers: { 'Content-Type': 'text/plain;charset=utf-8' },
-                body: JSON.stringify(formData)
-            }).catch(err => console.warn('[HKATA] Sheet sync failed; submission saved to localStorage only:', err));
-            showSuccessModal(formData.appId);
-        }
-
-        // T32: success modal — centered, dismiss via 關閉 button / backdrop click / Esc
-        function showSuccessModal(appId) {
-            const m = document.getElementById('successModal');
-            document.getElementById('successAppId').textContent = appId;
-            m.hidden = false;
-            void m.offsetWidth; // force reflow so the transition runs
-            m.classList.add('show');
-            const close = () => {
-                m.classList.remove('show');
-                setTimeout(() => { m.hidden = true; }, 220);
-                document.getElementById('successModalClose').removeEventListener('click', close);
-                m.removeEventListener('click', backdrop);
-                document.removeEventListener('keydown', esc);
-            };
-            const backdrop = (e) => { if (e.target === m) close(); };
-            const esc = (e) => { if (e.key === 'Escape') close(); };
-            document.getElementById('successModalClose').addEventListener('click', close);
-            m.addEventListener('click', backdrop);
-            document.addEventListener('keydown', esc);
-        }
-
-        // T33: duplicate modal — soft block. 取消 = focus schoolNameEn; 仍然提交 = onProceed callback
-        function showDuplicateModal(name, onProceed) {
-            const m = document.getElementById('duplicateModal');
-            document.getElementById('duplicateName').textContent = name;
-            m.hidden = false;
-            void m.offsetWidth;
-            m.classList.add('show');
-            const close = () => {
-                m.classList.remove('show');
-                setTimeout(() => { m.hidden = true; }, 220);
-                document.getElementById('duplicateModalCancel').removeEventListener('click', cancel);
-                document.getElementById('duplicateModalProceed').removeEventListener('click', proceed);
-                m.removeEventListener('click', backdrop);
-                document.removeEventListener('keydown', esc);
-            };
-            const cancel = () => {
-                close();
-                const el = document.getElementById('schoolNameEn');
-                if (el) { el.focus(); if (el.select) el.select(); }
-            };
-            const proceed = () => { close(); if (onProceed) onProceed(); };
-            const backdrop = (e) => { if (e.target === m) cancel(); };
-            const esc = (e) => { if (e.key === 'Escape') cancel(); };
-            document.getElementById('duplicateModalCancel').addEventListener('click', cancel);
-            document.getElementById('duplicateModalProceed').addEventListener('click', proceed);
-            m.addEventListener('click', backdrop);
-            document.addEventListener('keydown', esc);
-        }
-
-        // T33: normalize school name for duplicate comparison (lowercase + trim)
-        function normName(s) { return (s || '').toString().trim().toLowerCase(); }
-
-        // T33: pre-load the list of already-registered school English names on page load; cache in sessionStorage
-        (async function loadKnownNames() {
-            const url = 'https://script.google.com/macros/s/AKfycbyTnzh9gajIswj88U97dpx0f-qNs5RV2WHcwcOGbEh9kv2Rbop3Xi7zqK9BM2S6rCGM/exec';
-            let known = [];
+      // T33: pre-load the list of already-registered school English names on page load; cache in sessionStorage
+      (async function loadKnownNames() {
+        const url =
+          "https://script.google.com/macros/s/AKfycbyTnzh9gajIswj88U97dpx0f-qNs5RV2WHcwcOGbEh9kv2Rbop3Xi7zqK9BM2S6rCGM/exec";
+        let known = [];
+        try {
+          const resp = await fetch(url, { method: "GET" });
+          if (resp.ok) {
+            const data = await resp.json();
+            known = (data && data.names) || [];
             try {
-                const resp = await fetch(url, { method: 'GET' });
-                if (resp.ok) {
-                    const data = await resp.json();
-                    known = (data && data.names) || [];
-                    try { sessionStorage.setItem('hkata_known_names', JSON.stringify(known)); } catch (e) {}
-                }
-            } catch (e) {
-                console.warn('[HKATA] Could not load known names; server-side guard is the last line of defense.');
-            }
-            if (!known.length) {
-                try {
-                    const cached = sessionStorage.getItem('hkata_known_names');
-                    if (cached) known = JSON.parse(cached);
-                } catch (e) {}
-            }
-            window.__hkataKnownNames = new Set(known);
-        })();
+              sessionStorage.setItem(
+                "hkata_known_names",
+                JSON.stringify(known),
+              );
+            } catch (e) {}
+          }
+        } catch (e) {
+          console.warn(
+            "[HKATA] Could not load known names; server-side guard is the last line of defense.",
+          );
+        }
+        if (!known.length) {
+          try {
+            const cached = sessionStorage.getItem("hkata_known_names");
+            if (cached) known = JSON.parse(cached);
+          } catch (e) {}
+        }
+        window.__hkataKnownNames = new Set(known);
+      })();
     </script>
-</body>
+  </body>
 </html>
