@@ -647,11 +647,11 @@
             <!-- HARDWARE KIT PRIORITY (primary/secondary only) -->
             <div class="mb-2">
               <label class="field-label"
-                >硬件事次選擇
+                >硬件優次選擇
                 <span class="text-[var(--gold-300)]">*</span></label
               >
               <p class="caption mb-3">
-                請按優次選擇 3 款硬件事套件。秘書處將按優次以抽籤方式分配。
+                請按優次選擇 3 款硬件套件。秘書處將按優次以抽籤方式分配。
               </p>
 
               <div data-kits-for="primary" class="kit-block space-y-3 hidden">
@@ -666,9 +666,9 @@
                     class="kit-select flex-1 bg-[var(--surface-800)] border border-[var(--border)] rounded-lg px-3 py-2 text-sm text-[var(--text-hi)]"
                   >
                     <option value="">— 請選擇 —</option>
-                    <option value="cubesat-1u">1U 立方衛星工程</option>
+                    <option value="cubesat-1u">1U 立方衛星</option>
                     <option value="robot-arm">太空AI機械人</option>
-                    <option value="plant-pod">太空種植艙</option>
+                    <option value="plant-pod">太空種植智能舫艙</option>
                   </select>
                 </div>
                 <div class="flex items-center gap-3">
@@ -682,9 +682,9 @@
                     class="kit-select flex-1 bg-[var(--surface-800)] border border-[var(--border)] rounded-lg px-3 py-2 text-sm text-[var(--text-hi)]"
                   >
                     <option value="">— 請選擇 —</option>
-                    <option value="cubesat-1u">1U 立方衛星工程</option>
+                    <option value="cubesat-1u">1U 立方衛星</option>
                     <option value="robot-arm">太空AI機械人</option>
-                    <option value="plant-pod">太空種植艙</option>
+                    <option value="plant-pod">太空種植智能舫艙</option>
                   </select>
                 </div>
                 <div class="flex items-center gap-3">
@@ -698,9 +698,9 @@
                     class="kit-select flex-1 bg-[var(--surface-800)] border border-[var(--border)] rounded-lg px-3 py-2 text-sm text-[var(--text-hi)]"
                   >
                     <option value="">— 請選擇 —</option>
-                    <option value="cubesat-1u">1U 立方衛星工程</option>
+                    <option value="cubesat-1u">1U 立方衛星</option>
                     <option value="robot-arm">太空AI機械人</option>
-                    <option value="plant-pod">太空種植艙</option>
+                    <option value="plant-pod">太空種植智能舫艙</option>
                   </select>
                 </div>
               </div>
@@ -717,7 +717,7 @@
                     class="kit-select flex-1 bg-[var(--surface-800)] border border-[var(--border)] rounded-lg px-3 py-2 text-sm text-[var(--text-hi)]"
                   >
                     <option value="">— 請選擇 —</option>
-                    <option value="cubesat-3u">3U CubeSat 微型衛星</option>
+                    <option value="cubesat-3u">3U 立方衛星</option>
                     <option value="mars-rover">智能火星探測車</option>
                     <option value="3d-rocket">3D 打印火箭工程</option>
                   </select>
@@ -733,7 +733,7 @@
                     class="kit-select flex-1 bg-[var(--surface-800)] border border-[var(--border)] rounded-lg px-3 py-2 text-sm text-[var(--text-hi)]"
                   >
                     <option value="">— 請選擇 —</option>
-                    <option value="cubesat-3u">3U CubeSat 微型衛星</option>
+                    <option value="cubesat-3u">3U 立方衛星</option>
                     <option value="mars-rover">智能火星探測車</option>
                     <option value="3d-rocket">3D 打印火箭工程</option>
                   </select>
@@ -749,7 +749,7 @@
                     class="kit-select flex-1 bg-[var(--surface-800)] border border-[var(--border)] rounded-lg px-3 py-2 text-sm text-[var(--text-hi)]"
                   >
                     <option value="">— 請選擇 —</option>
-                    <option value="cubesat-3u">3U CubeSat 微型衛星</option>
+                    <option value="cubesat-3u">3U 立方衛星</option>
                     <option value="mars-rover">智能火星探測車</option>
                     <option value="3d-rocket">3D 打印火箭工程</option>
                   </select>
@@ -1010,12 +1010,12 @@
             kitPrios.p2 = sel2 ? sel2.value : "";
             kitPrios.p3 = sel3 ? sel3.value : "";
             if (!kitPrios.p1 || !kitPrios.p2 || !kitPrios.p3) {
-              alert("請完成硬件事次選擇（第 1 / 2 / 3 選擇）");
+              alert("請完成硬件優次選擇（第 1 / 2 / 3 選擇）");
               return;
             }
             const set = new Set([kitPrios.p1, kitPrios.p2, kitPrios.p3]);
             if (set.size !== 3) {
-              alert("每次選擇必須為不同之硬件事套件");
+              alert("每次選擇必須為不同之硬件套件");
               return;
             }
           }
