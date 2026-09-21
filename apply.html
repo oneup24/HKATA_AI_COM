@@ -759,11 +759,13 @@
 
             <style>
               /* Selected radio dot fill — needs :has() because circle is too deeply nested for Tailwind peer-checked */
-              label:has(input[name="briefingSession"]:checked) [data-radio-dot] {
+              label:has(input[name="briefingSession"]:checked)
+                [data-radio-dot] {
                 background-color: var(--gold-300);
                 border-color: var(--gold-300);
               }
-              label:has(input[name="briefingSession"]:checked) [data-radio-card] {
+              label:has(input[name="briefingSession"]:checked)
+                [data-radio-card] {
                 border-color: var(--gold-300);
                 background-color: rgba(227, 201, 131, 0.12);
               }
@@ -772,41 +774,104 @@
             <!-- 比賽簡介會 (only shown for primary/secondary + engineering track) -->
             <div class="briefing-block space-y-4 hidden">
               <div>
-                <label class="field-label">比賽簡介會 <span class="text-[var(--gold-300)]">*</span></label>
-                <p class="caption mb-3">請選擇一場簡介會出席。秘書處將於會前發送確認通知。</p>
+                <label class="field-label"
+                  >比賽簡介會
+                  <span class="text-[var(--gold-300)]">*</span></label
+                >
+                <p class="caption mb-3">
+                  請選擇一場簡介會出席。秘書處將於會前發送確認通知。
+                </p>
               </div>
 
               <!-- 中學簡介會 -->
               <div data-briefing-for="secondary" class="hidden space-y-3">
-                <p class="eyebrow uppercase text-xs tracking-[0.18em] text-[var(--text-mute)] mb-1">中學組場次</p>
+                <p
+                  class="eyebrow uppercase text-xs tracking-[0.18em] text-[var(--text-mute)] mb-1"
+                >
+                  中學組場次
+                </p>
                 <label class="block cursor-pointer">
-                  <input type="radio" name="briefingSession" value="sec-session-1" class="peer sr-only" required>
-                  <div data-radio-card class="rounded-xl border-2 border-[var(--border)] p-4 transition-all hover:border-[var(--primary-300)]">
+                  <input
+                    type="radio"
+                    name="briefingSession"
+                    value="sec-session-1"
+                    class="peer sr-only"
+                    required
+                  />
+                  <div
+                    data-radio-card
+                    class="rounded-xl border-2 border-[var(--border)] p-4 transition-all hover:border-[var(--primary-300)]"
+                  >
                     <div class="flex items-start gap-3">
-                      <div data-radio-dot class="mt-1 w-4 h-4 rounded-full border-2 border-[var(--border-strong)] bg-transparent shrink-0 transition-colors"></div>
+                      <div
+                        data-radio-dot
+                        class="mt-1 w-4 h-4 rounded-full border-2 border-[var(--border-strong)] bg-transparent shrink-0 transition-colors"
+                      ></div>
                       <div class="flex-1">
                         <div class="flex items-baseline gap-2 flex-wrap mb-1">
-                          <span class="font-display font-bold text-[var(--primary-300)] text-sm">2026 年 10 月 2 日</span>
-                          <span class="text-xs text-[var(--gold-300)]">（請於 2026 年 10 月 1 日或之前報名）</span>
+                          <span
+                            class="font-display font-bold text-[var(--primary-300)] text-sm"
+                            >2026 年 10 月 2 日</span
+                          >
+                          <span class="text-xs text-[var(--gold-300)]"
+                            >（請於 2026 年 10 月 1 日或之前報名）</span
+                          >
                         </div>
-                        <div class="text-sm text-[var(--text-body)] mb-1"><i class="fa-regular fa-clock text-[var(--text-mute)] mr-2"></i>下午 3 時至 4 時 30 分</div>
-                        <div class="text-sm text-[var(--text-body)]"><i class="fa-solid fa-location-dot text-[var(--text-mute)] mr-2"></i>香港航天科技教育學院（北角電氣道 228 號 1 樓）</div>
+                        <div class="text-sm text-[var(--text-body)] mb-1">
+                          <i
+                            class="fa-regular fa-clock text-[var(--text-mute)] mr-2"
+                          ></i
+                          >下午 3 時至 4 時 30 分
+                        </div>
+                        <div class="text-sm text-[var(--text-body)]">
+                          <i
+                            class="fa-solid fa-location-dot text-[var(--text-mute)] mr-2"
+                          ></i
+                          >香港航天科技教育學院（北角電氣道 228 號 1 樓）
+                        </div>
                       </div>
                     </div>
                   </div>
                 </label>
                 <label class="block cursor-pointer">
-                  <input type="radio" name="briefingSession" value="sec-session-2" class="peer sr-only" required>
-                  <div data-radio-card class="rounded-xl border-2 border-[var(--border)] p-4 transition-all hover:border-[var(--primary-300)]">
+                  <input
+                    type="radio"
+                    name="briefingSession"
+                    value="sec-session-2"
+                    class="peer sr-only"
+                    required
+                  />
+                  <div
+                    data-radio-card
+                    class="rounded-xl border-2 border-[var(--border)] p-4 transition-all hover:border-[var(--primary-300)]"
+                  >
                     <div class="flex items-start gap-3">
-                      <div data-radio-dot class="mt-1 w-4 h-4 rounded-full border-2 border-[var(--border-strong)] bg-transparent shrink-0 transition-colors"></div>
+                      <div
+                        data-radio-dot
+                        class="mt-1 w-4 h-4 rounded-full border-2 border-[var(--border-strong)] bg-transparent shrink-0 transition-colors"
+                      ></div>
                       <div class="flex-1">
                         <div class="flex items-baseline gap-2 flex-wrap mb-1">
-                          <span class="font-display font-bold text-[var(--primary-300)] text-sm">2026 年 10 月 7 日</span>
-                          <span class="text-xs text-[var(--gold-300)]">（2026 年 10 月 6 日之後報名只設線上）</span>
+                          <span
+                            class="font-display font-bold text-[var(--primary-300)] text-sm"
+                            >2026 年 10 月 7 日</span
+                          >
+                          <span class="text-xs text-[var(--gold-300)]"
+                            >（2026 年 10 月 6 日之後報名只設線上）</span
+                          >
                         </div>
-                        <div class="text-sm text-[var(--text-body)] mb-1"><i class="fa-regular fa-clock text-[var(--text-mute)] mr-2"></i>下午 3 時至 4 時 30 分</div>
-                        <div class="text-sm text-[var(--text-body)]"><i class="fa-solid fa-location-dot text-[var(--text-mute)] mr-2"></i>九龍真光中學（九龍塘沙福道真光里 1 號）</div>
+                        <div class="text-sm text-[var(--text-body)] mb-1">
+                          <i
+                            class="fa-regular fa-clock text-[var(--text-mute)] mr-2"
+                          ></i
+                          >下午 3 時至 4 時 30 分
+                        </div>
+                        <div class="text-sm text-[var(--text-body)]">
+                          <i
+                            class="fa-solid fa-location-dot text-[var(--text-mute)] mr-2"
+                          ></i
+                          >九龍真光中學（九龍塘沙福道真光里 1 號）
+                        </div>
                       </div>
                     </div>
                   </div>
@@ -815,35 +880,93 @@
 
               <!-- 小學簡介會 -->
               <div data-briefing-for="primary" class="hidden space-y-3">
-                <p class="eyebrow uppercase text-xs tracking-[0.18em] text-[var(--text-mute)] mb-1">小學組場次</p>
+                <p
+                  class="eyebrow uppercase text-xs tracking-[0.18em] text-[var(--text-mute)] mb-1"
+                >
+                  小學組場次
+                </p>
                 <label class="block cursor-pointer">
-                  <input type="radio" name="briefingSession" value="pri-session-1" class="peer sr-only" required>
-                  <div data-radio-card class="rounded-xl border-2 border-[var(--border)] p-4 transition-all hover:border-[var(--primary-300)]">
+                  <input
+                    type="radio"
+                    name="briefingSession"
+                    value="pri-session-1"
+                    class="peer sr-only"
+                    required
+                  />
+                  <div
+                    data-radio-card
+                    class="rounded-xl border-2 border-[var(--border)] p-4 transition-all hover:border-[var(--primary-300)]"
+                  >
                     <div class="flex items-start gap-3">
-                      <div data-radio-dot class="mt-1 w-4 h-4 rounded-full border-2 border-[var(--border-strong)] bg-transparent shrink-0 transition-colors"></div>
+                      <div
+                        data-radio-dot
+                        class="mt-1 w-4 h-4 rounded-full border-2 border-[var(--border-strong)] bg-transparent shrink-0 transition-colors"
+                      ></div>
                       <div class="flex-1">
                         <div class="flex items-baseline gap-2 flex-wrap mb-1">
-                          <span class="font-display font-bold text-[var(--primary-300)] text-sm">2026 年 10 月 8 日</span>
-                          <span class="text-xs text-[var(--gold-300)]">（2026 年 10 月 6 日之後報名只設線上）</span>
+                          <span
+                            class="font-display font-bold text-[var(--primary-300)] text-sm"
+                            >2026 年 10 月 8 日</span
+                          >
+                          <span class="text-xs text-[var(--gold-300)]"
+                            >（建議 1-2位校方代表出席）</span
+                          >
                         </div>
-                        <div class="text-sm text-[var(--text-body)] mb-1"><i class="fa-regular fa-clock text-[var(--text-mute)] mr-2"></i>下午 3 時至 4 時 30 分</div>
-                        <div class="text-sm text-[var(--text-body)]"><i class="fa-solid fa-location-dot text-[var(--text-mute)] mr-2"></i>長沙灣天主教小學（九龍長沙灣東京街 7 號）</div>
+                        <div class="text-sm text-[var(--text-body)] mb-1">
+                          <i
+                            class="fa-regular fa-clock text-[var(--text-mute)] mr-2"
+                          ></i
+                          >下午 3 時至 4 時 30 分
+                        </div>
+                        <div class="text-sm text-[var(--text-body)]">
+                          <i
+                            class="fa-solid fa-location-dot text-[var(--text-mute)] mr-2"
+                          ></i
+                          >長沙灣天主教小學（九龍長沙灣東京街 7 號）
+                        </div>
                       </div>
                     </div>
                   </div>
                 </label>
                 <label class="block cursor-pointer">
-                  <input type="radio" name="briefingSession" value="pri-session-2" class="peer sr-only" required>
-                  <div data-radio-card class="rounded-xl border-2 border-[var(--border)] p-4 transition-all hover:border-[var(--primary-300)]">
+                  <input
+                    type="radio"
+                    name="briefingSession"
+                    value="pri-session-2"
+                    class="peer sr-only"
+                    required
+                  />
+                  <div
+                    data-radio-card
+                    class="rounded-xl border-2 border-[var(--border)] p-4 transition-all hover:border-[var(--primary-300)]"
+                  >
                     <div class="flex items-start gap-3">
-                      <div data-radio-dot class="mt-1 w-4 h-4 rounded-full border-2 border-[var(--border-strong)] bg-transparent shrink-0 transition-colors"></div>
+                      <div
+                        data-radio-dot
+                        class="mt-1 w-4 h-4 rounded-full border-2 border-[var(--border-strong)] bg-transparent shrink-0 transition-colors"
+                      ></div>
                       <div class="flex-1">
                         <div class="flex items-baseline gap-2 flex-wrap mb-1">
-                          <span class="font-display font-bold text-[var(--primary-300)] text-sm">2026 年 10 月 9 日</span>
-                          <span class="text-xs text-[var(--gold-300)]">（2026 年 10 月 6 日之後報名只設線上）</span>
+                          <span
+                            class="font-display font-bold text-[var(--primary-300)] text-sm"
+                            >2026 年 10 月 9 日</span
+                          >
+                          <span class="text-xs text-[var(--gold-300)]"
+                            >（建議 1-2位校方代表出席）</span
+                          >
                         </div>
-                        <div class="text-sm text-[var(--text-body)] mb-1"><i class="fa-regular fa-clock text-[var(--text-mute)] mr-2"></i>下午 3 時至 4 時 30 分</div>
-                        <div class="text-sm text-[var(--text-body)]"><i class="fa-solid fa-location-dot text-[var(--text-mute)] mr-2"></i>長沙灣天主教小學（九龍長沙灣東京街 7 號）</div>
+                        <div class="text-sm text-[var(--text-body)] mb-1">
+                          <i
+                            class="fa-regular fa-clock text-[var(--text-mute)] mr-2"
+                          ></i
+                          >下午 3 時至 4 時 30 分
+                        </div>
+                        <div class="text-sm text-[var(--text-body)]">
+                          <i
+                            class="fa-solid fa-location-dot text-[var(--text-mute)] mr-2"
+                          ></i
+                          >長沙灣天主教小學（九龍長沙灣東京街 7 號）
+                        </div>
                       </div>
                     </div>
                   </div>
