@@ -645,7 +645,7 @@
             />
 
             <!-- HARDWARE KIT PRIORITY (primary/secondary only) -->
-            <div class="mb-2">
+            <div class="kit-outer mb-2 hidden">
               <label class="field-label"
                 >硬件優次選擇
                 <span class="text-[var(--gold-300)]">*</span></label
@@ -755,6 +755,7 @@
                   </select>
                 </div>
               </div>
+            </div>
             </div>
 
             <style>
@@ -906,10 +907,10 @@
                         <div class="flex items-baseline gap-2 flex-wrap mb-1">
                           <span
                             class="font-display font-bold text-[var(--primary-300)] text-sm"
-                            >2026 年 10 月 8 日</span
+                            >2026 年 10 月 8 日（實體）</span
                           >
                           <span class="text-xs text-[var(--gold-300)]"
-                            >（建議 1-2位校方代表出席）</span
+                            >（建議 1-2 位校方代表出席 | 請於2026年10月7日或之前報名）</span
                           >
                         </div>
                         <div class="text-sm text-[var(--text-body)] mb-1">
@@ -949,10 +950,10 @@
                         <div class="flex items-baseline gap-2 flex-wrap mb-1">
                           <span
                             class="font-display font-bold text-[var(--primary-300)] text-sm"
-                            >2026 年 10 月 9 日</span
+                            >2026 年 10 月 9 日（實體 ＋ 線上）</span
                           >
                           <span class="text-xs text-[var(--gold-300)]"
-                            >（建議 1-2位校方代表出席）</span
+                            >（建議 1-2 位校方代表出席 ｜ | 請於2026年10月8日或之前報名）</span
                           >
                         </div>
                         <div class="text-sm text-[var(--text-body)] mb-1">
@@ -965,7 +966,7 @@
                           <i
                             class="fa-solid fa-location-dot text-[var(--text-mute)] mr-2"
                           ></i
-                          >長沙灣天主教小學（九龍長沙灣東京街 7 號）
+                          >保良局朱正賢小學（香港新界沙田博康村沙角街6D）
                         </div>
                       </div>
                     </div>
@@ -1149,7 +1150,7 @@
       }
       function updateKitVisibility() {
         document
-          .querySelectorAll(".kit-block")
+          .querySelectorAll(".kit-outer, .kit-block")
           .forEach((el) => el.classList.add("hidden"));
         document
           .querySelectorAll(".briefing-block, [data-briefing-for]")
@@ -1160,6 +1161,8 @@
           'input[name="tracks"][value="engineering"]:checked',
         );
         if (!engineeringChecked) return;
+        const kitOuter = document.querySelector(".kit-outer");
+        if (kitOuter) kitOuter.classList.remove("hidden");
         const kitTarget = document.querySelector(
           `[data-kits-for="${seg.value}"]`,
         );
