@@ -789,8 +789,9 @@
                 <p
                   class="eyebrow uppercase text-xs tracking-[0.18em] text-[var(--text-mute)] mb-1"
                 >
-                  中學組場次
+                   中學組場次
                 </p>
+                <p class="caption mb-3">（建議 1-2 位校方代表出席）</p>
                 <label class="block cursor-pointer">
                   <input
                     type="radio"
@@ -884,8 +885,9 @@
                 <p
                   class="eyebrow uppercase text-xs tracking-[0.18em] text-[var(--text-mute)] mb-1"
                 >
-                  小學組場次
+                   小學組場次
                 </p>
+                <p class="caption mb-3">（建議 1-2 位校方代表出席）</p>
                 <label class="block cursor-pointer">
                   <input
                     type="radio"
@@ -910,7 +912,7 @@
                             >2026 年 10 月 8 日（實體）</span
                           >
                           <span class="text-xs text-[var(--gold-300)]"
-                            >（建議 1-2 位校方代表出席 | 請於2026年10月7日或之前報名）</span
+                            >（請於2026年10月7日或之前報名）</span
                           >
                         </div>
                         <div class="text-sm text-[var(--text-body)] mb-1">
@@ -953,7 +955,7 @@
                             >2026 年 10 月 9 日（實體 ＋ 線上）</span
                           >
                           <span class="text-xs text-[var(--gold-300)]"
-                            >（建議 1-2 位校方代表出席 ｜ | 請於2026年10月8日或之前報名）</span
+                            >（請於2026年10月8日或之前報名）</span
                           >
                         </div>
                         <div class="text-sm text-[var(--text-body)] mb-1">
@@ -973,6 +975,44 @@
                   </div>
                 </label>
               </div>
+            </div>
+
+            <!-- 幼稚園簡介會 -->
+            <div data-briefing-for="kindergarten" class="hidden space-y-3">
+              <p class="eyebrow uppercase text-xs tracking-[0.18em] text-[var(--text-mute)] mb-1">幼稚園組場次</p>
+              <p class="caption mb-3">（建議 1-2 位校方代表出席）</p>
+              <label class="block cursor-pointer">
+                <input type="radio" name="briefingSession" value="kg-session-1" class="peer sr-only" required>
+                <div data-radio-card class="rounded-xl border-2 border-[var(--border)] p-4 transition-all hover:border-[var(--primary-300)]">
+                  <div class="flex items-start gap-3">
+                    <div data-radio-dot class="mt-1 w-4 h-4 rounded-full border-2 border-[var(--border-strong)] bg-transparent shrink-0 transition-colors"></div>
+                    <div class="flex-1">
+                      <div class="flex items-baseline gap-2 flex-wrap mb-1">
+                        <span class="font-display font-bold text-[var(--primary-300)] text-sm">2026 年 10 月 5 日（一）</span>
+                        <span class="text-xs text-[var(--gold-300)]">（實體）</span>
+                      </div>
+                      <div class="text-sm text-[var(--text-body)] mb-1"><i class="fa-regular fa-clock text-[var(--text-mute)] mr-2"></i>下午 3 時至 4 時 30 分</div>
+                      <div class="text-sm text-[var(--text-body)]"><i class="fa-solid fa-location-dot text-[var(--text-mute)] mr-2"></i>香港航天科技教育學院（北角電氣道 228 號 1 樓）</div>
+                    </div>
+                  </div>
+                </div>
+              </label>
+              <label class="block cursor-pointer">
+                <input type="radio" name="briefingSession" value="kg-session-2" class="peer sr-only" required>
+                <div data-radio-card class="rounded-xl border-2 border-[var(--border)] p-4 transition-all hover:border-[var(--primary-300)]">
+                  <div class="flex items-start gap-3">
+                    <div data-radio-dot class="mt-1 w-4 h-4 rounded-full border-2 border-[var(--border-strong)] bg-transparent shrink-0 transition-colors"></div>
+                    <div class="flex-1">
+                      <div class="flex items-baseline gap-2 flex-wrap mb-1">
+                        <span class="font-display font-bold text-[var(--primary-300)] text-sm">2026 年 10 月 6 日（二）</span>
+                        <span class="text-xs text-[var(--gold-300)]">（實體）</span>
+                      </div>
+                      <div class="text-sm text-[var(--text-body)] mb-1"><i class="fa-regular fa-clock text-[var(--text-mute)] mr-2"></i>下午 2 時至 3 時 30 分</div>
+                      <div class="text-sm text-[var(--text-body)]"><i class="fa-solid fa-location-dot text-[var(--text-mute)] mr-2"></i>香港航天科技教育學院（北角電氣道 228 號 1 樓）</div>
+                    </div>
+                  </div>
+                </div>
+              </label>
             </div>
           </div>
 
@@ -1156,7 +1196,20 @@
           .querySelectorAll(".briefing-block, [data-briefing-for]")
           .forEach((el) => el.classList.add("hidden"));
         const seg = document.querySelector('input[name="segment"]:checked');
-        if (!seg || seg.value === "kindergarten") return;
+        if (!seg) return;
+
+        // Kindergarten: only show briefing (no hardware track)
+        if (seg.value === "kindergarten") {
+          const briefingOuter = document.querySelector(".briefing-block");
+          if (briefingOuter) briefingOuter.classList.remove("hidden");
+          const briefingTarget = document.querySelector(
+            `[data-briefing-for="kindergarten"]`,
+          );
+          if (briefingTarget) briefingTarget.classList.remove("hidden");
+          return;
+        }
+
+        // Primary / secondary: show briefing + hardware kit only if engineering track selected
         const engineeringChecked = document.querySelector(
           'input[name="tracks"][value="engineering"]:checked',
         );
@@ -1179,6 +1232,13 @@
           showTrackBlock(r.value);
           const refField = document.getElementById("referrerLevel");
           if (refField) refField.value = r.value;
+          // Reset briefing + kit selections when switching segment
+          document
+            .querySelectorAll('input[name="briefingSession"]')
+            .forEach((b) => (b.checked = false));
+          document
+            .querySelectorAll('select[name^="kitPriority"]')
+            .forEach((s) => (s.value = ""));
         });
       });
       document.querySelectorAll('input[name="tracks"]').forEach((c) => {
@@ -1251,18 +1311,15 @@
             }
           }
 
-          // Briefing session (required for primary/secondary when engineering track selected)
-          let briefingSession = "";
-          if (seg.value !== "kindergarten" && tracks.includes("engineering")) {
-            const selected = document.querySelector(
-              'input[name="briefingSession"]:checked',
-            );
-            if (!selected) {
-              alert("請選擇比賽簡介會場次");
-              return;
-            }
-            briefingSession = selected.value;
+          // Briefing session (required for all segments)
+          const selectedBriefing = document.querySelector(
+            'input[name="briefingSession"]:checked',
+          );
+          if (!selectedBriefing) {
+            alert("請選擇比賽簡介會場次");
+            return;
           }
+          const briefingSession = selectedBriefing.value;
 
           const formData = {
             appId:
