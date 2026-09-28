@@ -759,13 +759,27 @@
             </div>
 
             <style>
-              /* Selected radio dot fill — needs :has() because circle is too deeply nested for Tailwind peer-checked */
+              /* Radio dot — unselected state shows a visible outline + subtle inner fill */
+              [data-radio-dot] {
+                background-color: rgba(255, 255, 255, 0.04);
+              }
+              /* Selected state — needs :has() because circle is too deeply nested for Tailwind peer-checked */
               label:has(input[name="briefingSession"]:checked)
                 [data-radio-dot] {
                 background-color: var(--gold-300);
                 border-color: var(--gold-300);
               }
+              label:has(input[name="attendeeCount"]:checked)
+                [data-radio-dot] {
+                background-color: var(--gold-300);
+                border-color: var(--gold-300);
+              }
               label:has(input[name="briefingSession"]:checked)
+                [data-radio-card] {
+                border-color: var(--gold-300);
+                background-color: rgba(227, 201, 131, 0.12);
+              }
+              label:has(input[name="attendeeCount"]:checked)
                 [data-radio-card] {
                 border-color: var(--gold-300);
                 background-color: rgba(227, 201, 131, 0.12);
@@ -807,7 +821,7 @@
                     <div class="flex items-start gap-3">
                       <div
                         data-radio-dot
-                        class="mt-1 w-4 h-4 rounded-full border-2 border-[var(--border-strong)] bg-transparent shrink-0 transition-colors"
+                        class="mt-1 w-4 h-4 rounded-full border-2 border-white/30 bg-transparent shrink-0 transition-colors"
                       ></div>
                       <div class="flex-1">
                         <div class="flex items-baseline gap-2 flex-wrap mb-1">
@@ -850,7 +864,7 @@
                     <div class="flex items-start gap-3">
                       <div
                         data-radio-dot
-                        class="mt-1 w-4 h-4 rounded-full border-2 border-[var(--border-strong)] bg-transparent shrink-0 transition-colors"
+                        class="mt-1 w-4 h-4 rounded-full border-2 border-white/30 bg-transparent shrink-0 transition-colors"
                       ></div>
                       <div class="flex-1">
                         <div class="flex items-baseline gap-2 flex-wrap mb-1">
@@ -903,7 +917,7 @@
                     <div class="flex items-start gap-3">
                       <div
                         data-radio-dot
-                        class="mt-1 w-4 h-4 rounded-full border-2 border-[var(--border-strong)] bg-transparent shrink-0 transition-colors"
+                        class="mt-1 w-4 h-4 rounded-full border-2 border-white/30 bg-transparent shrink-0 transition-colors"
                       ></div>
                       <div class="flex-1">
                         <div class="flex items-baseline gap-2 flex-wrap mb-1">
@@ -946,13 +960,13 @@
                     <div class="flex items-start gap-3">
                       <div
                         data-radio-dot
-                        class="mt-1 w-4 h-4 rounded-full border-2 border-[var(--border-strong)] bg-transparent shrink-0 transition-colors"
+                        class="mt-1 w-4 h-4 rounded-full border-2 border-white/30 bg-transparent shrink-0 transition-colors"
                       ></div>
                       <div class="flex-1">
                         <div class="flex items-baseline gap-2 flex-wrap mb-1">
                           <span
                             class="font-display font-bold text-[var(--primary-300)] text-sm"
-                            >2026 年 10 月 9 日（實體 ＋ 線上）</span
+                            >2026 年 10 月 9 日（實體）</span
                           >
                           <span class="text-xs text-[var(--gold-300)]"
                             >（請於2026年10月8日或之前報名）</span
@@ -968,7 +982,52 @@
                           <i
                             class="fa-solid fa-location-dot text-[var(--text-mute)] mr-2"
                           ></i
-                          >保良局朱正賢小學（香港新界沙田博康村沙角街6D）
+                          >保良局朱正賢小學（香港新界沙田博康村沙角街 6D）
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </label>
+
+                <!-- 小學場次 3：線上 -->
+                <label class="block cursor-pointer">
+                  <input
+                    type="radio"
+                    name="briefingSession"
+                    value="pri-session-3"
+                    class="peer sr-only"
+                    required
+                  />
+                  <div
+                    data-radio-card
+                    class="rounded-xl border-2 border-[var(--border)] p-4 transition-all hover:border-[var(--primary-300)]"
+                  >
+                    <div class="flex items-start gap-3">
+                      <div
+                        data-radio-dot
+                        class="mt-1 w-4 h-4 rounded-full border-2 border-white/30 bg-transparent shrink-0 transition-colors"
+                      ></div>
+                      <div class="flex-1">
+                        <div class="flex items-baseline gap-2 flex-wrap mb-1">
+                          <span
+                            class="font-display font-bold text-[var(--primary-300)] text-sm"
+                            >2026 年 10 月 9 日（線上）</span
+                          >
+                          <span class="text-xs text-[var(--gold-300)]"
+                            >（線上 Zoom 會議，連結將於會前一天電郵通知）</span
+                          >
+                        </div>
+                        <div class="text-sm text-[var(--text-body)] mb-1">
+                          <i
+                            class="fa-regular fa-clock text-[var(--text-mute)] mr-2"
+                          ></i
+                          >下午 3 時至 4 時 30 分
+                        </div>
+                        <div class="text-sm text-[var(--text-body)]">
+                          <i
+                            class="fa-solid fa-laptop text-[var(--text-mute)] mr-2"
+                          ></i
+                          >線上會議（Zoom）
                         </div>
                       </div>
                     </div>
@@ -985,7 +1044,7 @@
                 <input type="radio" name="briefingSession" value="kg-session-1" class="peer sr-only" required>
                 <div data-radio-card class="rounded-xl border-2 border-[var(--border)] p-4 transition-all hover:border-[var(--primary-300)]">
                   <div class="flex items-start gap-3">
-                    <div data-radio-dot class="mt-1 w-4 h-4 rounded-full border-2 border-[var(--border-strong)] bg-transparent shrink-0 transition-colors"></div>
+                    <div data-radio-dot class="mt-1 w-4 h-4 rounded-full border-2 border-white/30 bg-transparent shrink-0 transition-colors"></div>
                     <div class="flex-1">
                       <div class="flex items-baseline gap-2 flex-wrap mb-1">
                         <span class="font-display font-bold text-[var(--primary-300)] text-sm">2026 年 10 月 5 日（一）</span>
@@ -1001,7 +1060,7 @@
                 <input type="radio" name="briefingSession" value="kg-session-2" class="peer sr-only" required>
                 <div data-radio-card class="rounded-xl border-2 border-[var(--border)] p-4 transition-all hover:border-[var(--primary-300)]">
                   <div class="flex items-start gap-3">
-                    <div data-radio-dot class="mt-1 w-4 h-4 rounded-full border-2 border-[var(--border-strong)] bg-transparent shrink-0 transition-colors"></div>
+                    <div data-radio-dot class="mt-1 w-4 h-4 rounded-full border-2 border-white/30 bg-transparent shrink-0 transition-colors"></div>
                     <div class="flex-1">
                       <div class="flex items-baseline gap-2 flex-wrap mb-1">
                         <span class="font-display font-bold text-[var(--primary-300)] text-sm">2026 年 10 月 6 日（二）</span>
@@ -1010,13 +1069,38 @@
                       <div class="text-sm text-[var(--text-body)] mb-1"><i class="fa-regular fa-clock text-[var(--text-mute)] mr-2"></i>下午 2 時至 3 時 30 分</div>
                       <div class="text-sm text-[var(--text-body)]"><i class="fa-solid fa-location-dot text-[var(--text-mute)] mr-2"></i>香港航天科技教育學院（北角電氣道 228 號 1 樓）</div>
                     </div>
-                  </div>
-                </div>
-              </label>
-            </div>
-          </div>
+                   </div>
+                 </div>
+               </label>
+             </div>
 
-          <!-- SUBMIT -->
+             <!-- 預計實體場次出席人數 -->
+             <div class="pt-2 border-t border-[var(--border-soft)]">
+               <p class="caption mb-3">預計實體場次出席人數（建議 1-2 位校方代表）</p>
+               <div class="grid grid-cols-2 gap-3 max-w-md">
+                 <label class="block cursor-pointer">
+                   <input type="radio" name="attendeeCount" value="1" class="peer sr-only" required>
+                   <div data-radio-card class="rounded-xl border-2 border-[var(--border)] p-4 text-center transition-all hover:border-[var(--primary-300)]">
+                     <div class="flex items-center justify-center gap-3">
+                       <div data-radio-dot class="w-4 h-4 rounded-full border-2 border-white/30 bg-transparent shrink-0 transition-colors"></div>
+                       <span class="font-display font-bold text-[var(--primary-300)] text-base">1 位</span>
+                     </div>
+                   </div>
+                 </label>
+                 <label class="block cursor-pointer">
+                   <input type="radio" name="attendeeCount" value="2" class="peer sr-only" required>
+                   <div data-radio-card class="rounded-xl border-2 border-[var(--border)] p-4 text-center transition-all hover:border-[var(--primary-300)]">
+                     <div class="flex items-center justify-center gap-3">
+                       <div data-radio-dot class="w-4 h-4 rounded-full border-2 border-white/30 bg-transparent shrink-0 transition-colors"></div>
+                       <span class="font-display font-bold text-[var(--primary-300)] text-base">2 位</span>
+                     </div>
+                   </div>
+                 </label>
+               </div>
+             </div>
+           </div>
+
+           <!-- SUBMIT -->
           <div class="flex flex-col items-center gap-3">
             <label
               class="flex items-start gap-3 text-sm text-[var(--text-body)] cursor-pointer max-w-xl"
@@ -1237,12 +1321,24 @@
             .querySelectorAll('input[name="briefingSession"]')
             .forEach((b) => (b.checked = false));
           document
+            .querySelectorAll('input[name="attendeeCount"]')
+            .forEach((b) => (b.checked = false));
+          document
             .querySelectorAll('select[name^="kitPriority"]')
             .forEach((s) => (s.value = ""));
         });
       });
       document.querySelectorAll('input[name="tracks"]').forEach((c) => {
-        c.addEventListener("change", updateKitVisibility);
+        c.addEventListener("change", () => {
+          updateKitVisibility();
+          // Reset briefing + attendee selections when track set changes
+          document
+            .querySelectorAll('input[name="briefingSession"], input[name="attendeeCount"]')
+            .forEach((b) => (b.checked = false));
+          document
+            .querySelectorAll('select[name^="kitPriority"]')
+            .forEach((s) => (s.value = ""));
+        });
       });
 
       // Show free-text field when "other" is selected
@@ -1345,6 +1441,9 @@
             tracks: tracks,
             kitPriority: kitPrios,
             briefingSession: briefingSession,
+            attendeeCount: document.querySelector(
+              'input[name="attendeeCount"]:checked',
+            ).value,
             referrerLevel: document.getElementById("referrerLevel").value,
             forceSubmit: false,
           };
