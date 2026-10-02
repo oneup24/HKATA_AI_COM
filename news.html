@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="zh-HK" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>最新消息 | 全港首屆中小學「航天築夢」AI 航天工程挑戰賽</title>
+    <meta name="description" content="全港首屆中小學「航天築夢」航天 AI 創新大賽最新消息：賽事公告、活動更新及一般消息。">
+    <meta property="og:title" content="最新消息 | 航天築夢大賽">
+    <meta property="og:description" content="賽事公告、活動更新及一般消息">
+    <meta property="og:type" content="website">
+    <meta property="og:image" content="doc/img/prospectus-banner-primary-og.png">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:image" content="doc/img/prospectus-banner-primary-og.png">
+    <link rel="canonical" href="/news.html">
+    <link rel="icon" type="image/png" href="logo.png">
+
+    <link rel="stylesheet" href="assets/theme.css">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&family=Inter:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&family=Noto+Sans+TC:wght@400;500;700;900&family=Noto+Serif+TC:wght@700;900&display=swap" rel="stylesheet">
+
+    <script>
+        tailwind.config = { theme: { extend: {
+            fontFamily: { sans: ['"Noto Sans TC"','Inter','sans-serif'], display: ['"Space Grotesk"','"Noto Sans TC"','sans-serif'], serif: ['"Noto Serif TC"','serif'] },
+            colors: {
+                surface: { 900:'var(--surface-900)', 800:'var(--surface-800)', 700:'var(--surface-700)', 600:'var(--surface-600)' },
+                primary: { 700:'var(--primary-700)', 500:'var(--primary-500)', 400:'var(--primary-400)', 300:'var(--primary-300)' },
+                gold:    { 700:'var(--gold-700)', 500:'var(--gold-500)', 300:'var(--gold-300)' },
+                ink:     { hi:'var(--text-hi)', body:'var(--text-body)', mute:'var(--text-mute)' },
+                group:   { k:'var(--group-k)', p:'var(--group-p)', s:'var(--group-s)' }
+            }
+        }}}
+    </script>
+    <style>
+        .badge-news { background: rgba(76, 141, 245, 0.18); color: var(--primary-300); border: 1px solid rgba(76, 141, 245, 0.45); }
+        .badge-event { background: rgba(36, 161, 72, 0.18); color: #4FCB7C; border: 1px solid rgba(36, 161, 72, 0.50); }
+        .badge-announce { background: rgba(199, 162, 76, 0.18); color: var(--gold-300); border: 1px solid rgba(199, 162, 76, 0.45); }
+    </style>
+</head>
+<body class="relative">
+
+    <header class="fixed top-0 w-full z-40 border-b border-[var(--border-soft)] header-solid">
+        <div class="max-w-[1400px] mx-auto px-6 h-20 flex items-center justify-between">
+            <a href="index.html" class="flex items-center gap-3 group" aria-label="HKATA 首頁">
+                <div class="flex flex-col justify-center">
+                    <span class="font-sans text-[10px] sm:text-xs text-white tracking-[0.18em] leading-none">全港首屆中小學「航天築夢」</span>
+                    <span class="font-sans text-[10px] sm:text-xs text-white tracking-[0.18em] leading-none">航天 AI 創新大賽</span>
+                </div>
+            </a>
+            <nav class="hidden lg:flex items-center gap-7" aria-label="主選單">
+                <a href="index.html" class="nav-link">比賽概覽</a>
+                <a href="index.html#schedule" class="nav-link">賽事日程</a>
+                <a href="index.html#judging" class="nav-link">評審準則</a>
+                <a href="news.html" class="nav-link text-[var(--gold-300)]">最新消息</a>
+                <span class="w-px h-5 bg-[var(--border)]"></span>
+                <a href="kindergarten.html" class="nav-link text-[var(--group-k)]">幼兒組</a>
+                <a href="primary.html" class="nav-link text-[var(--group-p)]">小學組</a>
+                <a href="secondary.html" class="nav-link text-[var(--group-s)]">中學組</a>
+            </nav>
+            <div class="hidden lg:flex items-center gap-3">
+                <a href="apply.html" class="btn btn-gold"><i class="fa-solid fa-file-pen"></i> 報名</a>
+            </div>
+            <button class="lg:hidden text-white p-2" aria-label="開啟選單" onclick="document.getElementById('mb').classList.toggle('hidden')"><i class="fa-solid fa-bars text-xl"></i></button>
+        </div>
+        <div id="mb" class="hidden lg:hidden border-t border-[var(--border-soft)] mobile-menu-solid">
+            <nav class="max-w-[1400px] mx-auto px-6 py-4 flex flex-col gap-3" aria-label="行動版選單">
+                <a href="index.html" class="nav-link">首頁</a>
+                <a href="kindergarten.html" class="nav-link">幼兒章程</a>
+                <a href="primary.html" class="nav-link">小學章程</a>
+                <a href="secondary.html" class="nav-link">中學章程</a>
+                <a href="index.html#schedule" class="nav-link">賽事日程</a>
+                <a href="index.html#judging" class="nav-link">評審準則</a>
+                <a href="news.html" class="nav-link text-[var(--gold-300)]">最新消息</a>
+                <a href="apply.html" class="mt-2 btn btn-gold w-fit"><i class="fa-solid fa-file-pen"></i> 報名</a>
+            </nav>
+        </div>
+    </header>
+
+    <main id="main" class="relative z-10">
+
+        <section class="pt-24 pb-6">
+            <div class="container-x">
+                <nav class="text-sm mb-5" aria-label="麵包屑">
+                    <ol class="flex flex-wrap gap-1 caption">
+                        <li><a href="index.html" class="link">首頁</a></li>
+                        <li class="px-1">›</li>
+                        <li aria-current="page">最新消息</li>
+                    </ol>
+                </nav>
+                <div class="text-center mb-12">
+                    <p class="eyebrow text-[var(--primary-300)]">最新消息 | LATEST UPDATES</p>
+                    <h1 class="h2 mt-2">賽事全活動與公告</h1>
+                    <p class="body mt-3 max-w-2xl mx-auto">瀏覽本屆最活動消息、賽事公告與活動更新，掌握第一手動搖。</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- NEWS LIST -->
+        <section class="pb-20">
+            <div class="container-x max-w-3xl">
+
+                <!-- Empty state (no news items added yet) -->
+                <div class="card p-8 text-center" id="emptyState">
+                    <i class="fa-regular fa-newspaper text-4xl text-[var(--text-mute)] mb-3"></i>
+                    <p class="text-[var(--text-hi)] font-bold text-lg mb-2">尚未有最新消息</p>
+                    <p class="caption">常見錯誤訊息與活動更新將在此公佈。請稍候回來查看最新動態。</p>
+                </div>
+
+                <!-- Filter chips -->
+                <div class="flex flex-wrap items-center gap-2 mt-8 justify-center" id="filterBar" hidden>
+                    <span class="caption">篩選：</span>
+                    <button data-filter="all" class="px-3 py-1 rounded-full border border-[var(--border)] text-[var(--text-hi)] hover:border-[var(--primary-400)] transition-all">
+                        全部
+                    </button>
+                    <button data-filter="news" class="px-3 py-1 rounded-full border border-[var(--border)] text-[var(--text-hi)] hover:border-[var(--primary-400)] transition-all">
+                        一般消息
+                    </button>
+                    <button data-filter="announce" class="px-3 py-1 rounded-full border border-[var(--border)] text-[var(--text-hi)] hover:border-[var(--gold-300)] transition-all">
+                        賽事公告
+                    </button>
+                    <button data-filter="event" class="px-3 py-1 rounded-full border border-[var(--border)] text-[var(--text-hi)] hover:border-[#4FCB7C] transition-all">
+                        活動更新
+                    </button>
+                </div>
+
+                <!-- News items go here when added -->
+                <div id="newsList" class="space-y-6"></div>
+
+            </div>
+        </section>
+
+    </main>
+
+    <footer class="pt-12 pb-20 lg:pb-8 border-t border-[var(--border-soft)]">
+        <div class="container-x flex flex-col md:flex-row items-center justify-between gap-6 text-center md:text-left">
+            <div>
+                <div class="font-display text-base font-bold tracking-[0.18em] text-[var(--text-hi)] mb-1">全港首屆中小學「航天築夢」</div>
+                <div class="text-[10px] text-[var(--text-mute)] tracking-[0.18em] mt-1">航天 AI 創新大賽</div>
+            </div>
+            <nav class="flex flex-wrap justify-center gap-5 text-xs text-[var(--text-body])">
+                <a href="index.html" class="link">首頁</a>
+                <a href="kindergarten.html" class="link">幼兒章程</a>
+                <a href="primary.html" class="link">小學章程</a>
+                <a href="secondary.html" class="link">中學章程</a>
+                <a href="news.html" class="link">最新消息</a>
+                <a href="mailto:support@hkata.space" class="link">聯絡秘書處</a>
+            </nav>
+            <div class="text-xs text-[var(--text-mute)]">
+                &copy; 2026 HKATA.<br>
+                <a href="mailto:support@hkata.space" class="link">support@hkata.space</a>
+                · 6112 2270
+            </div>
+        </div>
+    </footer>
+
+    <div id="toast" class="toast" role="status" aria-live="polite"></div>
+
+    <script>
+    </script>
+</body>
+</html>
