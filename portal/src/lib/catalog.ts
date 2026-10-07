@@ -29,8 +29,14 @@ export type KitId = (typeof ALL_KITS)[number];
 export const BRIEFING_SESSIONS = [
   "sec-session-1",
   "sec-session-2",
+  "sec-session-3",
+  "sec-session-4",
+  "sec-session-5",
   "pri-session-1",
   "pri-session-2",
+  "pri-session-4",
+  "pri-session-5",
+  "pri-session-6",
 ] as const;
 export type BriefingSession = (typeof BRIEFING_SESSIONS)[number];
 
@@ -241,6 +247,27 @@ export const BRIEFING_META: Record<
     time: "下午 3 時至 4 時 30 分",
     venue: "九龍真光中學（九龍塘沙福道真光里 1 號）",
   },
+  "sec-session-3": {
+    level: "secondary",
+    date: "2026 年 10 月 15 日",
+    note: "（請於 2026 年 10 月 14 日或之前報名）",
+    time: "下午 4 時 30 分至 6 時",
+    venue: "香港航天科技教育學院（北角電氣道 228 號 1 樓）",
+  },
+  "sec-session-4": {
+    level: "secondary",
+    date: "2026 年 10 月 22 日",
+    note: "（請於 2026 年 10 月 21 日或之前報名）",
+    time: "下午 4 時 30 分至 6 時",
+    venue: "香港航天科技教育學院（北角電氣道 228 號 1 樓）",
+  },
+  "sec-session-5": {
+    level: "secondary",
+    date: "2026 年 10 月 28 日",
+    note: "（請於 2026 年 10 月 27 日或之前報名）",
+    time: "下午 4 時 30 分至 6 時",
+    venue: "香港航天科技教育學院（北角電氣道 228 號 1 樓）",
+  },
   "pri-session-1": {
     level: "primary",
     date: "2026 年 10 月 8 日",
@@ -254,6 +281,27 @@ export const BRIEFING_META: Record<
     note: "（建議 1-2位校方代表出席）",
     time: "下午 3 時至 4 時 30 分",
     venue: "長沙灣天主教小學（九龍長沙灣東京街 7 號）",
+  },
+  "pri-session-4": {
+    level: "primary",
+    date: "2026 年 10 月 16 日",
+    note: "（請於 2026 年 10 月 15 日或之前報名）",
+    time: "下午 4 時 30 分至 6 時",
+    venue: "香港航天科技教育學院（北角電氣道 228 號 1 樓）",
+  },
+  "pri-session-5": {
+    level: "primary",
+    date: "2026 年 10 月 23 日",
+    note: "（請於 2026 年 10 月 22 日或之前報名）",
+    time: "下午 4 時 30 分至 6 時",
+    venue: "香港航天科技教育學院（北角電氣道 228 號 1 樓）",
+  },
+  "pri-session-6": {
+    level: "primary",
+    date: "2026 年 10 月 27 日",
+    note: "（請於 2026 年 10 月 26 日或之前報名）",
+    time: "下午 4 時 30 分至 6 時",
+    venue: "香港航天科技教育學院（北角電氣道 228 號 1 樓）",
   },
 };
 
