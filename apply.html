@@ -322,6 +322,35 @@
                   class="field"
                 />
               </div>
+              <div class="sm:col-span-2">
+                <label class="field-label" for="schoolLogo"
+                  >校徽 / School Logo
+                  <span class="caption text-[var(--text-mute)]"
+                    >（選填 · PNG 或 JPG · ≤2 MB · 至少 200×200px）</span
+                  ></label
+                >
+                <div class="flex flex-col sm:flex-row gap-3 sm:items-center">
+                  <input
+                    type="file"
+                    id="schoolLogo"
+                    accept="image/png,image/jpeg"
+                    class="field flex-1"
+                  />
+                  <button
+                    type="button"
+                    id="schoolLogoClear"
+                    class="btn btn-ghost !py-2 !px-4 text-sm hidden"
+                  >
+                    <i class="fa-solid fa-xmark mr-1"></i>清除
+                  </button>
+                </div>
+                <p
+                  id="schoolLogoStatus"
+                  class="caption mt-1 text-[var(--text-mute)]"
+                >
+                  暫未上傳
+                </p>
+              </div>
             </div>
 
             <!-- 初步建議負責人 -->
@@ -1626,6 +1655,100 @@
           }
         });
 
+      // School logo upload — optional, validated client-side, stored in schoolLogoData
+      const schoolLogoState = { dataUrl: "", name: "" };
+      const schoolLogoInput = document.getElementById("schoolLogo");
+      const schoolLogoStatus = document.getElementById("schoolLogoStatus");
+      const schoolLogoClear = document.getElementById("schoolLogoClear");
+
+      function readFileAsDataUrl(file) {
+        return new Promise((resolve, reject) => {
+          const r = new FileReader();
+          r.onload = () => resolve(r.result);
+          r.onerror = () => reject(r.error || new Error("FileReader error"));
+          r.readAsDataURL(file);
+        });
+      }
+
+      function probeImageDimensions(dataUrl) {
+        return new Promise((resolve, reject) => {
+          const img = new Image();
+          img.onload = () => resolve({ w: img.naturalWidth, h: img.naturalHeight });
+          img.onerror = () => reject(new Error("decode-failed"));
+          img.src = dataUrl;
+        });
+      }
+
+      function formatBytes(n) {
+        if (n < 1024) return n + " B";
+        if (n < 1024 * 1024) return (n / 1024).toFixed(1) + " KB";
+        return (n / 1024 / 1024).toFixed(2) + " MB";
+      }
+
+      function resetSchoolLogo() {
+        schoolLogoState.dataUrl = "";
+        schoolLogoState.name = "";
+        schoolLogoInput.value = "";
+        schoolLogoClear.classList.add("hidden");
+        schoolLogoStatus.textContent = "暫未上傳";
+        schoolLogoStatus.classList.remove("text-[var(--gold-300)]");
+        schoolLogoStatus.classList.add("text-[var(--text-mute)]");
+      }
+
+      schoolLogoClear.addEventListener("click", resetSchoolLogo);
+
+      schoolLogoInput.addEventListener("change", async (e) => {
+        const file = e.target.files && e.target.files[0];
+        if (!file) {
+          resetSchoolLogo();
+          return;
+        }
+        const okTypes = ["image/png", "image/jpeg"];
+        if (!okTypes.includes(file.type)) {
+          alert("校徽只支援 PNG 或 JPG 格式");
+          resetSchoolLogo();
+          return;
+        }
+        const maxBytes = 2 * 1024 * 1024;
+        if (file.size > maxBytes) {
+          alert(
+            "校徽檔案太大（" +
+              formatBytes(file.size) +
+              "），請壓縮至 2 MB 以下再上傳",
+          );
+          resetSchoolLogo();
+          return;
+        }
+        try {
+          const dataUrl = await readFileAsDataUrl(file);
+          const { w, h } = await probeImageDimensions(dataUrl);
+          if (w < 200 || h < 200) {
+            alert(
+              "校徽尺寸過小（" + w + "×" + h + "），請使用至少 200×200 像素之圖片",
+            );
+            resetSchoolLogo();
+            return;
+          }
+          schoolLogoState.dataUrl = dataUrl;
+          schoolLogoState.name = file.name;
+          schoolLogoClear.classList.remove("hidden");
+          schoolLogoStatus.textContent =
+            "已選擇：" +
+            file.name +
+            " · " +
+            w +
+            "×" +
+            h +
+            " · " +
+            formatBytes(file.size);
+          schoolLogoStatus.classList.add("text-[var(--gold-300)]");
+          schoolLogoStatus.classList.remove("text-[var(--text-mute)]");
+        } catch (err) {
+          alert("無法讀取校徽檔案，請重試");
+          resetSchoolLogo();
+        }
+      });
+
       // Submit handler
       document
         .getElementById("registrationForm")
@@ -1717,6 +1840,8 @@
               'input[name="attendeeCount"]:checked',
             ).value,
             referrerLevel: document.getElementById("referrerLevel").value,
+            schoolLogoData: schoolLogoState.dataUrl,
+            schoolLogoName: schoolLogoState.name,
             forceSubmit: false,
           };
 
