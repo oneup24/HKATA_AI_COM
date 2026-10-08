@@ -90,18 +90,32 @@
 
                 <!-- ORGANIZERS -->
                 <section class="bg-white rounded-3xl border border-[var(--border)] p-6 sm:p-8 mb-8 shadow-[var(--elev-2)]">
-                    <div class="flex md:grid md:grid-cols-2 gap-6 sm:gap-8 overflow-x-auto snap-x snap-mandatory -mx-6 px-6 sm:mx-0 sm:px-0 scrollbar-thin">
-
-                        <!-- 主辦機構 -->
-                        <div class="min-w-[220px] md:min-w-0 flex-shrink-0 md:flex-shrink snap-center text-center">
-                            <p class="eyebrow uppercase text-xs tracking-[0.18em] text-[var(--text-mute)] mb-3">主辦機構</p>
+                    <!-- Row 1: 主辦機構 -->
+                    <div class="mb-8">
+                        <p class="eyebrow uppercase text-xs tracking-[0.18em] text-[var(--text-mute)] mb-3 text-center sm:text-left">主辦機構</p>
+                        <div class="flex flex-wrap items-center justify-center sm:justify-start gap-3">
+                            <img src="doc/img/organizers/kid.png" alt="幼稚園組主辦機構" class="h-16 sm:h-[72px] w-auto object-contain" loading="lazy">
                             <img src="doc/img/organizers/hkata.png" alt="HKATA" class="h-16 sm:h-[72px] w-auto object-contain" loading="lazy">
                         </div>
+                    </div>
 
+                    <!-- Row 2: 贊助機構 + 協辦機構 -->
+                    <div class="flex flex-col sm:flex-row gap-x-6 gap-y-6 pt-6 border-t border-[var(--border-soft)]">
                         <!-- 贊助機構 -->
-                        <div class="min-w-[220px] md:min-w-0 flex-shrink-0 md:flex-shrink snap-center text-center">
+                        <div class="text-center sm:text-left">
                             <p class="eyebrow uppercase text-xs tracking-[0.18em] text-[var(--text-mute)] mb-3">贊助機構</p>
-                            <img src="doc/img/organizers/hkatdf.png" alt="香港航天人才發展慈善基金會" class="h-16 sm:h-[72px] w-auto object-contain" loading="lazy">
+                            <img src="doc/img/organizers/hkatdf.png" alt="香港航天人才發展慈善基金會" class="h-16 sm:h-[72px] w-auto object-contain inline-block" loading="lazy">
+                            <img src="doc/img/organizers/social.png" alt="社企苗 (Social)" class="h-12 sm:h-16 w-auto object-contain inline-block" loading="lazy">
+                        </div>
+
+                        <!-- 協辦機構 -->
+                        <div class="text-center sm:text-left">
+                            <p class="eyebrow uppercase text-xs tracking-[0.18em] text-[var(--text-mute)] mb-3">協辦機構</p>
+                            <div class="flex flex-wrap items-center justify-center sm:justify-start gap-3">
+                                <img src="doc/img/organizers/gbae.png" alt="GBAE" class="h-12 sm:h-16 w-auto object-contain" loading="lazy">
+                                <img src="doc/img/organizers/wze.png" alt="WZE" class="h-12 sm:h-16 w-auto object-contain" loading="lazy">
+                                <img src="doc/img/organizers/astri.png" alt="ASTRI" class="h-12 sm:h-16 w-auto object-contain" loading="lazy">
+                            </div>
                         </div>
                     </div>
                 </section>
